@@ -11,6 +11,9 @@ class Case {
     */
     Case (unsigned int ligne, unsigned int colonne, unsigned int czr, unsigned int valeur, bool mod);
 
+    /**
+     @brief Accesseur L
+    */
     unsigned int getL () const;
 
     unsigned int getC () const;

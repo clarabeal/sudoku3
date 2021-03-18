@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readme_0',['README',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['case_0',['Case',['../class_case.html',1,'Case'],['../class_case.html#a74cc80cb3489c35624ee86a982a1e918',1,'Case::Case()']]]
 ];

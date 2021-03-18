@@ -16,6 +16,9 @@ class Case {
     */
     unsigned int getL () const;
 
+    /**
+     @brief Accesseur C
+    */
     unsigned int getC () const;
 
     unsigned int getCarre () const;

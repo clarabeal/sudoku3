@@ -6,6 +6,9 @@ class Case {
 
     bool modifiable;
 
+    /**
+     @brief Constructeur case
+    */
     Case (unsigned int ligne, unsigned int colonne, unsigned int czr, unsigned int valeur, bool mod);
 
     unsigned int getL () const;

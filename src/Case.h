@@ -6,17 +6,17 @@ class Case {
 
     bool modifiable;
 
-    Case (unsigned int l, unsigned int c, unsigned int carre, unsigned int val, bool modifiable);
+    Case (unsigned int ligne, unsigned int colonne, unsigned int czr, unsigned int valeur, bool mod);
 
-    unsigned int getL ();
+    unsigned int getL () const;
 
-    unsigned int getC ();
+    unsigned int getC () const;
 
-    unsigned int getCarre ();
+    unsigned int getCarre () const;
 
-    unsigned int getVal ();
+    unsigned int getVal () const;
 
-    void setVal ();
+    void setVal (unsigned int nb);
 
     private:
 

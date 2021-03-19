@@ -1,4 +1,12 @@
 #include "Case.h"
+Case::Case() {
+
+    l = 0;
+    c = 0;
+    carre = 0;
+    modifiable = 0;
+    val = 0;
+}
 
 Case::Case (unsigned int ligne, unsigned int colonne, unsigned int car, unsigned int valeur, bool mod) {
 
@@ -6,6 +14,7 @@ Case::Case (unsigned int ligne, unsigned int colonne, unsigned int car, unsigned
     c=colonne;
     carre=car;
     modifiable=mod;
+    val = valeur;
 }
 
 unsigned int Case::getL () const {

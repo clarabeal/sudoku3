@@ -5,7 +5,10 @@ class Case {
     public:
 
     bool modifiable;
-
+    /**
+    @brief Constructeur par defaut d'une case vide 
+   */
+    Case();
     /**
      @brief Constructeur case
     */

@@ -1,5 +1,0 @@
-﻿  Case.cpp
-C:\Users\Hervé\Dropbox\cours\S4\LIFAP\Projet\GIT\src\Case.cpp : fatal error C1041: impossible d'ouvrir la base de données du programme 'C:\Users\Hervé\Dropbox\cours\S4\LIFAP\Projet\GIT\src\Debug\vc142.pdb' ; si plusieurs CL.EXE écrivent dans le même fichier .PDB, utilisez /FS.
-  Grille.cpp
-C:\Users\Hervé\Dropbox\cours\S4\LIFAP\Projet\GIT\src\Grille.cpp : fatal error C1041: impossible d'ouvrir la base de données du programme 'C:\Users\Hervé\Dropbox\cours\S4\LIFAP\Projet\GIT\src\Debug\vc142.pdb' ; si plusieurs CL.EXE écrivent dans le même fichier .PDB, utilisez /FS.
-  Génération de code en cours...

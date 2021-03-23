@@ -23,54 +23,54 @@ class Case {
      @param [in] valeur
      @param [in] mod
     */
-    Case (unsigned int ligne, unsigned int colonne, unsigned int car, unsigned int valeur, bool mod);
+    Case (unsigned char ligne, unsigned char colonne, unsigned char car, unsigned char valeur, bool mod);
 
     /**
      @brief Accesseur L : retourne l
     */
-    unsigned int getL () const;
+    unsigned char getL () const;
 
     /**
      @brief Accesseur C : retourne c
     */
-    unsigned int getC () const;
+    unsigned char getC () const;
 
     /**
      @brief Accesseur Carre : retourne carre
     */
-    unsigned int getCarre () const;
+    unsigned char getCarre () const;
 
     /**
      @brief Accesseur val : retourne Val
     */
-    unsigned int getVal () const;
+    unsigned char getVal () const;
 
     /**
      @brief mutateur : modifie la valeur de la case
     */
-    void setVal (unsigned int nb);
+    void setVal (unsigned char nb);
 
     private:
 
     /**
      @brief contient la valeur de la case
     */
-    unsigned int val;
+    unsigned char val;
     
     /**
      @brief indique la ligne sur laquelle se trouve la case
     */
-    unsigned int l;
+    unsigned char l;
     
     /**
      @brief indique la colonne sur laquelle se trouve la case
     */
-    unsigned int c;
+    unsigned char c;
     
     /**
      @brief indique le carre de la grille sur laquelle se trouve la case
     */
-    unsigned int carre;
+    unsigned char carre;
 };
 
 #endif

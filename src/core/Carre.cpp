@@ -1,6 +1,8 @@
 #include "Carre.h"
 #include "TabCases2DTas.h"
 
+using namespace std;
+
 void Carre::print() const {
 	for (int i = 0; i < tailleCarre; i++) {
 		for (int j = 0; j < tailleCarre; j++) {
@@ -24,7 +26,7 @@ bool Carre::isIn(unsigned char val)
 	return false;
 }
 
-Carre::Carre():valide(0)
+Carre::Carre():valide(1)
 {
 	
 }

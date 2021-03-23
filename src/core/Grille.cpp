@@ -6,7 +6,6 @@ Grille::Grille():grille(dim,dim){
     
     for(unsigned int i=0;i<dim;i++)
     {
-        lignes[i]=
     }
 }
 

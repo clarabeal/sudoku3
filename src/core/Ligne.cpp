@@ -1,5 +1,6 @@
 #include "Ligne.h"
 #include <iostream>
+#include <cassert>
 using namespace std;
 
 Ligne::Ligne():valide(1){
@@ -12,11 +13,11 @@ Ligne::Ligne(unsigned char numeroLigne, TabCases2DTas& grille){
 }
 
 void Ligne::remplir(unsigned char numeroLigne, TabCases2DTas& grille){
-    tailleGrille = grille.getDimCol();
-    tailleLigne = tailleGrille;
-    tab = new Case * [tailleGrille];
+    assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit �tre carr� sinon c'est pas une grille
+    tailleLigne = grille.getDimCol();
+    tab = new Case * [tailleLigne];
 	
-    for(unsigned char i=0;i<tailleGrille;i++)
+    for(unsigned char i=0;i<tailleLigne;i++)
     {
         tab[i] = grille.getPtr(numeroLigne-1,i);
         cout << "i: " << i << " j: " << numeroLigne-1 << "  :  " << tab[i * tailleLigne + numeroLigne-1] << " = " << tab[i * tailleLigne + numeroLigne-1]->getVal() << endl;
@@ -28,14 +29,14 @@ Ligne::~Ligne(){
 }
 
 void Ligne::print() const {
-	for (int i = 0; i < tailleLigne; i++) {
+	for (unsigned char i = 0; i < tailleLigne; i++) {
 		cout << "i: " << i << "  ||  " << tab[i] << " = " << tab[i]->getVal() << endl;
 	}
 }
 
 bool Ligne::isIn(unsigned char val)
 {
-	for (int i = 0; i < tailleLigne; i++) {
+	for (unsigned char i = 0; i < tailleLigne; i++) {
 		if (tab[i]->getVal() == val) {
 			return true;
 		}

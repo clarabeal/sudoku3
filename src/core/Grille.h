@@ -18,7 +18,7 @@ class Grille {
 
     ~Grille();
 
-    bool setCase (unsigned char x, unsigned char y, unsigned char nb);
+    void setCase (unsigned char l, unsigned char c, unsigned char nb);
 
     private :
 

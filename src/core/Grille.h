@@ -5,19 +5,20 @@
 #include "Ligne.h"
 #include "Colonne.h"
 #include "Carre.h"
+#include "TabCases2DTas.h"
 
 class Grille {
 
     public :
 
-    Case * grille;
-    unsigned int taille;
+    TabCases2DTas grille;
+    unsigned char dim;
 
-    Grille (unsigned int t);
+    Grille ();
 
     ~Grille();
 
-    bool setCase (unsigned int x, unsigned int y, unsigned int nb);
+    bool setCase (unsigned char x, unsigned char y, unsigned char nb);
 
     private :
 

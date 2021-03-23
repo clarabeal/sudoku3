@@ -13,6 +13,6 @@ int main() {
 	cout << endl << "end tab" << endl << "carre" << endl;
 	Carre c(2, tab);
 	c.print();
-	while (1);
+	while (1); //pour pas fermer la fenêtre
 	return 0;
 }

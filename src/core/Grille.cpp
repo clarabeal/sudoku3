@@ -2,11 +2,11 @@
 #include "TabCases2DTas.h"
 
 Grille::Grille():grille(dim,dim){
-    lignes = new Ligne[dim];
+    carres = new Carre[dim];
     
-    for(unsigned int i=0;i<dim;i++)
+    for(unsigned char i=1;i<=dim;i++)
     {
-        lignes[i]=
+        carres[i].remplir(i,grille);
     }
 }
 

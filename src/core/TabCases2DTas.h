@@ -1,6 +1,6 @@
 #ifndef _TabCases2DTas_H
 #define _TabCases2DTas_H
-#include "Case.h";
+#include "Case.h"
 class TabCases2DTas
 {
 public:
@@ -15,7 +15,7 @@ public:
 private:
 	unsigned char dimLignes;
 	unsigned char dimColonnes;
-	Case * tab;
+	Case *tab;
 };
 
 

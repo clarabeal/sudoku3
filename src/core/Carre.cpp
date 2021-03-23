@@ -13,6 +13,7 @@ void Carre::print() const {
 
 bool Carre::isIn(unsigned char val)
 {
+
 	for (int i = 0; i < tailleCarre; i++) {
 		for (int j = 0; j < tailleCarre; j++) {
 			if (tab[i * tailleCarre + j]->getVal() == val) {

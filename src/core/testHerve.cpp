@@ -1,4 +1,4 @@
-#include "TabCases2DTas.h";
+#include "TabCases2DTas.h"
 #include "Ligne.h"
 #include "Carre.h"
 #include "Colonne.h"

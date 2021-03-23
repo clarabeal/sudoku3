@@ -8,7 +8,7 @@ Case::Case() {
     val = 0;
 }
 
-Case::Case (unsigned int ligne, unsigned int colonne, unsigned int car, unsigned int valeur, bool mod) {
+Case::Case (unsigned char ligne, unsigned char colonne, unsigned char car, unsigned char valeur, bool mod) {
 
     l=ligne;
     c=colonne;
@@ -17,22 +17,22 @@ Case::Case (unsigned int ligne, unsigned int colonne, unsigned int car, unsigned
     val = valeur;
 }
 
-unsigned int Case::getL () const {
+unsigned char Case::getL () const {
     return l;
 }
 
-unsigned int Case::getC () const {
+unsigned char Case::getC () const {
     return c;
 }
 
-unsigned int Case::getCarre () const {
+unsigned char Case::getCarre () const {
     return carre;
 }
 
-unsigned int Case::getVal () const {
+unsigned char Case::getVal () const {
     return val;
 }
 
-void Case::setVal (unsigned int nb) {
+void Case::setVal (unsigned char nb) {
     val=nb;
 }

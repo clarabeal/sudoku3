@@ -16,12 +16,11 @@ int main() {
 	Carre c(1, tab);
 	c.print();
 
+
 	cout << endl << "test colonne(4)" << endl;
 	Colonne col(4, tab);
 	col.print();
+	while (1); //pour pas fermer la fenêtre
 
-
-
-	while (1);
 	return 0;
 }

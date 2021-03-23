@@ -1,0 +1,10 @@
+# Les ligne commençant par '#' sont des commentaires.
+# Ignorer tous le dossier .vs 
+.vs
+x64
+# Ignorer tous les fichiers de visual studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.DS_Store

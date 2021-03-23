@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['grille_11',['Grille',['../class_grille.html',1,'']]]
+  ['grille',['Grille',['../class_grille.html',1,'']]],
+  ['grilledejeu',['GrilleDeJeu',['../class_grille_de_jeu.html',1,'']]]
 ];

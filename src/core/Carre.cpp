@@ -6,7 +6,7 @@ using namespace std;
 void Carre::print() const {
 	for (int i = 0; i < tailleCarre; i++) {
 		for (int j = 0; j < tailleCarre; j++) {
-			cout << "i: " << i << " j: " << j << "  ||  " << tab[i * tailleCarre + j] << " = " << tab[i * tailleCarre + j]->getVal() << endl;
+			cout << "i: " << i << " j: " << j << "  ||  " << tab[i * tailleCarre + j] << " = " << (int)tab[i * tailleCarre + j]->getVal() << endl;
 		}
 		cout << endl;
 	}
@@ -55,7 +55,7 @@ void Carre::remplir(unsigned char numeroCarre, TabCases2DTas& grille) {
 	for (int i = 0; i < tailleCarre; ++i) {
 		for (int j = 0; j < tailleCarre; ++j) {
 			tab[i * tailleCarre + j] = grille.getPtr(firstLigne + j, firstCol + i);//tab[tab[col * tailleCarre + ligne];
-			cout << "i: " << firstCol + i << " j: " << firstLigne + j << "  :  " << tab[i * tailleCarre + j] << " = " << tab[i * tailleCarre + j]->getVal() << endl;
+			cout << "i: " << firstCol + i << " j: " << firstLigne + j << "  :  " << tab[i * tailleCarre + j] << " = " << (int)tab[i * tailleCarre + j]->getVal() << endl;
 		}
 	}
 }

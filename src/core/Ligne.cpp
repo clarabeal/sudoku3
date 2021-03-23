@@ -19,7 +19,7 @@ void Ligne::remplir(unsigned char numeroLigne, TabCases2DTas& grille){
     for(unsigned char i=0;i<tailleGrille;i++)
     {
         tab[i] = grille.getPtr(numeroLigne-1,i);
-        cout << "i: " << i << " j: " << numeroLigne-1 << "  :  " << tab[i * tailleLigne + numeroLigne-1] << " = " << tab[i * tailleLigne + numeroLigne-1]->getVal() << endl;
+        cout << "i: " << (int)i << "  :  " << tab[i] << " = " << (int)tab[i]->getVal() << endl;
     }
 }
 
@@ -29,7 +29,7 @@ Ligne::~Ligne(){
 
 void Ligne::print() const {
 	for (int i = 0; i < tailleLigne; i++) {
-		cout << "i: " << i << "  ||  " << tab[i] << " = " << tab[i]->getVal() << endl;
+		cout << "i: " << (int)i << "  ||  " << tab[i] << " = " << (int)tab[i]->getVal() << endl;
 	}
 }
 

@@ -1,6 +1,8 @@
 #include "TabCases2DTas.h";
+#include "Ligne.h"
 #include "Carre.h"
 #include "Colonne.h"
+using namespace std;
 int main() {
 	//Test TabCase2DTas
 	TabCases2DTas tab(9, 9);
@@ -20,6 +22,11 @@ int main() {
 	cout << endl << "test colonne(4)" << endl;
 	Colonne col(4, tab);
 	col.print();
+
+	cout << endl << "test ligne(3)" << endl;
+	Ligne li(3,tab);
+	li.print();
+
 	while (1); //pour pas fermer la fenêtre
 
 	return 0;

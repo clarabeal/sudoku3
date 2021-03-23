@@ -41,17 +41,17 @@ void TabCases2DTas::print() const
 		cout << endl << "ligne " << i << ":"<< endl;
 		for (int j = 0; j < dimLignes; j++) {
 			Case *c = &get(i, j);
-			cout << "    Colonne " << j << ": val     : " << c->getVal() << endl;
-			cout << "               Ligne   : " << c->getL() << endl;
-			cout << "               Colonne : " << c->getC() << endl;
-			cout << "               Carre   : " << c->getCarre() << endl<<endl;
+			cout << "    Colonne " << j << ": val     : " << (int)c->getVal() << endl;
+			cout << "               Ligne   : " << (int)c->getL() << endl;
+			cout << "               Colonne : " << (int)c->getC() << endl;
+			cout << "               Carre   : " << (int)c->getCarre() << endl<<endl;
 		}
 		cout << endl;
 	}
 	cout << endl << endl << endl;
 	for (int i = 0; i < dimLignes; i++) {
 		for (int j = 0; j < dimLignes; j++) {
-			cout << get(i, j).getVal()<< "  |  ";
+			cout << (int)get(i, j).getVal()<< "  |  ";
 		}
 		cout << endl;
 	}

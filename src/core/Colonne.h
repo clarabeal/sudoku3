@@ -2,10 +2,6 @@
 #define _COLONNE_H
 #include "Case.h"
 #include "TabCases2DTas.h"
-#include <iostream>
-#include <cassert>
-using namespace std;
-#include <math.h>
 
 
 class Colonne

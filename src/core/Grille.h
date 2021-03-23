@@ -1,11 +1,9 @@
 #ifndef _GRILLE_H
 #define _GRILLE_H
 
-#include "Case.h"
 #include "Ligne.h"
 #include "Colonne.h"
 #include "Carre.h"
-#include "TabCases2DTas.h"
 
 class Grille {
 

@@ -1,5 +1,5 @@
 #include "Grille.h"
-#include "TabCases2DTas.h"
+
 
 Grille::Grille():grille(dim,dim){
     carres = new Carre[dim];

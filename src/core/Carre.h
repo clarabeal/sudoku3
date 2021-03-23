@@ -1,7 +1,8 @@
 #ifndef _CARRE_H
 #define _CARRE_H
-#include "Case.h"
+
 #include "TabCases2DTas.h"
+
 #include <iostream>
 #include <cassert>
 #include <math.h>

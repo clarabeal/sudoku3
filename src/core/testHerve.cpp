@@ -1,7 +1,7 @@
-#include "TabCases2DTas.h"
 #include "Ligne.h"
 #include "Carre.h"
 #include "Colonne.h"
+
 using namespace std;
 int main() {
 	//Test TabCase2DTas

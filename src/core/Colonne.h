@@ -1,6 +1,6 @@
 #ifndef _COLONNE_H
 #define _COLONNE_H
-#include "Case.h"
+
 #include "TabCases2DTas.h"
 
 

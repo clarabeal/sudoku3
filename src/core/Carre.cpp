@@ -1,5 +1,4 @@
 #include "Carre.h"
-#include "TabCases2DTas.h"
 
 using namespace std;
 
@@ -37,7 +36,7 @@ Carre::Carre(unsigned char numeroCarre, TabCases2DTas& grille)
 }
 
 void Carre::remplir(unsigned char numeroCarre, TabCases2DTas& grille) {
-	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit être carré sinon c'est pas une grille
+	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit ï¿½tre carrï¿½ sinon c'est pas une grille
 	tailleGrille = grille.getDimCol();
 	tailleCarre = sqrt(tailleGrille);
 	tab = new Case * [tailleCarre * tailleCarre];

@@ -1,7 +1,6 @@
 #ifndef _LIGNE_H
 #define _LIGNE_H
 
-#include "Case.h"
 #include "TabCases2DTas.h"
 
 class Ligne

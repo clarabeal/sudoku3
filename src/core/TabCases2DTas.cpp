@@ -1,7 +1,9 @@
 #include "TabCases2DTas.h"
+
 #include <iostream>
 #include <cassert>
 using namespace std;
+
 TabCases2DTas::TabCases2DTas(unsigned char dimLignes_, unsigned char dimColonnes_) {
 	dimColonnes = dimColonnes_;
 	dimLignes = dimLignes_;

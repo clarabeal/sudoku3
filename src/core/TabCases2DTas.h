@@ -1,6 +1,8 @@
 #ifndef _TabCases2DTas_H
 #define _TabCases2DTas_H
+
 #include "Case.h"
+
 class TabCases2DTas
 {
 public:

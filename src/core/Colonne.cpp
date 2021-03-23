@@ -1,4 +1,5 @@
 #include "Colonne.h"
+
 #include <iostream>
 #include <cassert>
 using namespace std;
@@ -13,7 +14,7 @@ Colonne::Colonne(unsigned char numeroColonne, TabCases2DTas& grille)
 }
 
 void Colonne::remplir(unsigned char numeroColonne, TabCases2DTas& grille) {
-	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit être carré sinon c'est pas une grille
+	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit ï¿½tre carrï¿½ sinon c'est pas une grille
 	tab = new Case *[grille.getDimCol()];
 	tailleGrille = grille.getDimLignes();
 	for (unsigned char i = 0; i < tailleGrille; ++i) {

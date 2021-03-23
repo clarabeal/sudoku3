@@ -4,22 +4,22 @@ SRC_DIR = src/
 all : bin/testHerve
 
 bin/testHerve : obj/testHerve.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o
-    g++ -g -Wall obj/testHerve.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o -o bin/testHerve
+	g++ -g -Wall obj/testHerve.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o -o bin/testHerve
 
 obj/testHerve.o : src/core/testHerve.cpp src/core/Carre.h src/core/Colonne.h src/core/Ligne.h src/core/TabCases2DTas.h
-    g++ -g -Wall -c src/core/testHerve.cpp -o obj/testHerve.o
+	g++ -g -Wall -c src/core/testHerve.cpp -o obj/testHerve.o
 
 obj/Carre.o : src/core/Carre.h src/core/Carre.cpp
-    g++ -g -Wall -c src/core/Carre.cpp -o  obj/Carre.o
+	g++ -g -Wall -c src/core/Carre.cpp -o  obj/Carre.o
 
 obj/Colonne.o : src/core/Colonne.h src/core/Colonne.cpp
-    g++ -g -Wall -c src/core/Colonne.cpp -o obj/Colonne.o
+	g++ -g -Wall -c src/core/Colonne.cpp -o obj/Colonne.o
 
 obj/Ligne.o : src/core/Ligne.h src/core/Ligne.cpp
-    g++ -g -Wall -c src/core/Ligne.cpp -o obj/Ligne.o
+	g++ -g -Wall -c src/core/Ligne.cpp -o obj/Ligne.o
 
 obj/TabCases2DTas.o : src/core/TabCases2DTas.h src/core/TabCases2DTas.cpp
-    g++ -g -Wall -c src/core/TabCases2DTas.cpp -o obj/TabCases2DTas.o
+	g++ -g -Wall -c src/core/TabCases2DTas.cpp -o obj/TabCases2DTas.o
 
 clean:
 	rm *.o

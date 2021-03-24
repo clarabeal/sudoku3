@@ -20,8 +20,8 @@ void Ligne::remplir(unsigned char numeroLigne, TabCases2DTas& grille){
 	
     for(unsigned char c=0;c<tailleLigne;c++)
     {
-        tabl[c] = grille.getPtr(numeroLigne-1,c); // -1 car numeroLigne de 1 à 9
-        cout << "c: " << (int)c << "  :  " << "tabl[" << (int)c << "]" << " = " << (int)tabl[c]->getVal() << endl;
+        tabl[c] = grille.getPtr(numeroLigne-1,c); // - 1 car numeroLigne de 1 à 9
+        //cout << "c: " << (int)c << "  :  " << "tabl[" << (int)c << "]" << " = " << (int)tabl[c]->getVal() << endl;
     }
 }
 

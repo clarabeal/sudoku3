@@ -30,7 +30,6 @@ Colonne::~Colonne()
 
 void Colonne::print() const
 {
-
 	for (unsigned char l = 0; l < tailleGrille; l++) {
 		cout << "l: " << (int)l << "  ||  " << "tabcl[" << (int)l << "]" << " = " << (int)tabcl[l]->getVal() << endl;
 	}

@@ -20,7 +20,7 @@ Grille::~Grille(){
     delete [] colonnes;
 }
 
-void Grille::setCase (unsigned char l, unsigned char c, unsigned char nb){
+void Grille::setCase (unsigned char l, unsigned char c, unsigned char nb){ //on devrait aussi mettre setL,setC,setCarre
     grille.get(l,c).setVal(nb);
 }
 

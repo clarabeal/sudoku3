@@ -54,7 +54,7 @@ public:
 
 	/**\brief Tableau de pointeur sur les cases du carre
 	\details Il s'agit d'un double pointeurs car la taille d'un carre etant defini lors de l'instanciation du carre celui-ci doit etre sur le tas */
-	Case **tab;
+	Case **tabc;
 	/**\brief Indique si l'element passe en parametre est deja dans le carre (0 si non 1 si oui)*/
 	bool isIn(unsigned char val);
 

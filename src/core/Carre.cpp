@@ -3,9 +3,9 @@
 using namespace std;
 
 void Carre::print() const {
-	for (int i = 0; i < tailleCarre; i++) {
-		for (int j = 0; j < tailleCarre; j++) {
-			cout << "i: " << i << " j: " << j << "  ||  " << tab[i * tailleCarre + j] << " = " << (int)tab[i * tailleCarre + j]->getVal() << endl;
+	for (unsigned char c = 0; c < tailleCarre; c++) {
+		for (unsigned char l = 0; l < tailleCarre; l++) {
+			cout << "c: " << (int)c << " l: " << (int)l << "  ||  " << "tabc[" << (int)c * tailleCarre + (int)l << "]" << " = " << (int)tabc[c * tailleCarre + l]->getVal() << endl;
 		}
 		cout << endl;
 	}
@@ -17,7 +17,7 @@ bool Carre::isIn(unsigned char val)
 
 	for (int i = 0; i < tailleCarre; i++) {
 		for (int j = 0; j < tailleCarre; j++) {
-			if (tab[i * tailleCarre + j]->getVal() == val) {
+			if (tabc[i * tailleCarre + j]->getVal() == val) {
 				return true;
 			}
 		}
@@ -39,7 +39,7 @@ void Carre::remplir(unsigned char numeroCarre, TabCases2DTas& grille) {
 	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit �tre carr� sinon c'est pas une grille
 	tailleGrille = grille.getDimCol();
 	tailleCarre = sqrt(tailleGrille);
-	tab = new Case * [tailleCarre * tailleCarre];
+	tabc = new Case * [tailleCarre * tailleCarre];
 	int firstLigne;
 	int firstCol;
 
@@ -51,17 +51,18 @@ void Carre::remplir(unsigned char numeroCarre, TabCases2DTas& grille) {
 		firstCol = (((numeroCarre % tailleCarre + 1) + 1) * tailleCarre) - 3;
 	}
 	cout << "firstCol " << (int)firstCol << "  |firstLigne " << (int)firstLigne << endl;
-	for (int i = 0; i < tailleCarre; ++i) {
-		for (int j = 0; j < tailleCarre; ++j) {
-			tab[i * tailleCarre + j] = grille.getPtr(firstLigne + j, firstCol + i);//tab[tab[col * tailleCarre + ligne];
-			cout << "i: " << firstCol + i << " j: " << firstLigne + j << "  :  " << tab[i * tailleCarre + j] << " = " << (int)tab[i * tailleCarre + j]->getVal() << endl;
+	for (int c = 0; c < tailleCarre; ++c) {
+		for (int l = 0; l < tailleCarre; ++l) {
+			tabc[c * tailleCarre + l] = grille.getPtr(firstLigne + l, firstCol + c);//tab[tab[col * tailleCarre + ligne];
+			cout << "c: " << firstCol + c << " l: " << firstLigne + l << "  :  " << "tabc[" << c * tailleCarre + l << "]" << " = " << (int)tabc[c * tailleCarre + l]->getVal() << endl;
 		}
 	}
+	cout << endl;
 }
 
 Carre::~Carre()
 {
-	delete[] tab;
+	delete[] tabc;
 }
 
 

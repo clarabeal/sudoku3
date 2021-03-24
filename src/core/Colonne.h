@@ -14,7 +14,7 @@ public:
 	bool valide;
 	unsigned char tailleGrille;
 	void print() const;
-	Case **tab;
+	Case **tabcl;
 	bool isIn(unsigned char val);
 
 private:

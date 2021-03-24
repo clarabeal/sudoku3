@@ -15,7 +15,7 @@ class Ligne
 	unsigned char tailleGrille;
 	unsigned char tailleLigne;
 	void print() const;
-	Case **tab;
+	Case **tabl;
 	bool isIn(unsigned char val);
 
 };

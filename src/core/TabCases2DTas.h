@@ -10,7 +10,7 @@ public:
 	~TabCases2DTas();
 	unsigned char getDimLignes() const;
 	unsigned char getDimCol() const;
-	Case& get(unsigned char ligne, unsigned char col) const;
+	Case& getCase(unsigned char ligne, unsigned char col) const;
 	Case *getPtr(unsigned char ligne, unsigned char col) const;
 
 	void print() const;

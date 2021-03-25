@@ -1,7 +1,8 @@
 #include "Grille.h"
 
 
-Grille::Grille():grille(dim,dim){
+Grille::Grille(unsigned char d):grille(d,d){
+    dim = d;
     carres = new Carre[dim];
     lignes = new Ligne[dim];
     colonnes = new Colonne[dim];
@@ -21,6 +22,7 @@ Grille::~Grille(){
 }
 
 void Grille::setCase (unsigned char l, unsigned char c, unsigned char nb){ //on devrait aussi mettre setL,setC,setCarre
-    grille.get(l,c).setVal(nb);
+    grille.getCase(l,c).setVal(nb);
+
 }
 

@@ -12,17 +12,17 @@ class Grille {
     TabCases2DTas grille;
     unsigned char dim;
 
-    Grille ();
+    Grille(unsigned char d);
 
     ~Grille();
 
     void setCase (unsigned char l, unsigned char c, unsigned char nb);
-
+    Ligne* lignes;
+    Colonne* colonnes;
+    Carre* carres;
     private :
 
-    Ligne * lignes;
-    Colonne * colonnes;
-    Carre * carres ;
+    
 
 };
 

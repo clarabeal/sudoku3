@@ -8,7 +8,7 @@ int main() {
 	TabCases2DTas tab(9, 9);
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
-			tab.get(i, j).setVal(j*9+i+1); //appel de grille.setCase(l,c,nb) aurait permis d'avoir val de l, col et carre
+			tab.getCase(i, j).setVal(j*9+i+1); //appel de grille.setCase(l,c,nb) aurait permis d'avoir val de l, col et carre
 		}
 	}
 

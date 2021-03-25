@@ -22,6 +22,8 @@ class GrilleDeJeu {
     */
     void genererGrillePleine ();
 
+    void remplirTblAlea(unsigned char* tab, unsigned char max);
+
     /**
     @brief Genere la grille de jeu a partir de la grille de solution
     */

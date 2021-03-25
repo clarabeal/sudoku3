@@ -1,5 +1,6 @@
 #include "Grille.h"
-
+#include <stdlib.h>
+using namespace std;
 
 Grille::Grille(unsigned char d):grille(d,d){
     dim = d;
@@ -9,7 +10,8 @@ Grille::Grille(unsigned char d):grille(d,d){
     
     for(unsigned char i=1;i<=dim;i++)
     {
-        carres[i].remplir(i,grille);
+        cout << "creation carre|ligne|col num: " << (int)i << endl;
+        carres[(int)i].remplir(i,grille);
         lignes[i].remplir(i,grille);
         colonnes[i].remplir(i,grille);
     }

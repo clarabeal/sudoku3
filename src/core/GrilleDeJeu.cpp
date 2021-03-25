@@ -1,8 +1,8 @@
-#include "src/core/GrilleDeJeu.h"
+#include "GrilleDeJeu.h"
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
-
+using namespace std;
 GrilleDeJeu::GrilleDeJeu(unsigned char d): grilleSolution(d), grilleJeu(d) {
 
 }
@@ -38,7 +38,7 @@ bool GrilleDeJeu::genererGrillePleine()
 					}
 
 				}
-				delete tab;
+				delete []tab;
 			}
 		}
 	}

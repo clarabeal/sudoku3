@@ -49,7 +49,7 @@ void Carre::remplir(unsigned char numeroCarre, TabCases2DTas& grille) {
 		firstCol = ((numeroCarre % (tailleCarre + 1)) * tailleCarre) - 3;
 	}
 	else {
-		firstCol = (((numeroCarre % tailleCarre + 1) + 1) * tailleCarre) - 3;
+		firstCol = (((numeroCarre % (tailleCarre + 1)) + 1) * tailleCarre) - 3;
 	}
 	cout << "firstCol " << (int)firstCol << "  |firstLigne " << (int)firstLigne << endl;
 	for (int c = 0; c < tailleCarre; ++c) {

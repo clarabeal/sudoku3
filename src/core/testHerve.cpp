@@ -2,7 +2,7 @@
 
 using namespace std;
 int main() {
-	/*//Test TabCase2DTas
+	//Test TabCase2DTas
 	TabCases2DTas tab(9, 9);
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
@@ -11,11 +11,11 @@ int main() {
 	}
 
 	tab.print();
-
-	cout << endl << "end tab" << endl << "Test carre (3)" << endl;
-	Carre c(3, tab);
-	c.print();
-
+	for (int i = 1; i < 10; i++) {
+		cout << endl << "end tab" << endl << "Test carre ("<<i<<")" << endl;
+		Carre c(i, tab);
+		c.print();
+	}
 
 	cout << endl << "test colonne(4)" << endl;
 	Colonne col(4, tab);
@@ -25,13 +25,13 @@ int main() {
 	Ligne li(3,tab);
 	li.print();
 
-	*/
+	
 
-	GrilleDeJeu grille(9);
+	//GrilleDeJeu grille(9);
 
-	grille.genererGrillePleine();
+	//grille.genererGrillePleine();
 
-	grille.grilleSolution.grille.print();
+	//grille.grilleSolution.grille.print();
 
 	while (1); //pour pas fermer la fenêtre
 

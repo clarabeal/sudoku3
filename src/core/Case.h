@@ -12,12 +12,13 @@ class Case {
 
     /**
     @brief Constructeur par defaut d'une case vide
+    @details Initialise toutes les donnees membres a 0
     */
     Case();
 
     /**
      @brief Constructeur avec parametres de case
-     @param [in] ligne 
+     @param [in] ligne
      @param [in] colonne
      @param [in] car
      @param [in] valeur
@@ -46,7 +47,7 @@ class Case {
     unsigned char getVal () const;
 
     /**
-     @brief mutateur : modifie la valeur de la case
+     @brief mutateur : modifie la valeur contenue par la case
     */
     void setVal (unsigned char nb);
 

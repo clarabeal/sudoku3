@@ -1,5 +1,4 @@
 #include "TabCases2DTas.h"
-
 #include <iostream>
 #include <cassert>
 using namespace std;

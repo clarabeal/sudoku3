@@ -2,18 +2,19 @@
 #include <stdlib.h>
 using namespace std;
 
+//fait appel au constructeur de Tab2DCasesTas ac grille(d,d)
 Grille::Grille(unsigned char d):grille(d,d){
     dim = d;
     carres = new Carre[dim];
-    lignes = new Ligne[dim];
+    lignes = new Ligne[dim];//chaque grille contient dim lignes
     colonnes = new Colonne[dim];
     
     for(unsigned char i=1;i<=dim;i++)
     {
         cout << "creation carre|ligne|col num: " << (int)i << endl;
-        carres[(int)i].remplir(i,grille);
-        lignes[i].remplir(i,grille);
-        colonnes[i].remplir(i,grille);
+        carres[(int)i].remplir(i,grille);//chaque case de carres est un carre
+        lignes[i].remplir(i,grille);//chaque case de lignes est une ligne
+        colonnes[i].remplir(i,grille);//on remplit la case i de colonnes la colonne i de la grille
     }
 }
 

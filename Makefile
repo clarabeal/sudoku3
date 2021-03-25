@@ -4,11 +4,17 @@ OBJ_DIR = obj/
 
 all : bin/testHerve
 
-bin/testHerve : obj/testHerve.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
+bin/testHerve : obj/testHerve.o obj/GrilleDeJeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
 	g++ -g -Wall obj/testHerve.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/testHerve
 
-obj/testHerve.o : src/core/testHerve.cpp src/core/Carre.h src/core/Colonne.h src/core/Ligne.h
+obj/testHerve.o : src/core/testHerve.cpp src/core/GrilleDeJeu.h 
 	g++ -g -Wall -c src/core/testHerve.cpp -o obj/testHerve.o
+
+obj/GrilleDeJeu.o : src/core/GrilleDeJeu.cpp src/core/GrilleDeJeu.h src/core/Grille.h
+	g++ -g -Wall -c src/core/GrilleDeJeu.cpp -o obj/GrilleDeJeu.o
+
+obj/Grille.o : src/core/Grille.cpp src/core/Grille.h src/core/Carre.h src/core/Colonne.h src/core/Ligne.h
+	g++ -g -Wall -c src/core/Grille.cpp -o obj/Grille.o
 
 obj/Carre.o : src/core/Carre.h src/core/Carre.cpp src/core/TabCases2DTas.h
 	g++ -g -Wall -c src/core/Carre.cpp -o  obj/Carre.o

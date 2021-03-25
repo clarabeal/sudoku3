@@ -20,7 +20,7 @@ class GrilleDeJeu {
     /**
     @brief Genere une grille pleine, qui respecte les contraintes d'une grille de sudoku
     */
-    void genererGrillePleine ();
+    bool genererGrillePleine ();
 
     void remplirTblAlea(unsigned char* tab, unsigned char max);
 
@@ -33,6 +33,10 @@ class GrilleDeJeu {
     @brief Verifie qu'une grille de jeu a qu'une unique solution
     */
     unsigned char nombreDeSolutions () const;
+
+private:
+    unsigned char trouverNumeroCarre(unsigned char l, unsigned char c) const;
+    bool verifGrillePleine() const;
 
 };
 

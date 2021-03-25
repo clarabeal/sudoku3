@@ -25,6 +25,7 @@ bool Carre::isIn(unsigned char val)
 	return false;
 }
 
+
 Carre::Carre():valide(1)
 {
 	

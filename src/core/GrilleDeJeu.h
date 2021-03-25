@@ -17,6 +17,10 @@ class GrilleDeJeu {
     */
     Grille grilleJeu;
 
+    GrilleDeJeu(unsigned char d);
+
+    ~GrilleDeJeu();
+
     /**
     @brief Genere une grille pleine, qui respecte les contraintes d'une grille de sudoku
     */

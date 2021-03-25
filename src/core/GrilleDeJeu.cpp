@@ -2,6 +2,15 @@
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
+
+GrilleDeJeu::GrilleDeJeu(unsigned char d): grilleSolution(d), grilleJeu(d) {
+
+}
+
+GrilleDeJeu::~GrilleDeJeu(){
+	
+}
+
 bool GrilleDeJeu::genererGrillePleine()
 {
 	srand((unsigned int)time(NULL));// a mettre dans le main apres

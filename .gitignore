@@ -1,6 +1,7 @@
 # Les ligne commençant par '#' sont des commentaires.
 # Ignorer tous le dossier .vs 
 .vs
+Debug
 x64
 # Ignorer tous les fichiers de visual studio
 *.sln

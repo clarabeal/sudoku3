@@ -5,7 +5,7 @@ OBJ_DIR = obj/
 all : bin/testHerve
 
 bin/testHerve : obj/testHerve.o obj/GrilleDeJeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
-	g++ -g -Wall obj/testHerve.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/testHerve
+	g++ -g -Wall obj/testHerve.o obj/GrilleDeJeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/testHerve
 
 obj/testHerve.o : src/core/testHerve.cpp src/core/GrilleDeJeu.h 
 	g++ -g -Wall -c src/core/testHerve.cpp -o obj/testHerve.o

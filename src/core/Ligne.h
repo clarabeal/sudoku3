@@ -21,7 +21,7 @@ class Ligne
 
 	/**
 	@brief Ligne
-	@details Tableau de pointeurs de pointeurs de cases
+	@details Pointeur sur tableau de pointeurs de cases
     */
 	Case **tabl;
 

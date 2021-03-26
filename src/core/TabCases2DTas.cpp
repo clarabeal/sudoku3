@@ -25,8 +25,10 @@ unsigned char TabCases2DTas::getDimCol() const
 }
 
 Case& TabCases2DTas::getCase(unsigned char ligne, unsigned char col) const
-{
-	assert(ligne < dimLignes && col < dimColonnes);
+{	//cout << "getCase" << (int)ligne << " " << (int)col << endl;
+	assert(ligne < dimLignes);
+	assert(col < dimColonnes);
+
 	return tab[col * dimLignes + ligne];
 }
 
@@ -38,7 +40,7 @@ Case* TabCases2DTas::getPtr(unsigned char ligne, unsigned char col) const
 
 void TabCases2DTas::print() const
 {
-	for (int i = 0; i < dimLignes; i++) {
+	/*for (int i = 0; i < dimLignes; i++) {
 		cout << endl << "ligne " << i << ":"<< endl;
 		for (int j = 0; j < dimLignes; j++) {
 			Case *c = &getCase(i, j);
@@ -48,7 +50,7 @@ void TabCases2DTas::print() const
 			cout << "               Carre   : " << (int)c->getCarre() << endl<<endl;
 		}
 		cout << endl;
-	}
+	}*/
 	cout << endl << endl << endl;
 	for (int i = 0; i < dimLignes; i++) {
 		for (int j = 0; j < dimLignes; j++) {

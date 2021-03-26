@@ -31,7 +31,7 @@ class GrilleDeJeu {
     /**
     @brief Genere une grille pleine, qui respecte les contraintes d'une grille de sudoku
     */
-    bool genererGrillePleine ();
+    bool genererGrillePleine (int etape = 0);
 
     /**
     @brief Remplit un tableau avec entiers aleatoires compris entre 1 et max

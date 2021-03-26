@@ -28,7 +28,7 @@ bool Carre::isIn(unsigned char val)
 
 Carre::Carre():valide(1)
 {
-	
+	tabc = NULL;
 }
 
 Carre::Carre(unsigned char numeroCarre, TabCases2DTas& grille)
@@ -45,20 +45,16 @@ void Carre::remplir(unsigned char numeroCarre, TabCases2DTas& grille) {
 	int firstCol;
 
 	firstLigne = ((numeroCarre - 1) / tailleCarre) * tailleCarre;
-	if (numeroCarre <= tailleCarre) {
-		firstCol = ((numeroCarre % (tailleCarre + 1)) * tailleCarre) - 3;
-	}
-	else {
-		firstCol = (((numeroCarre % (tailleCarre + 1)) + 1) * tailleCarre) - 3;
-	}
-	cout << "firstCol " << (int)firstCol << "  |firstLigne " << (int)firstLigne << endl;
+	firstCol =   ((numeroCarre - 1)% (tailleCarre)) * tailleCarre;
+	
+	//cout << "carre num: "<< (int)numeroCarre <<" | firstCol " << (int)firstCol << "  |firstLigne " << (int)firstLigne <<" | dimGrille: " <<(int)tailleGrille<< " | dimCarre: "<<(int)tailleCarre<< endl;
 	for (int c = 0; c < tailleCarre; ++c) {
 		for (int l = 0; l < tailleCarre; ++l) {
 			tabc[c * tailleCarre + l] = grille.getPtr(firstLigne + l, firstCol + c);//tab[tab[col * tailleCarre + ligne];
-			cout << "c: " << firstCol + c << " l: " << firstLigne + l << "  :  " << "tabc[" << c * tailleCarre + l << "]" << " = " << (int)tabc[c * tailleCarre + l]->getVal() << endl;
+			//cout << "c: " << firstCol + c << " l: " << firstLigne + l << "  :  " << "tabc[" << c * tailleCarre + l << "]" << " = " << (int)tabc[c * tailleCarre + l]->getVal() << endl;
 		}
 	}
-	cout << endl;
+	//cout << endl;
 }
 
 Carre::~Carre()

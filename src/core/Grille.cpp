@@ -9,12 +9,12 @@ Grille::Grille(unsigned char d):grille(d,d){
     lignes = new Ligne[dim];//chaque grille contient dim lignes
     colonnes = new Colonne[dim];
     
-    for(unsigned char i=1;i<=dim;i++)
+    for(int i=1;i<=dim;i++)
     {
-        cout << "creation carre|ligne|col num: " << (int)i << endl;
-        carres[(int)i].remplir(i,grille);//chaque case de carres est un carre
-        lignes[i].remplir(i,grille);//chaque case de lignes est une ligne
-        colonnes[i].remplir(i,grille);//on remplit la case i de colonnes la colonne i de la grille
+        //cout << "creation carre|ligne|col num: " << (int)i << endl;
+        carres[i-1].remplir(i,grille);//chaque case de carres est un carre
+        lignes[i-1].remplir(i,grille);//chaque case de lignes est une ligne
+        colonnes[i-1].remplir(i,grille);//on remplit la case i de colonnes la colonne i de la grille
     }
 }
 

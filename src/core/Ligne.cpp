@@ -15,7 +15,7 @@ Ligne::Ligne(unsigned char numeroLigne, TabCases2DTas& grille){
 void Ligne::remplir(unsigned char numeroLigne, TabCases2DTas& grille){
     assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit �tre carr� sinon c'est pas une grille
     tailleLigne = grille.getDimCol();
-    tabl = new Case * [tailleLigne];
+    tabl = new Case *[tailleLigne];
 	
     for(unsigned char c=0;c<tailleLigne;c++)
     {

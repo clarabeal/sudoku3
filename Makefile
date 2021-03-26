@@ -34,6 +34,9 @@ obj/Case.o : src/core/Case.h src/core/Case.cpp
 clean:
 	rm $(OBJ_DIR)*.o
 
+veryclean: clean
+	rm ./bin/*
+
 
 $(DOC_DIR)html/index.html : $(DOC_DIR)sudoku3.doxy $(SRC_DIR)core/Case.h $(SRC_DIR)core/Case.cpp $(SRC_DIR)core/Grille.h $(SRC_DIR)core/Grille.cpp $(SRC_DIR)core/Carre.h $(SRC_DIR)core/Carre.cpp $(SRC_DIR)core/Colone.h $(SRC_DIR)core/Colonne.cpp $(SRC_DIR)core/Ligne.h $(SRC_DIR)core/Ligne.cpp $(SRC_DIR)core/TabCases2DTas.h $(SRC_DIR)core/TabCases2DTas.cpp
 	doxygen $(DOC_DIR)sudoku3.doxy

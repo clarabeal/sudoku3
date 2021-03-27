@@ -3,7 +3,7 @@
 
 #include "Grille.h"
 
-class GrilleDeJeu {
+class Jeu {
 
     public :
 
@@ -21,12 +21,12 @@ class GrilleDeJeu {
     @brief Constructeur a parametres
     @details Cree une grilleJeu et une grilleSolution ttes les 2 de taille dim
     */
-    GrilleDeJeu(unsigned char d);
+    Jeu(unsigned char d);
 
     /**
     @brief Destructeur
     */
-    ~GrilleDeJeu();
+    ~Jeu();
 
     /**
     @brief Genere une grille pleine, qui respecte les contraintes d'une grille de sudoku
@@ -44,13 +44,18 @@ class GrilleDeJeu {
     /**
     @brief Renvoie le nombre de solution possible pour une grille
     */
-    unsigned char nombreDeSolutions (unsigned char nbSolution = 0) const;
+    unsigned char nombreDeSolutions (Grille &grille, unsigned char nbSolution = 0) const;
 
     /**
     @brief Genere la grille de jeu a partir de la grille de solution
     */
     void genererGrilleMinimale ();
 
+    /**
+  @brief Verifie si la grille est pleine ou non
+  @details Retourne 1 si pleine 0 sinon
+  */
+    bool verifGrillePleine(Grille& grille) const;
 private:
 
     /**
@@ -59,11 +64,7 @@ private:
     */
     unsigned char trouverNumeroCarre(unsigned char l, unsigned char c) const;
 
-    /**
-    @brief Verifie si la grille est pleine ou non
-    @details Retourne 1 si pleine 0 sinon
-    */
-    bool verifGrillePleine() const;
+  
 
 };
 

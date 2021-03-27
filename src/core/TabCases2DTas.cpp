@@ -44,20 +44,39 @@ void TabCases2DTas::print() const
 		cout << endl << "ligne " << i << ":"<< endl;
 		for (int j = 0; j < dimLignes; j++) {
 			Case *c = &getCase(i, j);
-			cout << "    Colonne " << j << ": val     : " << (int)c->getVal() << endl;
-			cout << "               Ligne   : " << (int)c->getL() << endl;
-			cout << "               Colonne : " << (int)c->getC() << endl;
-			cout << "               Carre   : " << (int)c->getCarre() << endl<<endl;
+			cout << "    Colonne " << j << ": val          : " << (int)c->getVal() << endl;
+			cout << "               Ligne        : " << (int)c->getL() << endl;
+			cout << "               Colonne      : " << (int)c->getC() << endl;
+			cout << "               Carre        : " << (int)c->getCarre() << endl<<endl;
+			cout << "               modifiable   : " << (int)c->modifiable << endl<<endl;
 		}
 		cout << endl;
 	}*/
 	cout << endl << endl << endl;
 	for (int i = 0; i < dimLignes; i++) {
 		for (int j = 0; j < dimLignes; j++) {
-			cout << (int)getCase(i, j).getVal()<< "  |  ";
+			unsigned char value = getCase(i, j).getVal();
+			if (value == 0) {
+				cout << "   |  ";
+			}
+			else {
+				cout << (int)getCase(i, j).getVal() << "  |  ";
+			}
 		}
 		cout << endl;
 	}
+	/*for (int i = 0; i < dimLignes; i++) {   //affiche la grille sur une ligne pour pouvoir la copier sur https://www.dcode.fr/solveur-sudoku
+		for (int j = 0; j < dimLignes; j++) {
+			Case* c = &getCase(i, j);
+			if (c->getVal() == 0) {
+				cout << " ";
+			}
+			else {
+				cout << (int)c->getVal();
+			}
+		}
+	}
+	cout << endl;*/
 
 
 }

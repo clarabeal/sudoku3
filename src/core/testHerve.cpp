@@ -29,11 +29,10 @@ int main() {
 
 	
 
-	GrilleDeJeu grille(9);
+	Jeu grille(9);
 
 	grille.genererGrillePleine();
-	cout << "la grille pleine :" << endl;
-	grille.grilleSolution.grille.print();
+	
 
 	/*srand((unsigned int)time(NULL));// a mettre dans le main apres
 
@@ -46,10 +45,13 @@ int main() {
 	grille.grilleSolution.grille.print();
 	cout << "Nombre de solution differentes:" << endl;
 	cout << (int)grille.nombreDeSolutions() << endl;*/
-
+	cout << "la grille pleine :" << endl;
+	grille.grilleSolution.grille.print();
 	grille.genererGrilleMinimale();
+	cout << "la grille minimale :" << endl;
+	
 	grille.grilleJeu.grille.print();
-
+	cout << "nombre de solution: " << (int)grille.nombreDeSolutions(grille.grilleJeu, 0) << endl;
 	while (1); //pour pas fermer la fenêtre
 
 	return 0;

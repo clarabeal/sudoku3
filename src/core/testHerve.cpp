@@ -29,13 +29,13 @@ int main() {
 
 	
 
-	GrilleDeJeu grille(9);
+	GrilleDeJeu grille(4);
 
 	grille.genererGrillePleine();
 
 	grille.grilleSolution.grille.print();
 
-	while (1); //pour pas fermer la fenêtre
+	//while (1); //pour pas fermer la fenêtre
 
 
 	return 0;

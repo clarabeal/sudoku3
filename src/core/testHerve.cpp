@@ -29,13 +29,24 @@ int main() {
 
 	
 
-	GrilleDeJeu grille(4);
+	GrilleDeJeu grille(9);
 
 	grille.genererGrillePleine();
+	cout << "la grille pleine :" << endl;
+	grille.grilleSolution.grille.print();
+	srand((unsigned int)time(NULL));// a mettre dans le main apres
+
+	for (int i = 0; i < 60; i++) {//enleve 60 chiffres au hasard
+		grille.grilleSolution.grille.getCase((rand() % 9), (rand() % 9)).setVal(0);
+	}
+	
+	cout << "la grille avec trous :" << endl;
 
 	grille.grilleSolution.grille.print();
+	cout << "Nombre de solution differentes:" << endl;
+	cout << (int)grille.nombreDeSolutions() << endl;
 
-	//while (1); //pour pas fermer la fenêtre
+	while (1); //pour pas fermer la fenêtre
 
 
 	return 0;

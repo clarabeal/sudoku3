@@ -1,4 +1,4 @@
-#include "TXT_IHM.h"
+/*#include "TXT_IHM.h"
 
 #include <iostream>
 #include "../core/GrilleDeJeu.h"
@@ -29,4 +29,4 @@ void TXT_IHM::afficherGrille () {
 
 void TXT_IHM::boucle () {
     
-}
+}*/

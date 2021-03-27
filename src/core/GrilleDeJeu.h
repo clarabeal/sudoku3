@@ -46,9 +46,9 @@ class GrilleDeJeu {
     void genererGrilleMinimale ();
 
     /**
-    @brief Verifie qu'une grille de jeu a qu'une unique solution
+    @brief Renvoie le nombre de solution possible pour une grille
     */
-    unsigned char nombreDeSolutions () const;
+    unsigned char nombreDeSolutions (unsigned char nbSolution = 0) const;
 
 private:
 

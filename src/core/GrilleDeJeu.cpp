@@ -16,7 +16,7 @@ GrilleDeJeu::~GrilleDeJeu(){
 bool GrilleDeJeu::genererGrillePleine(int etape)
 {
 	srand((unsigned int)time(NULL));// a mettre dans le main apres
-	cout << "///////Etape: " << etape<<  endl;
+	//cout << "///////Etape: " << etape<<  endl;
 
 	unsigned char dimGrille = grilleSolution.dim;
 	for (unsigned char l=1; l <= dimGrille; l++) {
@@ -44,7 +44,7 @@ bool GrilleDeJeu::genererGrillePleine(int etape)
 								else {
 									//cout << "La case " << (int)l << " " << (int)c << " prend la valeur " << (int)value <<endl;
 									grilleSolution.grille.getCase(l-1, c-1).setVal(value);
-									grilleSolution.grille.print();
+									//grilleSolution.grille.print();
 									if (genererGrillePleine(etape + 1)) {
 										delete[]tab;//on supprime le tableau de valeurs aleatoires
 										return true;//on rappelle la fonction
@@ -58,7 +58,7 @@ bool GrilleDeJeu::genererGrillePleine(int etape)
 					}//else{cout << "Deja dans la ligne" << endl;}
 
 				}
-				cout << "Les etapes precedentes rendent la generation impossible on essaye de changer des valeur en amont" << endl;
+				//cout << "Les etapes precedentes rendent la generation impossible on essaye de changer des valeur en amont" << endl;
 				grilleSolution.grille.getCase(l - 1, c - 1).setVal(0);
 				delete []tab;//on supprime le tableau de valeurs aleatoires
 				return false;
@@ -82,6 +82,57 @@ void GrilleDeJeu::remplirTblAlea(unsigned char *tab, unsigned char max){// rempl
 		}
 		tab[i] = nb;
 	}
+}
+
+unsigned char GrilleDeJeu::nombreDeSolutions(unsigned char nbSolution) const
+{
+	//cout << "///////Etape: " << (int)nbSolution <<  endl;
+
+	unsigned char dimGrille = grilleSolution.dim;
+	for (unsigned char l = 1; l <= dimGrille; l++) {
+		for (unsigned char c = 1; c <= dimGrille; c++) {
+			//cout << "on check si il faut remplir la case " << (int)l << " " << (int)c << endl;
+			if (grilleSolution.grille.getCase(l - 1, c - 1).getVal() == 0) { //si la case est vide
+				//cout << "la case " << (int)l << " " << (int)c << " n'est pas remplit, on le fait." << endl;
+				unsigned char* tab = new unsigned char[(int)dimGrille]; //on cree un tableau de taille dimGrille sur le tas
+				for (int i = 0; i < dimGrille; i++) {tab[i] = i+1;}// on remplit un tableau avec les nombres 1 a taille grille
+				for (unsigned char i = 0; i < dimGrille; i++) { //on parcourt ts les elements du tableau qu'on vient de creer
+					unsigned char value = tab[i];//on tire les elements du tableau un a un
+					//cout << "on essaye de placer la valeur " << (int)value << endl;
+
+					if (!grilleSolution.lignes[l - 1].isIn(value)) { //si la valeur n'est pas deja dans la ligne
+						//cout << "Pas dans la ligne" << endl;
+						if (!grilleSolution.colonnes[c - 1].isIn(value)) { //si la valeur n'est pas deja dans la colonne
+							//cout << "Pas dans la colonne" << endl;
+							if (!grilleSolution.carres[trouverNumeroCarre(l, c) - 1].isIn(value)) { //si elle n'est pas dans le carre
+								//cout << "Pas dans le carre" << endl;
+								//cout << "La case " << (int)l << " " << (int)c << " prend la valeur " << (int)value <<endl;
+								grilleSolution.grille.getCase(l - 1, c - 1).setVal(value);
+								//grilleSolution.grille.print();
+								if (verifGrillePleine()) { //si la grille est pleine
+									//cout << "La grille est pleine fini" << endl;
+									nbSolution++;//grille remplie : on sort
+								}
+								else {
+									nbSolution = nbSolution + nombreDeSolutions(0);
+									//cout << "nb solution " << (int)nbSolution << endl;
+								}
+							}else {// cout << "Deja dans le carre" << endl; 
+							}
+						}else {//cout << "Deja dans la colonne" << endl;
+						}
+					}else{//cout << "Deja dans la ligne" << endl;
+					}
+
+				}
+				//cout << "Les etapes precedentes rendent la generation impossible on essaye de changer des valeur en amont" << endl;
+				grilleSolution.grille.getCase(l - 1, c - 1).setVal(0);
+				delete[]tab;//on supprime le tableau de valeurs aleatoires
+				return nbSolution;
+			}
+		}
+	}
+	return nbSolution;
 }
 
 unsigned char GrilleDeJeu::trouverNumeroCarre(unsigned char l, unsigned char c) const

@@ -189,3 +189,9 @@ bool Jeu::verifGrillePleine(Grille &grille) const
 	}
 	return true;
 }
+
+void Jeu::init()
+{
+	genererGrillePleine();
+	genererGrilleMinimale();
+}

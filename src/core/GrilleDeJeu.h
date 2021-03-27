@@ -56,6 +56,8 @@ class Jeu {
   @details Retourne 1 si pleine 0 sinon
   */
     bool verifGrillePleine(Grille& grille) const;
+
+    void init();
 private:
 
     /**

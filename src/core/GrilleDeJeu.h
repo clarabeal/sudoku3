@@ -40,15 +40,16 @@ class GrilleDeJeu {
     */
     void remplirTblAlea(unsigned char* tab, unsigned char max);
 
-    /**
-    @brief Genere la grille de jeu a partir de la grille de solution
-    */
-    void genererGrilleMinimale ();
 
     /**
     @brief Renvoie le nombre de solution possible pour une grille
     */
     unsigned char nombreDeSolutions (unsigned char nbSolution = 0) const;
+
+    /**
+    @brief Genere la grille de jeu a partir de la grille de solution
+    */
+    void genererGrilleMinimale ();
 
 private:
 

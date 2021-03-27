@@ -135,6 +135,26 @@ unsigned char GrilleDeJeu::nombreDeSolutions(unsigned char nbSolution) const
 	return nbSolution;
 }
 
+void GrilleDeJeu::genererGrilleMinimale (){
+	grilleJeu = grilleSolution;
+	unsigned char l,c,val;
+	
+	srand((unsigned int)time(NULL));// a mettre dans le main apres
+
+	do {
+		l=rand()%9;
+		c=rand()%9;
+
+		cout << "l" << l << " c" << c << endl;
+
+		val=grilleJeu.grille.getCase(l-1,c-1).getVal(); //on garde la valeur de la case au cas où on doit la remettre plus tard
+		grilleJeu.grille.getCase(l-1,c-1).setVal(0); //on enlève la valeur
+
+	}while (nombreDeSolutions()==1); // sort de la boucle dès qu'il y a plus d'une solution
+
+	grilleJeu.grille.getCase(l,c).setVal(val); //on remet la valeur d'avant pour retrouver le nbDeSol égal à 1
+}
+
 unsigned char GrilleDeJeu::trouverNumeroCarre(unsigned char l, unsigned char c) const
 {
 	unsigned char tailleCarre = sqrt(grilleSolution.dim);

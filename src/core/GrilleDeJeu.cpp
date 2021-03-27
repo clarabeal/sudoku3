@@ -142,10 +142,10 @@ void GrilleDeJeu::genererGrilleMinimale (){
 	srand((unsigned int)time(NULL));// a mettre dans le main apres
 
 	do {
-		l=rand()%9;
-		c=rand()%9;
+		l=rand()%9+1;
+		c=rand()%9+1;
 
-		cout << "l" << l << " c" << c << endl;
+		cout << "l : " << (int)l << " c : " << (int)c << endl;
 
 		val=grilleJeu.grille.getCase(l-1,c-1).getVal(); //on garde la valeur de la case au cas où on doit la remettre plus tard
 		grilleJeu.grille.getCase(l-1,c-1).setVal(0); //on enlève la valeur

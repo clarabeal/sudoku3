@@ -15,6 +15,9 @@ public:
 	*/
 	void boucle();
 
+	/**
+	\brief Affiche la grille sur le terminal
+	*/
 	void afficherGrille();
 
 private:

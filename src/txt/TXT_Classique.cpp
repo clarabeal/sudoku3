@@ -92,6 +92,7 @@ void TXT_Classique::boucle () {
                 cout << endl;
                 cout << "Grille solution :" << endl;
                 jeu.grilleSolution.grille.print();
+                cout<<"Vous avez fait "<<jeu.nbErreurs()<<" erreurs"<<endl;
                 //on affiche la solution et la grille remplie par le joueur côte à côte
             }
         }

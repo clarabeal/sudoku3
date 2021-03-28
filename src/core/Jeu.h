@@ -87,6 +87,12 @@ class Jeu {
     */
     bool getModifCase (unsigned char l, unsigned char c) const;
 
+
+    /**
+    @brief Retourne le nombre d'erreurs dans la grille de jeu
+    */
+    unsigned int nbErreurs () const;
+
 private:
 
     /**

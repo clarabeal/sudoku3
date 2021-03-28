@@ -212,3 +212,16 @@ bool Jeu::sontCorValides (unsigned char l, unsigned char c) const {
 bool Jeu::getModifCase (unsigned char l, unsigned char c) const {
 	return grilleJeu.grille.getCase(l-1,c-1).modifiable;
 }
+
+unsigned int Jeu::nbErreurs () const {
+	unsigned int compteur = 0, dim = grilleSolution.dim;
+	unsigned char i, j;
+
+	for (i=0; i<dim; i++) {
+		for (j=0; j<dim; j++) {
+			if (grilleJeu.grille.getCase(i, j).getVal() != grilleSolution.grille.getCase(i, j).getVal()) compteur++;
+			
+		}
+	}
+	return compteur;
+}

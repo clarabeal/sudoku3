@@ -1,4 +1,4 @@
-#include "Jeu.h"
+/*#include "Jeu.h"
 
 using namespace std;
 int main() {
@@ -24,7 +24,7 @@ int main() {
 		li.print();
 	
 	}
-	*/
+	
 	
 
 	
@@ -50,8 +50,8 @@ int main() {
 
 	grille.grilleSolution.grille.print();
 	cout << "Nombre de solution differentes:" << endl;
-	cout << (int)grille.nombreDeSolutions() << endl;*/
+	cout << (int)grille.nombreDeSolutions() << endl;
 	while (1); //pour pas fermer la fenêtre
 
 	return 0;
-}
+}*/

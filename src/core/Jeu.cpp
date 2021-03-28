@@ -155,8 +155,8 @@ void Jeu::genererGrilleMinimale (){
 	//cout << "generation grille partielle" << endl << "0%" << endl;
 	while (attempt > 0) {
 		do {
-			l = rand() % 9 + 1;
-			c = rand() % 9 + 1;
+			l = rand() % dimGrille + 1;
+			c = rand() % dimGrille + 1;
 
 			//cout << "l : " << (int)l << " c : " << (int)c << endl;
 

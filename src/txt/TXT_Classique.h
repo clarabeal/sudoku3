@@ -15,14 +15,8 @@ public:
 	*/
 	void boucle();
 
-	/**
-	\brief Affiche la grille de jeu sur le terminal
-	*/
-	void afficherGrille();
-
 private:
 	Jeu jeu;
-    
 };
 
 

@@ -58,11 +58,24 @@ class Jeu {
     bool verifGrillePleine(Grille& grille) const;
 
     /**
-     @brief Initialise une grille
-     @details Genere une nouvelle grille pleine stocker dans grilleSolution et une grille a troue dans grilleJeu
-     \see genererGrillePleine genererGrilleMinimale
+    @brief Initialise une grille
+    @details Genere une nouvelle grille pleine stocker dans grilleSolution et une grille a troue dans grilleJeu
+    \see genererGrillePleine genererGrilleMinimale
     */
     void init();
+
+    /**
+    @brief Verifie si la valeur donnée est valide
+    @details Retourne true si la valeur est valide false sinon
+    */
+    bool estValValide (unsigned char valeur) const;
+
+    /**
+    @brief Verifie si les coordonnées données sont valides et si la case est modifiable
+    @details Retourne true si elles sont valides false sinon
+    */
+    bool sontCorValides (unsigned char l, unsigned char c) const;
+
 private:
 
     /**

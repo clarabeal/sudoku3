@@ -138,7 +138,7 @@ unsigned char Jeu::nombreDeSolutions(Grille &grille) const
 }
 
 void Jeu::genererGrilleMinimale (){
-	unsigned char dimGrille = grilleSolution.dim;
+	int dimGrille = grilleSolution.dim;
 
 	for (unsigned char l = 1; l <= dimGrille; l++) {
 		for (unsigned char c = 1; c <= dimGrille; c++) {

@@ -4,8 +4,7 @@
 #include <math.h>
 using namespace std;
 
-
-Jeu::Jeu(unsigned char d): grilleSolution(d), grilleJeu(d) {
+Jeu::Jeu(unsigned char d): grilleSolution(d), grilleJeu(d), grilleOriginale(d){
 
 }
 
@@ -140,17 +139,18 @@ unsigned char Jeu::nombreDeSolutions(Grille &grille) const
 void Jeu::genererGrilleMinimale (){
 	unsigned char dimGrille = grilleSolution.dim;
 
-	for (unsigned char l = 1; l <= dimGrille; l++) {
+	/*for (unsigned char l = 1; l <= dimGrille; l++) {
 		for (unsigned char c = 1; c <= dimGrille; c++) {
 			grilleJeu.grille.getCase(l - 1, c - 1).setVal(grilleSolution.grille.getCase(l - 1, c - 1).getVal());
 		}
-	} //copie de la grille solution dans la grille de jeu
+	} //copie de la grille solution dans la grille de jeu*/
+	grilleJeu.grille = grilleSolution.grille;
 	
 
 	unsigned char l,c,val;
 	
 	srand((unsigned int)time(NULL));// a mettre dans le main apres
-	unsigned char attempt = 5;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
+	unsigned char attempt = dimGrille;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
 	unsigned char atp = attempt;//juste pour aficher le %
 	//cout << "generation grille partielle" << endl << "0%" << endl;
 	while (attempt > 0) {
@@ -198,6 +198,7 @@ void Jeu::init()
 	grilleJeu.viderGrille();
 	genererGrillePleine();
 	genererGrilleMinimale();
+	grilleOriginale.grille = grilleJeu.grille;
 }
 
 bool Jeu::estValValide (unsigned char valeur) const {

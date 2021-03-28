@@ -53,6 +53,7 @@ public:
 	*/
 	void vider();
 
+	void operator = (TabCases2DTas &tab);
 private:
 
 	/**

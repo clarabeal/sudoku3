@@ -26,7 +26,7 @@ bool Carre::isIn(unsigned char val)
 }
 
 
-Carre::Carre():valide(1)
+Carre::Carre():valide(1),tailleCarre(0),tailleGrille(0)
 {
 	tabc = NULL;
 }
@@ -39,7 +39,7 @@ Carre::Carre(unsigned char numeroCarre, TabCases2DTas& grille)
 void Carre::remplir(unsigned char numeroCarre, TabCases2DTas& grille) {
 	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit �tre carr� sinon c'est pas une grille
 	tailleGrille = grille.getDimCol();
-	tailleCarre = sqrt(tailleGrille);
+	tailleCarre = (unsigned char)sqrt(tailleGrille);
 	tabc = new Case * [tailleCarre * tailleCarre];
 	int firstLigne;
 	int firstCol;

@@ -13,6 +13,11 @@ class Jeu {
     Grille grilleSolution;
 
     /**
+    @brief Grille a remplir avant que le joueur ne l'ai modifiée
+    */
+    Grille grilleOriginale;
+
+    /**
     @brief Grille a remplir, celle avec lequel le joueur interagit
     */
     Grille grilleJeu;

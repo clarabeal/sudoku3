@@ -6,15 +6,17 @@ Case::Case() {
     carre = 0;
     modifiable = false;
     val = 0;
+    etat = 0;
 }
 
-Case::Case (unsigned char ligne, unsigned char colonne, unsigned char car, unsigned char valeur, bool mod) {
+Case::Case (unsigned char ligne, unsigned char colonne, unsigned char car, unsigned char valeur, bool mod, unsigned char _etat) {
 
     l=ligne;
     c=colonne;
     carre=car;
     modifiable=mod;
     val = valeur;
+    etat = _etat;
 }
 
 unsigned char Case::getL () const {

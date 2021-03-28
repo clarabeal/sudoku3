@@ -24,7 +24,7 @@ class Case {
      @param [in] valeur
      @param [in] mod
     */
-    Case (unsigned char ligne, unsigned char colonne, unsigned char car, unsigned char valeur, bool mod);
+    Case (unsigned char ligne, unsigned char colonne, unsigned char car, unsigned char valeur, bool mod,unsigned char etat_);
 
     /**
      @brief Accesseur L : retourne l
@@ -51,6 +51,11 @@ class Case {
     */
     void setVal (unsigned char nb);
 
+    /**
+     @brief indique l'etat de la case
+     \details  0: On sait pas, 1 : La case est juste, 2:La case est fausse
+    */
+    unsigned char etat;
     private:
 
     /**
@@ -72,6 +77,8 @@ class Case {
      @brief indique le carre de la grille sur laquelle se trouve la case
     */
     unsigned char carre;
+
+    
 };
 
 #endif

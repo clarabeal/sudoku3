@@ -1,6 +1,7 @@
 #include "TabCases2DTas.h"
 #include <iostream>
 #include <cassert>
+#include <math.h>
 using namespace std;
 
 TabCases2DTas::TabCases2DTas(unsigned char dimLignes_, unsigned char dimColonnes_) {
@@ -52,25 +53,80 @@ void TabCases2DTas::print() const
 		}
 		cout << endl;
 	}*/
-	cout << endl << endl << "v: case verouillee, m: case modifiable" << endl;
-	for (int i = 0; i < dimLignes; i++) {
-		for (int j = 0; j < dimLignes; j++) {
-			unsigned char value = getCase(i, j).getVal();
-			if (!(int)getCase(i, j).modifiable) {
-				cout << "v ";
+	//cout << "v: case verouillee, m: case modifiable" << endl;
+	unsigned char MaxTailleNombre ;
+	unsigned char TailleNombre;
+
+	if (dimColonnes >= 10) {
+		MaxTailleNombre = 2;
+	}else if (dimColonnes >= 100) {
+		MaxTailleNombre =3;
+	}
+	else {
+		MaxTailleNombre = 1;
+	}
+	for (int l = 0; l < dimLignes; l++) {
+		if (dimColonnes >= 10) {
+			TailleNombre = 2;
+		}
+		else if (dimColonnes >= 100) {
+			TailleNombre = 3;
+		}
+		else {
+			TailleNombre = 1;
+		}
+		if ((l) % (unsigned char)sqrt(dimLignes) == 0 && l > 0) {
+			cout << " ";
+			for (int i = 0; i < ((int)dimColonnes * (TailleNombre+1) + 2 * (dimColonnes / sqrt(dimColonnes) - 1)); i++) {
+				cout << "-";
+			}
+			cout << endl;
+			
+		}
+		for (int c = 0; c < dimLignes; c++) {
+			if (c%(unsigned char)sqrt(dimColonnes) == 0 && c>0) {
+				cout << "| ";
+			}
+			else if (c == 0) {
+				cout << " ";
+			}
+			unsigned char value = getCase(l, c).getVal();
+			if (value >= 10) {
+				TailleNombre = MaxTailleNombre - 2;
+			}
+			else if (value >= 100) {
+				TailleNombre = MaxTailleNombre - 3;
 			}
 			else {
-				cout << "m ";
+				TailleNombre = MaxTailleNombre - 1;
+			}
+			if (!(int)getCase(l, c).modifiable) {
+			//	cout << "v ";
+			}
+			else {
+			//	cout << "m ";
 			}
 			if (value == 0) {
-				cout << "  |";
+				cout << "  ";
+				for (int i = 0; i < TailleNombre; i++) {
+					cout << " ";
+				}
 			}
 			else {
-				if (!(int)getCase(i, j).modifiable) {
-					cout<< (int)getCase(i, j).getVal() << " |";
+				
+				if (!(int)getCase(l, c).modifiable) {
+					
+					cout<< (int)value << " ";
+
+					for (int i = 0; i < TailleNombre; i++) {
+						cout << " ";
+					}
 				}
 				else {
-					cout << (int)getCase(i, j).getVal() << " |";
+					cout << (int)value << " ";
+					for (int i = 0; i < TailleNombre; i++) {
+						cout << " ";
+					}
 				}
 			}
 		}
@@ -98,6 +154,17 @@ void TabCases2DTas::vider()
 		for (unsigned char c = 0; c <dimColonnes; c++) {
 			tab[c * dimLignes + l].setVal(0);
 			tab[c * dimLignes + l].modifiable = false;
+		}
+	}
+}
+
+void TabCases2DTas::operator = (TabCases2DTas &tab)
+{
+	for (unsigned char l = 1; l <= dimLignes; l++) {
+		for (unsigned char c = 1; c <= dimColonnes; c++) {
+			getCase(l - 1, c - 1).setVal(tab.getCase(l - 1, c - 1).getVal());
+			getCase(l - 1, c - 1).modifiable = tab.getCase(l - 1, c - 1).modifiable;
+			getCase(l - 1, c - 1).etat = tab.getCase(l - 1, c - 1).etat;
 		}
 	}
 }

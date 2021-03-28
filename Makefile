@@ -2,16 +2,27 @@ DOC_DIR = doc/
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-all : bin/testHerve
+INCLUDE_DIR = -Isrc -Isrc/core -Isrc/txt
 
-bin/testHerve : obj/testHerve.o obj/GrilleDeJeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
-	g++ -g -Wall obj/testHerve.o obj/GrilleDeJeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/testHerve
+all : bin/testHerve bin/txt_classique
 
-obj/testHerve.o : src/core/testHerve.cpp src/core/GrilleDeJeu.h 
+bin/txt_classique : obj/main_txt_classique.o obj/TXT_Classique.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
+	g++ -g -Wall obj/main_txt_classique.o obj/TXT_Classique.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/txt_classique
+
+bin/testHerve : obj/testHerve.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
+	g++ -g -Wall obj/testHerve.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/testHerve
+
+obj/main_txt_classique.o : src/txt/main_txt_classique.cpp src/txt/TXT_Classique.h
+	g++ -g -Wall -c src/txt/main_txt_classique.cpp -o obj/main_txt_classique.obj
+
+obj/TXT_Classique.o : src/txt/TXT_Classique.cpp src/txt/TXT_Classique.h src/core/Jeu.h
+	g++ -g -Wall -c src/txt/TXT_Classique.cpp -o obj/TXT_Classique.o
+
+obj/testHerve.o : src/core/testHerve.cpp src/core/Jeu.h 
 	g++ -g -Wall -c src/core/testHerve.cpp -o obj/testHerve.o
 
-obj/GrilleDeJeu.o : src/core/GrilleDeJeu.cpp src/core/GrilleDeJeu.h src/core/Grille.h
-	g++ -g -Wall -c src/core/GrilleDeJeu.cpp -o obj/GrilleDeJeu.o
+obj/Jeu.o : src/core/Jeu.cpp src/core/Jeu.h src/core/Grille.h
+	g++ -g -Wall -c src/core/Jeu.cpp -o obj/Jeu.o
 
 obj/Grille.o : src/core/Grille.cpp src/core/Grille.h src/core/Carre.h src/core/Colonne.h src/core/Ligne.h
 	g++ -g -Wall -c src/core/Grille.cpp -o obj/Grille.o

@@ -1,4 +1,4 @@
-/*#include "TXT_IHM.h"
+#include "TXT_Classique.h"
 
 #include <iostream>
 #include "../core/GrilleDeJeu.h"
@@ -6,14 +6,14 @@
 
 using namespace std;
 
-TXT_IHM::TXT_IHM () {
+TXT_Classique::TXT_Classique (unsigned char d) : jeu(d) {
 
 }
 
-TXT_IHM::~TXT_IHM () {
+TXT_Classique::~TXT_Classique () {
 
 }
-
+/*
 void termClear()  // efface le terminal
 {
 #ifdef _WIN32
@@ -21,13 +21,14 @@ void termClear()  // efface le terminal
 #else
     system("clear");
 #endif
+}*/
+
+void TXT_Classique::afficherGrille () {
+    jeu.grilleJeu.grille.print();
 }
 
-void TXT_IHM::afficherGrille () {
-
-}
-
-void TXT_IHM::boucle () {
+/*
+void TXT_Classique::boucle () {
     On efface le terminal
     On intitialise une grille solution
     On cree une grille de jeu

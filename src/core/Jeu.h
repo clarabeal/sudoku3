@@ -1,5 +1,5 @@
-#ifndef _GRILLE_DE_JEU_H
-#define _GRILLE_DE_JEU_H
+#ifndef _JEU_H
+#define _JEU_H
 
 #include "Grille.h"
 

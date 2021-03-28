@@ -1,14 +1,14 @@
-#ifndef _TXT_IHM
-#define _TXT_IHM
+#ifndef _TXT_CLASSIQUE_H
+#define _TXT_CLASSIQUE_H
 
 #include "../core/GrilleDeJeu.h"
 
-class TXT_IHM
+class TXT_Classique
 {
 public:
-	TXT_IHM();
+	TXT_Classique(unsigned char d);
 
-	~TXT_IHM();
+	~TXT_Classique();
 	
 	/**
 	\brief Boucle du jeu
@@ -16,12 +16,12 @@ public:
 	void boucle();
 
 	/**
-	\brief Affiche la grille sur le terminal
+	\brief Affiche la grille de jeu sur le terminal
 	*/
 	void afficherGrille();
 
 private:
-	GrilleDeJeu jeu;
+	Jeu jeu;
     
 };
 

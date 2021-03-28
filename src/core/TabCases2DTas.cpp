@@ -52,15 +52,26 @@ void TabCases2DTas::print() const
 		}
 		cout << endl;
 	}*/
-	cout << endl << endl << endl;
+	cout << endl << endl << "v: case verouillee, m: case modifiable" << endl;
 	for (int i = 0; i < dimLignes; i++) {
 		for (int j = 0; j < dimLignes; j++) {
 			unsigned char value = getCase(i, j).getVal();
-			if (value == 0) {
-				cout << "   |  ";
+			if (!(int)getCase(i, j).modifiable) {
+				cout << "v ";
 			}
 			else {
-				cout << (int)getCase(i, j).getVal() << "  |  ";
+				cout << "m ";
+			}
+			if (value == 0) {
+				cout << "  |";
+			}
+			else {
+				if (!(int)getCase(i, j).modifiable) {
+					cout<< (int)getCase(i, j).getVal() << " |";
+				}
+				else {
+					cout << (int)getCase(i, j).getVal() << " |";
+				}
 			}
 		}
 		cout << endl;
@@ -79,6 +90,16 @@ void TabCases2DTas::print() const
 	cout << endl;*/
 
 
+}
+
+void TabCases2DTas::vider()
+{
+	for (unsigned char l = 0; l <dimLignes ; l++) {
+		for (unsigned char c = 0; c <dimColonnes; c++) {
+			tab[c * dimLignes + l].setVal(0);
+			tab[c * dimLignes + l].modifiable = false;
+		}
+	}
 }
 
 

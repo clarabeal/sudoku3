@@ -59,6 +59,10 @@ class Grille {
     */
     void setCase (unsigned char l, unsigned char c, unsigned char nb);
 
+    /**
+    @brief Set toutes les cases de la grille a 0 et les rends non modifiable
+    */
+    void viderGrille();
 };
 
 

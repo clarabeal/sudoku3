@@ -44,7 +44,7 @@ class Jeu {
     /**
     @brief Renvoie le nombre de solution possible pour une grille
     */
-    unsigned char nombreDeSolutions (Grille &grille, unsigned char nbSolution = 0) const;
+    unsigned char nombreDeSolutions (Grille &grille) const;
 
     /**
     @brief Genere la grille de jeu a partir de la grille de solution
@@ -52,11 +52,16 @@ class Jeu {
     void genererGrilleMinimale ();
 
     /**
-  @brief Verifie si la grille est pleine ou non
-  @details Retourne 1 si pleine 0 sinon
-  */
+    @brief Verifie si la grille est pleine ou non
+    @details Retourne 1 si pleine 0 sinon
+     */
     bool verifGrillePleine(Grille& grille) const;
 
+    /**
+     @brief Initialise une grille
+     @details Genere une nouvelle grille pleine stocker dans grilleSolution et une grille a troue dans grilleJeu
+     \see genererGrillePleine genererGrilleMinimale
+    */
     void init();
 private:
 
@@ -65,8 +70,6 @@ private:
     @details Retourne l'indice du carre dans lequel se trouve la case
     */
     unsigned char trouverNumeroCarre(unsigned char l, unsigned char c) const;
-
-  
 
 };
 

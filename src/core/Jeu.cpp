@@ -65,6 +65,7 @@ bool Jeu::genererGrillePleine(int etape)
 			}
 		}
 	}
+	return true;
 }
 
 void Jeu::remplirTblAlea(unsigned char *tab, unsigned char max){// remplit un tbl sur le tas de nombre alea entre 1 et MAX
@@ -84,8 +85,9 @@ void Jeu::remplirTblAlea(unsigned char *tab, unsigned char max){// remplit un tb
 	}
 }
 
-unsigned char Jeu::nombreDeSolutions(Grille &grille,unsigned char nbSolution) const
+unsigned char Jeu::nombreDeSolutions(Grille &grille) const
 {
+	unsigned char nbSolution =0;
 	//cout << "///////Etape: " << (int)nbSolution <<  endl;
 
 	unsigned char dimGrille = grille.dim;
@@ -114,7 +116,7 @@ unsigned char Jeu::nombreDeSolutions(Grille &grille,unsigned char nbSolution) co
 																		
 								}
 								else {
-									nbSolution = nbSolution + nombreDeSolutions(grille, 0);
+									nbSolution = nbSolution + nombreDeSolutions(grille);
 									//cout << "nb solution " << (int)nbSolution << endl;
 								}
 							}else {// cout << "Deja dans le carre" << endl; 
@@ -148,9 +150,9 @@ void Jeu::genererGrilleMinimale (){
 	unsigned char l,c,val;
 	
 	srand((unsigned int)time(NULL));// a mettre dans le main apres
-	unsigned char attempt = 20;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
+	unsigned char attempt = 5;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
 	unsigned char atp = attempt;//juste pour aficher le %
-	cout << "generation grille partielle" << endl << "0%" << endl;
+	//cout << "generation grille partielle" << endl << "0%" << endl;
 	while (attempt > 0) {
 		do {
 			l = rand() % 9 + 1;
@@ -162,11 +164,11 @@ void Jeu::genererGrilleMinimale (){
 			grilleJeu.grille.getCase(l - 1, c - 1).setVal(0); //on enlève la valeur
 			grilleJeu.grille.getCase(l - 1, c - 1).modifiable = true;
 			//cout << (int)nombreDeSolutions(grilleJeu) << endl;
-		} while (nombreDeSolutions(grilleJeu,0) == 1); // sort de la boucle dès qu'il y a plus d'une solution
+		} while (nombreDeSolutions(grilleJeu) == 1); // sort de la boucle dès qu'il y a plus d'une solution
 		grilleJeu.grille.getCase(l - 1, c - 1).setVal(val); //on remet la valeur d'avant pour retrouver le nbDeSol égal à 1
 		grilleJeu.grille.getCase(l - 1, c - 1).modifiable = false;
 		attempt--;
-		cout << (int)((atp - attempt) * 100 / atp) << "%" << endl;
+		//cout << (int)((atp - attempt) * 100 / atp) << "%" << endl;
 	}
 }
 
@@ -192,6 +194,8 @@ bool Jeu::verifGrillePleine(Grille &grille) const
 
 void Jeu::init()
 {
+	grilleSolution.viderGrille();
+	grilleJeu.viderGrille();
 	genererGrillePleine();
 	genererGrilleMinimale();
 }

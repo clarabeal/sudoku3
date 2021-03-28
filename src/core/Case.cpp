@@ -4,7 +4,7 @@ Case::Case() {
     l = 0;
     c = 0;
     carre = 0;
-    modifiable = true;
+    modifiable = false;
     val = 0;
 }
 

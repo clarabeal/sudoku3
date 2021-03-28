@@ -87,6 +87,7 @@ void TXT_Classique::boucle () {
 
             if (jeu.verifGrillePleine(jeu.grilleJeu)) {
                 stop = true;
+                termClear();
                 cout << "Grille remplie : partie terminee !" << endl<< "Votre grille:"<<endl;
                 jeu.grilleJeu.grille.print();
                 cout << endl;

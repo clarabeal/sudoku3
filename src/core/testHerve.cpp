@@ -30,10 +30,16 @@ int main() {
 	
 
 	Jeu grille(9);
-
-	grille.genererGrillePleine();
-	
-
+	grille.init();
+	cout << "la grille pleine :" << endl;
+	grille.grilleSolution.grille.print();
+	cout << "la grille minimale :" << endl;
+	grille.grilleJeu.grille.print();
+	grille.init();
+	cout << "la grille pleine :" << endl;
+	grille.grilleSolution.grille.print();
+	cout << "la grille minimale :" << endl;
+	grille.grilleJeu.grille.print();
 	/*srand((unsigned int)time(NULL));// a mettre dans le main apres
 
 	for (int i = 0; i < 60; i++) {//enleve 60 chiffres au hasard
@@ -45,13 +51,6 @@ int main() {
 	grille.grilleSolution.grille.print();
 	cout << "Nombre de solution differentes:" << endl;
 	cout << (int)grille.nombreDeSolutions() << endl;*/
-	cout << "la grille pleine :" << endl;
-	grille.grilleSolution.grille.print();
-	grille.genererGrilleMinimale();
-	cout << "la grille minimale :" << endl;
-	
-	grille.grilleJeu.grille.print();
-	cout << "nombre de solution: " << (int)grille.nombreDeSolutions(grille.grilleJeu, 0) << endl;
 	while (1); //pour pas fermer la fenêtre
 
 	return 0;

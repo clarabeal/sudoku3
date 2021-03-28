@@ -29,3 +29,8 @@ void Grille::setCase (unsigned char l, unsigned char c, unsigned char nb){ //on 
 
 }
 
+void Grille::viderGrille()
+{
+    grille.vider();
+}
+

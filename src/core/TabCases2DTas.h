@@ -48,6 +48,11 @@ public:
     */
 	void print() const;
 
+	/**
+	@brief Set toutes les cases du tableau a 0 et les rends non modifiable
+	*/
+	void vider();
+
 private:
 
 	/**

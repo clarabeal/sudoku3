@@ -36,7 +36,7 @@ void TXT_Classique::boucle () {
     
 
     bool stop = false; //boleen indiquant si la boucle de jeu doit continuer ou pas
-    unsigned char valeurEntree,l,c; //entier stockant les valeurs entrees en cin (valeur a placer et emplacement choisi par exemple)
+    int valeurEntree,l,c; //entier stockant les valeurs entrees en cin (valeur a placer et emplacement choisi par exemple)
 
     jeu.init();
 

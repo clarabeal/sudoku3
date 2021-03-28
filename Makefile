@@ -13,7 +13,7 @@ bin/testHerve : obj/testHerve.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o
 	g++ -g -Wall obj/testHerve.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/testHerve
 
 obj/main_txt_classique.o : src/txt/main_txt_classique.cpp src/txt/TXT_Classique.h
-	g++ -g -Wall -c src/txt/main_txt_classique.cpp -o obj/main_txt_classique.obj
+	g++ -g -Wall -c src/txt/main_txt_classique.cpp -o obj/main_txt_classique.o
 
 obj/TXT_Classique.o : src/txt/TXT_Classique.cpp src/txt/TXT_Classique.h src/core/Jeu.h
 	g++ -g -Wall -c src/txt/TXT_Classique.cpp -o obj/TXT_Classique.o

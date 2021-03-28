@@ -1,7 +1,7 @@
 #include "TXT_Classique.h"
 
 #include <iostream>
-#include "../core/GrilleDeJeu.h"
+#include "../core/Jeu.h"
 #include <stdlib.h>
 
 using namespace std;

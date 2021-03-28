@@ -205,5 +205,9 @@ bool Jeu::estValValide (unsigned char valeur) const {
 }
 
 bool Jeu::sontCorValides (unsigned char l, unsigned char c) const {
-	return ((l>0 && l<=grilleJeu.dim)&&(c>0 && c<=grilleJeu.dim)&&grilleSolution.grille.getCase(l-1,c-1).modifiable);
+	return ((l>0 && l<=grilleJeu.dim)&&(c>0 && c<=grilleJeu.dim)&&getModifCase(l,c));
+}
+
+bool Jeu::getModifCase (unsigned char l, unsigned char c) const {
+	return grilleJeu.grille.getCase(l-1,c-1).modifiable;
 }

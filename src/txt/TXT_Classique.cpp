@@ -50,7 +50,7 @@ void TXT_Classique::boucle () {
             cout<<"Quelle valeur voulez-vous placer ?"<< endl;
             cin >> valeurEntree;
 
-        } while (!jeu.estValValide(valeurEntree));//tant qu'elle n'est pas valide 
+        } while (!jeu.estValValide((unsigned char)valeurEntree));//tant qu'elle n'est pas valide 
 
         do {
             //saisie des coordonnees de la case ou on veut placer valeur
@@ -58,7 +58,7 @@ void TXT_Classique::boucle () {
             cin>>l;
             cout << "c : " << endl;
             cin >>c;
-        } while (!jeu.sontCorValides(l,c)); //verif coord ok et case vide
+        } while (!jeu.sontCorValides((unsigned char)l,(unsigned char)c)); //verif coord ok et case vide
 
         jeu.grilleJeu.setCase(l-1,c-1,valeurEntree); //on place la valeur dans la grille
 

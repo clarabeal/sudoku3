@@ -6,13 +6,14 @@ using namespace std;
 
 int main () {
 
-	unsigned char d;
-
+	int d;
+	//faire verification que ce nombre à une racine
 	cout << "Dimension ?" << endl;
 	cin >> d;
 	
-	TXT_Classique partieTxt(d);
-	partieTxt.boucle();
+	TXT_Classique partieTxt((unsigned char)d);
 	
+	partieTxt.boucle();
+
 	return 0;
 }

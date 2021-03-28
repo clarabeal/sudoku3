@@ -76,6 +76,12 @@ class Jeu {
     */
     bool sontCorValides (unsigned char l, unsigned char c) const;
 
+    /**
+    @brief Verifie si la case est modifiable
+    @details Retourne true si la case est modifiable, false sinon
+    */
+    bool getModifCase (unsigned char l, unsigned char c) const;
+
 private:
 
     /**

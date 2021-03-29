@@ -8,9 +8,9 @@
 #include <math.h>
 
 /**\class Carre
-\details La classe carre a pour but de faciliter les differents actions a effectuer sur la grille(au meme titre que les classes Ligne et colonne)
-La donne membre principale de la class est un tabelau de pointeur sur case. Dans l'exemple d'une grille de 9*9 case (voir ci dessous) Il s'agit d'un tableau de 3*3(En realite modelise sous la forme d'un tableau de 9 cases sur une dimension) .
-Lors de la construcion (ou juste apres l'exectution de remplir) chaque pointeur du tableau pointe vers la veleur associe dans la grille. 
+\details La classe Carre a pour but de faciliter les differents actions a effectuer sur la grille (au meme titre que les classes Ligne et Colonne)
+La donne membre principale de la class est un tabelau de pointeur sur case. Dans l'exemple d'une grille de 9*9 case (voir ci dessous), il s'agit d'un tableau de 3*3 (en realite modelise sous la forme d'un tableau de 9 cases sur une dimension).
+Lors de la construcion (ou juste apres l'exectution de remplir) chaque pointeur du tableau pointe vers la veleur associee dans la grille. 
 
 \image html numeroCaseLigneCol.png
 \see Ligne Colonne*/
@@ -19,11 +19,11 @@ class Carre
 public:
 	/**\brief Constructeur par defaut
 	\details Ne fait rien et n'a pas vocation a etre utilise seul
-	\warning La fonction remplir doit etre appele avant toute autre manipulation */
+	\warning La fonction remplir doit etre appelee avant toute autre manipulation */
 	Carre();
 
 	/**\brief Constructeur
-	\details Constructeur qui appel direcetement remplir
+	\details Constructeur qui appel directement remplir
 	\see remplir(unsigned char numeroCarre, TabCases2DTas& grille) */
 	Carre(unsigned char numeroCarre, TabCases2DTas& grille);
 

@@ -4,22 +4,22 @@ OBJ_DIR = obj/
 
 INCLUDE_DIR = -Isrc -Isrc/core -Isrc/txt
 
-all : bin/testHerve bin/txt_classique
+all : bin/test bin/main_txt
 
-bin/txt_classique : obj/main_txt_classique.o obj/TXT_Classique.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
-	g++ -g -Wall obj/main_txt_classique.o obj/TXT_Classique.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/txt_classique
+bin/main_txt : obj/main_txt.o obj/TXT_Classique.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
+	g++ -g -Wall obj/main_txt.o obj/TXT_Classique.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/main_txt
 
-bin/testHerve : obj/testHerve.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
-	g++ -g -Wall obj/testHerve.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/testHerve
+bin/test : obj/Test.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
+	g++ -g -Wall obj/Test.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/test
 
-obj/main_txt_classique.o : src/txt/main_txt_classique.cpp src/txt/TXT_Classique.h
-	g++ -g -Wall -c src/txt/main_txt_classique.cpp -o obj/main_txt_classique.o
+obj/main_txt.o : src/txt/main_txt.cpp src/txt/TXT_Classique.h
+	g++ -g -Wall -c src/txt/main_txt.cpp -o obj/main_txt.o
 
 obj/TXT_Classique.o : src/txt/TXT_Classique.cpp src/txt/TXT_Classique.h src/core/Jeu.h
 	g++ -g -Wall -c src/txt/TXT_Classique.cpp -o obj/TXT_Classique.o
 
-obj/testHerve.o : src/core/testHerve.cpp src/core/Jeu.h 
-	g++ -g -Wall -c src/core/testHerve.cpp -o obj/testHerve.o
+obj/Test.o : src/core/Test.cpp src/core/Jeu.h 
+	g++ -g -Wall -c src/core/Test.cpp -o obj/Test.o
 
 obj/Jeu.o : src/core/Jeu.cpp src/core/Jeu.h src/core/Grille.h
 	g++ -g -Wall -c src/core/Jeu.cpp -o obj/Jeu.o

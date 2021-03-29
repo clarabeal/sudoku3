@@ -1,4 +1,4 @@
-/*#include "Jeu.h"
+#include "Jeu.h"
 
 using namespace std;
 int main() {
@@ -23,7 +23,7 @@ int main() {
 		Ligne li(i, tab);
 		li.print();
 	
-	}
+	}*/
 	
 	
 
@@ -40,7 +40,7 @@ int main() {
 	grille.grilleSolution.grille.print();
 	cout << "la grille minimale :" << endl;
 	grille.grilleJeu.grille.print();
-	/*srand((unsigned int)time(NULL));// a mettre dans le main apres
+	srand((unsigned int)time(NULL));// a mettre dans le main apres
 
 	for (int i = 0; i < 60; i++) {//enleve 60 chiffres au hasard
 		grille.grilleSolution.grille.getCase((rand() % 9), (rand() % 9)).setVal(0);
@@ -50,8 +50,8 @@ int main() {
 
 	grille.grilleSolution.grille.print();
 	cout << "Nombre de solution differentes:" << endl;
-	cout << (int)grille.nombreDeSolutions() << endl;
+	cout << (int)grille.nombreDeSolutions(grille.grilleJeu) << endl;
 	while (1); //pour pas fermer la fenêtre
 
 	return 0;
-}*/
+}

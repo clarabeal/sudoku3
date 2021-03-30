@@ -50,7 +50,6 @@ void TXT_Classique::boucle () {
             cout<<"Quelle valeur voulez-vous placer ? | Menu | Recommencer: " << jeu.grilleJeu.dim + 1 << ", Generer une nouv. grille: "<< jeu.grilleJeu.dim + 2 <<", Abandonner: "<< jeu.grilleJeu.dim + 3<< endl;
             cin >> valeurEntree;
             if (!jeu.estValValide((unsigned char)valeurEntree)) {
-                termClear();
                 if (valeurEntree == jeu.grilleJeu.dim + 1) {
                     jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
                     termClear();

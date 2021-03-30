@@ -4,7 +4,7 @@
 #include <math.h>
 using namespace std;
 
-Jeu::Jeu(unsigned char d): grilleSolution(d), grilleJeu(d), grilleOriginale(d){
+Jeu::Jeu(unsigned char d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
 
 }
 

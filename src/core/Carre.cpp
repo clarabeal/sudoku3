@@ -26,7 +26,7 @@ bool Carre::isIn(unsigned char val)
 }
 
 
-Carre::Carre():valide(1),tailleCarre(0),tailleGrille(0)
+Carre::Carre():valide(1),tailleGrille(0),tailleCarre(0)
 {
 	tabc = NULL;
 }

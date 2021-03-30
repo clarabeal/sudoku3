@@ -72,7 +72,7 @@ void TXT_Classique::boucle () {
                 valeurEntree = 0;
             }
            
-        } while (!jeu.estValValide((unsigned char)valeurEntree));//tant qu'elle n'est pas valide 
+        } while (!jeu.estValValide((unsigned char)valeurEntree) && !stop);//tant qu'elle n'est pas valide 
         if (!stop) {
             do {
                 //saisie des coordonnees de la case ou on veut placer valeur

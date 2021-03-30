@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['val',['val',['../class_case.html#af9cacc48174f03db6d343d2330d42ff5',1,'Case']]],
-  ['valide',['valide',['../class_carre.html#a7f2fb6cbd65d9db98de47b9f1a9fbdc5',1,'Carre::valide()'],['../class_colonne.html#ad98004d5025237ba783196cb169f0224',1,'Colonne::valide()'],['../class_ligne.html#a12b31ff8b9848c67905c2fe60e621630',1,'Ligne::valide()']]]
+  ['print_55',['print',['../class_carre.html#a060a3194b28fff9dbed3f3390ec466f0',1,'Carre::print()'],['../class_colonne.html#a3a27aa6eab7c67ef8dc55fbdbf1d8866',1,'Colonne::print()'],['../class_ligne.html#a2bb92a85a3c94ac4082bfef19ba54e52',1,'Ligne::print()'],['../class_tab_cases2_d_tas.html#af0973461c28ba8abc89f04f3fc485898',1,'TabCases2DTas::print()']]]
 ];

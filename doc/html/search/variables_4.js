@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['modifiable',['modifiable',['../class_case.html#a5aa823e54cd365cb8a0d4f386297d6d5',1,'Case']]]
+  ['jeu_173',['jeu',['../class_t_x_t___classique.html#afaf88b53302a7abd45d5dd9d56a0a385',1,'TXT_Classique']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['setcase',['setCase',['../class_grille.html#a1df0744eb05508eded59fea19c45c090',1,'Grille']]],
-  ['setval',['setVal',['../class_case.html#ae432f2256ae32a004a81cb45e53c3429',1,'Case']]]
+  ['nberreurs_138',['nbErreurs',['../class_jeu.html#add49792d10895dfecf6833697ca04efd',1,'Jeu']]],
+  ['nombredesolutions_139',['nombreDeSolutions',['../class_jeu.html#ab5206b8df6bfffdcccab3b77d328272a',1,'Jeu']]]
 ];

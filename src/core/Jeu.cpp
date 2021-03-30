@@ -151,7 +151,7 @@ void Jeu::genererGrilleMinimale (){
 	
 	srand((unsigned int)time(NULL));// a mettre dans le main apres
 	unsigned char attempt = dimGrille;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
-	unsigned char atp = attempt;//juste pour aficher le %
+	//unsigned char atp = attempt;//juste pour aficher le %
 	//cout << "generation grille partielle" << endl << "0%" << endl;
 	while (attempt > 0) {
 		do {

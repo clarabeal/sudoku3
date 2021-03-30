@@ -1,4 +1,6 @@
 #include "TXT_Classique.h"
+#include "TXT_PasAPas.h"
+
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
@@ -21,7 +23,11 @@ int main () {
 			partieTxt.boucle();
 		}
 		else {
-			cout << "Mode de jeu indisponible" << endl;
+			cout << "Mode de jeu en debug" << endl;
+
+			TXT_PasAPas partieTxt((unsigned char)d);
+			//partieTxt.boucle();
+			partieTxt. boucleTest();
 		}
 
 		cout << endl << "Voulez-vous rejouer? | Oui: 1, Non: 0" << endl;

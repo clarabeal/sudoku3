@@ -4,14 +4,14 @@
 using namespace std;
 
 TXT_PasAPas::TXT_PasAPas(unsigned char d): jeu(d) {
-
+    tabDiffCase = new unsigned char[d*d];
 }
 
 TXT_PasAPas::~TXT_PasAPas() {
-
+    delete []tabDiffCase;
 }
 
-void termClear()  // efface le terminal
+void TXT_PasAPas::termClear()  // efface le terminal
 {
 #ifdef _WIN32
     system("cls");
@@ -26,7 +26,7 @@ void TXT_PasAPas::boucle() {
    // On cree une grille de jeu
     //Dans la boucle :
    // On affiche la grille de jeu
-    //Tant que la grille n'est pas pleine ou que l'utilisateur ne veut pas quitter
+    //Tant que la grille n'est pas pleine ou que li'utilisateur ne veut pas quitter
     //Systeme de question reponse : quelle nb placer? a quelle coordonnées?
     //Grille pleine on compare a la grille solution et on indique le nb d'erreurs
     
@@ -108,5 +108,72 @@ void TXT_PasAPas::boucle() {
         }
 
     } while (!stop);
+
+}
+
+void TXT_PasAPas::boucleTest()
+{
+    jeu.init();
+    jeu.grilleJeu.grille.print();
+    unsigned char l, c;
+    coordCaseSimple(l, c);
+    cout << " la (premiere) case la plus simple se trouve aux coordonees: " << (int) l << " " << (int)c << endl;
+    int a;
+    cin >> a;
+
+}
+
+void TXT_PasAPas::updateDiffCase()
+{
+    unsigned char dimGrille = jeu.grilleJeu.dim;
+    for (unsigned char li = 1; li <= dimGrille; ++li) {
+        for (unsigned char co = 1; co <= dimGrille; ++co) {
+            unsigned char scoreLi = 1;
+            unsigned char scoreCol = 1;
+            unsigned char scoreCar = 1;
+
+            for (unsigned char i = 0; i < dimGrille; i++) {
+                if (jeu.grilleJeu.lignes[li-1].tabl[i]->getVal() == jeu.grilleSolution.lignes[li-1].tabl[i]->getVal()) {
+                    scoreLi = scoreLi * 2;
+                }
+                if (jeu.grilleJeu.colonnes[co-1].tabcl[i]->getVal() == jeu.grilleSolution.colonnes[co-1].tabcl[i]->getVal()) {
+                    scoreCol = scoreCol * 2;
+                }
+                if (jeu.grilleJeu.carres[jeu.trouverNumeroCarre(li, co)-1].tabc[i]->getVal() == jeu.grilleSolution.carres[jeu.trouverNumeroCarre(li, co)-1].tabc[i]->getVal()) {
+                    scoreCar  = scoreCar * 2;
+                }
+            }
+            tabDiffCase[(co - 1) * dimGrille + (li - 1)] = scoreCar + scoreCol + scoreLi;
+            //std::cout << "La case " << (int)li << " " << (int)co << " a un score de: " << (int)tabDiffCase[(co - 1) * dimGrille + (li - 1)] << endl;
+
+        }
+    }
+}
+
+unsigned char TXT_PasAPas::getDiffCase(unsigned char l, unsigned char c)
+{
+    unsigned char dimGrille = jeu.grilleJeu.dim;
+    return tabDiffCase[(c - 1) * dimGrille + (l - 1)];
+}
+
+void TXT_PasAPas::coordCaseSimple(unsigned char &l, unsigned char &c)
+{
+    unsigned char dimGrille = jeu.grilleJeu.dim;
+    updateDiffCase();
+    unsigned char l_f = 1;
+    unsigned char c_f = 1;
+    unsigned char max = getDiffCase(1, 1);
+    for (unsigned char li = 2; li <= dimGrille; ++li) {
+        for (unsigned char co = 2; co <= dimGrille; ++co) {
+            unsigned char value = getDiffCase(li, co);
+            if (value > max) {
+                max = getDiffCase(li, co);
+                l_f = li;
+                c_f = co;
+            }
+        }
+    }
+    l = l_f;
+    c = c_f;
 
 }

@@ -93,13 +93,14 @@ class Jeu {
     */
     unsigned int nbErreurs () const;
 
-private:
-
     /**
     @brief Determine dans quel carre de la grille se trouve la case [l][c]
     @details Retourne l'indice du carre dans lequel se trouve la case
     */
     unsigned char trouverNumeroCarre(unsigned char l, unsigned char c) const;
+private:
+
+    
 
 };
 

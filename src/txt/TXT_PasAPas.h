@@ -15,8 +15,15 @@ public:
 	*/
 	void boucle();
 
+	void boucleTest();
+
+	void updateDiffCase();
+	unsigned char getDiffCase(unsigned char l, unsigned char c);
+	void coordCaseSimple(unsigned char &l, unsigned char &c);
+	unsigned char* tabDiffCase;
 private:
 	Jeu jeu;
+	void termClear();
 };
 
 

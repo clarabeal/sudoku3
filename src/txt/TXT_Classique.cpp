@@ -69,7 +69,7 @@ void TXT_Classique::boucle () {
                     //on affiche la solution et la grille remplie par le joueur côte à côte
                     stop = true;
                 }
-                valeurEntree = 0;
+                valeurEntree = 0; //je crois que le problème de boucle infini quand on met un caractere est tjs present
             }
            
         } while (!jeu.estValValide((unsigned char)valeurEntree) && !stop);//tant qu'elle n'est pas valide 

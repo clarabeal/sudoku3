@@ -27,7 +27,7 @@ int main () {
 
 			TXT_PasAPas partieTxt((unsigned char)d);
 			//partieTxt.boucle();
-			partieTxt. boucleTest();
+			partieTxt.boucleTest();
 		}
 
 		cout << endl << "Voulez-vous rejouer? | Oui: 1, Non: 0" << endl;

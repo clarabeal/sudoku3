@@ -31,5 +31,4 @@ private:
 	void termClear();
 };
 
-
 #endif

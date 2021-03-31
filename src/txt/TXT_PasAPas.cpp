@@ -23,7 +23,8 @@ void TXT_PasAPas::termClear()  // efface le terminal
 void TXT_PasAPas::boucle() {
 
     bool stop = false; //booleen indiquant si la boucle de jeu doit continuer ou pas
-    int valeur,nbAide,l,c;
+    int valeur, nbAide;
+    unsigned char l,c;
 
     jeu.init();
     do {

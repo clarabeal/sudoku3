@@ -41,7 +41,7 @@ void TXT_PasAPas::boucle() {
         if(nbAide==0){
             //donne les coordonnées de la case la plus simple à trouver
             aideCoor=true;
-            coordCaseSimple(l,c);
+            //coordCaseSimple(l,c);
         } 
         else if (nbAide==1){
 
@@ -59,7 +59,7 @@ void TXT_PasAPas::boucle() {
                     aideRemplir=true; //aide à savoir si la valeur à été placée (peut être créer un autre booléen)
                 }
 
-            } while (aideRemplir = false);
+            } while (aideRemplir == false);
 
         }
 
@@ -109,6 +109,7 @@ void TXT_PasAPas::boucleTest()
     jeu.grilleJeu.grille.print();
     unsigned char l, c;
     coordCaseSimple(l, c);
+    printTabDiff();
     cout << " la (premiere) case la plus simple se trouve aux coordonees: " << (int) l << " " << (int)c << endl;
     int a;
     cin >> a;
@@ -168,4 +169,13 @@ void TXT_PasAPas::coordCaseSimple(unsigned char &l, unsigned char &c)
     l = l_f;
     c = c_f;
 
+}
+
+void TXT_PasAPas::printTabDiff() const {
+
+    for(int l=0;l<jeu.grilleJeu.dim;l++){
+        for(int c=0;c<jeu.grilleJeu.dim;c++){
+            cout << "tabDiffCase[" << l+1 << "][" << c+1 << "] = " << (int)tabDiffCase[c*jeu.grilleJeu.dim+l] << endl;
+        }
+    }
 }

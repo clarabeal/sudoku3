@@ -80,7 +80,7 @@ void TXT_Classique::boucle () {
                 cin >> l;
                 cout << "c : " << endl;
                 cin >> c;
-            } while (!jeu.sontCorValides((unsigned char)l, (unsigned char)c)); //verif coord ok et case vide
+            } while (!jeu.sontCorValides((unsigned char)l, (unsigned char)c)); //verif coord ok et case modifiable
 
             jeu.grilleJeu.setCase(l - 1, c - 1, valeurEntree); //on place la valeur dans la grille
 

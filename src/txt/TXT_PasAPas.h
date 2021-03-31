@@ -27,7 +27,7 @@ public:
 
 private:
 	Jeu jeu;
-	
+
 	void termClear();
 };
 

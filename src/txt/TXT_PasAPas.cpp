@@ -35,6 +35,7 @@ void TXT_PasAPas::boucle() {
         
         bool aideRemplir = false; //booleen indiquant si le joueur a besoin d'aide pour que le solveur remplisse une case à sa place (case au hasard ou la plus facile à placer?)
         bool aideCoor = false;
+        bool valValide = false;
 
         do{
             cout <<"Quelle valeur voulez-vous placer ? | Aide pour remplir une case : " << jeu.grilleJeu.dim+1 << ", Aide pour position case : " << jeu.grilleJeu.dim+2 << endl;
@@ -58,10 +59,7 @@ void TXT_PasAPas::boucle() {
             }
             else if (valeur==jeu.grilleJeu.dim+1){
 
-                cout << "rentre dans la boucle" << endl;
-
                 do{ //remplit une case au hasard
-                    cout << "rentre dans le do" << endl;
 
                     l = rand() % jeu.grilleJeu.dim + 1;
 			        c = rand() % jeu.grilleJeu.dim + 1;
@@ -71,16 +69,17 @@ void TXT_PasAPas::boucle() {
 			        valeur = jeu.grilleJeu.grille.getCase(l - 1, c - 1).getVal();
 
                     if (valeur==0){ //place la valeur si la case est vide
-                        cout <<"Case vide" << endl;
                         jeu.grilleJeu.setCase(l - 1, c - 1, jeu.grilleSolution.grille.getCase(l - 1, c - 1).getVal());
                         aideRemplir=true; //aide à savoir si la valeur à été placée
                     }
 
                 } while (aideRemplir == false);
-
+            }
+            else if(jeu.estValValide((unsigned char)valeur)){
+                valValide=true;
             }
 
-        } while(!jeu.estValValide((unsigned char)valeur)|| aideRemplir || aideCoor);
+        } while(!valValide && !aideRemplir && !aideCoor);
         
 
         if(!aideRemplir && !aideCoor){ //pas besoin de saisir une valeur et des coordonnées si le joueur a utilise l'aide

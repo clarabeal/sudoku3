@@ -24,85 +24,89 @@ void TXT_PasAPas::termClear()  // efface le terminal
 void TXT_PasAPas::boucle() {
 
     bool stop = false; //booleen indiquant si la boucle de jeu doit continuer ou pas
-    int valeur, nbAide;
-    unsigned char l,c;
-    bool aideCoor = false; //booleen indiquant si le joueur a besoin d'aide pour trouver la case la plus facile à remplir
+    int valeur;
+    int l,c;
 
     jeu.init();
+
     do {
         termClear();
-        
         jeu.grilleJeu.grille.print();
-        if (aideCoor) {
-            coordCaseSimple(l, c);
-            printTabDiff();
-            cout << "[" << (int)l << "][" << (int)c << "] est facile a remplir" << endl;
-        }
+        
         bool aideRemplir = false; //booleen indiquant si le joueur a besoin d'aide pour que le solveur remplisse une case à sa place (case au hasard ou la plus facile à placer?)
+        bool aideCoor = false;
 
-        cout <<"Voulez-vous savoir quelle case est la plus facile à poser ou que le solveur remplisse une case? | Position Case : 0, Remplir une case : 1" << endl;
-        cin >> nbAide;
-
-        if(nbAide==0){
-            //donne les coordonnées de la case la plus simple à trouver
-            aideCoor = !aideCoor;
-           
-        }
-        else if (nbAide==1){
-
-            do{ //remplit une case au hasard
-
-                l = rand() % jeu.grilleJeu.dim + 1;
-			    c = rand() % jeu.grilleJeu.dim + 1;
-
-			    cout << "l : " << l << " c : " << c << endl; //pour vérifier que les coordonnées sont bonnes
-
-			    valeur = jeu.grilleJeu.grille.getCase(l - 1, c - 1).getVal();
-
-                if (valeur==0){ //place la valeur si la case est vide
-                    jeu.grilleJeu.setCase(l - 1, c - 1, jeu.grilleSolution.grille.getCase(l - 1, c - 1).getVal());
-                    aideRemplir=true; //aide à savoir si la valeur à été placée (peut être créer un autre booléen)
-                }
-
-            } while (aideRemplir == false);
-
-        }
-
-        if(nbAide > 1){ //pas besoin de saisir une valeur si le joueur a utilise l'aide
-            do { 
-            //saisie de la valeur à placer 
-            cout<< "Quelle valeur voulez-vous placer ?" << endl;
+        do{
+            cout <<"Quelle valeur voulez-vous placer ? | Aide pour remplir une case : " << jeu.grilleJeu.dim+1 << ", Aide pour position case : " << jeu.grilleJeu.dim+2 << endl;
             cin >> valeur;
-            } while (!jeu.estValValide((unsigned char)valeur) && !stop);//tant qu'elle n'est pas valide, que le joueur n'a pas dit stop 
-        }
 
+            if(valeur==jeu.grilleJeu.dim+2){
+                //donne les coordonnées de la case la plus simple à trouver
+                cout << "rentre dans la boucle" << endl;
+                //coordCaseSimple((unsigned char)l, (unsigned char)c);
+                printTabDiff();
+                cout << "[" << l << "][" << c << "] est facile a remplir" << endl;
 
-        if (!stop) {
+                do{
+                    cout << "Quelle valeur voulez-vous mettre à cette position?"<< endl;
+                    cin >> valeur;
 
-            if(nbAide > 1){ //pas besoin de saisir des coordonnees si le joueur a utilise l'aide
-                do {
-                    //saisie des coordonnees de la case ou on veut placer valeur si on a pas utilise l'aide
-                    cout << "Ou voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
-                    cin >> l;
-                    cout << "c : " << endl;
-                    cin >> c;
-                } while (!jeu.sontCorValides(l, c)); //verif coord ok et case modifiable
-            }    
+                } while (!jeu.estValValide((unsigned char)valeur)); //tant que la valeur n'est pas valide
 
-            if(nbAide > 1){ //pas besoin de remplir une case qd le joueur a utilise l'aide du solveur
-                jeu.grilleJeu.setCase(l - 1, c - 1, valeur); //on place la valeur dans la grille
+                aideCoor = true;
+
+            }
+            else if (valeur==jeu.grilleJeu.dim+1){
+
+                cout << "rentre dans la boucle" << endl;
+
+                do{ //remplit une case au hasard
+                    cout << "rentre dans le do" << endl;
+
+                    l = rand() % jeu.grilleJeu.dim + 1;
+			        c = rand() % jeu.grilleJeu.dim + 1;
+
+                    cout << "l :" << l << "c :" << c << endl;
+
+			        valeur = jeu.grilleJeu.grille.getCase(l - 1, c - 1).getVal();
+
+                    if (valeur==0){ //place la valeur si la case est vide
+                        cout <<"Case vide" << endl;
+                        jeu.grilleJeu.setCase(l - 1, c - 1, jeu.grilleSolution.grille.getCase(l - 1, c - 1).getVal());
+                        aideRemplir=true; //aide à savoir si la valeur à été placée
+                    }
+
+                } while (aideRemplir == false);
+
             }
 
-            if (jeu.verifGrillePleine(jeu.grilleJeu)) {
-                stop = true;
-                termClear();
-                cout << "Grille remplie : partie terminee !" << endl<< "Votre grille:"<<endl;
-                jeu.grilleJeu.grille.print();
-                cout << endl;
-                cout << "Grille solution :" << endl;
-                jeu.grilleSolution.grille.print();
-            }
+        } while(!jeu.estValValide((unsigned char)valeur)|| aideRemplir || aideCoor);
+        
+
+        if(!aideRemplir && !aideCoor){ //pas besoin de saisir une valeur et des coordonnées si le joueur a utilise l'aide
+            do {
+                //saisie des coordonnees de la case ou on veut placer valeur si on a pas utilise l'aide
+                cout << "Où voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
+                cin >> l;
+                cout << "c : " << endl;
+                cin >> c;
+            } while (!jeu.sontCorValides(l, c)); //verif coord ok et case modifiable
+        }  
+
+        if(!aideRemplir){ //pas besoin de remplir une case qd le joueur a utilise l'aide du solveur (aide 0)
+            jeu.grilleJeu.setCase(l - 1, c - 1, valeur); //on place la valeur dans la grille
         }
+
+        if (jeu.verifGrillePleine(jeu.grilleJeu)) {
+            stop = true;
+            termClear();
+            cout << "Grille remplie : partie terminee !" << endl<< "Votre grille:"<<endl;
+            jeu.grilleJeu.grille.print();
+            cout << endl;
+            cout << "Grille solution :" << endl;
+            jeu.grilleSolution.grille.print();
+        }
+        
 
     } while (!stop);
 
@@ -115,9 +119,7 @@ void TXT_PasAPas::boucleTest()
     unsigned char l, c;
     coordCaseSimple(l, c);
     printTabDiff();
-    cout << " la (premiere) case la plus simple se trouve aux coordonees: " << (int) l << " " << (int)c << endl;
-    int a;
-    cin >> a;
+    cout << "La premiere case la plus simple se trouve aux coordonees: " << (int) l << " " << (int)c << endl;
 
 }
 

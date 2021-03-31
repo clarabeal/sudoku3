@@ -76,7 +76,7 @@ void TXT_Classique::boucle () {
         if (!stop) {
             do {
                 //saisie des coordonnees de la case ou on veut placer valeur
-                cout << "Ou voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
+                cout << "Où voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
                 cin >> l;
                 cout << "c : " << endl;
                 cin >> c;

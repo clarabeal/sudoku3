@@ -16,14 +16,14 @@ int main () {
 			cin >> d;
 		} while (((float)((float)sqrt(d) - (int)sqrt(d)) != 0.0) || d == 1);
 
-		cout << "Quel mode de jeu voulez-vous? | Mode de jeu classique: 1, Mode de Jeu pas a pas: 2, mode de jeu chrono 1 vs 1: 3" << endl;
+		cout << "Quel mode de jeu voulez-vous? | Mode de jeu classique: 1, Mode de Jeu pas a pas: 2, Mode de jeu chrono 1 vs 1: 3" << endl;
 		cin >> mode;
 		if (mode == 1) {
 			TXT_Classique partieTxt((unsigned char)d);
 			partieTxt.boucle();
 		}
 		else {
-			cout << "Mode de jeu en debug" << endl;
+			//cout << "Mode de jeu en debug" << endl;
 
 			TXT_PasAPas partieTxt((unsigned char)d);
 			partieTxt.boucle();

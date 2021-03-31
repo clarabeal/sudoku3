@@ -23,6 +23,8 @@ public:
 
 	void coordCaseSimple(unsigned char &l, unsigned char &c);
 
+	void printTabDiff()const;
+
 	unsigned char* tabDiffCase;
 
 private:

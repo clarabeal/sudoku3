@@ -5,14 +5,14 @@
 using namespace std;
 
 TXT_PasAPas::TXT_PasAPas(unsigned char d): jeu(d) {
-    tabDiffCase = new unsigned char[d*d];
+    tabDiffCase = new unsigned char[2*d*d];
 }
 
 TXT_PasAPas::~TXT_PasAPas() {
     delete []tabDiffCase;
 }
 
-void TXT_PasAPas::termClear()  // efface le terminal
+void TXT_PasAPas::termClear() const  // efface le terminal
 {
 #ifdef _WIN32
     system("cls");
@@ -22,7 +22,7 @@ void TXT_PasAPas::termClear()  // efface le terminal
 }
 
 void TXT_PasAPas::boucle() {
-
+    unsigned char dimGrille = jeu.grilleJeu.dim;
     bool stop = false; //booleen indiquant si la boucle de jeu doit continuer ou pas
     int valeur;
     int l,c;
@@ -38,46 +38,90 @@ void TXT_PasAPas::boucle() {
         bool valValide = false;
 
         do{
-            cout <<"Quelle valeur voulez-vous placer ? | Aide pour remplir une case : " << jeu.grilleJeu.dim+1 << ", Aide pour position case : " << jeu.grilleJeu.dim+2 << endl;
+            cout <<"Quelle valeur voulez-vous placer ? | Menu: " << jeu.grilleJeu.dim+1  << endl;
             cin >> valeur;
+            if(valeur == jeu.grilleJeu.dim + 1){
+                unsigned char menuRes = menu();
+                if (menuRes == 0) {
+                    //donne les coordonnées de la case la plus simple à trouver
+                    //cout << "rentre dans la boucle" << endl;
+                    unsigned char l_simple, c_simple;
+                    coordCaseSimple(l_simple, c_simple);
+                    l = (int)l_simple;
+                    c = (int)c_simple;
+                    //printTabDiff();
+                    cout << "[" << l << "][" << c << "] est facile a remplir il n'y a que " << dimGrille - tabDiffCase[(c - 1) * dimGrille + (l - 1)] << " possibilite(s)" <<   endl;
+                    bool stop_place_chiffre_facile = false;
+                    do {
+                        cout << "Quelle valeur voulez-vous mettre a cette position? | Annuler : " << jeu.grilleJeu.dim + 1 << endl;
+                        cin >> valeur;
+                        if (valeur == jeu.grilleJeu.dim + 1){
+                            stop_place_chiffre_facile = true;
+                            aideCoor = true;
+                            termClear();
+                            jeu.grilleJeu.grille.print();
+                            cout << "[" << l << "][" << c << "] est facile a remplir il n'y a que " << dimGrille - tabDiffCase[(c - 1) * dimGrille + (l - 1)] << " possibilite(s)" << endl;
+                        }
 
-            if(valeur==jeu.grilleJeu.dim+2){
-                //donne les coordonnées de la case la plus simple à trouver
-                cout << "rentre dans la boucle" << endl;
-                //coordCaseSimple((unsigned char)l, (unsigned char)c);
-                printTabDiff();
-                cout << "[" << l << "][" << c << "] est facile a remplir" << endl;
+                    } while (!jeu.estValValide((unsigned char)valeur) && !stop_place_chiffre_facile); //tant que la valeur n'est pas valide
 
-                do{
-                    cout << "Quelle valeur voulez-vous mettre à cette position?"<< endl;
-                    cin >> valeur;
+                    aideCoor = !aideCoor;
 
-                } while (!jeu.estValValide((unsigned char)valeur)); //tant que la valeur n'est pas valide
+                }
+                else if (menuRes == 1) {
 
-                aideCoor = true;
+                    do { //remplit une case au hasard
 
+                        l = rand() % jeu.grilleJeu.dim + 1;
+                        c = rand() % jeu.grilleJeu.dim + 1;
+
+                        cout << "l :" << l << "c :" << c << endl;
+
+                        valeur = jeu.grilleJeu.grille.getCase(l - 1, c - 1).getVal();
+
+                        if (valeur == 0) { //place la valeur si la case est vide
+                            jeu.grilleJeu.setCase(l - 1, c - 1, jeu.grilleSolution.grille.getCase(l - 1, c - 1).getVal());
+                            aideRemplir = true; //aide à savoir si la valeur à été placée
+                        }
+
+                    } while (aideRemplir == false);
+                    jeu.grilleJeu.grille.getCase(l - 1, c - 1).modifiable = false;
+                    cout << "[" << l << "][" << c << "] a été remplit automatiquement" << endl;
+                }
+                else if (menuRes == 2) {
+                    jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
+                    termClear();
+                    jeu.grilleJeu.grille.print();
+                }
+                else if (menuRes == 3) {
+                    jeu.init();
+                    termClear();
+                    jeu.grilleJeu.grille.print();
+                }
+                else if (menuRes == 4) {
+                    termClear();
+                    cout << "ABANDON: partie terminee !" << endl << "Votre Grille: " << endl;
+                    jeu.grilleJeu.grille.print();
+                    cout << endl;
+                    cout << "Grille solution :" << endl;
+                    jeu.grilleSolution.grille.print();
+                    //on affiche la solution et la grille remplie par le joueur côte à côte
+                    stop = true;
+                    aideRemplir = true;//on skip tout le reste du programme en faisant comme si une case avait etait placé aléatoirement
+                }
+                else if (menuRes == 5) {
+                    retirerCasesFausses();
+                    termClear();
+                    jeu.grilleJeu.grille.print();
+                    cout << "Les cases fausses ont ete retirees!"<< endl;
+                    cout << endl;
+                }
+                
             }
-            else if (valeur==jeu.grilleJeu.dim+1){
-
-                do{ //remplit une case au hasard
-
-                    l = rand() % jeu.grilleJeu.dim + 1;
-			        c = rand() % jeu.grilleJeu.dim + 1;
-
-                    cout << "l :" << l << "c :" << c << endl;
-
-			        valeur = jeu.grilleJeu.grille.getCase(l - 1, c - 1).getVal();
-
-                    if (valeur==0){ //place la valeur si la case est vide
-                        jeu.grilleJeu.setCase(l - 1, c - 1, jeu.grilleSolution.grille.getCase(l - 1, c - 1).getVal());
-                        aideRemplir=true; //aide à savoir si la valeur à été placée
-                    }
-
-                } while (aideRemplir == false);
+            else if (jeu.estValValide((unsigned char)valeur)) {
+                valValide = true;
             }
-            else if(jeu.estValValide((unsigned char)valeur)){
-                valValide=true;
-            }
+           
 
         } while(!valValide && !aideRemplir && !aideCoor);
         
@@ -85,7 +129,7 @@ void TXT_PasAPas::boucle() {
         if(!aideRemplir && !aideCoor){ //pas besoin de saisir une valeur et des coordonnées si le joueur a utilise l'aide
             do {
                 //saisie des coordonnees de la case ou on veut placer valeur si on a pas utilise l'aide
-                cout << "Où voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
+                cout << "Ou voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
                 cin >> l;
                 cout << "c : " << endl;
                 cin >> c;
@@ -99,7 +143,7 @@ void TXT_PasAPas::boucle() {
         if (jeu.verifGrillePleine(jeu.grilleJeu)) {
             stop = true;
             termClear();
-            cout << "Grille remplie : partie terminee !" << endl<< "Votre grille:"<<endl;
+            cout << "Grille remplie : partie terminee !" << endl<< "Votre <grille:"<<endl;
             jeu.grilleJeu.grille.print();
             cout << endl;
             cout << "Grille solution :" << endl;
@@ -109,6 +153,31 @@ void TXT_PasAPas::boucle() {
 
     } while (!stop);
 
+}
+
+unsigned char TXT_PasAPas::menu() const {
+    int value;
+
+    do {
+    termClear();
+    jeu.grilleJeu.grille.print();
+    cout << "||||||||||||||||||||||||||||| MENU | SUDOKU 3 ||||||||||||||||||||||||||||||" << endl;
+    cout << "||                                                                        ||" << endl;
+    cout << "|| 0: Obtenir les coor. de la case la plus simple                         ||" << endl;
+    cout << "|| 1: Remplit une case (vide) au hasard pour vous                         ||" << endl;
+    cout << "|| 2: Recommencer la meme grille                                          ||" << endl;
+    cout << "|| 3: Generer une nouvelle gille                                          ||" << endl;
+    cout << "|| 4: Abandonner la partie et afficher la solution                        ||" << endl;
+    cout << "|| 5: Enlever les cases fausses                                           ||" << endl;
+    cout << "|| 6: Retour au jeu                                                       ||" << endl;
+    cout << "||                                                                        ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cin >> value;
+    } while (value < 0 || value > 6);
+
+    termClear();
+    jeu.grilleJeu.grille.print();
+    return value;
 }
 
 void TXT_PasAPas::boucleTest()
@@ -122,12 +191,12 @@ void TXT_PasAPas::boucleTest()
 
 }
 
-void TXT_PasAPas::updateDiffCase()
-{
+void TXT_PasAPas::updateDiffCase(){
     unsigned char dimGrille = jeu.grilleJeu.dim;
     for (unsigned char li = 1; li <= dimGrille; ++li) {
         for (unsigned char co = 1; co <= dimGrille; ++co) {
-            if (jeu.grilleJeu.grille.getCase(li-1, co-1).getVal() == 0) {
+            if (jeu.grilleJeu.grille.getCase(li-1, co-1).getVal() == 0 || jeu.grilleSolution.grille.getCase(li - 1, co - 1).getVal() != jeu.grilleJeu.grille.getCase(li - 1, co - 1).getVal()) {
+                // Verison nombre total indices l/c/carre
                 unsigned char scoreLi = 1;
                 unsigned char scoreCol = 1;
                 unsigned char scoreCar = 1;
@@ -143,8 +212,32 @@ void TXT_PasAPas::updateDiffCase()
                         scoreCar = scoreCar * 2;
                     }
                 }
-                tabDiffCase[(co - 1) * dimGrille + (li - 1)] = scoreCar + scoreCol + scoreLi;
+                tabDiffCase[(co - 1) * dimGrille + (li - 1) + dimGrille* dimGrille] = scoreCar + scoreCol + scoreLi;
                 //std::cout << "La case " << (int)li << " " << (int)co << " a un score de: " << (int)tabDiffCase[(co - 1) * dimGrille + (li - 1)] << endl;
+
+                //version nombre d'indice different
+                bool *liste_val = new bool[dimGrille];//les valeur a true sont les valeurs possible pour la case (liste_val[0] == true veux dire que 1 est une valeur possible, liste_val[1] == false veux dire que 2 n'est pas  une valeur possible...)
+                for (unsigned char i = 0; i < dimGrille; i++) {
+                    liste_val[i] = true;
+                }
+                for (unsigned char i = 0; i < dimGrille; i++) {
+                    if (jeu.grilleJeu.lignes[li - 1].tabl[i]->getVal() == jeu.grilleSolution.lignes[li - 1].tabl[i]->getVal()) {
+                        liste_val[jeu.grilleJeu.lignes[li - 1].tabl[i]->getVal()-1] = false;
+                    }
+                    if (jeu.grilleJeu.colonnes[co - 1].tabcl[i]->getVal() == jeu.grilleSolution.colonnes[co - 1].tabcl[i]->getVal()) {
+                        liste_val[jeu.grilleJeu.colonnes[co - 1].tabcl[i]->getVal()-1] = false;
+                    }
+                    if (jeu.grilleJeu.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal() == jeu.grilleSolution.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal()) {
+                        liste_val[jeu.grilleJeu.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal()-1] = false;
+                    }
+                }
+                tabDiffCase[(co - 1) * dimGrille + (li - 1)] = dimGrille;
+                for (unsigned char i = 0; i < dimGrille; i++) {
+                    if (liste_val[i]) {
+                        tabDiffCase[(co - 1) * dimGrille + (li - 1)] --;
+                    }
+                }
+                
             }
             else {
                 tabDiffCase[(co - 1) * dimGrille + (li - 1)] = 0;
@@ -154,10 +247,13 @@ void TXT_PasAPas::updateDiffCase()
 }
 
 
-unsigned char TXT_PasAPas::getDiffCase(unsigned char l, unsigned char c)
+unsigned char TXT_PasAPas::getDiffCase(unsigned char l, unsigned char c,bool diff_type)//diff type = 1: retourne le nombre de valeur possible, diff type = 0, retourne "la tendance a avoir bcp de chiffre dans un meme bloc/ligne/col permet de departager en les diff type = 1 egaux 
 {
     unsigned char dimGrille = jeu.grilleJeu.dim;
-    return tabDiffCase[(c - 1) * dimGrille + (l - 1)];
+    if (diff_type) {
+        return tabDiffCase[(c - 1) * dimGrille + (l - 1)];
+    }
+    return tabDiffCase[(c - 1) * dimGrille + (l - 1) + dimGrille*dimGrille];
 }
 
 void TXT_PasAPas::coordCaseSimple(unsigned char &l, unsigned char &c)
@@ -167,13 +263,19 @@ void TXT_PasAPas::coordCaseSimple(unsigned char &l, unsigned char &c)
     unsigned char l_f = 1;
     unsigned char c_f = 1;
     unsigned char max = getDiffCase(1, 1);
-    for (unsigned char li = 2; li <= dimGrille; ++li) {
+    for (unsigned char li = 1; li <= dimGrille; ++li) {
         for (unsigned char co = 2; co <= dimGrille; ++co) {
             unsigned char value = getDiffCase(li, co);
             if (value > max) {
                 max = getDiffCase(li, co);
                 l_f = li;
                 c_f = co;
+            }
+            else if (value == max) {
+                if (getDiffCase(li, co) > getDiffCase(l_f, c_f)){
+                    l_f = li;
+                    c_f = co;
+                }
             }
         }
     }
@@ -186,7 +288,20 @@ void TXT_PasAPas::printTabDiff() const {
 
     for(int l=0;l<jeu.grilleJeu.dim;l++){
         for(int c=0;c<jeu.grilleJeu.dim;c++){
-            cout << "tabDiffCase[" << l+1 << "][" << c+1 << "] = " << (int)tabDiffCase[c*jeu.grilleJeu.dim+l] << endl;
+            cout << "tabDiffCase[" << l + 1 << "][" << c + 1 << "] = " << (int)tabDiffCase[c * jeu.grilleJeu.dim + l] << endl;
+        }
+    }
+}
+
+void TXT_PasAPas::retirerCasesFausses()
+{
+    unsigned char dimGrille = jeu.grilleJeu.dim;
+    for (unsigned char li = 0; li < dimGrille; ++li) {
+        for (unsigned char co = 0; co < dimGrille; ++co) {
+            if (jeu.grilleJeu.grille.getCase(li, co).getVal() != jeu.grilleSolution.grille.getCase(li, co).getVal()) {
+                jeu.grilleJeu.grille.getCase(li, co).setVal(0);
+                
+            }
         }
     }
 }

@@ -47,20 +47,22 @@ void TXT_Classique::boucle () {
         do {
             //saisie de la valeur à placer 
             
-            cout<<"Quelle valeur voulez-vous placer ? | Menu | Recommencer: " << jeu.grilleJeu.dim + 1 << ", Generer une nouv. grille: "<< jeu.grilleJeu.dim + 2 <<", Abandonner: "<< jeu.grilleJeu.dim + 3<< endl;
+            cout<<"Quelle valeur voulez-vous placer ? | Menu : 0" << endl;
             cin >> valeurEntree;
             if (!jeu.estValValide((unsigned char)valeurEntree)) {
-                if (valeurEntree == jeu.grilleJeu.dim + 1) {
+                unsigned char resMenu = menu();
+                if (resMenu == 0) {
                     jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
                     termClear();
                     jeu.grilleJeu.grille.print();
                 }
-                else if (valeurEntree == jeu.grilleJeu.dim + 2) {
+                else if (resMenu == 1) {
                     jeu.init();
                     termClear();
                     jeu.grilleJeu.grille.print();
                 }
-                else if (valeurEntree == jeu.grilleJeu.dim + 3) {
+                else if (resMenu == 2) {
+                    termClear();
                     cout << "ABANDON: partie terminee !" << endl << "Votre Grille: "<<endl;
                     jeu.grilleJeu.grille.print();
                     cout << endl;
@@ -98,4 +100,26 @@ void TXT_Classique::boucle () {
         }
 
     } while (!stop);
+}
+
+unsigned char TXT_Classique::menu() const {
+    int value;
+
+    do {
+        termClear();
+        jeu.grilleJeu.grille.print();
+        cout << "||||||||||||||||||||||||||||| MENU | SUDOKU 3 ||||||||||||||||||||||||||||||" << endl;
+        cout << "||                                                                        ||" << endl;
+        cout << "|| 0: Recommencer la meme grille                                          ||" << endl;
+        cout << "|| 1: Generer une nouvelle gille                                          ||" << endl;
+        cout << "|| 2: Abandonner la partie et afficher la solution                        ||" << endl;
+        cout << "|| 3: Retour au jeu                                                       ||" << endl;
+        cout << "||                                                                        ||" << endl;
+        cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+        cin >> value;
+    } while (value < 0 || value > 6);
+
+    termClear();
+    jeu.grilleJeu.grille.print();
+    return value;
 }

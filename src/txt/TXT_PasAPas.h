@@ -19,7 +19,7 @@ public:
 
 	void updateDiffCase();
 
-	unsigned char getDiffCase(unsigned char l, unsigned char c);
+	unsigned char getDiffCase(unsigned char l, unsigned char c, bool diff_type = 1);
 
 	void coordCaseSimple(unsigned char &l, unsigned char &c);
 
@@ -27,10 +27,14 @@ public:
 
 	unsigned char* tabDiffCase;
 
+	void retirerCasesFausses();
+
 private:
 	Jeu jeu;
 
-	void termClear();
+	void termClear() const;
+
+	unsigned char menu() const;
 };
 
 #endif

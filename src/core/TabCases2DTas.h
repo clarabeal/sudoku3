@@ -30,7 +30,7 @@ public:
 	unsigned char getDimCol() const;
 
 	/**
-	@brief Accesseur : retourne une reference sur la case [ligne][colonne]
+	@brief Accesseur : retourne une reference sur la case [ligne][colonne] (entre 0 et dimGrille)
 	@param [in] ligne
 	@param [in] colonne
     */

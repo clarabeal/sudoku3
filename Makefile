@@ -1,56 +1,53 @@
-DOC_DIR = doc/
-SRC_DIR = src/
-OBJ_DIR = obj/
+DOC_DIR = doc
+SRC_DIR = src
+OBJ_DIR = obj
 
 INCLUDE_DIR = -Isrc -Isrc/core -Isrc/txt
 
 all : bin/test bin/main_txt
 
-bin/main_txt : obj/main_txt.o obj/TXT_Classique.o obj/TXT_PasAPas.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
-	g++ -g -Wall obj/main_txt.o obj/TXT_Classique.o obj/TXT_PasAPas.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/main_txt
+bin/main_txt : obj/txt/main_txt.o obj/txt/TXT_Classique.o obj/txt/TXT_PasAPas.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o
+	g++ -g -Wall obj/txt/main_txt.o obj/txt/TXT_Classique.o obj/txt/TXT_PasAPas.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o -o bin/main_txt
 
-bin/test : obj/Test.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o
-	g++ -g -Wall obj/Test.o obj/Jeu.o obj/Grille.o obj/Carre.o obj/Colonne.o obj/Ligne.o obj/TabCases2DTas.o obj/Case.o -o bin/test
+bin/test : obj/core/Test.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o
+	g++ -g -Wall obj/core/Test.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o -o bin/test
 
-obj/main_txt.o : src/txt/main_txt.cpp src/txt/TXT_Classique.h src/txt/TXT_PasAPas.h
-	g++ -g -Wall -c src/txt/main_txt.cpp -o obj/main_txt.o
+obj/txt/main_txt.o : src/txt/main_txt.cpp src/txt/TXT_Classique.h src/txt/TXT_PasAPas.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/txt/main_txt.cpp -o obj/txt/main_txt.o
 
-obj/TXT_Classique.o : src/txt/TXT_Classique.cpp src/txt/TXT_Classique.h src/core/Jeu.h
-	g++ -g -Wall -c src/txt/TXT_Classique.cpp -o obj/TXT_Classique.o
+obj/txt/TXT_Classique.o : src/txt/TXT_Classique.cpp src/txt/TXT_Classique.h src/core/Jeu.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/txt/TXT_Classique.cpp -o obj/txt/TXT_Classique.o
 
-obj/TXT_PasAPas.o : src/txt/TXT_PasAPas.cpp src/txt/TXT_PasAPas.h src/core/Jeu.h
-	g++ -g -Wall -c src/txt/TXT_PasAPas.cpp -o obj/TXT_PasAPas.o 
+obj/txt/TXT_PasAPas.o : src/txt/TXT_PasAPas.cpp src/txt/TXT_PasAPas.h src/core/Jeu.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/txt/TXT_PasAPas.cpp -o obj/txt/TXT_PasAPas.o 
 
-obj/Test.o : src/core/Test.cpp src/core/Jeu.h 
-	g++ -g -Wall -c src/core/Test.cpp -o obj/Test.o
+obj/core/Test.o : src/core/Test.cpp src/core/Jeu.h 
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Test.cpp -o obj/core/Test.o
 
-obj/Jeu.o : src/core/Jeu.cpp src/core/Jeu.h src/core/Grille.h
-	g++ -g -Wall -c src/core/Jeu.cpp -o obj/Jeu.o
+obj/core/Jeu.o : src/core/Jeu.cpp src/core/Jeu.h src/core/Grille.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Jeu.cpp -o obj/core/Jeu.o
 
-obj/Grille.o : src/core/Grille.cpp src/core/Grille.h src/core/Carre.h src/core/Colonne.h src/core/Ligne.h
-	g++ -g -Wall -c src/core/Grille.cpp -o obj/Grille.o
+obj/core/Grille.o : src/core/Grille.cpp src/core/Grille.h src/core/Carre.h src/core/Colonne.h src/core/Ligne.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Grille.cpp -o obj/core/Grille.o
 
-obj/Carre.o : src/core/Carre.h src/core/Carre.cpp src/core/TabCases2DTas.h
-	g++ -g -Wall -c src/core/Carre.cpp -o  obj/Carre.o
+obj/core/Carre.o : src/core/Carre.h src/core/Carre.cpp src/core/TabCases2DTas.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Carre.cpp -o  obj/core/Carre.o
 
-obj/Colonne.o : src/core/Colonne.h src/core/Colonne.cpp src/core/TabCases2DTas.h
-	g++ -g -Wall -c src/core/Colonne.cpp -o obj/Colonne.o
+obj/core/Colonne.o : src/core/Colonne.h src/core/Colonne.cpp src/core/TabCases2DTas.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Colonne.cpp -o obj/core/Colonne.o
 
-obj/Ligne.o : src/core/Ligne.h src/core/Ligne.cpp src/core/TabCases2DTas.h
-	g++ -g -Wall -c src/core/Ligne.cpp -o obj/Ligne.o
+obj/core/Ligne.o : src/core/Ligne.h src/core/Ligne.cpp src/core/TabCases2DTas.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Ligne.cpp -o obj/core/Ligne.o
 
-obj/TabCases2DTas.o : src/core/TabCases2DTas.h src/core/TabCases2DTas.cpp src/core/Case.h
-	g++ -g -Wall -c src/core/TabCases2DTas.cpp -o obj/TabCases2DTas.o
+obj/core/TabCases2DTas.o : src/core/TabCases2DTas.h src/core/TabCases2DTas.cpp src/core/Case.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/TabCases2DTas.cpp -o obj/core/TabCases2DTas.o
 
-obj/Case.o : src/core/Case.h src/core/Case.cpp
-	g++ -g -Wall -c src/core/Case.cpp -o obj/Case.o
+obj/core/Case.o : src/core/Case.h src/core/Case.cpp
+	g++ -g -Wall -c src/core/Case.cpp -o obj/core/Case.o
 
 clean:
-	rm $(OBJ_DIR)*.o
+	rm $(OBJ_DIR)/core/*.o $(OBJ_DIR)/txt/*.o $(OBJ_DIR)/sdl/*.o
 
 veryclean: clean
 	rm ./bin/*
 
-
-$(DOC_DIR)html/index.html : $(DOC_DIR)sudoku3.doxy $(SRC_DIR)core/Case.h $(SRC_DIR)core/Case.cpp $(SRC_DIR)core/Grille.h $(SRC_DIR)core/Grille.cpp $(SRC_DIR)core/Carre.h $(SRC_DIR)core/Carre.cpp $(SRC_DIR)core/Colone.h $(SRC_DIR)core/Colonne.cpp $(SRC_DIR)core/Ligne.h $(SRC_DIR)core/Ligne.cpp $(SRC_DIR)core/TabCases2DTas.h $(SRC_DIR)core/TabCases2DTas.cpp
-	doxygen $(DOC_DIR)sudoku3.doxy

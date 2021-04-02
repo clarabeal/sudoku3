@@ -7,20 +7,25 @@
 using namespace std;
 
 int main () {
+
 	bool stop = false;
+
 	while(!stop){
-#ifdef _WIN32
+
+	#ifdef _WIN32
 		system("cls");
-#else
+	#else
 		system("clear");
-#endif
+	#endif
+
 		int d, mode; 
+
 		//verif que la dim de la grille a une racine
 		do {
 			cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;
 			cout << "||                                                                        ||" << endl;
 			cout << "||  Avec des grilles de quelle dimension voulez-vous jouer? (4, 9 ou 16)  ||" << endl;
-			cout << "||   Une grille de taille superieur sera tres (tres) longue a generer)    ||" << endl;
+			cout << "||   Une grille de taille superieur sera tres (tres) longue a generer     ||" << endl;
 			cout << "||                                                                        ||" << endl;
 			cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
 			cout << "Votre choix: ";
@@ -32,6 +37,7 @@ int main () {
 		#else
 			system("clear");
 		#endif
+
 		do {
 			cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;
 			cout << "||                                                                        ||" << endl;
@@ -44,7 +50,7 @@ int main () {
 			cout << "||    pour vous aider a resoudre le sudoku.                               ||" << endl;
 			cout << "||                                                                        ||" << endl;
 			cout << "|| 3: Mode 1vs1, a tour de role, les deux joueurs doivent resoudre la     ||" << endl;
-			cout << "||    meme grille. Le vainceur est celui qui l'a fini le plus rapidement. ||" << endl;
+			cout << "||    meme grille. Le vainqueur est celui qui l'a fini le plus rapidement.||" << endl;
 			cout << "||                                                                        ||" << endl;
 			cout << "|| 4: Recommencer a partir d'une sauvegarde.                              ||" << endl;
 			cout << "||                                                                        ||" << endl;

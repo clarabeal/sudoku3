@@ -63,22 +63,21 @@ void TXT_Classique::boucle () {
                 }
                 else if (resMenu == 2) {
                     termClear();
-                    cout << "ABANDON: partie terminee !" << endl << "Votre Grille: "<<endl;
+                    cout << "ABANDON: partie terminee !" << endl << "Votre Grille : "<<endl;
                     jeu.grilleJeu.grille.print();
                     cout << endl;
                     cout << "Grille solution :" << endl;
                     jeu.grilleSolution.grille.print();
-                    //on affiche la solution et la grille remplie par le joueur côte à côte
                     stop = true;
                 }
-                valeurEntree = 0; //je crois que le problème de boucle infini quand on met un caractere est tjs present
+                valeurEntree = 0;
             }
            
         } while (!jeu.estValValide((unsigned char)valeurEntree) && !stop);//tant qu'elle n'est pas valide 
         if (!stop) {
             do {
                 //saisie des coordonnees de la case ou on veut placer valeur
-                cout << "Où voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
+                cout << "Ou voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
                 cin >> l;
                 cout << "c : " << endl;
                 cin >> c;
@@ -89,7 +88,7 @@ void TXT_Classique::boucle () {
             if (jeu.verifGrillePleine(jeu.grilleJeu)) {
                 stop = true;
                 termClear();
-                cout << "Grille remplie : partie terminee !" << endl<< "Votre grille:"<<endl;
+                cout << "Grille remplie : partie terminee !" << endl<< "Votre grille :"<<endl;
                 jeu.grilleJeu.grille.print();
                 cout << endl;
                 cout << "Grille solution :" << endl;
@@ -111,13 +110,13 @@ unsigned char TXT_Classique::menu() const {
         cout << "||||||||||||||||||||||||||||| MENU | SUDOKU 3 ||||||||||||||||||||||||||||||" << endl;
         cout << "||                                                                        ||" << endl;
         cout << "|| 0: Recommencer la meme grille                                          ||" << endl;
-        cout << "|| 1: Generer une nouvelle gille                                          ||" << endl;
+        cout << "|| 1: Generer une nouvelle grille                                          ||" << endl;
         cout << "|| 2: Abandonner la partie et afficher la solution                        ||" << endl;
         cout << "|| 3: Retour au jeu                                                       ||" << endl;
         cout << "||                                                                        ||" << endl;
         cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
         cin >> value;
-    } while (value < 0 || value > 6);
+    } while (value < 0 || value > 3);
 
     termClear();
     jeu.grilleJeu.grille.print();

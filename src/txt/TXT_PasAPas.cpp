@@ -44,7 +44,6 @@ void TXT_PasAPas::boucle() {
                 unsigned char menuRes = menu();
                 if (menuRes == 0) {
                     //donne les coordonnées de la case la plus simple à trouver
-                    //cout << "rentre dans la boucle" << endl;
                     unsigned char l_simple, c_simple;
                     coordCaseSimple(l_simple, c_simple);
                     l = (int)l_simple;
@@ -100,12 +99,11 @@ void TXT_PasAPas::boucle() {
                 }
                 else if (menuRes == 4) {
                     termClear();
-                    cout << "ABANDON: partie terminee !" << endl << "Votre Grille: " << endl;
+                    cout << "ABANDON: partie terminee !" << endl << "Votre Grille : " << endl;
                     jeu.grilleJeu.grille.print();
                     cout << endl;
                     cout << "Grille solution :" << endl;
                     jeu.grilleSolution.grille.print();
-                    //on affiche la solution et la grille remplie par le joueur côte à côte
                     stop = true;
                     aideRemplir = true;//on skip tout le reste du programme en faisant comme si une case avait etait placé aléatoirement
                 }
@@ -143,7 +141,7 @@ void TXT_PasAPas::boucle() {
         if (jeu.verifGrillePleine(jeu.grilleJeu)) {
             stop = true;
             termClear();
-            cout << "Grille remplie : partie terminee !" << endl<< "Votre <grille:"<<endl;
+            cout << "Grille remplie : partie terminee !" << endl<< "Votre grille :"<<endl;
             jeu.grilleJeu.grille.print();
             cout << endl;
             cout << "Grille solution :" << endl;

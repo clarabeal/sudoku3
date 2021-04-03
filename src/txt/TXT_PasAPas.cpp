@@ -1,11 +1,16 @@
 #include "TXT_PasAPas.h"
+#include "../core/sauvegarde.h"
+
 #include <stdlib.h>
 #include <iostream>
-
+#include <string>
 using namespace std;
 
-TXT_PasAPas::TXT_PasAPas(unsigned char d): jeu(d) {
+TXT_PasAPas::TXT_PasAPas(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu): jeu(d, g_sol, g_orig, g_jeu) {
     tabDiffCase = new unsigned char[2*d*d];
+}
+TXT_PasAPas::TXT_PasAPas(unsigned char d) : jeu(d) {
+    tabDiffCase = new unsigned char[2 * d * d];
 }
 
 TXT_PasAPas::~TXT_PasAPas() {
@@ -27,8 +32,11 @@ void TXT_PasAPas::boucle() {
     int valeur;
     int l,c;
 
-    jeu.init();
-
+    if (!jeu.initDone) {
+        jeu.init();
+        cout << "grille generé";
+      
+    }
     do {
         termClear();
         jeu.grilleJeu.grille.print();
@@ -104,6 +112,7 @@ void TXT_PasAPas::boucle() {
                     cout << endl;
                     cout << "Grille solution :" << endl;
                     jeu.grilleSolution.grille.print();
+                    cout << "Vous avez fait " << jeu.nbErreurs() << " erreurs" << endl;
                     stop = true;
                     aideRemplir = true;//on skip tout le reste du programme en faisant comme si une case avait etait placé aléatoirement
                 }
@@ -112,6 +121,16 @@ void TXT_PasAPas::boucle() {
                     termClear();
                     jeu.grilleJeu.grille.print();
                     cout << "Les cases fausses ont ete retirees!"<< endl;
+                    cout << endl;
+                }
+                else if (menuRes == 6) {
+                    termClear();
+                    jeu.grilleJeu.grille.print();
+                    cout << "Nom de la sauvegarde: ";
+                    string name;
+                    cin >> name;
+                    gestSauvegarde gestionnaireSauvegarde("../data/saves/");
+                    gestionnaireSauvegarde.sauvegarder(jeu, name, 2);
                     cout << endl;
                 }
                 
@@ -146,6 +165,7 @@ void TXT_PasAPas::boucle() {
             cout << endl;
             cout << "Grille solution :" << endl;
             jeu.grilleSolution.grille.print();
+            cout << "Vous avez fait " << jeu.nbErreurs() << " erreurs" << endl;
         }
         
 
@@ -167,7 +187,8 @@ unsigned char TXT_PasAPas::menu() const {
     cout << "|| 3: Generer une nouvelle gille                                          ||" << endl;
     cout << "|| 4: Abandonner la partie et afficher la solution                        ||" << endl;
     cout << "|| 5: Enlever les cases fausses                                           ||" << endl;
-    cout << "|| 6: Retour au jeu                                                       ||" << endl;
+    cout << "|| 6: Sauvegarder                                                         ||" << endl;
+    cout << "|| 7: Retour au jeu                                                       ||" << endl;
     cout << "||                                                                        ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cin >> value;

@@ -7,6 +7,7 @@ class TXT_Classique
 {
 public:
 	TXT_Classique(unsigned char d);
+	TXT_Classique(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
 
 	~TXT_Classique();
 	
@@ -19,6 +20,7 @@ public:
 
 private:
 	Jeu jeu;
+	void termClear() const;
 };
 
 

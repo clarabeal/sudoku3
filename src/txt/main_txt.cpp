@@ -1,71 +1,36 @@
 #include "TXT_Classique.h"
 #include "TXT_PasAPas.h"
-
+#include "../core/sauvegarde.h"
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
 using namespace std;
-
+void termClear();
+int selectionSave(gestSauvegarde& gest);
+int selectionMenu();
+int selectionDim();
 int main () {
 
 	bool stop = false;
 
 	while(!stop){
-
-	#ifdef _WIN32
-		system("cls");
-	#else
-		system("clear");
-	#endif
-
-		int d, mode; 
-
-		//verif que la dim de la grille a une racine
-		do {
-			cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "||  Avec des grilles de quelle dimension voulez-vous jouer? (4, 9 ou 16)  ||" << endl;
-			cout << "||   Une grille de taille superieur sera tres (tres) longue a generer     ||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-			cout << "Votre choix: ";
-			cin >> d;
-		} while (((float)((float)sqrt(d) - (int)sqrt(d)) != 0.0) || d == 1);
-
-		#ifdef _WIN32
-			system("cls");
-		#else
-			system("clear");
-		#endif
-
-		do {
-			cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "||                       Selection d'un mode de Jeu                       ||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "|| 1: Mode de jeu classique, aucune aide et solution uniquement en fin de ||" << endl;
-			cout << "||    partie.                                                             ||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "|| 2: Mode de jeu Pas a Pas, de nombreuses aides sont mises a disposition ||" << endl;
-			cout << "||    pour vous aider a resoudre le sudoku.                               ||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "|| 3: Mode 1vs1, a tour de role, les deux joueurs doivent resoudre la     ||" << endl;
-			cout << "||    meme grille. Le vainqueur est celui qui l'a fini le plus rapidement.||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "|| 4: Recommencer a partir d'une sauvegarde.                              ||" << endl;
-			cout << "||                                                                        ||" << endl;
-			cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-			cout << "Votre choix: ";
-			cin >> mode;
-		} while (mode < 0 || mode > 4);
-
+		
+		int mode = selectionMenu();
 		if (mode == 1) {
+			int d = selectionDim();
 			TXT_Classique partieTxt((unsigned char)d);
 			partieTxt.boucle();
 		}
 		else if(mode == 2){
+			int d = selectionDim();
 			TXT_PasAPas partieTxt((unsigned char)d);
 			partieTxt.boucle();
+		}
+		else if (mode == 4) {
+			termClear();
+			gestSauvegarde gestionnaireSauvegarde("../data/saves/");
+			int saveId = selectionSave(gestionnaireSauvegarde);
+			gestionnaireSauvegarde.loadFromFile(saveId);
 		}
 		else {
 			cout << "Option indisponible pour le moment" << endl;
@@ -79,4 +44,88 @@ int main () {
 	}
 
 	return 0;
+}
+
+void termClear() {
+#ifdef _WIN32
+	system("cls");
+#else
+	system("clear");
+#endif
+}
+
+int selectionDim() {
+	int dim;
+	termClear();
+
+	do {
+		cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "||  Avec une grille de quelle dimension voulez-vous jouer? (4, 9 ou 16)   ||" << endl;
+		cout << "||   Une grille de taille superieur sera tres (tres) longue a generer     ||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+		cout << "Votre choix: ";
+		cin >> dim;
+	} while (((float)((float)sqrt(dim) - (int)sqrt(dim)) != 0.0) || dim == 1);
+	termClear();
+	return dim;
+	
+
+}
+
+int selectionMenu() {
+	int mode;
+	termClear();
+
+	do {
+		cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "||                       Selection d'un mode de Jeu                       ||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "|| 1: Mode de jeu classique, aucune aide et solution uniquement en fin de ||" << endl;
+		cout << "||    partie.                                                             ||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "|| 2: Mode de jeu Pas a Pas, de nombreuses aides sont mises a disposition ||" << endl;
+		cout << "||    pour vous aider a resoudre le sudoku.                               ||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "|| 3: Mode 1vs1, a tour de role, les deux joueurs doivent resoudre la     ||" << endl;
+		cout << "||    meme grille. Le vainqueur est celui qui l'a fini le plus rapidement.||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "|| 4: Recommencer a partir d'une sauvegarde.                              ||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+		cout << "Votre choix: ";
+		cin >> mode;
+	} while (mode < 0 || mode > 4);
+	termClear();
+	return mode;
+}
+
+int selectionSave(gestSauvegarde &gest) {
+	int selectId;
+	unsigned char convertIntToChar;
+	do {
+		termClear();
+		cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;
+		cout << "||                                                                        ||" << endl;
+		cout << "||  Id | Nom | Taille de la grille                                        ||" << endl;
+		cout << "||                                                                        ||" << endl;
+		for (int i = 0; i < gest.nbSauvegarde; i++) {
+			int id = gest.listeSauvegarde[i].id;
+			int tailleGrille = gest.listeSauvegarde[i].tailleGrille;
+			string name = gest.listeSauvegarde[i].name;
+			string ligne = to_string(id) + "  | " + name + " | " + to_string(tailleGrille) + "*" + to_string(tailleGrille);
+			cout << "||  " << ligne;
+			for (int i = 0; i < 68 - ligne.length(); i++) { cout << " "; }
+			cout << "  ||" << endl;
+		}
+		cout << "||                                                                        ||" << endl;
+		cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+		cout << "Entrer l'id de la partie a reprendre: ";
+		cin >> selectId; 
+		convertIntToChar = selectId;
+	} while (!gest.valideId(convertIntToChar));
+	termClear();
+	return (selectId);
 }

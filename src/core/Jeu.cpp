@@ -5,8 +5,16 @@
 using namespace std;
 
 Jeu::Jeu(unsigned char d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
+	initDone = false;
+}
+Jeu::Jeu(unsigned char d, Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d) {
+	grilleSolution.grille = g_sol.grille;
+	grilleOriginale.grille = g_orig.grille;
+	grilleJeu.grille = g_jeu.grille;
+	initDone = true;
 
 }
+
 
 Jeu::~Jeu(){
 	

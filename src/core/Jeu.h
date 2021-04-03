@@ -28,6 +28,8 @@ class Jeu {
     */
     Jeu(unsigned char d);
 
+    Jeu(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+
     /**
     @brief Destructeur
     */
@@ -98,6 +100,12 @@ class Jeu {
     @details Retourne l'indice du carre dans lequel se trouve la case
     */
     unsigned char trouverNumeroCarre(unsigned char l, unsigned char c) const;
+
+    /**
+    @brief indique si la partie a déja été initialisé
+    @details Utilisé pour la gestion des sauvegardes
+    */
+    bool initDone;
 private:
 
     

@@ -9,12 +9,13 @@ using namespace std;
 TXT_Classique::TXT_Classique (unsigned char d) : jeu(d) {
 
 }
-
+TXT_Classique::TXT_Classique(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, g_sol, g_orig, g_jeu) {
+}
 TXT_Classique::~TXT_Classique () {
 
 }
 
-void termClear()  // efface le terminal
+void TXT_Classique::termClear() const  // efface le terminal
 {
 #ifdef _WIN32
     system("cls");
@@ -37,8 +38,10 @@ void TXT_Classique::boucle () {
 
     bool stop = false; //boleen indiquant si la boucle de jeu doit continuer ou pas
     int valeurEntree,l,c; //entier stockant les valeurs entrees en cin (valeur a placer et emplacement choisi par exemple)
-
-    jeu.init();
+    if (!jeu.initDone) {
+        jeu.init();
+        jeu.initDone = true;
+    }
     do {
         termClear();
         

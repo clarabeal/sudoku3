@@ -1,14 +1,14 @@
-#include "TXT_Classique.h"
-#include "TXT_PasAPas.h"
-#include "../core/sauvegarde.h"
+#include "Sauvegarde.h"
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
 using namespace std;
+
 void termClear();
 int selectionSave(gestSauvegarde& gest);
 int selectionMenu();
 int selectionDim();
+
 int main () {
 
 	bool stop = false;

@@ -6,20 +6,26 @@ INCLUDE_DIR = -Isrc -Isrc/core -Isrc/txt
 
 all : bin/test bin/main_txt
 
-bin/main_txt : obj/txt/main_txt.o obj/txt/TXT_Classique.o obj/txt/TXT_PasAPas.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o
-	g++ -g -Wall obj/txt/main_txt.o obj/txt/TXT_Classique.o obj/txt/TXT_PasAPas.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o -o bin/main_txt
+bin/main_txt : obj/txt/main_txt.o obj/core/Sauvegarde.o obj/txt/TXT_Classique.o obj/txt/TXT_PasAPas.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o
+	g++ -g -Wall obj/txt/main_txt.o obj/core/Sauvegarde.o obj/txt/TXT_Classique.o obj/txt/TXT_PasAPas.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o -o bin/main_txt
 
 bin/test : obj/core/Test.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o
 	g++ -g -Wall obj/core/Test.o obj/core/Jeu.o obj/core/Grille.o obj/core/Carre.o obj/core/Colonne.o obj/core/Ligne.o obj/core/TabCases2DTas.o obj/core/Case.o -o bin/test
 
-obj/txt/main_txt.o : src/txt/main_txt.cpp src/txt/TXT_Classique.h src/txt/TXT_PasAPas.h
+obj/txt/main_txt.o : src/txt/main_txt.cpp src/core/Sauvegarde.h
 	g++ -g -Wall -c $(INCLUDE_DIR) src/txt/main_txt.cpp -o obj/txt/main_txt.o
+
+obj/core/Sauvegarde.o : src/core/Sauvegarde.cpp src/core/Sauvegarde.cpp src/txt/TXT_Classique.h src/txt/TXT_PasAPas.h src/txt/TXT_1vs1.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Sauvegarde.cpp -o obj/core/Sauvegarde.o
 
 obj/txt/TXT_Classique.o : src/txt/TXT_Classique.cpp src/txt/TXT_Classique.h src/core/Jeu.h
 	g++ -g -Wall -c $(INCLUDE_DIR) src/txt/TXT_Classique.cpp -o obj/txt/TXT_Classique.o
 
 obj/txt/TXT_PasAPas.o : src/txt/TXT_PasAPas.cpp src/txt/TXT_PasAPas.h src/core/Jeu.h
 	g++ -g -Wall -c $(INCLUDE_DIR) src/txt/TXT_PasAPas.cpp -o obj/txt/TXT_PasAPas.o 
+
+obj/txt/TXT_1vs1.o : src/txt/TXT_1vs1.cpp src/txt/TXT_1vs1.h src/core/Jeu.h
+	g++ -g -Wall -c $(INCLUDE_DIR) src/txt/TXT_1vs1.cpp -o obj/txt/TXT_1vs1.o 
 
 obj/core/Test.o : src/core/Test.cpp src/core/Jeu.h 
 	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Test.cpp -o obj/core/Test.o
@@ -43,7 +49,7 @@ obj/core/TabCases2DTas.o : src/core/TabCases2DTas.h src/core/TabCases2DTas.cpp s
 	g++ -g -Wall -c $(INCLUDE_DIR) src/core/TabCases2DTas.cpp -o obj/core/TabCases2DTas.o
 
 obj/core/Case.o : src/core/Case.h src/core/Case.cpp
-	g++ -g -Wall -c src/core/Case.cpp -o obj/core/Case.o
+	g++ -g -Wall -c $(INCLUDE_DIR) src/core/Case.cpp -o obj/core/Case.o
 
 clean:
 	rm $(OBJ_DIR)/core/*.o $(OBJ_DIR)/txt/*.o $(OBJ_DIR)/sdl/*.o

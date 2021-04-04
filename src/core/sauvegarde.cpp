@@ -1,7 +1,5 @@
-#include "sauvegarde.h"
-#include "../txt/TXT_Classique.h"
-#include "../txt/TXT_PasAPas.h"
-#include "../txt/TXT_1vs1.h"
+#include "Sauvegarde.h"
+
 #include <fstream>
 #include <string>
 #include <stdio.h>
@@ -147,7 +145,7 @@ void gestSauvegarde::loadFromFile(int id)
 			partieTxt.boucle();
 		}
 		else {
-			cout << "Le mode de jeu de cette grille est invalide ou ne pas être repris a partir d'une sauvegarde" << endl;
+			cout << "Le mode de jeu de cette grille est invalide ou ne pas ï¿½tre repris a partir d'une sauvegarde" << endl;
 		}
 
 	}
@@ -166,7 +164,7 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 		cout << "Une erreur c'est produite lors de l'ouverture de l'index!" << endl;
 		return -1;
 	}
-	if (id == 0) {//si la partie n'a jamais été sauvegardé on linscrit dans l'index
+	if (id == 0) {//si la partie n'a jamais ï¿½tï¿½ sauvegardï¿½ on linscrit dans l'index
 		nbSauvegarde++;
 		for (int i = 1; i <= maxId; i++) {
 			if (!valideId(i)) {
@@ -184,8 +182,8 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 		infoSurLaSauvegarde.modeJeu = mode;
 		infoSurLaSauvegarde.tailleGrille = jeu.grilleJeu.dim;
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
-		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << 0 << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegardées
-		for (int i = 0; i < nbSauvegarde - 1; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'être suavegardé en haut
+		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << 0 << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegardï¿½es
+		for (int i = 0; i < nbSauvegarde - 1; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'ï¿½tre suavegardï¿½ en haut
 			if (listeSauvegarde[i].id != id) {
 				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << 0 << endl;
 			}
@@ -194,8 +192,8 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 	else {
 		sauvegardeId infoSurLaSauvegarde = getSauvegardeId(id);
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
-		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << 0 << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegardées
-		for (int i = 0; i < nbSauvegarde; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'être suavegardé en haut
+		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << 0 << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegardï¿½es
+		for (int i = 0; i < nbSauvegarde; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'ï¿½tre suavegardï¿½ en haut
 			if (listeSauvegarde[i].id != id) {
 				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << 0 << endl;
 			}
@@ -328,7 +326,7 @@ void gestSauvegarde::supprimerSauvegarde(unsigned char id)
 			cout << "Erreur lors de la supression" << endl;
 		}
 		else {
-			cout << "Fichier supprimé" << endl;
+			cout << "Fichier supprimï¿½" << endl;
 		}
 
 			

@@ -1,10 +1,14 @@
 #ifndef _SAUVEGARDE_H 
 #define _SAUVEGARDE_H
-#include "Grille.h"
+
+#include "TXT_Classique.h"
+#include "TXT_PasAPas.h"
+#include "TXT_1vs1.h"
+
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-#include "Jeu.h"
+
 
 using namespace std;
 

@@ -29,7 +29,7 @@ public:
 	unsigned int nbSauvegarde,maxId;
  	string cheminDossier; //chemin vers le dossier qui contient les sauvegardes
 	void updateListe();
-	sauvegardeId& gestSauvegarde::getSauvegardeId(unsigned char id) const;
+	sauvegardeId& getSauvegardeId(unsigned char id) const;
 
 	bool valideId(unsigned char id) const;
 

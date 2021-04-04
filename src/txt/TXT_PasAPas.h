@@ -6,7 +6,7 @@
 class TXT_PasAPas
 {
 public:
-	TXT_PasAPas(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+	TXT_PasAPas(unsigned char d, int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
 	TXT_PasAPas(unsigned char d);
 
 	~TXT_PasAPas();

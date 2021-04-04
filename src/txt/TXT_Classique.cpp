@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "../core/Jeu.h"
+#include "../core/sauvegarde.h"
+
 #include <stdlib.h>
 
 using namespace std;
@@ -9,7 +11,7 @@ using namespace std;
 TXT_Classique::TXT_Classique (unsigned char d) : jeu(d) {
 
 }
-TXT_Classique::TXT_Classique(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, g_sol, g_orig, g_jeu) {
+TXT_Classique::TXT_Classique(unsigned char d,int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d,id, g_sol, g_orig, g_jeu) {
 }
 TXT_Classique::~TXT_Classique () {
 
@@ -50,7 +52,7 @@ void TXT_Classique::boucle () {
         do {
             //saisie de la valeur à placer 
             
-            cout<<"Quelle valeur voulez-vous placer ? | Menu : 0" << endl;
+            cout << "Quelle valeur voulez-vous placer ? | Menu: " << jeu.grilleJeu.dim + 1 << endl;
             cin >> valeurEntree;
             if (!jeu.estValValide((unsigned char)valeurEntree)) {
                 unsigned char resMenu = menu();
@@ -73,18 +75,80 @@ void TXT_Classique::boucle () {
                     jeu.grilleSolution.grille.print();
                     stop = true;
                 }
+                else if (resMenu == 3) {
+                    termClear();
+                    jeu.grilleJeu.grille.print();
+                    gestSauvegarde gestionnaireSauvegarde("../data/saves/");
+
+                    if (jeu.sauvegardeId == 0) {
+
+                        cout << "Nom de la sauvegarde(sans espace): ";
+                        string name;
+                        cin >> name;
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 1 , 0);
+                        termClear();
+                        jeu.grilleJeu.grille.print();
+                        if (jeu.sauvegardeId != 0) {
+                            cout << "La partie a bien ete sauvegardee" << endl;
+                        }
+                        else {
+                            cout << "La partie n'a pas pu etre sauvegardee" << endl;
+                        }
+                    }
+                    else {
+
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "",1, jeu.sauvegardeId);
+                        termClear();
+                        jeu.grilleJeu.grille.print();
+                        if (jeu.sauvegardeId != -1) {
+                            cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getSauvegardeId(jeu.sauvegardeId).name << endl;
+                        }
+                        else {
+                            cout << "La partie n'a pas pu etre sauvegardee" << endl;
+                        }
+                    }
+
+                }
+                else if (resMenu == 4) {
+                    int choix;
+                    do {
+                        termClear();
+                        cout << "||||||||||||||||||||||||||||||||| SUDOKU 3 |||||||||||||||||||||||||||||||||" << endl;
+                        cout << "||                                                                        ||" << endl;
+                        cout << "|| Voulez vous vraiment quitter la partie?                                ||" << endl;
+                        cout << "||                                                                        ||" << endl;
+                        cout << "|| 1: OUI                                                                 ||" << endl;
+                        cout << "|| 0: NON                                                                 ||" << endl;
+                        cout << "||                                                                        ||" << endl;
+                        cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+                        cout << "Votre choix: ";
+                        cin >> choix;
+                    } while (choix != 0 && choix != 1);
+
+                    if (choix == 1) {
+                        stop = true;
+                    }
+                    else {
+                        termClear();
+                        jeu.grilleJeu.grille.print();
+                    }
+
+                }
                 valeurEntree = 0;
             }
            
         } while (!jeu.estValValide((unsigned char)valeurEntree) && !stop);//tant qu'elle n'est pas valide 
         if (!stop) {
+            unsigned char lc, cc;
             do {
                 //saisie des coordonnees de la case ou on veut placer valeur
                 cout << "Ou voulez-vous placer votre prochaine valeur ?" << endl << "l : " << endl;;
                 cin >> l;
                 cout << "c : " << endl;
                 cin >> c;
-            } while (!jeu.sontCorValides((unsigned char)l, (unsigned char)c)); //verif coord ok et case modifiable
+                lc = (unsigned char)l;
+                cc = (unsigned char)c;
+            } while (!jeu.sontCorValides(lc, cc)); //verif coord ok et case modifiable
 
             jeu.grilleJeu.setCase(l - 1, c - 1, valeurEntree); //on place la valeur dans la grille
 
@@ -113,13 +177,15 @@ unsigned char TXT_Classique::menu() const {
         cout << "||||||||||||||||||||||||||||| MENU | SUDOKU 3 ||||||||||||||||||||||||||||||" << endl;
         cout << "||                                                                        ||" << endl;
         cout << "|| 0: Recommencer la meme grille                                          ||" << endl;
-        cout << "|| 1: Generer une nouvelle grille                                          ||" << endl;
+        cout << "|| 1: Generer une nouvelle grille                                         ||" << endl;
         cout << "|| 2: Abandonner la partie et afficher la solution                        ||" << endl;
-        cout << "|| 3: Retour au jeu                                                       ||" << endl;
+        cout << "|| 3: Sauvegarder                                                         ||" << endl;
+        cout << "|| 4: Quitter la partie et revenir au menu sans sauvegarder               ||" << endl;
+        cout << "|| 5: Retour au jeu                                                       ||" << endl;
         cout << "||                                                                        ||" << endl;
         cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
         cin >> value;
-    } while (value < 0 || value > 3);
+    } while (value < 0 || value > 5);
 
     termClear();
     jeu.grilleJeu.grille.print();

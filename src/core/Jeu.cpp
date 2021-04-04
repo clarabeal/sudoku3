@@ -6,13 +6,16 @@ using namespace std;
 
 Jeu::Jeu(unsigned char d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
 	initDone = false;
+	sauvegardeId = 0;
+
 }
-Jeu::Jeu(unsigned char d, Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d) {
+
+Jeu::Jeu(unsigned char d, int id, Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d) {
 	grilleSolution.grille = g_sol.grille;
 	grilleOriginale.grille = g_orig.grille;
 	grilleJeu.grille = g_jeu.grille;
 	initDone = true;
-
+	sauvegardeId = id;
 }
 
 
@@ -214,7 +217,7 @@ bool Jeu::estValValide (unsigned char valeur) const {
 }
 
 bool Jeu::sontCorValides (unsigned char l, unsigned char c) const {
-	return ((l>0 && l<=grilleJeu.dim)&&(c>0 && c<=grilleJeu.dim)&&getModifCase(l,c));
+	return ((l > 0 && l <= grilleJeu.dim) && (c > 0 && c <= grilleJeu.dim) && grilleJeu.grille.getCase(l - 1, c - 1).modifiable);
 }
 
 bool Jeu::getModifCase (unsigned char l, unsigned char c) const {

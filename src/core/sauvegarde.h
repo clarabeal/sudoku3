@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include "Jeu.h"
+
 using namespace std;
 
 struct sauvegardeId {
@@ -23,13 +24,16 @@ public:
 	sauvegardeId* listeSauvegarde;
 	unsigned int nbSauvegarde,maxId;
  	string cheminDossier; //chemin vers le dossier qui contient les sauvegardes
+	void updateListe();
 	sauvegardeId& gestSauvegarde::getSauvegardeId(unsigned char id) const;
 
 	bool valideId(unsigned char id) const;
 
 	void loadFromFile(int id);
 
-	void sauvegarder(Jeu& jeu, string name, int mode);
+	int sauvegarder(Jeu& jeu, string name, int mode, int id);
+
+	void supprimerSauvegarde(unsigned char id);
 
 private:
 

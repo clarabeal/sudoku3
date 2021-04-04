@@ -18,28 +18,10 @@ class Case {
 
     /**
      @brief Constructeur avec parametres de case
-     @param [in] ligne
-     @param [in] colonne
-     @param [in] car
      @param [in] valeur
      @param [in] mod
     */
-    Case (unsigned char ligne, unsigned char colonne, unsigned char car, unsigned char valeur, bool mod,unsigned char etat_);
-
-    /**
-     @brief Accesseur L : retourne l
-    */
-    unsigned char getL () const;
-
-    /**
-     @brief Accesseur C : retourne c
-    */
-    unsigned char getC () const;
-
-    /**
-     @brief Accesseur Carre : retourne carre
-    */
-    unsigned char getCarre () const;
+    Case (unsigned char valeur, bool mod,unsigned char etat_);
 
     /**
      @brief Accesseur val : retourne Val
@@ -63,21 +45,7 @@ class Case {
     */
     unsigned char val;
     
-    /**
-     @brief indique la ligne sur laquelle se trouve la case
-    */
-    unsigned char l;
-    
-    /**
-     @brief indique la colonne sur laquelle se trouve la case
-    */
-    unsigned char c;
-    
-    /**
-     @brief indique le carre de la grille sur laquelle se trouve la case
-    */
-    unsigned char carre;
-
+ 
     
 };
 

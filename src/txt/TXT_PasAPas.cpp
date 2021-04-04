@@ -6,9 +6,10 @@
 #include <string>
 using namespace std;
 
-TXT_PasAPas::TXT_PasAPas(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu): jeu(d, g_sol, g_orig, g_jeu) {
+TXT_PasAPas::TXT_PasAPas(unsigned char d, int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu): jeu(d, id, g_sol, g_orig, g_jeu) {
     tabDiffCase = new unsigned char[2*d*d];
 }
+
 TXT_PasAPas::TXT_PasAPas(unsigned char d) : jeu(d) {
     tabDiffCase = new unsigned char[2 * d * d];
 }
@@ -126,12 +127,62 @@ void TXT_PasAPas::boucle() {
                 else if (menuRes == 6) {
                     termClear();
                     jeu.grilleJeu.grille.print();
-                    cout << "Nom de la sauvegarde: ";
-                    string name;
-                    cin >> name;
                     gestSauvegarde gestionnaireSauvegarde("../data/saves/");
-                    gestionnaireSauvegarde.sauvegarder(jeu, name, 2);
-                    cout << endl;
+
+                    if (jeu.sauvegardeId == 0) {
+
+                        cout << "Nom de la sauvegarde(sans espaces!): ";
+                        string name;
+                        cin >> name;
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 2, 0);
+                        termClear();
+                        jeu.grilleJeu.grille.print();
+                        if (jeu.sauvegardeId != 0) {
+                            cout << "La partie a bien ete sauvegardee" << endl;
+                        }
+                        else {
+                            cout << "La partie n'a pas pu etre sauvegardee" << endl;
+                        }
+                    }
+                    else {
+
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 2, jeu.sauvegardeId);
+                        termClear();
+                        jeu.grilleJeu.grille.print();
+                        if (jeu.sauvegardeId != -1) {
+                            cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getSauvegardeId(jeu.sauvegardeId).name << endl;
+                        }
+                        else {
+                            cout << "La partie n'a pas pu etre sauvegardee" << endl;
+                        }
+                    }
+                
+                    
+                }
+                else if (menuRes == 7) {
+                    int choix;
+                    do {
+                        termClear();
+                        cout << "||||||||||||||||||||||||||||||||| SUDOKU 3 |||||||||||||||||||||||||||||||||" << endl;
+                        cout << "||                                                                        ||" << endl;
+                        cout << "|| Voulez vous vraiment quitter la partie?                                ||" << endl;
+                        cout << "||                                                                        ||" << endl;
+                        cout << "|| 1: OUI                                                                 ||" << endl;
+                        cout << "|| 0: NON                                                                 ||" << endl;
+                        cout << "||                                                                        ||" << endl;
+                        cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+                        cout << "Votre choix: ";
+                        cin >> choix;
+                    } while (choix != 0 && choix != 1);
+                    if (choix == 1) {
+                        aideRemplir = true;//on skip tout le reste du programme en faisant comme si une case avait etait placé aléatoirement
+                        stop = true;
+                    }
+                    else {
+                        termClear();
+                        jeu.grilleJeu.grille.print();
+                    }
+                    
                 }
                 
             }
@@ -188,11 +239,12 @@ unsigned char TXT_PasAPas::menu() const {
     cout << "|| 4: Abandonner la partie et afficher la solution                        ||" << endl;
     cout << "|| 5: Enlever les cases fausses                                           ||" << endl;
     cout << "|| 6: Sauvegarder                                                         ||" << endl;
-    cout << "|| 7: Retour au jeu                                                       ||" << endl;
+    cout << "|| 7: Quitter la partie et revenir au menu sans sauvegarder               ||" << endl;
+    cout << "|| 8: Retour au jeu                                                       ||" << endl;
     cout << "||                                                                        ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cin >> value;
-    } while (value < 0 || value > 6);
+    } while (value < 0 || value > 8);
 
     termClear();
     jeu.grilleJeu.grille.print();

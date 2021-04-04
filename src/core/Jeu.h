@@ -28,7 +28,7 @@ class Jeu {
     */
     Jeu(unsigned char d);
 
-    Jeu(unsigned char d, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+    Jeu(unsigned char d,int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
 
     /**
     @brief Destructeur
@@ -106,6 +106,11 @@ class Jeu {
     @details Utilisé pour la gestion des sauvegardes
     */
     bool initDone;
+
+    /**
+   @brief Id de la sauvegarde associee a cette partie, vaut -1 si la partie n'a jamais été sauvegardee
+   */
+    int sauvegardeId;
 private:
 
     

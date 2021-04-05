@@ -1,6 +1,6 @@
 CORE = core/Case.cpp core/TabCases2DTas.cpp core/Carre.cpp core/Colonne.cpp core/Ligne.cpp core/Grille.cpp core/Jeu.cpp
 TXT = txt/TXT_1vs1.cpp txt/TXT_PasAPas.cpp txt/TXT_Classique.cpp txt/Sauvegarde.cpp txt/main_txt.cpp
-SDL =
+SDL = sdl/sdlClassique.cpp sdl/main_sdl.cpp
 
 SRCS_TXT = $(CORE) $(TXT)
 OBJS_TXT = $(SRCS_TXT:%.cpp=$(OBJ_DIR)/%.o)
@@ -41,8 +41,8 @@ all: make_dir $(BIN_DIR)/$(FINAL_TARGET_TXT) $(BIN_DIR)/$(FINAL_TARGET_SDL)
 sdl: make_dir $(BIN_DIR)/$(FINAL_TARGET_SDL)
 
 make_dir:
-	test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR) $(OBJ_DIR)/txt $(OBJ_DIR)/sdl2 $(OBJ_DIR)/core
-	test -d $(DEP_DIR) || mkdir -p $(DEP_DIR) $(DEP_DIR)/txt $(DEP_DIR)/sdl2 $(DEP_DIR)/core
+	test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR) $(OBJ_DIR)/txt $(OBJ_DIR)/sdl $(OBJ_DIR)/core
+	test -d $(DEP_DIR) || mkdir -p $(DEP_DIR) $(DEP_DIR)/txt $(DEP_DIR)/sdl $(DEP_DIR)/core
 	test -d $(BIN_DIR) || mkdir $(BIN_DIR)
 
 $(BIN_DIR)/$(FINAL_TARGET_TXT): $(OBJS_TXT)
@@ -56,7 +56,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) $(CPPFLAGS) -c $(INCLUDE_DIR) $(INCLUDE_DIR_SDL) $< -o $@ $(DEPFLAGS)
 
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(OBJ_DIR)/core/*.o $(OBJ_DIR)/txt/*.o $(OBJ_DIR)/sdl2/*.o
+	rm -rf $(OBJ_DIR)/*.o $(OBJ_DIR)/core/*.o $(OBJ_DIR)/txt/*.o $(OBJ_DIR)/sdl/*.o
 
 veryclean: clean
 	rm -rf $(DEP_DIR) $(BIN_DIR)/$(FINAL_TARGET_TXT) $(BIN_DIR)/$(FINAL_TARGET_SDL)

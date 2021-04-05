@@ -1,8 +1,7 @@
 #include "TXT_Classique.h"
 
 #include <iostream>
-#include "../core/Jeu.h"
-#include "../core/sauvegarde.h"
+#include "Sauvegarde.h"
 
 #include <stdlib.h>
 

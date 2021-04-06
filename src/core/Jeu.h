@@ -2,7 +2,60 @@
 #define _JEU_H
 
 #include "Grille.h"
+#include <ctime>
 
+class chronometre
+{
+public:
+    chronometre();
+    /**
+    \brief Constructeur qui initialise le chorno avec un certains temps en ms 
+    */
+    chronometre(unsigned long int ms);
+
+    ~chronometre();
+    /**
+    \brief mets a jour le temps du chronometre
+    \details Doit etre appele a chaque fois avant de recuperer le temps
+    */
+    void update();
+
+    /**
+    \brief Ignore le temps ecoule depuis le dernier update
+    \details Pour mettre le chronometre en pause, faire un update au debut de la pause, puis lorsque le chronometre doit redemarrer, faire start
+    */
+    void start();
+    /**
+    \brief Remet le chronometre a 0*/
+    void reset();
+
+    /**
+    \brief retourne le temps en millisecondes
+    */
+    unsigned long int getTimeInMSec() const;
+    /**
+    \brief retourne le temps en secondes
+    */
+    unsigned long int getTimeInSec() const;
+    /**
+    \brief retourne le temps en minutes
+    */
+    unsigned long int getTimeInMin() const;
+    /**
+    \brief retourne le temps en heures
+    */
+    unsigned long int getTimeInHours() const;
+
+    /**
+    \brief affiche le temps ecoulé sous la forme hh:mm:ss:msmsmsms*/
+    void afficher()const;
+
+private:
+    clock_t t1, t2;
+    unsigned long int ms;
+
+
+};
 class Jeu {
 
     public :
@@ -28,7 +81,7 @@ class Jeu {
     */
     Jeu(unsigned char d);
 
-    Jeu(unsigned char d,int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+    Jeu(unsigned char d,int id,unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
 
     /**
     @brief Destructeur
@@ -111,9 +164,15 @@ class Jeu {
    @brief Id de la sauvegarde associee a cette partie, vaut -1 si la partie n'a jamais été sauvegardee
    */
     int sauvegardeId;
+
+    /**
+    \brief Permer de gerer le temps de la partie
+    \see chronometre
+    */
+    chronometre chrono;
+
 private:
 
-    
 
 };
 

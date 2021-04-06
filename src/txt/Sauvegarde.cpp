@@ -22,13 +22,12 @@ void gestSauvegarde::updateListe()
 		for (int i = 0; i < nbSauvegarde; i++) {
 			fichier >> listeSauvegarde[i].id >> listeSauvegarde[i].name >> listeSauvegarde[i].modeJeu >> listeSauvegarde[i].tailleGrille >> listeSauvegarde[i].chrono;
 		}
-		for (int i = 0; i < nbSauvegarde; i++) {
-			//cout << "sauvegarde: " << i + 1 << " id: " << listeSauvegarde[i].id << " nom: " << listeSauvegarde[i].name << " mode: " << listeSauvegarde[i].modeJeu << " Taille: " << listeSauvegarde[i].tailleGrille << " chrono: " << listeSauvegarde[i].chrono << endl;
-		}
 	}
 	else {
 		listeSauvegarde = nullptr;
-		//cout << "Impossible d'ouvrire l'index des sauvegardes! " << endl;
+		cout << "Impossible d'ouvrire l'index des sauvegardes! " << endl;
+		int a; 
+		cin >> a;
 	}
 
 	fichier.close();
@@ -137,15 +136,15 @@ void gestSauvegarde::loadFromFile(int id)
 		cout << "Grilles chargees" << endl;
 		g_jeu.grille.print();
 		if (infoSurLaSauvegarde.modeJeu == 1) {
-			TXT_Classique partieTxt((unsigned char)infoSurLaSauvegarde.tailleGrille, infoSurLaSauvegarde.id, g_sol, g_orig, g_jeu);
+			TXT_Classique partieTxt((unsigned char)infoSurLaSauvegarde.tailleGrille, infoSurLaSauvegarde.id, infoSurLaSauvegarde.chrono, g_sol, g_orig, g_jeu);
 			partieTxt.boucle();
 		}
 		else if (infoSurLaSauvegarde.modeJeu == 2) {
-			TXT_PasAPas partieTxt((unsigned char)infoSurLaSauvegarde.tailleGrille, infoSurLaSauvegarde.id, g_sol, g_orig, g_jeu);
+			TXT_PasAPas partieTxt((unsigned char)infoSurLaSauvegarde.tailleGrille, infoSurLaSauvegarde.id, infoSurLaSauvegarde.chrono, g_sol, g_orig, g_jeu);
 			partieTxt.boucle();
 		}
 		else {
-			cout << "Le mode de jeu de cette grille est invalide ou ne pas �tre repris a partir d'une sauvegarde" << endl;
+			cout << "Le mode de jeu de cette grille est invalide ou ne pas etre repris a partir d'une sauvegarde" << endl;
 		}
 
 	}
@@ -157,6 +156,7 @@ void gestSauvegarde::loadFromFile(int id)
 int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 	cout << "id recus ";
 	cout << id << endl;
+	jeu.chrono.update();
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
 	
@@ -181,21 +181,23 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 		infoSurLaSauvegarde.name = name;
 		infoSurLaSauvegarde.modeJeu = mode;
 		infoSurLaSauvegarde.tailleGrille = jeu.grilleJeu.dim;
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
-		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << 0 << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
+		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
 		for (int i = 0; i < nbSauvegarde - 1; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
 			if (listeSauvegarde[i].id != id) {
-				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << 0 << endl;
+				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
 			}
 		}
 	}
 	else {
 		sauvegardeId infoSurLaSauvegarde = getSauvegardeId(id);
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
-		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << 0 << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
+		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
 		for (int i = 0; i < nbSauvegarde; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
 			if (listeSauvegarde[i].id != id) {
-				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << 0 << endl;
+				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
 			}
 		}
 	}
@@ -306,6 +308,7 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 		return -1;
 	}
 	updateListe();
+	jeu.chrono.start();
 	return id;
 }
 

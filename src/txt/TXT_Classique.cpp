@@ -10,7 +10,7 @@ using namespace std;
 TXT_Classique::TXT_Classique (unsigned char d) : jeu(d) {
 
 }
-TXT_Classique::TXT_Classique(unsigned char d,int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d,id, g_sol, g_orig, g_jeu) {
+TXT_Classique::TXT_Classique(unsigned char d,int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu) {
 }
 TXT_Classique::~TXT_Classique () {
 
@@ -47,23 +47,32 @@ void TXT_Classique::boucle () {
         termClear();
         
         jeu.grilleJeu.grille.print();
-
+        cout << "Votre temps ";
+        jeu.chrono.afficher();
+        cout << endl;
         do {
             //saisie de la valeur à placer 
             
             cout << "Quelle valeur voulez-vous placer ? | Menu: " << jeu.grilleJeu.dim + 1 << endl;
             cin >> valeurEntree;
             if (!jeu.estValValide((unsigned char)valeurEntree)) {
+                jeu.chrono.update();
                 unsigned char resMenu = menu();
                 if (resMenu == 0) {
                     jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
                     termClear();
                     jeu.grilleJeu.grille.print();
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << endl;
                 }
                 else if (resMenu == 1) {
                     jeu.init();
                     termClear();
                     jeu.grilleJeu.grille.print();
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << endl;
                 }
                 else if (resMenu == 2) {
                     termClear();
@@ -72,6 +81,9 @@ void TXT_Classique::boucle () {
                     cout << endl;
                     cout << "Grille solution :" << endl;
                     jeu.grilleSolution.grille.print();
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << endl;
                     stop = true;
                 }
                 else if (resMenu == 3) {
@@ -87,6 +99,9 @@ void TXT_Classique::boucle () {
                         jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 1 , 0);
                         termClear();
                         jeu.grilleJeu.grille.print();
+                        cout << "Votre temps ";
+                        jeu.chrono.afficher();
+                        cout << endl;
                         if (jeu.sauvegardeId != 0) {
                             cout << "La partie a bien ete sauvegardee" << endl;
                         }
@@ -99,6 +114,9 @@ void TXT_Classique::boucle () {
                         jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "",1, jeu.sauvegardeId);
                         termClear();
                         jeu.grilleJeu.grille.print();
+                        cout << "Votre temps ";
+                        jeu.chrono.afficher();
+                        cout << endl;
                         if (jeu.sauvegardeId != -1) {
                             cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getSauvegardeId(jeu.sauvegardeId).name << endl;
                         }
@@ -130,11 +148,20 @@ void TXT_Classique::boucle () {
                     else {
                         termClear();
                         jeu.grilleJeu.grille.print();
+                        cout << "Votre temps ";
+                        jeu.chrono.afficher();
+                        cout << endl;
                     }
 
                 }
+                else {
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << endl;
+                }
                 valeurEntree = 0;
             }
+            jeu.chrono.start();
            
         } while (!jeu.estValValide((unsigned char)valeurEntree) && !stop);//tant qu'elle n'est pas valide 
         if (!stop) {
@@ -152,6 +179,7 @@ void TXT_Classique::boucle () {
             jeu.grilleJeu.setCase(l - 1, c - 1, valeurEntree); //on place la valeur dans la grille
 
             if (jeu.verifGrillePleine(jeu.grilleJeu)) {
+                jeu.chrono.update();
                 stop = true;
                 termClear();
                 cout << "Grille remplie : partie terminee !" << endl<< "Votre grille :"<<endl;
@@ -159,6 +187,9 @@ void TXT_Classique::boucle () {
                 cout << endl;
                 cout << "Grille solution :" << endl;
                 jeu.grilleSolution.grille.print();
+                cout << "Votre temps ";
+                jeu.chrono.afficher();
+                cout << endl;
                 cout<<"Vous avez fait "<<jeu.nbErreurs()<<" erreurs"<<endl;
                 //on affiche la solution et la grille remplie par le joueur côte à côte
             }
@@ -173,6 +204,9 @@ unsigned char TXT_Classique::menu() const {
     do {
         termClear();
         jeu.grilleJeu.grille.print();
+        cout << "Votre temps ";
+        jeu.chrono.afficher();
+        cout << endl;
         cout << "||||||||||||||||||||||||||||| MENU | SUDOKU 3 ||||||||||||||||||||||||||||||" << endl;
         cout << "||                                                                        ||" << endl;
         cout << "|| 0: Recommencer la meme grille                                          ||" << endl;

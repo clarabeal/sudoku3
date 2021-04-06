@@ -122,13 +122,13 @@ int selectionSave(gestSauvegarde &gest) {
 			cout << "||                                                                        ||" << endl;
 			cout << "||  Id | Nom | Taille de la grille                                        ||" << endl;
 			cout << "||                                                                        ||" << endl;
-			for (int i = 0; i < gest.nbSauvegarde; i++) {
+			for (unsigned int i = 0; i < gest.nbSauvegarde; i++) {
 				int id = gest.listeSauvegarde[i].id;
 				int tailleGrille = gest.listeSauvegarde[i].tailleGrille;
 				string name = gest.listeSauvegarde[i].name;
 				ligne = to_string(id) + "  | " + name + " | " + to_string(tailleGrille) + "*" + to_string(tailleGrille);
 				cout << "||  " << ligne;
-				for (int i = 0; i < 68 - ligne.length(); i++) { cout << " "; }
+				for (long unsigned int i = 0; i < 68 - ligne.length(); i++) { cout << " "; }
 				cout << "  ||" << endl;
 			}
 			cout << "||                                                                        ||" << endl;
@@ -149,8 +149,8 @@ int selectionSave(gestSauvegarde &gest) {
 				cout << "||                       Informations sur la partie                       ||" << endl;
 				cout << "||                                                                        ||" << endl;
 
-				ligne = "id: " + to_string(sauvegardeSelectionne.id); cout << "||  " << ligne; for (int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
-				ligne = "nom: " + sauvegardeSelectionne.name; cout << "||  " << ligne; for (int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
+				ligne = "id: " + to_string(sauvegardeSelectionne.id); cout << "||  " << ligne; for (long unsigned int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
+				ligne = "nom: " + sauvegardeSelectionne.name; cout << "||  " << ligne; for (long unsigned int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
 				ligne = "Mode de Jeu: " + to_string(sauvegardeSelectionne.modeJeu);
 				if (sauvegardeSelectionne.modeJeu == 1) {
 					ligne += " (Classique)";
@@ -164,8 +164,9 @@ int selectionSave(gestSauvegarde &gest) {
 				else {
 					ligne += " (erreur)";
 				}
-				cout << "||  " << ligne; for (int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
-				ligne = "Chrono: " + to_string(sauvegardeSelectionne.chrono) + "s"; cout << "||  " << ligne; for (int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
+				cout << "||  " << ligne; for (long unsigned int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
+					ligne = "Chrono: " + to_string((sauvegardeSelectionne.chrono / 1000 / 60 / 60)) + "h " + to_string((sauvegardeSelectionne.chrono / 1000 / 60) % 60) + "m " + to_string((sauvegardeSelectionne.chrono / 1000)) + "s " + to_string((sauvegardeSelectionne.chrono) % 1000) + "ms";
+				cout << "||  " << ligne; for (long unsigned int i = 0; i < 68 - ligne.length(); i++) { cout << " "; } cout << "  ||" << endl;
 				cout << "||                                                                        ||" << endl;
 				cout << "|| 1: Charger cette sauvegarde                                            ||" << endl;
 				cout << "|| 2: Supprimer cette sauvegarde                                          ||" << endl;

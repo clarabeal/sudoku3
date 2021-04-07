@@ -1,7 +1,7 @@
 #ifndef _TXT_1Vs1_H
 #define _TXT_1Vs1_H
 
-#include "Jeu.h"
+#include "../core/Jeu.h"
 
 class TXT_1vs1
 {

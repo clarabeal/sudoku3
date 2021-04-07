@@ -10,7 +10,7 @@ Jeu::Jeu(unsigned char d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
 
 }
 
-Jeu::Jeu(unsigned char d, int id, Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d) {
+Jeu::Jeu(unsigned char d, int id,unsigned long int time,  Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d),chrono(time) {
 	grilleSolution.grille = g_sol.grille;
 	grilleOriginale.grille = g_orig.grille;
 	grilleJeu.grille = g_jeu.grille;
@@ -190,6 +190,8 @@ unsigned char Jeu::trouverNumeroCarre(unsigned char l, unsigned char c) const
 		return nb_carre;
 }
 
+
+
 bool Jeu::verifGrillePleine(Grille &grille) const
 {
 	unsigned char dimGrille = grille.dim;
@@ -210,6 +212,8 @@ void Jeu::init()
 	genererGrillePleine();
 	genererGrilleMinimale();
 	grilleOriginale.grille = grilleJeu.grille;
+	chrono.reset();
+	chrono.update();
 }
 
 bool Jeu::estValValide (unsigned char valeur) const {
@@ -235,4 +239,65 @@ unsigned int Jeu::nbErreurs () const {
 		}
 	}
 	return compteur;
+}
+
+chronometre::chronometre()
+{
+	ms = 0;
+	t1 = clock();
+	t2 = clock();
+}
+
+chronometre::chronometre(unsigned long int ms)
+{
+	this->ms = ms;
+	t1 = clock();
+	t2 = clock();
+}
+
+chronometre::~chronometre()
+{
+}
+
+void chronometre::update()
+{
+	t2 = clock();
+	ms = ms + ((t2 - t1)*1000 / CLOCKS_PER_SEC);
+}
+
+void chronometre::start()
+{
+	t1 = clock();
+	update();
+}
+
+void chronometre::reset()
+{
+	ms = 0;
+	t1 = clock();
+}
+
+unsigned long int chronometre::getTimeInMSec() const
+{
+	return ms;
+}
+
+unsigned long int chronometre::getTimeInSec() const
+{
+	return (unsigned long int) ms/1000;
+}
+
+unsigned long int chronometre::getTimeInMin() const
+{
+	return (unsigned long int) ms/1000/60;
+}
+
+unsigned long int chronometre::getTimeInHours() const
+{
+	return (unsigned long int) ms/1000/60/60;
+}
+
+void chronometre::afficher() const
+{
+	cout << getTimeInHours() << "h " << getTimeInMin() % 60 << "m " << getTimeInSec() % 60 << "s " << getTimeInMSec() % 1000<< "ms";
 }

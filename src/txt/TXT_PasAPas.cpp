@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-TXT_PasAPas::TXT_PasAPas(unsigned char d, int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu): jeu(d, id, g_sol, g_orig, g_jeu) {
+TXT_PasAPas::TXT_PasAPas(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu) {
     tabDiffCase = new unsigned char[2*d*d];
 }
 
@@ -41,6 +41,9 @@ void TXT_PasAPas::boucle() {
     do {
         termClear();
         jeu.grilleJeu.grille.print();
+        cout << "Votre temps ";
+        jeu.chrono.afficher();
+        cout << endl;
         
         bool aideRemplir = false; //booleen indiquant si le joueur a besoin d'aide pour que le solveur remplisse une case à sa place (case au hasard ou la plus facile à placer?)
         bool aideCoor = false;
@@ -50,6 +53,7 @@ void TXT_PasAPas::boucle() {
             cout <<"Quelle valeur voulez-vous placer ? | Menu: " << jeu.grilleJeu.dim+1  << endl;
             cin >> valeur;
             if(valeur == jeu.grilleJeu.dim + 1){
+                jeu.chrono.update();// On met le chrono en pause 
                 unsigned char menuRes = menu();
                 if (menuRes == 0) {
                     //donne les coordonnées de la case la plus simple à trouver
@@ -68,6 +72,9 @@ void TXT_PasAPas::boucle() {
                             aideCoor = true;
                             termClear();
                             jeu.grilleJeu.grille.print();
+                            cout << "Votre temps ";
+                            jeu.chrono.afficher();
+                            cout << endl;
                             cout << "[" << l << "][" << c << "] est facile a remplir il n'y a que " << dimGrille - tabDiffCase[(c - 1) * dimGrille + (l - 1)] << " possibilite(s)" << endl;
                         }
 
@@ -100,11 +107,17 @@ void TXT_PasAPas::boucle() {
                     jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
                     termClear();
                     jeu.grilleJeu.grille.print();
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << endl;
                 }
                 else if (menuRes == 3) {
                     jeu.init();
                     termClear();
                     jeu.grilleJeu.grille.print();
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << endl;
                 }
                 else if (menuRes == 4) {
                     termClear();
@@ -121,12 +134,18 @@ void TXT_PasAPas::boucle() {
                     retirerCasesFausses();
                     termClear();
                     jeu.grilleJeu.grille.print();
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << endl;
                     cout << "Les cases fausses ont ete retirees!"<< endl;
                     cout << endl;
                 }
                 else if (menuRes == 6) {
                     termClear();
                     jeu.grilleJeu.grille.print();
+                    cout << "Votre temps ";
+                    jeu.chrono.afficher();
+                    cout << " En pause" << endl;
                     gestSauvegarde gestionnaireSauvegarde("../data/saves/");
 
                     if (jeu.sauvegardeId == 0) {
@@ -137,6 +156,10 @@ void TXT_PasAPas::boucle() {
                         jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 2, 0);
                         termClear();
                         jeu.grilleJeu.grille.print();
+                        jeu.chrono.start();
+                        cout << "Votre temps ";
+                        jeu.chrono.afficher();
+                        cout << endl;
                         if (jeu.sauvegardeId != 0) {
                             cout << "La partie a bien ete sauvegardee" << endl;
                         }
@@ -149,6 +172,9 @@ void TXT_PasAPas::boucle() {
                         jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 2, jeu.sauvegardeId);
                         termClear();
                         jeu.grilleJeu.grille.print();
+                        cout << "Votre temps ";
+                        jeu.chrono.afficher();
+                        cout << endl;
                         if (jeu.sauvegardeId != -1) {
                             cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getSauvegardeId(jeu.sauvegardeId).name << endl;
                         }
@@ -175,16 +201,21 @@ void TXT_PasAPas::boucle() {
                         cin >> choix;
                     } while (choix != 0 && choix != 1);
                     if (choix == 1) {
+
                         aideRemplir = true;//on skip tout le reste du programme en faisant comme si une case avait etait placé aléatoirement
                         stop = true;
                     }
                     else {
                         termClear();
                         jeu.grilleJeu.grille.print();
+                        cout << "Votre temps ";
+                        jeu.chrono.afficher();
+                        cout << endl;
                     }
                     
                 }
-                
+                jeu.chrono.start();// On redemarre le chrono en ignorant le temps passé dans le menu
+
             }
             else if (jeu.estValValide((unsigned char)valeur)) {
                 valValide = true;
@@ -205,10 +236,12 @@ void TXT_PasAPas::boucle() {
         }  
 
         if(!aideRemplir){ //pas besoin de remplir une case qd le joueur a utilise l'aide du solveur (aide 0)
+            jeu.chrono.update();//on fixe le chrono 
             jeu.grilleJeu.setCase(l - 1, c - 1, valeur); //on place la valeur dans la grille
         }
 
         if (jeu.verifGrillePleine(jeu.grilleJeu)) {
+            jeu.chrono.update();//on fixe le chrono 
             stop = true;
             termClear();
             cout << "Grille remplie : partie terminee !" << endl<< "Votre grille :"<<endl;
@@ -217,8 +250,13 @@ void TXT_PasAPas::boucle() {
             cout << "Grille solution :" << endl;
             jeu.grilleSolution.grille.print();
             cout << "Vous avez fait " << jeu.nbErreurs() << " erreurs" << endl;
+            cout << "Votre temps ";
+            jeu.chrono.afficher();
+            cout << endl;
+
         }
         
+    jeu.chrono.update();
 
     } while (!stop);
 
@@ -230,6 +268,9 @@ unsigned char TXT_PasAPas::menu() const {
     do {
     termClear();
     jeu.grilleJeu.grille.print();
+    cout << "Votre temps ";
+    jeu.chrono.afficher();
+    cout <<" (EN PAUSE) " << endl;
     cout << "||||||||||||||||||||||||||||| MENU | SUDOKU 3 ||||||||||||||||||||||||||||||" << endl;
     cout << "||                                                                        ||" << endl;
     cout << "|| 0: Obtenir les coor. de la case la plus simple                         ||" << endl;
@@ -248,6 +289,9 @@ unsigned char TXT_PasAPas::menu() const {
 
     termClear();
     jeu.grilleJeu.grille.print();
+    cout << "Votre temps ";
+    jeu.chrono.afficher();
+    cout << endl;
     return value;
 }
 

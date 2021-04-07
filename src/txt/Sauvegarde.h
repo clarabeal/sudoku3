@@ -17,7 +17,7 @@ struct sauvegardeId {
 	string name;
 	unsigned int modeJeu;
 	unsigned int tailleGrille;
-	unsigned int chrono;
+	unsigned long int chrono;
 };
 
 class gestSauvegarde

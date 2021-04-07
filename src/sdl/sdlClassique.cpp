@@ -119,7 +119,7 @@ sdlJeu::sdlJeu(unsigned char d) : jeu(d){
         exit(1);
     }
 
-    //creation des images
+    //creation des images :
     im_grille.loadFromFile("data/assets/9x9color.jpg", renderer);
 }
 
@@ -150,7 +150,7 @@ void sdlJeu::sdlBoucle(){
 
     while (gameRunning) {
 
-        while (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT) gameRunning = false;
             if (event.type == SDL_KEYDOWN)

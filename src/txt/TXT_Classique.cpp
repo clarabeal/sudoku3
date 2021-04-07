@@ -12,8 +12,8 @@ TXT_Classique::TXT_Classique (unsigned char d) : jeu(d) {
 }
 TXT_Classique::TXT_Classique(unsigned char d,int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu) {
 }
-TXT_Classique::~TXT_Classique () {
 
+TXT_Classique::~TXT_Classique () {
 }
 
 void TXT_Classique::termClear() const  // efface le terminal

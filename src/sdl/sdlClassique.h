@@ -19,5 +19,50 @@
 #include <SDL2/SDL_mixer.h>
 #endif
 
+//! \brief Pour gerer une image avec SDL2
+class Image {
+
+public:
+    Image () ;
+    void loadFromFile (const char* filename, SDL_Renderer * renderer);
+    void loadFromCurrentSurface (SDL_Renderer * renderer);
+    void draw (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1);
+    SDL_Texture * getTexture() const;
+    void setSurface(SDL_Surface * surf);
+
+private:
+
+    SDL_Surface * surface;
+    SDL_Texture * texture;
+    bool has_changed;
+
+};
+
+/**
+    La classe gerant le jeu avec un affichage SDL
+*/
+class sdlJeu {
+
+public :
+
+    sdlJeu (unsigned char d);
+    ~sdlJeu ();
+    void sdlBoucle ();
+    void sdlAff ();
+
+private :
+
+	Jeu jeu;
+
+    SDL_Window * window;
+    SDL_Renderer * renderer;
+
+    TTF_Font * font;
+    Image font_im;
+    SDL_Color font_color;
+
+    Image im_grille;
+
+};
 
 #endif

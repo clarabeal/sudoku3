@@ -262,11 +262,12 @@ chronometre::~chronometre()
 void chronometre::update()
 {
 	t2 = clock();
-	ms = ms + ((t2 - t1)*1000 / CLOCKS_PER_SEC);
+	ms = ms + ((t2 - t1)*1000/ CLOCKS_PER_SEC);
+	t1 = clock();
 }
 
 void chronometre::start()
-{
+{	
 	t1 = clock();
 	update();
 }
@@ -284,17 +285,17 @@ unsigned long int chronometre::getTimeInMSec() const
 
 unsigned long int chronometre::getTimeInSec() const
 {
-	return (unsigned long int) ms/1000;
+	return (unsigned long int) getTimeInMSec() /1000;
 }
 
 unsigned long int chronometre::getTimeInMin() const
 {
-	return (unsigned long int) ms/1000/60;
+	return (unsigned long int) getTimeInSec()/60;
 }
 
 unsigned long int chronometre::getTimeInHours() const
 {
-	return (unsigned long int) ms/1000/60/60;
+	return (unsigned long int) getTimeInMin()/60;
 }
 
 void chronometre::afficher() const

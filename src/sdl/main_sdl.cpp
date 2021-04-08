@@ -6,8 +6,8 @@ int main (int argc, char* argv[]){
 
     int d;
 
-    cout << "dim: " << endl;
-    cin >> d;
+   cout << "dim: " << endl;
+   cin >> d;
 
     sdlJeu sJeu(d);
     sJeu.sdlBoucle();

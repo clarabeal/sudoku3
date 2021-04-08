@@ -47,8 +47,11 @@ public :
 
     sdlJeu (unsigned char d);
     ~sdlJeu ();
+    void sdlAffChrono(int x, int y, int largeur, int hauteur);
     void sdlBoucle ();
     void sdlAff ();
+
+    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
 
 private :
 

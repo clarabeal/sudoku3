@@ -1,5 +1,5 @@
 #include "TXT_PasAPas.h"
-#include "Sauvegarde.h"
+#include "../core/Sauvegarde.h"
 
 #include <stdlib.h>
 #include <iostream>
@@ -176,7 +176,7 @@ void TXT_PasAPas::boucle() {
                         jeu.chrono.afficher();
                         cout << endl;
                         if (jeu.sauvegardeId != -1) {
-                            cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getSauvegardeId(jeu.sauvegardeId).name << endl;
+                            cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getInfoSauvegarde(jeu.sauvegardeId).name << endl;
                         }
                         else {
                             cout << "La partie n'a pas pu etre sauvegardee" << endl;

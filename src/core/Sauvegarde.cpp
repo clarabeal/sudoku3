@@ -22,7 +22,7 @@ bool gestSauvegarde::updateListe()
 		fichier >> nbSauvegarde;
 		fichier >> maxId;
 		//cout << nbSauvegarde << " sauvegardes ont ete trouves" << endl;
-		listeSauvegarde = new sauvegardeId[nbSauvegarde];
+		listeSauvegarde = new InfoSauvegarde[nbSauvegarde];
 		for (int i = 0; i < nbSauvegarde; i++) {
 			fichier >> listeSauvegarde[i].id >> listeSauvegarde[i].name >> listeSauvegarde[i].modeJeu >> listeSauvegarde[i].tailleGrille >> listeSauvegarde[i].chrono;
 		}
@@ -42,7 +42,7 @@ gestSauvegarde::~gestSauvegarde()
 	delete[] listeSauvegarde;
 }
 
-sauvegardeId& gestSauvegarde::getSauvegardeId(unsigned char id) const {
+InfoSauvegarde& gestSauvegarde::getInfoSauvegarde(unsigned char id) const {
 	for (int i = 0; i < nbSauvegarde; i++) {
 		if (listeSauvegarde[i].id == id) {
 			return listeSauvegarde[i];
@@ -59,10 +59,10 @@ bool gestSauvegarde::valideId(unsigned char id) const {
 	return false;
 }
 
-void gestSauvegarde::loadFromFile(int id,Grille &g_sol,Grille & g_orig, Grille g_jeu)
+void gestSauvegarde::loadFromFile(int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu)
 {
 	ifstream fichier;
-	sauvegardeId& infoSurLaSauvegarde = getSauvegardeId(id);
+	InfoSauvegarde& infoSurLaSauvegarde = getInfoSauvegarde(id);
 	assert(infoSurLaSauvegarde.tailleGrille == g_sol.dim && infoSurLaSauvegarde.tailleGrille == g_jeu.dim && infoSurLaSauvegarde.tailleGrille == g_orig.dim);// on verifie que les grilles fournit soit de la bonne taille
 	fichier.open(cheminDossier + to_string(id) + ".sudokujeu", ios::in);
 	if (fichier.is_open()) {
@@ -135,8 +135,6 @@ void gestSauvegarde::loadFromFile(int id,Grille &g_sol,Grille & g_orig, Grille g
 				g_jeu.grille.getCase(l, c).etat = conv;
 			}
 		}
-		cout << "Grilles chargees" << endl;
-		g_jeu.grille.print();
 		
 
 	}
@@ -145,10 +143,10 @@ void gestSauvegarde::loadFromFile(int id,Grille &g_sol,Grille & g_orig, Grille g
 	}
 }
 
-int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
+int gestSauvegarde::sauvegarder(const Jeu &jeu ,string name, int mode, int id) {
+	if (id != 0 && !valideId(id)) return -1;
 	cout << "id recus ";
 	cout << id << endl;
-	jeu.chrono.update();
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
 	
@@ -168,7 +166,7 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 			id = maxId;
 		}
 
-		sauvegardeId infoSurLaSauvegarde;
+		InfoSauvegarde infoSurLaSauvegarde;
 		infoSurLaSauvegarde.id = id;
 		infoSurLaSauvegarde.name = name;
 		infoSurLaSauvegarde.modeJeu = mode;
@@ -183,7 +181,7 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 		}
 	}
 	else {
-		sauvegardeId infoSurLaSauvegarde = getSauvegardeId(id);
+		InfoSauvegarde infoSurLaSauvegarde = getInfoSauvegarde(id);
 		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
 		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
@@ -300,12 +298,12 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 		return -1;
 	}
 	updateListe();
-	jeu.chrono.start();
 	return id;
 }
 
 void gestSauvegarde::supprimerSauvegarde(unsigned char id)
 {
+	if (!valideId(id)) return;
 	nbSauvegarde--;
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);

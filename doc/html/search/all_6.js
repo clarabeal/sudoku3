@@ -1,8 +1,25 @@
 var searchData=
 [
-  ['jeu_39',['Jeu',['../class_jeu.html',1,'']]],
-  ['jeu_40',['jeu',['../class_t_x_t___classique.html#afaf88b53302a7abd45d5dd9d56a0a385',1,'TXT_Classique']]],
-  ['jeu_41',['Jeu',['../class_jeu.html#a6a3565c9c25cb2a0c438af28f0688bc1',1,'Jeu']]],
-  ['jeu_2ecpp_42',['Jeu.cpp',['../_jeu_8cpp.html',1,'']]],
-  ['jeu_2eh_43',['Jeu.h',['../_jeu_8h.html',1,'']]]
+  ['generergrilleminimale',['genererGrilleMinimale',['../class_jeu.html#a42a55727e53504683a95c6de5b9eea8a',1,'Jeu']]],
+  ['generergrillepleine',['genererGrillePleine',['../class_jeu.html#a3f7a5b3871615071ca6a66f28e5a0a5d',1,'Jeu']]],
+  ['gestsauvegarde',['gestSauvegarde',['../classgest_sauvegarde.html',1,'gestSauvegarde'],['../classgest_sauvegarde.html#aac369207d615ebeeb324ea7eefa81552',1,'gestSauvegarde::gestSauvegarde()']]],
+  ['getcase',['getCase',['../class_tab_cases2_d_tas.html#a56c293b520c9cda017d270769032e1c8',1,'TabCases2DTas']]],
+  ['getdiffcase',['getDiffCase',['../class_t_x_t___pas_a_pas.html#aaabe406e6dced3483f7cdda8a334e94e',1,'TXT_PasAPas']]],
+  ['getdimcol',['getDimCol',['../class_tab_cases2_d_tas.html#aadb570a255379227a3c6398be63083c0',1,'TabCases2DTas']]],
+  ['getdimlignes',['getDimLignes',['../class_tab_cases2_d_tas.html#a8e299df0c528fe1c90d114aa2de485a5',1,'TabCases2DTas']]],
+  ['getinfosauvegarde',['getInfoSauvegarde',['../classgest_sauvegarde.html#ad3b067c0be869c35ed036d3767d6b60c',1,'gestSauvegarde']]],
+  ['getmodifcase',['getModifCase',['../class_jeu.html#a8162eb507a7b9bf9190d9c718843c108',1,'Jeu']]],
+  ['getptr',['getPtr',['../class_tab_cases2_d_tas.html#a922e74cef7b379cbbc0b8f218f7c8283',1,'TabCases2DTas']]],
+  ['gettexture',['getTexture',['../class_image.html#ae9e27e310b4322d04366f2882f3a4242',1,'Image']]],
+  ['gettimeinhours',['getTimeInHours',['../classchronometre.html#ae8b0567c5fe7b5e5339964c9b44410c3',1,'chronometre']]],
+  ['gettimeinmin',['getTimeInMin',['../classchronometre.html#abc35b89bc733a1e2342f89dd712f69d8',1,'chronometre']]],
+  ['gettimeinmsec',['getTimeInMSec',['../classchronometre.html#a5c024c4274bcf284789542849e84d649',1,'chronometre']]],
+  ['gettimeinsec',['getTimeInSec',['../classchronometre.html#aa67a91acbf21a1108f7f5d5f7db4c5f9',1,'chronometre']]],
+  ['getval',['getVal',['../class_case.html#a868e3f37b5cc755e8aa9a5e434851614',1,'Case']]],
+  ['grille',['Grille',['../class_grille.html',1,'Grille'],['../class_grille.html#ac4cfd1aa24b5f27fa83d67cb1c79db9e',1,'Grille::grille()'],['../class_grille.html#ac4268fca5d8623c276de45dade351d88',1,'Grille::Grille(unsigned char d)']]],
+  ['grille_2ecpp',['Grille.cpp',['../_grille_8cpp.html',1,'']]],
+  ['grille_2eh',['Grille.h',['../_grille_8h.html',1,'']]],
+  ['grillejeu',['grilleJeu',['../class_jeu.html#a1b0cccece71839ac6c796ca6751b65ac',1,'Jeu']]],
+  ['grilleoriginale',['grilleOriginale',['../class_jeu.html#a1d3bae8c55cceb22ff9d19166ed4f8e2',1,'Jeu']]],
+  ['grillesolution',['grilleSolution',['../class_jeu.html#ad174b091210794ebc3d8c413e5d373f1',1,'Jeu']]]
 ];

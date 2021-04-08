@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['l_174',['l',['../class_case.html#a7a3b69d3a4e4076a1baecf8387e61d57',1,'Case']]],
-  ['lignes_175',['lignes',['../class_grille.html#adcb1ea1f550302e12182c650ad6bbc76',1,'Grille']]]
+  ['has_5fchanged',['has_changed',['../class_image.html#ab4cb83faeecef0cfb2773813c4757b45',1,'Image']]]
 ];

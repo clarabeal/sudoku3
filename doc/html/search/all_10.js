@@ -1,10 +1,22 @@
 var searchData=
 [
-  ['_7ecarre_83',['~Carre',['../class_carre.html#a8540b024ae3ed3b58ed368778bf25dab',1,'Carre']]],
-  ['_7ecolonne_84',['~Colonne',['../class_colonne.html#a827c19ff3bffb1860c0543c69138d5a1',1,'Colonne']]],
-  ['_7egrille_85',['~Grille',['../class_grille.html#ac9f539f33c2652c09f0f9db1adfa758d',1,'Grille']]],
-  ['_7ejeu_86',['~Jeu',['../class_jeu.html#a9cd19e73df169d7f09397be61ba8548c',1,'Jeu']]],
-  ['_7eligne_87',['~Ligne',['../class_ligne.html#a7496e90cf05bab745e3645919d33c811',1,'Ligne']]],
-  ['_7etabcases2dtas_88',['~TabCases2DTas',['../class_tab_cases2_d_tas.html#a7523ef54d60de0d8b346418889d1fa6f',1,'TabCases2DTas']]],
-  ['_7etxt_5fclassique_89',['~TXT_Classique',['../class_t_x_t___classique.html#a5a6a958253ef98b59a8722fd9cbb0bfc',1,'TXT_Classique']]]
+  ['sauvegarde_2ecpp',['Sauvegarde.cpp',['../_sauvegarde_8cpp.html',1,'']]],
+  ['sauvegarde_2eh',['Sauvegarde.h',['../_sauvegarde_8h.html',1,'']]],
+  ['sauvegardeid',['sauvegardeId',['../class_jeu.html#a990f31d68e69dfc67665c788e8f933ce',1,'Jeu']]],
+  ['sauvegarder',['sauvegarder',['../classgest_sauvegarde.html#a7ff87a9d4e4ebaf0714d53adece91811',1,'gestSauvegarde']]],
+  ['sdlaff',['sdlAff',['../classsdl_jeu.html#aedada55e3f96ba37493664d358dc7b60',1,'sdlJeu']]],
+  ['sdlboucle',['sdlBoucle',['../classsdl_jeu.html#a5628835d7efcab056985c3aa3de56836',1,'sdlJeu']]],
+  ['sdlclassique_2ecpp',['sdlClassique.cpp',['../sdl_classique_8cpp.html',1,'']]],
+  ['sdlclassique_2eh',['sdlClassique.h',['../sdl_classique_8h.html',1,'']]],
+  ['sdljeu',['sdlJeu',['../classsdl_jeu.html',1,'sdlJeu'],['../classsdl_jeu.html#a2a396de084238520d3abd33a35ee75a1',1,'sdlJeu::sdlJeu()']]],
+  ['selectiondim',['selectionDim',['../main__txt_8cpp.html#a6425b7ef958dec1af1212d67aaa2a17f',1,'main_txt.cpp']]],
+  ['selectionmenu',['selectionMenu',['../main__txt_8cpp.html#a8b4757c507b6a2b2fe75f81cbe31ee83',1,'main_txt.cpp']]],
+  ['selectionsave',['selectionSave',['../main__txt_8cpp.html#a7f62fe594a817ae5154cdd376c8aa595',1,'main_txt.cpp']]],
+  ['setcase',['setCase',['../class_grille.html#a1df0744eb05508eded59fea19c45c090',1,'Grille']]],
+  ['setsurface',['setSurface',['../class_image.html#a833f5d3b4b9f905320c6dffcc9b84b95',1,'Image']]],
+  ['setval',['setVal',['../class_case.html#ae432f2256ae32a004a81cb45e53c3429',1,'Case']]],
+  ['sontcorvalides',['sontCorValides',['../class_jeu.html#a39630c207edf061ef795569e30d428b6',1,'Jeu']]],
+  ['start',['start',['../classchronometre.html#a9b5685d521d4bf58764b5dee639d9582',1,'chronometre']]],
+  ['supprimersauvegarde',['supprimerSauvegarde',['../classgest_sauvegarde.html#a522d35f06ab29ecfdb0bd3d0b8a097b1',1,'gestSauvegarde']]],
+  ['surface',['surface',['../class_image.html#ac1d365143f4f5ee59f318977ad6d798b',1,'Image']]]
 ];

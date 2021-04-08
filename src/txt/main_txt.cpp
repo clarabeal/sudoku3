@@ -1,4 +1,4 @@
-#include "Sauvegarde.h"
+#include "../core/sauvegarde.h"
 #include "TXT_Classique.h"
 #include "TXT_PasAPas.h"
 #include "TXT_1vs1.h"
@@ -37,12 +37,11 @@ int main () {
 			gestSauvegarde gestionnaireSauvegarde("../data/saves/", "data/saves/");
 			int saveId = selectionSave(gestionnaireSauvegarde);
 			if (saveId != -1) {
-				sauvegardeId infoSurLaPartie = gestionnaireSauvegarde.getSauvegardeId(saveId);
+				InfoSauvegarde infoSurLaPartie = gestionnaireSauvegarde.getInfoSauvegarde(saveId);
 				Grille g_sol(infoSurLaPartie.tailleGrille);
 				Grille g_orig(infoSurLaPartie.tailleGrille);
 				Grille g_jeu(infoSurLaPartie.tailleGrille);
-				gestionnaireSauvegarde.loadFromFile(saveId,g_sol,g_orig,g_jeu);
-
+				gestionnaireSauvegarde.loadFromFile(saveId, g_sol, g_orig, g_jeu);
 				if (infoSurLaPartie.modeJeu == 1) {
 					TXT_Classique partieTxt((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu);
 					partieTxt.boucle();
@@ -160,7 +159,7 @@ int selectionSave(gestSauvegarde &gest) {
 		} while (!gest.valideId(convertIntToChar) && selectId != -1);
 		
 		if (selectId != -1) {
-			sauvegardeId& sauvegardeSelectionne = gest.getSauvegardeId(selectId);
+			InfoSauvegarde& sauvegardeSelectionne = gest.getInfoSauvegarde(selectId);
 			termClear();
 			do {
 				cout << "||||||||||||||||||||||||||||||||||SUDOKU 3||||||||||||||||||||||||||||||||||" << endl;

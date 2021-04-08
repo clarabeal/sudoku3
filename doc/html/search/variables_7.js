@@ -1,10 +1,4 @@
 var searchData=
 [
-  ['tab_177',['tab',['../class_tab_cases2_d_tas.html#a23044fadb8835827a1560b0ec2600c43',1,'TabCases2DTas']]],
-  ['tabc_178',['tabc',['../class_carre.html#a5caafd37b5ec840ea63183101b1867b3',1,'Carre']]],
-  ['tabcl_179',['tabcl',['../class_colonne.html#ad691b0333e2a2ccf920b15755b890454',1,'Colonne']]],
-  ['tabl_180',['tabl',['../class_ligne.html#a953ded06f42e316de0b264ce817853a2',1,'Ligne']]],
-  ['taillecarre_181',['tailleCarre',['../class_carre.html#aadc5628b6d3c474f43e1d6b9ddfd9b82',1,'Carre']]],
-  ['taillegrille_182',['tailleGrille',['../class_carre.html#a0f639849adff9561126d8c2dab405350',1,'Carre::tailleGrille()'],['../class_colonne.html#a7ef4ce586ac4c9780a65c14b60e37365',1,'Colonne::tailleGrille()'],['../class_ligne.html#aaf8900d514b2480d4fb0e5bb16102142',1,'Ligne::tailleGrille()']]],
-  ['tailleligne_183',['tailleLigne',['../class_ligne.html#a24780cc275ac2bbe3139c86d4b57b4e0',1,'Ligne']]]
+  ['jeu',['jeu',['../classsdl_jeu.html#a43eec470e1819a9df66e019e02928497',1,'sdlJeu::jeu()'],['../class_t_x_t__1vs1.html#a904364119467ea738d66bc0045ceb7e0',1,'TXT_1vs1::jeu()'],['../class_t_x_t___classique.html#afaf88b53302a7abd45d5dd9d56a0a385',1,'TXT_Classique::jeu()'],['../class_t_x_t___pas_a_pas.html#ae8b9dba8ab7f7247e90dfc02e897ea98',1,'TXT_PasAPas::jeu()']]]
 ];

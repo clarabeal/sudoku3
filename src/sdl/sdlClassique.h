@@ -1,6 +1,6 @@
 #ifndef _SDL_CLASSIQUE
 #define _SDL_CLASSIQUE
-#include "Jeu.h"
+#include "../core/Jeu.h"
 
 #ifdef _WIN32
 #include <SDL.h>

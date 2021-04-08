@@ -125,7 +125,7 @@ sdlJeu::sdlJeu(unsigned char d) : jeu(d){
 
 sdlJeu::~sdlJeu(){
 
-    TTF_CloseFont(font);
+    //TTF_CloseFont(font);
     TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

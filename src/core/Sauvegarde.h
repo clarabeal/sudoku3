@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-#include "../core/Grille.h"
-#include "../core/Jeu.h"
+#include "Grille.h"
+#include "Jeu.h"
 
 
 using namespace std;

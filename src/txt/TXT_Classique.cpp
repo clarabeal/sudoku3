@@ -89,7 +89,7 @@ void TXT_Classique::boucle () {
                 else if (resMenu == 3) {
                     termClear();
                     jeu.grilleJeu.grille.print();
-                    gestSauvegarde gestionnaireSauvegarde("../data/saves/");
+                    gestSauvegarde gestionnaireSauvegarde("../data/saves/", "data/saves/");
 
                     if (jeu.sauvegardeId == 0) {
 

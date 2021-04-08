@@ -1,4 +1,7 @@
 #include "Sauvegarde.h"
+#include "TXT_Classique.h"
+#include "TXT_PasAPas.h"
+#include "TXT_1vs1.h"
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
@@ -31,10 +34,26 @@ int main () {
 		}
 		else if (mode == 4) {
 			termClear();
-			gestSauvegarde gestionnaireSauvegarde("../data/saves/");
+			gestSauvegarde gestionnaireSauvegarde("../data/saves/", "data/saves/");
 			int saveId = selectionSave(gestionnaireSauvegarde);
 			if (saveId != -1) {
-				gestionnaireSauvegarde.loadFromFile(saveId);
+				sauvegardeId infoSurLaPartie = gestionnaireSauvegarde.getSauvegardeId(saveId);
+				Grille g_sol(infoSurLaPartie.tailleGrille);
+				Grille g_orig(infoSurLaPartie.tailleGrille);
+				Grille g_jeu(infoSurLaPartie.tailleGrille);
+				gestionnaireSauvegarde.loadFromFile(saveId,g_sol,g_orig,g_jeu);
+
+				if (infoSurLaPartie.modeJeu == 1) {
+					TXT_Classique partieTxt((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu);
+					partieTxt.boucle();
+				}
+				else if (infoSurLaPartie.modeJeu == 2) {
+					TXT_PasAPas partieTxt((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu);
+					partieTxt.boucle();
+				}
+				else {
+					cout << "Le mode de jeu de cette grille est invalide ou ne pas etre repris a partir d'une sauvegarde" << endl;
+				}
 			}
 			else mode = 4;
 		}

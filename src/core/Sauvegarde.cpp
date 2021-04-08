@@ -4,12 +4,16 @@
 #include <string>
 #include <stdio.h>
 
-gestSauvegarde::gestSauvegarde(string emplacement)
+gestSauvegarde::gestSauvegarde(string emplacement, string emplacement2)
 {
 	cheminDossier = emplacement;
+	if (!updateListe()) {
+		cheminDossier = emplacement2;
+	}
 	updateListe();
 }
-void gestSauvegarde::updateListe()
+
+bool gestSauvegarde::updateListe()
 {
 	ifstream fichier;
 	fichier.open(cheminDossier + "indexParties.txt", ios::in);
@@ -22,12 +26,12 @@ void gestSauvegarde::updateListe()
 		for (int i = 0; i < nbSauvegarde; i++) {
 			fichier >> listeSauvegarde[i].id >> listeSauvegarde[i].name >> listeSauvegarde[i].modeJeu >> listeSauvegarde[i].tailleGrille >> listeSauvegarde[i].chrono;
 		}
+		return true;
 	}
 	else {
 		listeSauvegarde = nullptr;
-		cout << "Impossible d'ouvrire l'index des sauvegardes! " << endl;
-		int a; 
-		cin >> a;
+		return false;
+		
 	}
 
 	fichier.close();
@@ -55,16 +59,14 @@ bool gestSauvegarde::valideId(unsigned char id) const {
 	return false;
 }
 
-void gestSauvegarde::loadFromFile(int id)
+void gestSauvegarde::loadFromFile(int id,Grille &g_sol,Grille & g_orig, Grille g_jeu)
 {
 	ifstream fichier;
 	sauvegardeId& infoSurLaSauvegarde = getSauvegardeId(id);
+	assert(infoSurLaSauvegarde.tailleGrille == g_sol.dim && infoSurLaSauvegarde.tailleGrille == g_jeu.dim && infoSurLaSauvegarde.tailleGrille == g_orig.dim);// on verifie que les grilles fournit soit de la bonne taille
 	fichier.open(cheminDossier + to_string(id) + ".sudokujeu", ios::in);
 	if (fichier.is_open()) {
 		unsigned char dimGrille = infoSurLaSauvegarde.tailleGrille;
-		Grille g_sol(dimGrille);
-		Grille g_orig(dimGrille);
-		Grille g_jeu(dimGrille);
 		int val;
 		unsigned char conv;
 		cout << "debut du chargement des grilles" << endl;
@@ -135,17 +137,7 @@ void gestSauvegarde::loadFromFile(int id)
 		}
 		cout << "Grilles chargees" << endl;
 		g_jeu.grille.print();
-		if (infoSurLaSauvegarde.modeJeu == 1) {
-			TXT_Classique partieTxt((unsigned char)infoSurLaSauvegarde.tailleGrille, infoSurLaSauvegarde.id, infoSurLaSauvegarde.chrono, g_sol, g_orig, g_jeu);
-			partieTxt.boucle();
-		}
-		else if (infoSurLaSauvegarde.modeJeu == 2) {
-			TXT_PasAPas partieTxt((unsigned char)infoSurLaSauvegarde.tailleGrille, infoSurLaSauvegarde.id, infoSurLaSauvegarde.chrono, g_sol, g_orig, g_jeu);
-			partieTxt.boucle();
-		}
-		else {
-			cout << "Le mode de jeu de cette grille est invalide ou ne pas etre repris a partir d'une sauvegarde" << endl;
-		}
+		
 
 	}
 	else {

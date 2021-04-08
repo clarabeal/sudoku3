@@ -146,7 +146,7 @@ void TXT_PasAPas::boucle() {
                     cout << "Votre temps ";
                     jeu.chrono.afficher();
                     cout << " En pause" << endl;
-                    gestSauvegarde gestionnaireSauvegarde("../data/saves/");
+                    gestSauvegarde gestionnaireSauvegarde("../data/saves/", "data/saves/");
 
                     if (jeu.sauvegardeId == 0) {
 

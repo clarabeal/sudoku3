@@ -1,4 +1,4 @@
-#include "sdlClassique.h"
+#include "SDL_Classique.h"
 #include <iostream>
 using namespace std;
 

@@ -1,4 +1,4 @@
-#include "sdlClassique.h"
+#include "SDL_Classique.h"
 #include <iostream>
 using namespace std;
 
@@ -181,7 +181,7 @@ int selectMode(SDL_Renderer *renderer, TTF_Font* font) {
 }
 
 void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image& im_modeClassiqueOver, Image& im_modeClassiqueAway, Image& im_modePasAPasOver,Image& im_modePasAPasAway, Image& im_mode1vs1Over, Image& im_mode1vs1Away, Image& im_sauvegardeOver, Image& im_sauvegardeAway) {
-    //Remplir l'écran de blanc
+    //Remplir l'ï¿½cran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
     SDL_Color couleur = { 0, 0, 0 };
@@ -228,7 +228,7 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
 }
 /*
 void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
-    jeu.chrono.update();// a enlever apres les test, ne doit pa être la
+    jeu.chrono.update();// a enlever apres les test, ne doit pa ï¿½tre la
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;

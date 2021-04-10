@@ -1,6 +1,6 @@
 CORE = core/Case.cpp core/TabCases2DTas.cpp core/Carre.cpp core/Colonne.cpp core/Ligne.cpp core/Grille.cpp core/Jeu.cpp core/Sauvegarde.cpp
 TXT = txt/TXT_1vs1.cpp txt/TXT_PasAPas.cpp txt/TXT_Classique.cpp txt/main_txt.cpp
-SDL = sdl/sdlClassique.cpp sdl/main_sdl.cpp
+SDL = sdl/Image.cpp sdl/SDL_Classique.cpp sdl/main_sdl.cpp
 
 SRCS_TXT = $(CORE) $(TXT)
 OBJS_TXT = $(SRCS_TXT:%.cpp=$(OBJ_DIR)/%.o)

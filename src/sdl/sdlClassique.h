@@ -1,6 +1,7 @@
 #ifndef _SDL_CLASSIQUE
 #define _SDL_CLASSIQUE
 #include "../core/Jeu.h"
+#include "Image.h"
 
 #ifdef _WIN32
 #include <SDL.h>
@@ -19,34 +20,15 @@
 #include <SDL2/SDL_mixer.h>
 #endif
 
-//! \brief Pour gerer une image avec SDL2
-class Image {
-
-public:
-    Image () ;
-    void loadFromFile (const char* filename, SDL_Renderer * renderer);
-    void loadFromCurrentSurface (SDL_Renderer * renderer);
-    void draw (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1);
-    SDL_Texture * getTexture() const;
-    void setSurface(SDL_Surface * surf);
-
-private:
-
-    SDL_Surface * surface;
-    SDL_Texture * texture;
-    bool has_changed;
-
-};
-
 /**
     La classe gerant le jeu avec un affichage SDL
 */
-class sdlJeu {
+class sdlJeuClassique {
 
 public :
 
-    sdlJeu (unsigned char d);
-    ~sdlJeu ();
+    sdlJeuClassique (unsigned char d);
+    ~sdlJeuClassique ();
     void sdlAffChrono(int x, int y, int largeur, int hauteur);
     void sdlBoucle ();
     void sdlAff ();

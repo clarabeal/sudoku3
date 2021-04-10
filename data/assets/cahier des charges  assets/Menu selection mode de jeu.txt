@@ -1,0 +1,5 @@
+taille (y faut juste conserver les proportions et plus l'image est grand moins c'est flou):
+	1300 de large
+	2000 de haut 
+
+Une verison quand la sourie est pas dessus et une version quand elle est dessus 

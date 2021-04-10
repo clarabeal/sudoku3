@@ -9,77 +9,11 @@ float temps () {
     return float(SDL_GetTicks()) / CLOCKS_PER_SEC;  // conversion des ms en secondes en divisant par 1000
 }
 
-// ============= CLASS IMAGE =============== //
 
-Image::Image () {
-    surface = NULL;
-    texture = NULL;
-    has_changed = false;
-}
-
-void Image::loadFromFile (const char* filename, SDL_Renderer * renderer) {
-    surface = IMG_Load(filename);
-    if (surface == NULL) {
-        string nfn = string("../") + filename;
-        cout << "Error: cannot load "<< filename <<". Trying "<<nfn<<endl;
-        surface = IMG_Load(nfn.c_str());
-        if (surface == NULL) {
-            nfn = string("../") + nfn;
-            surface = IMG_Load(nfn.c_str());
-        }
-    }
-    if (surface == NULL) {
-        cout<<"Error: cannot load "<< filename <<endl;
-        SDL_Quit();
-        exit(1);
-    }
-
-    SDL_Surface * surfaceCorrectPixelFormat = SDL_ConvertSurfaceFormat(surface,SDL_PIXELFORMAT_ARGB8888,0);
-    SDL_FreeSurface(surface);
-    surface = surfaceCorrectPixelFormat;
-
-    texture = SDL_CreateTextureFromSurface(renderer,surfaceCorrectPixelFormat);
-    if (texture == NULL) {
-        cout << "Error: problem to create the texture of "<< filename<< endl;
-        SDL_Quit();
-        exit(1);
-    }
-}
-
-void Image::loadFromCurrentSurface (SDL_Renderer * renderer) {
-    texture = SDL_CreateTextureFromSurface(renderer,surface);
-    if (texture == NULL) {
-        cout << "Error: problem to create the texture from surface " << endl;
-        SDL_Quit();
-        exit(1);
-    }
-}
-
-void Image::draw (SDL_Renderer * renderer, int x, int y, int w, int h) {
-    int ok;
-    SDL_Rect r;
-    r.x = x;
-    r.y = y;
-    r.w = (w<0)?surface->w:w;
-    r.h = (h<0)?surface->h:h;
-
-    if (has_changed) {
-        ok = SDL_UpdateTexture(texture,NULL,surface->pixels,surface->pitch);
-        assert(ok == 0);
-        has_changed = false;
-    }
-
-    ok = SDL_RenderCopy(renderer,texture,NULL,&r);
-    assert(ok == 0);
-}
-
-SDL_Texture * Image::getTexture() const {return texture;}
-
-void Image::setSurface(SDL_Surface * surf) {surface = surf;}
 
 // ============= CLASS SDLJEU =============== //
 
-sdlJeu::sdlJeu(unsigned char d) : jeu(d) {
+sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d) {
 
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -93,8 +27,12 @@ sdlJeu::sdlJeu(unsigned char d) : jeu(d) {
         SDL_Quit();
         exit(1);
     }
-    //font = TTF_OpenFont("data/fonts/BungeeShade-Regular.ttf", 12);
-    font = TTF_OpenFont("../data/fonts/arial.ttf", 12);
+    font = TTF_OpenFont("data/fonts/BungeeShade-Regular.ttf", 120);
+    if (!font) {
+        font = TTF_OpenFont("../data/fonts/BungeeShade-Regular.ttf", 120);
+
+    }
+    //font = TTF_OpenFont("../data/fonts/arial.ttf", 40);
 
     int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -136,7 +74,7 @@ sdlJeu::sdlJeu(unsigned char d) : jeu(d) {
 
 }
 
-sdlJeu::~sdlJeu(){
+sdlJeuClassique::~sdlJeuClassique(){
 
     TTF_CloseFont(font);
     TTF_Quit();
@@ -146,7 +84,7 @@ sdlJeu::~sdlJeu(){
 
 }
 
-void sdlJeu::sdlAff(){
+void sdlJeuClassique::sdlAff(){
 
     //Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -154,11 +92,11 @@ void sdlJeu::sdlAff(){
 
     // Affiche la grille vide
     sdlAffGrille(jeu.grilleJeu, 10, 80, 600, 600);
-   // sdlAffChrono(620, 80, 400, 100);
+    sdlAffChrono(620, 80, 400, 100);
 
 }
 
-void sdlJeu::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
+void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
     im_grille.draw(renderer, x, y, largeur, hauteur);
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
@@ -219,14 +157,14 @@ void sdlJeu::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur
     delete []buffConversion;
 }
 
-void sdlJeu::sdlAffChrono(int x, int y, int largeur, int hauteur) {
+void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     jeu.chrono.update();// a enlever apres les test, ne doit pa être la
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
     SDL_Texture* texte_texture = NULL;    //Create Texture pointer
     char buffConversion[80];
-    buffConversion[sprintf(buffConversion, "%luh %lum %lus %lu ms", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin()%60, jeu.chrono.getTimeInSec()%60, jeu.chrono.getTimeInMSec()%1000)+1] = '\0';
+    buffConversion[sprintf(buffConversion, "%luh  %lum  %lus", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin()%60, jeu.chrono.getTimeInSec()%60/*, jeu.chrono.getTimeInMSec()%1000*/)+1] = '\0';
     texte = TTF_RenderText_Blended(font, buffConversion, couleur);
     texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
     SDL_FreeSurface(texte);
@@ -242,7 +180,7 @@ void sdlJeu::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     assert(ok == 0);
 }
 
-void sdlJeu::sdlBoucle(){
+void sdlJeuClassique::sdlBoucle(){
 
     bool gameRunning = true;
     SDL_Event event;

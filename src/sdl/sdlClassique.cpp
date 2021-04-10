@@ -94,7 +94,7 @@ sdlJeu::sdlJeu(unsigned char d) : jeu(d) {
         exit(1);
     }
     //font = TTF_OpenFont("data/fonts/BungeeShade-Regular.ttf", 12);
-    font = TTF_OpenFont("data/fonts/arial.ttf", 12);
+    font = TTF_OpenFont("../data/fonts/arial.ttf", 12);
 
     int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -154,7 +154,7 @@ void sdlJeu::sdlAff(){
 
     // Affiche la grille vide
     sdlAffGrille(jeu.grilleJeu, 10, 80, 600, 600);
-    sdlAffChrono(620, 80, 400, 100);
+   // sdlAffChrono(620, 80, 400, 100);
 
 }
 
@@ -211,6 +211,7 @@ void sdlJeu::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur
                     position.h = 3 * (float)(hauteurCase / 4);
                 }
                 int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+                SDL_DestroyTexture(texte_texture);
                 assert(ok == 0);
             }
         }
@@ -237,6 +238,7 @@ void sdlJeu::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     position.h = hauteur;
                 
     int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+    SDL_DestroyTexture(texte_texture);
     assert(ok == 0);
 }
 

@@ -29,6 +29,12 @@ int main () {
 			partieTxt.boucle();
 			mode = 0;
 		}
+		else if(mode == 3) {
+			int d = selectionDim();
+			TXT_1vs1 partieTxt((unsigned char)d);
+			partieTxt.boucle();
+			mode = 0;
+		}
 		else if (mode == 4) {
 			termClear();
 			gestSauvegarde gestionnaireSauvegarde("../data/saves/");

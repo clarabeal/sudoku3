@@ -1,5 +1,6 @@
-#ifndef _SDL_CLASSIQUE
-#define _SDL_CLASSIQUE
+#ifndef _SDL_PasAPas
+#define _SDL_PasAPas
+
 #include "../core/Jeu.h"
 #include "Image.h"
 
@@ -21,21 +22,20 @@
 #endif
 
 
-
 /**
     La classe gerant le jeu avec un affichage SDL
 */
-class sdlPasAPas {
+class sdlJeuPasAPas {
 
 public:
 
-    sdlPasAPas(unsigned char d);
-    ~sdlPasAPas();
-    void sdlAffChrono(int x, int y, int largeur, int hauteur);
+    sdlJeuPasAPas(unsigned char d);
+    ~sdlJeuPasAPas();
     void sdlBoucle();
     void sdlAff();
-
+    /////////////////Les fonctions d'affichage
     void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
+    void sdlAffChrono(int x, int y, int largeur, int hauteur);
 
 private:
 

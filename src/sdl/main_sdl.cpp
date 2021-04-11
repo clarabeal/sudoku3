@@ -1,14 +1,16 @@
 #include "SDL_Classique.h"
+#include "SDL_PasAPas.h"
+#include "HitBox.h"
 #include <iostream>
 using namespace std;
 //format 16/9
 #define WIDTH 1024
-#define HEIGHT 576
+#define HEIGHT 572
 
 
-void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image& im_modeClassiqueOver, Image& im_modeClassiqueAway, Image& im_modePasAPasOver, Image& im_modePasAPasAway, Image& im_mode1vs1Over, Image& im_mode1vs1Away, Image& im_sauvegardeOver, Image& im_sauvegardeAway);
+void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit); //tab_img img contient les pointeurs sur les images dans lordre suivant: Image& im_modeClassiqueOver, Image& im_modeClassiqueAway, Image& im_modePasAPasOver, Image& im_modePasAPasAway, Image& im_mode1vs1Over, Image& im_mode1vs1Away, Image& im_sauvegardeOver, Image& im_sauvegardeAway
 int selectMode(SDL_Renderer* renderer, TTF_Font* font);
-void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image& im_4X4Over, Image& im_4X4Away, Image& im_9X9Over, Image& im_9X9Away, Image& im_16X16Over, Image& im_16X16Away, Image& im_retourOver, Image& im_retourAway);
+void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit); //tab_img img contient les pointeurs sur les images dans lordre suivant:Image& im_4X4Over, Image& im_4X4Away, Image& im_9X9Over, Image& im_9X9Away, Image& im_16X16Over, Image& im_16X16Away, Image& im_retourOver, Image& im_retourAway
 int selectDim(SDL_Renderer* renderer, TTF_Font* font);
 
 int main (int argc, char* argv[]){
@@ -71,13 +73,15 @@ int main (int argc, char* argv[]){
     do {
         do {
             mode = selectMode(renderer, font_menu);
-            if (mode == 4) {
+            if (mode == -1) {
+                return 0;
+            }else if (mode == 4) {
                 //menu sauvegarde
             }
         } while (mode == 4);
 
         dim = selectDim(renderer, font_menu);
-
+        if (dim == -2) return 0;
 
     } while (dim == -1);
     TTF_CloseFont(font_menu);
@@ -91,7 +95,8 @@ int main (int argc, char* argv[]){
        sJeu.sdlBoucle();
 
    }else if (mode == 2) {
-       // Pas aPAs
+       sdlJeuPasAPas sJeu(dim);
+       sJeu.sdlBoucle();
    }
    else if(mode == 3) {
        // 1vs1
@@ -104,14 +109,35 @@ int selectMode(SDL_Renderer *renderer, TTF_Font* font) {
     bool SelectionRunning = true;
     SDL_Event event;
     int modeOver = 0;
+    //*********************On initialise les variable des images et hit box puis on met leurs pointeurs dans un tableau pour facilement les passé de fonction en fonction*****//
+    Image *tab_img[8];
+    hitBox *tab_hit[4];
     Image im_modeClassiqueOver;
     Image im_modeClassiqueAway;
+    hitBox hit_classique;
     Image im_modePasAPasOver;
     Image im_modePasAPasAway;
+    hitBox hit_PasAPAs;
     Image im_mode1vs1Over;
     Image im_mode1vs1Away;
+    hitBox hit_1vs1;
     Image im_sauvegardeOver;
     Image im_sauvegardeAway;
+    hitBox hit_sauvegarder;
+    tab_img[0] = &im_modeClassiqueOver;
+    tab_img[1] = &im_modeClassiqueAway;
+    tab_img[2] = &im_modePasAPasOver;
+    tab_img[3] = &im_modePasAPasAway;
+    tab_img[4] = &im_mode1vs1Over;
+    tab_img[5] = &im_mode1vs1Away;
+    tab_img[6] = &im_sauvegardeOver;
+    tab_img[7] = &im_sauvegardeAway;
+    tab_hit[0] = &hit_classique;
+    tab_hit[1] = &hit_PasAPAs;
+    tab_hit[2] = &hit_1vs1;
+    tab_hit[3] = &hit_sauvegarder;
+    //***********************On charge les images a partir du dossier asset ***************************//
+
     im_modeClassiqueOver.loadFromFile("data/assets/menu/principal/ModeClassique_MousseOver.png", renderer);
     im_modeClassiqueAway.loadFromFile("data/assets/menu/principal/ModeClassique_MousseAway.png", renderer);
     im_modePasAPasOver.loadFromFile("data/assets/menu/principal/ModePasAPas_MousseOver.png", renderer);
@@ -124,105 +150,129 @@ int selectMode(SDL_Renderer *renderer, TTF_Font* font) {
 
         while (SDL_PollEvent(&event))
         {
-            if (event.type == SDL_QUIT) SelectionRunning = false;
-            if (event.type == SDL_KEYDOWN)
-            {
-                switch (event.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_Q:
-                    SelectionRunning = false;
-                    break;
-                default:
-                    break;
-                }
-            }
+            if (event.type == SDL_QUIT) return -1;;//Si l'utilisateur fermé la fenetre, on retourne -1
+            //*********Si la souris est au dessus d'une des hitbox on l'indique a la fonction d'affichage pour mettre en avant la preselection ******/
+
             if (event.type == SDL_MOUSEMOTION) {
                 int xm,ym;
                 SDL_GetMouseState(&xm, &ym);
 
-                if (xm>150 && xm<150+200 && ym > 150 && ym < 150+307) {
+                if (hit_classique.is_in(xm,ym)) {
                     modeOver = 1;
                 }
-                else if(xm > 150 +200 +62 && xm < 150 + 2*(200)+62 && ym > 150 && ym < 150 + 307) {
+                else if(hit_PasAPAs.is_in(xm, ym)) {
                     modeOver = 2;
                 }
-                else if(xm > 150 + 2 * (200 + 62)  && xm < 150 + 3 * (200) + 2*62 && ym > 150 && ym < 150 + 307) {
+                else if(hit_1vs1.is_in(xm, ym)) {
                     modeOver = 3;
                 }
-                else if(xm > 150 && xm < WIDTH - 150 && ym > 470 && ym < 570) {
+                else if(hit_sauvegarder.is_in(xm, ym)) {
                     modeOver = 4;
                 }
                 else {
                     modeOver = 0;
                 }
             }
+            //****Si l'utilisateur clic sur une des hitbox on fait l'action associée*****/
+
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 int xm, ym;
                 SDL_GetMouseState(&xm, &ym);
 
-                if (xm > 150 && xm < 150 + 200 && ym > 150 && ym < 150 + 307) {
+                if (hit_classique.is_in(xm, ym)) {
                     return 1;
                 }
-                else if (xm > 150 + 200 + 62 && xm < 150 + 2 * (200) + 62 && ym > 150 && ym < 150 + 307) {
+                else if (hit_PasAPAs.is_in(xm, ym)) {
                    // return 2;
                 }
-                else if (xm > 150 + 2 * (200 + 62) && xm < 150 + 3 * (200) + 2 * 62 && ym > 150 && ym < 150 + 307) {
+                else if (hit_1vs1.is_in(xm, ym)) {
                    // return 3;
                 }
-                else if (xm > 150 && xm < WIDTH - 150 && ym > 470 && ym < 570) {
+                else if (hit_sauvegarder.is_in(xm, ym)) {
                     //return 4;
                 }
             }
 
         }
 
-        affMenuSelectMode(modeOver, renderer, font,im_modeClassiqueOver,im_modeClassiqueAway,im_modePasAPasOver,im_modePasAPasAway,im_mode1vs1Over,im_mode1vs1Away,im_sauvegardeOver,im_sauvegardeAway);
+        affMenuSelectMode(modeOver, renderer, font, tab_img, tab_hit);
 
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
 }
 
-void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image& im_modeClassiqueOver, Image& im_modeClassiqueAway, Image& im_modePasAPasOver,Image& im_modePasAPasAway, Image& im_mode1vs1Over, Image& im_mode1vs1Away, Image& im_sauvegardeOver, Image& im_sauvegardeAway) {
+void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit){ //tab_img img contient les pointeurs sur les images dans lordre suivant: Image& im_modeClassiqueOver, Image& im_modeClassiqueAway, Image& im_modePasAPasOver, Image& im_modePasAPasAway, Image& im_mode1vs1Over, Image& im_mode1vs1Away, Image& im_sauvegardeOver, Image& im_sauvegardeAway
     //Remplir l'�cran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
+   
+    
+    const  int largeur_tuile_mode = WIDTH/4;
+    const  int espace_tuile_mode = (float)((WIDTH - 3*largeur_tuile_mode)/2*       /*Pourcentage de l'espace vide attribué au marge sur le cote                                               -->*/    30/100);
+    const  int marge_cote_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode)/2* /*Pourcentage de l'espace vide attribué pour entre les tuiles le total doit faire 100% avec celui du dessus -->*/   70/100);
+    const  int marge_hauteur_tuile_mode = HEIGHT * 25 / 100;;
+    const  int hauteur_tuile_mode = HEIGHT/2;
+   
+
+    //*********************On indique les positions des hitboxes **********************//
+    //hitbox du mode classique
+    tab_hit[0]->x1 = marge_cote_tuile_mode;
+    tab_hit[0]->x2 = tab_hit[0]->x1 + largeur_tuile_mode;
+    tab_hit[0]->y1 = marge_hauteur_tuile_mode;
+    tab_hit[0]->y2 = tab_hit[0]->y1 + hauteur_tuile_mode;
+    //hitbox du mode PasAPAs
+    tab_hit[1]->x1 = marge_cote_tuile_mode + largeur_tuile_mode + espace_tuile_mode;
+    tab_hit[1]->x2 = tab_hit[1]->x1 + largeur_tuile_mode;
+    tab_hit[1]->y1 = marge_hauteur_tuile_mode;
+    tab_hit[1]->y2 = tab_hit[1]->y1 + hauteur_tuile_mode;
+    //hitbox du mode 1vs1
+    tab_hit[2]->x1 = marge_cote_tuile_mode + 2 * (largeur_tuile_mode + espace_tuile_mode);
+    tab_hit[2]->x2 = tab_hit[2]->x1 + largeur_tuile_mode;
+    tab_hit[2]->y1 = marge_hauteur_tuile_mode;
+    tab_hit[2]->y2 = tab_hit[2]->y1 + hauteur_tuile_mode;
+    //hitbox du btn sauvegarde
+    tab_hit[3]->x1 = marge_cote_tuile_mode;
+    tab_hit[3]->x2 = tab_hit[3]->x1 + 3 * largeur_tuile_mode + 2 * espace_tuile_mode;
+    tab_hit[3]->y1 = marge_hauteur_tuile_mode + hauteur_tuile_mode + HEIGHT*5/100;
+    tab_hit[3]->y2 = tab_hit[3]->y1 + (1 / 9.23) * (3 * largeur_tuile_mode + 2 * espace_tuile_mode);
+
+    //********************Place les image sur le render aux positions des hitbox associées************//
+
+    tab_img[1]->draw(renderer, tab_hit[0]->x1 , tab_hit[0]->y1, tab_hit[0]->getLargeur(), tab_hit[0]->getHauteur());
+    tab_img[3]->draw(renderer, tab_hit[1]->x1 , tab_hit[1]->y1, tab_hit[1]->getLargeur(), tab_hit[1]->getHauteur());
+    tab_img[5]->draw(renderer, tab_hit[2]->x1 , tab_hit[2]->y1, tab_hit[2]->getLargeur(), tab_hit[2]->getHauteur());
+    tab_img[7]->draw(renderer, tab_hit[3]->x1 , tab_hit[3]->y1, tab_hit[3]->getLargeur(), tab_hit[3]->getHauteur());
+
+    //*********************Position Du titre***************************//
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
     SDL_Texture* texte_texture = NULL;    //Create Texture pointer
-    
-    const unsigned int largeur_tuile_mode = 200;
-    const unsigned int hauteur_tuile_mode = 307;
+
+    position.w = WIDTH*70/100;
+    position.h = HEIGHT*20/100;
+    position.x = WIDTH - position.w - (WIDTH - position.w)/2;
+    position.y = WIDTH *1/100;
     char Titre[80] = "Selection du Mode de Jeu";
     texte = TTF_RenderText_Blended(font, Titre, couleur);
     texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
     SDL_FreeSurface(texte);
+    //********************Pour mettre la case sur la quelle est la souris*********************//
 
-   
-
-    im_modeClassiqueAway.draw(renderer, 150, 150, largeur_tuile_mode, hauteur_tuile_mode);
-    im_modePasAPasAway.draw(renderer, 150 + largeur_tuile_mode + 62, 150, largeur_tuile_mode, hauteur_tuile_mode);
-    im_mode1vs1Away.draw(renderer, 150 + 2*(largeur_tuile_mode +62), 150, largeur_tuile_mode, hauteur_tuile_mode);
-    im_sauvegardeAway.draw(renderer, 150, 470, 3 * largeur_tuile_mode + 2 * 62, (1 / 9.23) * (3 * largeur_tuile_mode + 2 * 62));
-
-    position.w = 700;
-    position.h = 100;
-    position.x = WIDTH - position.w - (WIDTH - position.w)/2;
-    position.y = 10;
     if (ModeOver == 1) {
-        im_modeClassiqueOver.draw(renderer, 150, 150, largeur_tuile_mode, hauteur_tuile_mode);
+        tab_img[0]->draw(renderer, tab_hit[0]->x1, tab_hit[0]->y1, tab_hit[0]->getLargeur(), tab_hit[0]->getHauteur());
 
     }else  if (ModeOver == 2) {
-        im_modePasAPasOver.draw(renderer, 150 + largeur_tuile_mode + 62, 150, largeur_tuile_mode, hauteur_tuile_mode);
+        tab_img[2]->draw(renderer, tab_hit[1]->x1, tab_hit[1]->y1, tab_hit[1]->getLargeur(), tab_hit[1]->getHauteur());
 
     }
     else if (ModeOver == 3) {
-        im_mode1vs1Over.draw(renderer, 150 + 2 * (largeur_tuile_mode + 62), 150, largeur_tuile_mode, hauteur_tuile_mode);
+        tab_img[4]->draw(renderer, tab_hit[2]->x1, tab_hit[2]->y1, tab_hit[2]->getLargeur(), tab_hit[2]->getHauteur());
 
     }
     else if (ModeOver == 4) {
-        im_sauvegardeOver.draw(renderer, 150, 470, 3 * largeur_tuile_mode + 2 * 62, (1 / 9.23) * (3 * largeur_tuile_mode + 2 * 62));
+        tab_img[6]->draw(renderer, tab_hit[3]->x1, tab_hit[3]->y1, tab_hit[3]->getLargeur(), tab_hit[3]->getHauteur());
 
     }
 
@@ -233,15 +283,36 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
 int selectDim(SDL_Renderer* renderer, TTF_Font* font) {
     bool SelectionRunning = true;
     SDL_Event event;
-    int modeOver = 0;
+    int dimOver = 0;
+
+    //*********************On initialise les variable des images et hit box puis on met leurs pointeurs dans un tableau pour facilement les passé de fonction en fonction*****//
+    Image* tab_img[8];
+    hitBox* tab_hit[4];
     Image im_4X4Over;
     Image im_4X4Away;
+    hitBox hit_4x4;
     Image im_9X9Over;
     Image im_9X9Away;
+    hitBox hit_9x9;
     Image im_16X16Over;
     Image im_16X16Away;
+    hitBox hit_16x16;
     Image im_retourOver;
     Image im_retourAway;
+    hitBox hit_retour;
+    tab_img[0] = &im_4X4Over;
+    tab_img[1] = &im_4X4Away;
+    tab_img[2] = &im_9X9Over;
+    tab_img[3] = &im_9X9Away;
+    tab_img[4] = &im_16X16Over;
+    tab_img[5] = &im_16X16Away;
+    tab_img[6] = &im_retourOver;
+    tab_img[7] = &im_retourAway;
+    tab_hit[0] = &hit_4x4;
+    tab_hit[1] = &hit_9x9;
+    tab_hit[2] = &hit_16x16;
+    tab_hit[3] = &hit_retour;
+    //***********************On charge les images a partir du dossier asset ***************************//
     im_4X4Over.loadFromFile("data/assets/menu/principal/selectGrille4x4_MousseOver.png", renderer);
     im_4X4Away.loadFromFile("data/assets/menu/principal/selectGrille4x4_MousseAway.png", renderer);
     im_9X9Over.loadFromFile("data/assets/menu/principal/selectGrille9x9_MousseOver.png", renderer);
@@ -250,112 +321,135 @@ int selectDim(SDL_Renderer* renderer, TTF_Font* font) {
     im_16X16Away.loadFromFile("data/assets/menu/principal/selectGrille16x16_MousseAway.png", renderer);
     im_retourOver.loadFromFile("data/assets/menu/principal/retour_MousseOver.png", renderer);
     im_retourAway.loadFromFile("data/assets/menu/principal/retour_MousseAway.png", renderer);
+
+
     while (SelectionRunning) {
 
         while (SDL_PollEvent(&event))
         {
-            if (event.type == SDL_QUIT) SelectionRunning = false;
-            if (event.type == SDL_KEYDOWN)
-            {
-                switch (event.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_Q:
-                    SelectionRunning = false;
-                    break;
-                default:
-                    break;
-                }
-            }
+            if (event.type == SDL_QUIT) return -2;//Si l'utilisateur fermé la fenetre, on retourne -2
+
+            //*********Si la souris est au dessus d'une des hitbox on l'indique a la fonction d'affichage pour mettre en avant la preselection ******/
             if (event.type == SDL_MOUSEMOTION) {
                 int xm, ym;
                 SDL_GetMouseState(&xm, &ym);
 
-                if (xm > 150 && xm < 150 + 200 && ym > 150 && ym < 150 + 200) {
-                    modeOver = 1;
+                if (hit_4x4.is_in(xm, ym)) {
+                    dimOver = 1;
                 }
-                else if (xm > 150 + 200 + 62 && xm < 150 + 2 * (200) + 62 && ym > 150 && ym < 150 + 200) {
-                    modeOver = 2;
+                else if (hit_9x9.is_in(xm, ym)) {
+                    dimOver = 2;
                 }
-                else if (xm > 150 + 2 * (200 + 62) && xm < 150 + 3 * (200) + 2 * 62 && ym > 150 && ym < 150 + 200) {
-                    modeOver = 3;
+                else if (hit_16x16.is_in(xm, ym)) {
+                    dimOver = 3;
                 }
-                else if (xm > 150 && xm < WIDTH - 150 && ym > 470 && ym < 570) {
-                    modeOver = 4;
+                else if (hit_retour.is_in(xm, ym)) {
+                    dimOver = 4;
                 }
                 else {
-                    modeOver = 0;
+                    dimOver = 0;
                 }
             }
+            //****Si l'utilisateur clic sur une des hitbox on fait l'action associée*****/
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 int xm, ym;
                 SDL_GetMouseState(&xm, &ym);
 
-                if (xm > 150 && xm < 150 + 200 && ym > 150 && ym < 150 + 307) {
+                if (hit_4x4.is_in(xm, ym)) {
                     return 4;
                 }
-                else if (xm > 150 + 200 + 62 && xm < 150 + 2 * (200) + 62 && ym > 150 && ym < 150 + 307) {
+                else if (hit_9x9.is_in(xm, ym)) {
                     return 9;
                 }
-                else if (xm > 150 + 2 * (200 + 62) && xm < 150 + 3 * (200) + 2 * 62 && ym > 150 && ym < 150 + 307) {
+                else if (hit_16x16.is_in(xm, ym)) {
                     return 16;
                 }
-                else if (xm > 150 && xm < WIDTH - 150 && ym > 470 && ym < 570) {
+                else if (hit_retour.is_in(xm, ym)) {
                     return -1;
                 }
             }
 
         }
 
-        affMenuSelectMode(modeOver, renderer, font, im_4X4Over, im_4X4Away, im_9X9Over, im_9X9Away, im_16X16Over, im_16X16Away, im_retourOver, im_retourAway);
+        affMenuSelectDim(dimOver, renderer, font, tab_img, tab_hit);
 
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
 }
 
-void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image& im_4X4Over, Image& im_4X4Away, Image& im_9X9Over, Image& im_9X9Away, Image& im_16X16Over, Image& im_16X16Away, Image& im_retourOver, Image& im_retourAway){
+void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit) {
     //Remplir l'�cran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
-    SDL_Color couleur = { 0, 0, 0 };
-    SDL_Surface* texte = nullptr;
-    SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
 
+
+    
+
+    //*********************On indique les positions des hitboxes **********************//
     const unsigned int largeur_tuile_mode = 200;
     const unsigned int hauteur_tuile_mode = 200;
+    //hitbox du mode 4*4
+    tab_hit[0]->x1 = 150;
+    tab_hit[0]->x2 = tab_hit[0]->x1 + largeur_tuile_mode;
+    tab_hit[0]->y1 = 150;
+    tab_hit[0]->y2 = tab_hit[0]->y1 + hauteur_tuile_mode;
+    //hitbox du mode 9*9
+    tab_hit[1]->x1 = 150 + largeur_tuile_mode + 62;
+    tab_hit[1]->x2 = tab_hit[1]->x1 + largeur_tuile_mode;
+    tab_hit[1]->y1 = 150;
+    tab_hit[1]->y2 = tab_hit[1]->y1 + hauteur_tuile_mode;
+    //hitbox du mode 16*16
+    tab_hit[2]->x1 = 150 + 2 * (largeur_tuile_mode + 62);
+    tab_hit[2]->x2 = tab_hit[2]->x1 + largeur_tuile_mode;
+    tab_hit[2]->y1 = 150;
+    tab_hit[2]->y2 = tab_hit[2]->y1 + hauteur_tuile_mode;
+    //hitbox du btn retour
+    tab_hit[3]->x1 = 150;
+    tab_hit[3]->x2 = tab_hit[3]->x1 + 3 * largeur_tuile_mode + 2 * 62;
+    tab_hit[3]->y1 = 470;
+    tab_hit[3]->y2 = tab_hit[3]->y1 + (1 / 9.23) * (3 * largeur_tuile_mode + 2 * 62);
+ 
+    //********************Place les image sur le render aux positions des hitbox associées************//
+    tab_img[1]->draw(renderer, tab_hit[0]->x1, tab_hit[0]->y1, tab_hit[0]->getLargeur(), tab_hit[0]->getHauteur());
+    tab_img[3]->draw(renderer, tab_hit[1]->x1, tab_hit[1]->y1, tab_hit[1]->getLargeur(), tab_hit[1]->getHauteur());
+    tab_img[5]->draw(renderer, tab_hit[2]->x1, tab_hit[2]->y1, tab_hit[2]->getLargeur(), tab_hit[2]->getHauteur());
+    tab_img[7]->draw(renderer, tab_hit[3]->x1, tab_hit[3]->y1, tab_hit[3]->getLargeur(), tab_hit[3]->getHauteur());
+    
+    //*********************Position Du titre***************************//
+    SDL_Color couleur = { 0, 0, 0 }; //Couleur du Titre
+    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    SDL_Surface* texte = nullptr;
+    SDL_Rect position;//Position du titre
+
+    position.w = 900;
+    position.h = 100;
+    position.x = WIDTH - position.w - (WIDTH - position.w) / 2;
+    position.y = 10;
+
     char Titre[80] = "Selection de la dimension de la grille";
     texte = TTF_RenderText_Blended(font, Titre, couleur);
     texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
     SDL_FreeSurface(texte);
 
-
-
-    im_4X4Away.draw(renderer, 150, 150, largeur_tuile_mode, hauteur_tuile_mode);
-    im_9X9Away.draw(renderer, 150 + largeur_tuile_mode + 62, 150, largeur_tuile_mode, hauteur_tuile_mode);
-    im_16X16Away.draw(renderer, 150 + 2 * (largeur_tuile_mode + 62), 150, largeur_tuile_mode, hauteur_tuile_mode);
-    im_retourAway.draw(renderer, 150, 470, 3 * largeur_tuile_mode + 2 * 62, (1 / 9.23) * (3 * largeur_tuile_mode + 2 * 62));
-
-    position.w = 700;
-    position.h = 100;
-    position.x = WIDTH - position.w - (WIDTH - position.w) / 2;
-    position.y = 10;
+    //********************Pour mettre la case sur la quelle est la souris*********************//
     if (ModeOver == 1) {
-        im_4X4Over.draw(renderer, 150, 150, largeur_tuile_mode, hauteur_tuile_mode);
+        tab_img[0]->draw(renderer, tab_hit[0]->x1, tab_hit[0]->y1, tab_hit[0]->getLargeur(), tab_hit[0]->getHauteur());
 
     }
     else  if (ModeOver == 2) {
-        im_9X9Over.draw(renderer, 150 + largeur_tuile_mode + 62, 150, largeur_tuile_mode, hauteur_tuile_mode);
+        tab_img[2]->draw(renderer, tab_hit[1]->x1, tab_hit[1]->y1, tab_hit[1]->getLargeur(), tab_hit[1]->getHauteur());
 
     }
     else if (ModeOver == 3) {
-        im_16X16Over.draw(renderer, 150 + 2 * (largeur_tuile_mode + 62), 150, largeur_tuile_mode, hauteur_tuile_mode);
+        tab_img[4]->draw(renderer, tab_hit[2]->x1, tab_hit[2]->y1, tab_hit[2]->getLargeur(), tab_hit[2]->getHauteur());
 
     }
     else if (ModeOver == 4) {
-        im_retourOver.draw(renderer, 150, 470, 3 * largeur_tuile_mode + 2 * 62, (1 / 9.23) * (3 * largeur_tuile_mode + 2 * 62));
+        tab_img[6]->draw(renderer, tab_hit[3]->x1, tab_hit[3]->y1, tab_hit[3]->getLargeur(), tab_hit[3]->getHauteur());
 
     }
+    //********************************************************************************************//
 
     int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
     SDL_DestroyTexture(texte_texture);

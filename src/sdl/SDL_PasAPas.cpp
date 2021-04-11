@@ -5,7 +5,7 @@ using namespace std;
 #define WIDTH 1280
 #define HEIGHT 720
 
-float sdlPasAPas::temps() {
+float sdlJeuPasAPas::temps() {
     return float(SDL_GetTicks()) / CLOCKS_PER_SEC;  // conversion des ms en secondes en divisant par 1000
 }
 
@@ -13,7 +13,7 @@ float sdlPasAPas::temps() {
 
 // ============= CLASS SDLJEU =============== //
 
-sdlPasAPas::sdlPasAPas(unsigned char d) : jeu(d) {
+sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d) {
 
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -74,7 +74,7 @@ sdlPasAPas::sdlPasAPas(unsigned char d) : jeu(d) {
 
 }
 
-sdlPasAPas::~sdlPasAPas() {
+sdlJeuPasAPas::~sdlJeuPasAPas() {
 
     TTF_CloseFont(font);
     TTF_Quit();
@@ -84,7 +84,7 @@ sdlPasAPas::~sdlPasAPas() {
 
 }
 
-void sdlPasAPas::sdlAff() {
+void sdlJeuPasAPas::sdlAff() {
 
     //Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -96,7 +96,7 @@ void sdlPasAPas::sdlAff() {
 
 }
 
-void sdlPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
+void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
     im_grille.draw(renderer, x, y, largeur, hauteur);
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
@@ -157,7 +157,7 @@ void sdlPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hau
     delete[]buffConversion;
 }
 
-void sdlPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur) {
+void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     jeu.chrono.update();// a enlever apres les test, ne doit pa être la
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
@@ -180,7 +180,7 @@ void sdlPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     assert(ok == 0);
 }
 
-void sdlPasAPas::sdlBoucle() {
+void sdlJeuPasAPas::sdlBoucle() {
 
     bool gameRunning = true;
     SDL_Event event;

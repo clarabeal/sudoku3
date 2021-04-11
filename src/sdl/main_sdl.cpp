@@ -183,7 +183,7 @@ int selectMode(SDL_Renderer *renderer, TTF_Font* font) {
                     return 1;
                 }
                 else if (hit_PasAPAs.is_in(xm, ym)) {
-                   // return 2;
+                    return 2;
                 }
                 else if (hit_1vs1.is_in(xm, ym)) {
                    // return 3;
@@ -209,10 +209,10 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
    
     
     const  int largeur_tuile_mode = WIDTH/4;
-    const  int espace_tuile_mode = (float)((WIDTH - 3*largeur_tuile_mode)/2*       /*Pourcentage de l'espace vide attribué au marge sur le cote                                               -->*/    30/100);
-    const  int marge_cote_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode)/2* /*Pourcentage de l'espace vide attribué pour entre les tuiles le total doit faire 100% avec celui du dessus -->*/   70/100);
+    const  int espace_tuile_mode = (float)((WIDTH - 3*largeur_tuile_mode)/2*       /*Pourcentage de l'espace vide attribué au marge sur le cote                                               -->*/    20/100);
+    const  int marge_cote_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode)/2* /*Pourcentage de l'espace vide attribué pour entre les tuiles le total doit faire 100% avec celui du dessus -->*/   80/100);
     const  int marge_hauteur_tuile_mode = HEIGHT * 25 / 100;;
-    const  int hauteur_tuile_mode = HEIGHT/2;
+    const  int hauteur_tuile_mode = HEIGHT*40/100;
    
 
     //*********************On indique les positions des hitboxes **********************//
@@ -235,7 +235,7 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
     tab_hit[3]->x1 = marge_cote_tuile_mode;
     tab_hit[3]->x2 = tab_hit[3]->x1 + 3 * largeur_tuile_mode + 2 * espace_tuile_mode;
     tab_hit[3]->y1 = marge_hauteur_tuile_mode + hauteur_tuile_mode + HEIGHT*5/100;
-    tab_hit[3]->y2 = tab_hit[3]->y1 + (1 / 9.23) * (3 * largeur_tuile_mode + 2 * espace_tuile_mode);
+    tab_hit[3]->y2 = tab_hit[3]->y1 + (1 / 9.23) * tab_hit[3]->getLargeur();
 
     //********************Place les image sur le render aux positions des hitbox associées************//
 
@@ -263,7 +263,8 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
     if (ModeOver == 1) {
         tab_img[0]->draw(renderer, tab_hit[0]->x1, tab_hit[0]->y1, tab_hit[0]->getLargeur(), tab_hit[0]->getHauteur());
 
-    }else  if (ModeOver == 2) {
+    }
+    else  if (ModeOver == 2) {
         tab_img[2]->draw(renderer, tab_hit[1]->x1, tab_hit[1]->y1, tab_hit[1]->getLargeur(), tab_hit[1]->getHauteur());
 
     }
@@ -387,28 +388,31 @@ void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Imag
     
 
     //*********************On indique les positions des hitboxes **********************//
-    const unsigned int largeur_tuile_mode = 200;
-    const unsigned int hauteur_tuile_mode = 200;
+    const  int largeur_tuile_mode = WIDTH / 4;
+    const  int espace_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode) / 2 *       /*Pourcentage de l'espace vide attribué au marge sur le cote                                               -->*/    20 / 100);
+    const  int marge_cote_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode) / 2 * /*Pourcentage de l'espace vide attribué pour entre les tuiles le total doit faire 100% avec celui du dessus -->*/   80 / 100);
+    const  int marge_hauteur_tuile_mode = HEIGHT * 25 / 100;;
+    const  int hauteur_tuile_mode = HEIGHT * 40/100;
     //hitbox du mode 4*4
-    tab_hit[0]->x1 = 150;
+    tab_hit[0]->x1 = marge_cote_tuile_mode;
     tab_hit[0]->x2 = tab_hit[0]->x1 + largeur_tuile_mode;
-    tab_hit[0]->y1 = 150;
+    tab_hit[0]->y1 = marge_hauteur_tuile_mode;
     tab_hit[0]->y2 = tab_hit[0]->y1 + hauteur_tuile_mode;
     //hitbox du mode 9*9
-    tab_hit[1]->x1 = 150 + largeur_tuile_mode + 62;
+    tab_hit[1]->x1 = marge_cote_tuile_mode + largeur_tuile_mode + espace_tuile_mode;
     tab_hit[1]->x2 = tab_hit[1]->x1 + largeur_tuile_mode;
-    tab_hit[1]->y1 = 150;
+    tab_hit[1]->y1 = marge_hauteur_tuile_mode;
     tab_hit[1]->y2 = tab_hit[1]->y1 + hauteur_tuile_mode;
     //hitbox du mode 16*16
-    tab_hit[2]->x1 = 150 + 2 * (largeur_tuile_mode + 62);
+    tab_hit[2]->x1 = marge_cote_tuile_mode + 2 * (largeur_tuile_mode + espace_tuile_mode);
     tab_hit[2]->x2 = tab_hit[2]->x1 + largeur_tuile_mode;
-    tab_hit[2]->y1 = 150;
+    tab_hit[2]->y1 = marge_hauteur_tuile_mode;
     tab_hit[2]->y2 = tab_hit[2]->y1 + hauteur_tuile_mode;
     //hitbox du btn retour
-    tab_hit[3]->x1 = 150;
-    tab_hit[3]->x2 = tab_hit[3]->x1 + 3 * largeur_tuile_mode + 2 * 62;
-    tab_hit[3]->y1 = 470;
-    tab_hit[3]->y2 = tab_hit[3]->y1 + (1 / 9.23) * (3 * largeur_tuile_mode + 2 * 62);
+    tab_hit[3]->x1 = marge_cote_tuile_mode;
+    tab_hit[3]->x2 = tab_hit[3]->x1 + 3 * largeur_tuile_mode + 2 * espace_tuile_mode;
+    tab_hit[3]->y1 = marge_hauteur_tuile_mode + hauteur_tuile_mode + HEIGHT * 5 / 100;
+    tab_hit[3]->y2 = tab_hit[3]->y1 + (1 / 9.23) * tab_hit[3]->getLargeur();
  
     //********************Place les image sur le render aux positions des hitbox associées************//
     tab_img[1]->draw(renderer, tab_hit[0]->x1, tab_hit[0]->y1, tab_hit[0]->getLargeur(), tab_hit[0]->getHauteur());
@@ -422,10 +426,10 @@ void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Imag
     SDL_Surface* texte = nullptr;
     SDL_Rect position;//Position du titre
 
-    position.w = 900;
-    position.h = 100;
+    position.w = WIDTH * 70 / 100;
+    position.h = HEIGHT * 20 / 100;
     position.x = WIDTH - position.w - (WIDTH - position.w) / 2;
-    position.y = 10;
+    position.y = WIDTH * 1 / 100;
 
     char Titre[80] = "Selection de la dimension de la grille";
     texte = TTF_RenderText_Blended(font, Titre, couleur);

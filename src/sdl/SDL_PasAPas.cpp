@@ -13,7 +13,7 @@ float sdlJeuPasAPas::temps() {
 
 // ============= CLASS SDLJEU =============== //
 
-sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d) {
+sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
 
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -58,20 +58,74 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d) {
         SDL_Quit();
         exit(1);
     }
+    font_color = { 0, 0, 0 };
 
     //creation des images :
     if (d == 4) {
-        im_grille.loadFromFile("data/assets/4x4color.jpg", renderer);
+        im_grille.loadFromFile("data/assets/grilles/4x4color.jpg", renderer);
     }
     else if (d == 9) {
-        im_grille.loadFromFile("data/assets/9x9color.jpg", renderer);
+        im_grille.loadFromFile("data/assets/grilles/9x9color.jpg", renderer);
     }
     else if (d == 16) {
-        im_grille.loadFromFile("data/assets/16x16color.jpg", renderer);
+        im_grille.loadFromFile("data/assets/grilles/16x16color.jpg", renderer);
     }
 
+    tabHitBoxeGrille = new hitBox[d * d];
+    tabHitBoxeSelectionNombre = new hitBox[d];
+    im_selectionChiffre = new Image[d];
+    char buffConversion[3];
+    for (int i = 0; i < d+1; i++) {
+        if (i == 0){
+            string path = "data/assets/selectionChiffres/";
+            if (d < 10) {
+                buffConversion[0] = (int)d + '0';
+                buffConversion[1] = '\0';
+            }
+            else {
+                buffConversion[0] = '1';
+                buffConversion[1] = (int)d - 10 + '0';
+                buffConversion[2] = '\0';
+            }
 
 
+            path += buffConversion;
+            path += "/chiffres";
+            path += "_Away.png";
+            im_selectionChiffre[i].loadFromFile(path.c_str(), renderer);
+
+        }
+        else {
+            string path = "data/assets/selectionChiffres/";
+            if (d < 10) {
+                buffConversion[0] = (int)d + '0';
+                buffConversion[1] = '\0';
+            }
+            else {
+                buffConversion[0] = '1';
+                buffConversion[1] = (int)d - 10 + '0';
+                buffConversion[2] = '\0';
+            }
+            path += buffConversion;
+            path += "/chiffres";
+            if (i < 10) {
+                buffConversion[0] = i + '0';
+                buffConversion[1] = '\0';
+            }
+            else {
+                buffConversion[0] = '1';
+                buffConversion[1] = i - 10 + '0';
+                buffConversion[2] = '\0';
+            }
+            path += buffConversion;
+            path += "_Over.png";
+            im_selectionChiffre[i].loadFromFile(path.c_str(), renderer);
+        }
+    }
+    l_toChange = 0;
+    c_toChange = 0;
+    mousse_x = 0;
+    mousse_y = 0;
 }
 
 sdlJeuPasAPas::~sdlJeuPasAPas() {
@@ -81,11 +135,14 @@ sdlJeuPasAPas::~sdlJeuPasAPas() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-
+    delete []tabHitBoxeGrille;
+    delete[]tabHitBoxeSelectionNombre;
+    delete[]im_selectionChiffre;
 }
 
 void sdlJeuPasAPas::sdlAff() {
-
+    //supprime les hitboxe de l'affichage precendent
+    resetTabHitGrille();
     //Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
@@ -94,6 +151,42 @@ void sdlJeuPasAPas::sdlAff() {
     sdlAffGrille(jeu.grilleJeu, 10, 80, 600, 600);
     sdlAffChrono(620, 80, 400, 100);
 
+    // Si une valeur doit être entree on affiche le menu 
+    if (l_toChange != 0) {
+        int selectHauteur = 40;
+        sdlAffSelectionChiffre(620, 200, dimGrille * selectHauteur, selectHauteur);
+    }
+}
+void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur) {
+    for (int i = 0; i < dimGrille; i++) {
+        tabHitBoxeSelectionNombre[i].x1 = x + (i * largeur/dimGrille);
+        tabHitBoxeSelectionNombre[i].x2 = tabHitBoxeSelectionNombre[i].x1 + (largeur / dimGrille);
+        tabHitBoxeSelectionNombre[i].y1 = y;
+        tabHitBoxeSelectionNombre[i].y2 = tabHitBoxeSelectionNombre[i].y1 + hauteur;
+    }
+    for (int i = 0; i < dimGrille; i++) {
+        if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
+            im_selectionChiffre[i+1].draw(renderer, x, y, largeur, hauteur);
+            return;
+        }
+
+    }
+    im_selectionChiffre[0].draw(renderer, x, y, largeur, hauteur);
+
+
+
+
+}
+
+void sdlJeuPasAPas::resetTabHitGrille() {
+    for (int l = 0; l < dimGrille; l++) {
+        for (int c = 0; c < dimGrille; c++) {
+            tabHitBoxeGrille[l * dimGrille + c].x1 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].y1 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].x2 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].y2 = 0;
+        }
+    }
 }
 
 void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
@@ -110,6 +203,9 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
     for (int l = 0; l < dimGrille; l++) {
         for (int c = 0; c < dimGrille; c++) {
             if (grille.grille.getCase(l, c).getVal() != 0) {
+                if (!grille.grille.getCase(l, c).modifiable) {
+                    couleur = { 255,0,0 };
+                }
                 if (grille.grille.getCase(l, c).getVal() < 10) {
                     buffConversion[0] = (int)grille.grille.getCase(l, c).getVal() + '0';
                     buffConversion[1] = '\0';
@@ -150,8 +246,16 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
                 }
                 int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
                 SDL_DestroyTexture(texte_texture);
+               
+
                 assert(ok == 0);
             }
+            tabHitBoxeGrille[l * dimGrille + c].x1 = x + c * largeurCase;
+            tabHitBoxeGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
+            tabHitBoxeGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
+            tabHitBoxeGrille[l * dimGrille + c].y2 = y + l * hauteurCase + hauteurCase;
+            couleur = {0, 0 ,0};
+
         }
     }
     delete[]buffConversion;
@@ -180,30 +284,69 @@ void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     assert(ok == 0);
 }
 
-void sdlJeuPasAPas::sdlBoucle() {
 
+void sdlJeuPasAPas::sdlBoucle() {
     bool gameRunning = true;
     SDL_Event event;
     if (!jeu.initDone) {
         jeu.init();
         jeu.initDone = true;
     }
+
     while (gameRunning) {
 
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT) gameRunning = false;
+            if (event.type == SDL_MOUSEMOTION) {
+                int xm, ym;
+                SDL_GetMouseState(&mousse_x, &mousse_y);
+            }
             if (event.type == SDL_KEYDOWN)
             {
                 switch (event.key.keysym.scancode)
                 {
-                case SDL_SCANCODE_Q:
-                    gameRunning = false;
-                    break;
                 default:
                     break;
                 }
             }
+
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                int xm, ym;
+                SDL_GetMouseState(&xm, &ym);
+                if (l_toChange != 0) {
+                    for (int i = 0; i < dimGrille; i++) {
+                        if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
+                            jeu.grilleJeu.grille.getCase(l_toChange - 1, c_toChange - 1).setVal(i + 1);
+                        }
+                    }
+                }
+                c_toChange = 0;
+                l_toChange = 0;
+                for (int l = 0; l < dimGrille; l++) {
+                    for (int c = 0; c < dimGrille; c++) {
+                        if (tabHitBoxeGrille[l * dimGrille + c].is_in(xm, ym)) {
+                            cout << "Colonne " << c + 1 << " | Ligne " << l + 1 << endl;
+                            if (jeu.grilleJeu.grille.getCase(l, c).modifiable) {
+                                c_toChange = c+1;
+                                l_toChange = l+1;
+
+
+                            }
+                            else {
+                                cout << "la case n'est pas modifiable" << endl;
+                                c_toChange = 0;
+                                l_toChange = 0;
+                            }
+                        }
+                    }
+                }
+                
+
+
+            }
+           
+
         }
 
 

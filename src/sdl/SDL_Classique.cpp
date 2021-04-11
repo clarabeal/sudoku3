@@ -61,13 +61,13 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d) {
 
     //creation des images :
     if (d == 4) {
-        im_grille.loadFromFile("data/assets/4x4color.jpg", renderer);
+        im_grille.loadFromFile("data/assets/grilles/4x4color.jpg", renderer);
     }
     else if (d == 9) {
-        im_grille.loadFromFile("data/assets/9x9color.jpg", renderer);
+        im_grille.loadFromFile("data/assets/grilles/9x9color.jpg", renderer);
     }
     else if (d == 16) {
-        im_grille.loadFromFile("data/assets/16x16color.jpg", renderer);
+        im_grille.loadFromFile("data/assets/grilles/16x16color.jpg", renderer);
     }
 
 

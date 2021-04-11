@@ -1,7 +1,7 @@
 #include "TXT_Classique.h"
 
 #include <iostream>
-#include "Sauvegarde.h"
+#include "../core/Sauvegarde.h"
 
 #include <stdlib.h>
 
@@ -12,8 +12,8 @@ TXT_Classique::TXT_Classique (unsigned char d) : jeu(d) {
 }
 TXT_Classique::TXT_Classique(unsigned char d,int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu) {
 }
-TXT_Classique::~TXT_Classique () {
 
+TXT_Classique::~TXT_Classique () {
 }
 
 void TXT_Classique::termClear() const  // efface le terminal
@@ -89,7 +89,7 @@ void TXT_Classique::boucle () {
                 else if (resMenu == 3) {
                     termClear();
                     jeu.grilleJeu.grille.print();
-                    gestSauvegarde gestionnaireSauvegarde("../data/saves/");
+                    gestSauvegarde gestionnaireSauvegarde("../data/saves/", "data/saves/");
 
                     if (jeu.sauvegardeId == 0) {
 
@@ -118,7 +118,7 @@ void TXT_Classique::boucle () {
                         jeu.chrono.afficher();
                         cout << endl;
                         if (jeu.sauvegardeId != -1) {
-                            cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getSauvegardeId(jeu.sauvegardeId).name << endl;
+                            cout << "La partie a bien ete sauvegardee(sauvegarde deja existente mise a jour) | nom: " << gestionnaireSauvegarde.getInfoSauvegarde(jeu.sauvegardeId).name << endl;
                         }
                         else {
                             cout << "La partie n'a pas pu etre sauvegardee" << endl;

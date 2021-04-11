@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['estvalvalide_17',['estValValide',['../class_jeu.html#afe269d3881dfa0bf37661b261f369e3c',1,'Jeu']]],
-  ['etat_18',['etat',['../class_case.html#a295e134d5d0a51acbc95338bc080f99d',1,'Case']]]
+  ['dim',['dim',['../class_grille.html#a4da443820d905db84e34c0b48973a1ba',1,'Grille']]],
+  ['dimcolonnes',['dimColonnes',['../class_tab_cases2_d_tas.html#a933f1eb96b8a695bf8e37aca5882bd2e',1,'TabCases2DTas']]],
+  ['dimlignes',['dimLignes',['../class_tab_cases2_d_tas.html#ab5dac5064ca1edbb16efb564de717a27',1,'TabCases2DTas']]],
+  ['draw',['draw',['../class_image.html#a82d6936d466ba0161d8b9cbacf613de5',1,'Image']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['tabcases2dtas_147',['TabCases2DTas',['../class_tab_cases2_d_tas.html#a536b61e9a84a6c8db910d11ec01f22cb',1,'TabCases2DTas']]],
-  ['termclear_148',['termClear',['../_t_x_t___classique_8cpp.html#abfddca010a6ceb2c5292c98247a434ce',1,'TXT_Classique.cpp']]],
-  ['trouvernumerocarre_149',['trouverNumeroCarre',['../class_jeu.html#a5e06a32232900008bcc463b35a392942',1,'Jeu']]],
-  ['txt_5fclassique_150',['TXT_Classique',['../class_t_x_t___classique.html#a38bd8c83c4b253735e0a177b6247a00a',1,'TXT_Classique']]]
+  ['remplir',['remplir',['../class_carre.html#ac6509f98813156c238714fd1a2edb9af',1,'Carre::remplir()'],['../class_colonne.html#acb520d335f84973ea370646ab352f083',1,'Colonne::remplir()'],['../class_ligne.html#acf6afa673ea16b4182397ded9a158916',1,'Ligne::remplir()']]],
+  ['remplirtblalea',['remplirTblAlea',['../class_jeu.html#af20f25eaa74c85aea701ef34bd9a4d71',1,'Jeu']]],
+  ['reset',['reset',['../classchronometre.html#a393fc2e87086c17056865e2fef51658f',1,'chronometre']]],
+  ['retirercasesfausses',['retirerCasesFausses',['../class_t_x_t___pas_a_pas.html#ae12e4801393c15a71f5e1a06d45e87fe',1,'TXT_PasAPas']]]
 ];

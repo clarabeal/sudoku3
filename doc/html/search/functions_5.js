@@ -1,4 +1,20 @@
 var searchData=
 [
-  ['jeu_135',['Jeu',['../class_jeu.html#a6a3565c9c25cb2a0c438af28f0688bc1',1,'Jeu']]]
+  ['generergrilleminimale',['genererGrilleMinimale',['../class_jeu.html#a42a55727e53504683a95c6de5b9eea8a',1,'Jeu']]],
+  ['generergrillepleine',['genererGrillePleine',['../class_jeu.html#a3f7a5b3871615071ca6a66f28e5a0a5d',1,'Jeu']]],
+  ['gestsauvegarde',['gestSauvegarde',['../classgest_sauvegarde.html#aac369207d615ebeeb324ea7eefa81552',1,'gestSauvegarde']]],
+  ['getcase',['getCase',['../class_tab_cases2_d_tas.html#a56c293b520c9cda017d270769032e1c8',1,'TabCases2DTas']]],
+  ['getdiffcase',['getDiffCase',['../class_t_x_t___pas_a_pas.html#aaabe406e6dced3483f7cdda8a334e94e',1,'TXT_PasAPas']]],
+  ['getdimcol',['getDimCol',['../class_tab_cases2_d_tas.html#aadb570a255379227a3c6398be63083c0',1,'TabCases2DTas']]],
+  ['getdimlignes',['getDimLignes',['../class_tab_cases2_d_tas.html#a8e299df0c528fe1c90d114aa2de485a5',1,'TabCases2DTas']]],
+  ['getinfosauvegarde',['getInfoSauvegarde',['../classgest_sauvegarde.html#ad3b067c0be869c35ed036d3767d6b60c',1,'gestSauvegarde']]],
+  ['getmodifcase',['getModifCase',['../class_jeu.html#a8162eb507a7b9bf9190d9c718843c108',1,'Jeu']]],
+  ['getptr',['getPtr',['../class_tab_cases2_d_tas.html#a922e74cef7b379cbbc0b8f218f7c8283',1,'TabCases2DTas']]],
+  ['gettexture',['getTexture',['../class_image.html#ae9e27e310b4322d04366f2882f3a4242',1,'Image']]],
+  ['gettimeinhours',['getTimeInHours',['../classchronometre.html#ae8b0567c5fe7b5e5339964c9b44410c3',1,'chronometre']]],
+  ['gettimeinmin',['getTimeInMin',['../classchronometre.html#abc35b89bc733a1e2342f89dd712f69d8',1,'chronometre']]],
+  ['gettimeinmsec',['getTimeInMSec',['../classchronometre.html#a5c024c4274bcf284789542849e84d649',1,'chronometre']]],
+  ['gettimeinsec',['getTimeInSec',['../classchronometre.html#aa67a91acbf21a1108f7f5d5f7db4c5f9',1,'chronometre']]],
+  ['getval',['getVal',['../class_case.html#a868e3f37b5cc755e8aa9a5e434851614',1,'Case']]],
+  ['grille',['Grille',['../class_grille.html#ac4268fca5d8623c276de45dade351d88',1,'Grille']]]
 ];

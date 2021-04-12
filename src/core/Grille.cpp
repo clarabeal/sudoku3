@@ -34,3 +34,9 @@ void Grille::viderGrille()
     grille.vider();
 }
 
+void Grille::operator=(Grille& tab)
+{
+    assert(dim = tab.dim);
+    grille = tab.grille;
+}
+

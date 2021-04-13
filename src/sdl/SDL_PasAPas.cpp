@@ -325,6 +325,7 @@ void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur,bool ful
     SDL_Rect position;
     SDL_Texture* texte_texture = NULL;    //Create Texture pointer
     char buffConversion[80];
+    jeu.chrono.update();
     if (!full) {
         buffConversion[sprintf(buffConversion, "%luh  %lum  %lus", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin() % 60, jeu.chrono.getTimeInSec() % 60/*, jeu.chrono.getTimeInMSec()%1000*/) + 1] = '\0';
     }

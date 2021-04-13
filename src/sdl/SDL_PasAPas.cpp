@@ -337,11 +337,15 @@ void sdlJeuPasAPas::sdlBoucle() {
         while (SDL_PollEvent(&event))
         {
             sdlAff();
+            //----Quitte la partie si croix
             if (event.type == SDL_QUIT) gameRunning = false;
+
+            //----On enregistre la postion de la souris
             if (event.type == SDL_MOUSEMOTION) {
-                int xm, ym;
                 SDL_GetMouseState(&mousse_x, &mousse_y);
             }
+
+            //----On fait les actions lié au differentes touches du clavier si elles sont pressées
             if (event.type == SDL_KEYDOWN)
             {
 
@@ -391,10 +395,10 @@ void sdlJeuPasAPas::sdlBoucle() {
                 }
             }
 
-            if (event.type == SDL_MOUSEBUTTONDOWN) {
-                int xm, ym;
-                SDL_GetMouseState(&xm, &ym);
+            //----On fait les actions lié aux clics souris
 
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                //---Si une case devait être changé on verifie si le clic a été effectué sur une des hit box des chiffres
                 if (l_toChange != 0) {
                     for (int i = 0; i < dimGrille; i++) {
                         if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
@@ -404,9 +408,10 @@ void sdlJeuPasAPas::sdlBoucle() {
                 }
                 c_toChange = 0;
                 l_toChange = 0;
+                //---On regarde si le clic a été effectué sur une des case de la grille, si oui: clic gauche --> Selectionne la case et affiche le menu de selection chiffre, clic droit --> vide la case
                 for (int l = 0; l < dimGrille; l++) {
                     for (int c = 0; c < dimGrille; c++) {
-                        if (tabHitBoxeGrille[l * dimGrille + c].is_in(xm, ym)) {
+                        if (tabHitBoxeGrille[l * dimGrille + c].is_in(mousse_x, mousse_y)) {
                             cout << "Colonne " << c + 1 << " | Ligne " << l + 1 << endl;
                             if (jeu.grilleJeu.grille.getCase(l, c).modifiable) {
                                 if (event.button.button == SDL_BUTTON_LEFT) {

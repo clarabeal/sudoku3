@@ -152,17 +152,6 @@ sdlJeuPasAPas::~sdlJeuPasAPas() {
 
 }
 
-void sdlJeuPasAPas::resetTabHitGrille() {
-    for (int l = 0; l < dimGrille; l++) {
-        for (int c = 0; c < dimGrille; c++) {
-            tabHitBoxeGrille[l * dimGrille + c].x1 = 0;
-            tabHitBoxeGrille[l * dimGrille + c].y1 = 0;
-            tabHitBoxeGrille[l * dimGrille + c].x2 = 0;
-            tabHitBoxeGrille[l * dimGrille + c].y2 = 0;
-        }
-    }
-}
-
 void sdlJeuPasAPas::resetTabHitSelectionNombre() {
     for (int i = 0; i < dimGrille; i++) {
         tabHitBoxeSelectionNombre[i].x1 = 0;

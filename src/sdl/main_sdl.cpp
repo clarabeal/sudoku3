@@ -1,6 +1,5 @@
 #include "SDL_Classique.h"
 #include "SDL_PasAPas.h"
-#include "HitBox.h"
 #include <iostream>
 using namespace std;
 //format 16/9

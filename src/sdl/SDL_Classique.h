@@ -2,6 +2,7 @@
 #define _SDL_CLASSIQUE
 #include "../core/Jeu.h"
 #include "Image.h"
+#include "HitBox.h"
 
 #ifdef _WIN32
 #include <SDL.h>

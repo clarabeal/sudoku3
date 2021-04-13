@@ -58,7 +58,9 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
         SDL_Quit();
         exit(1);
     }
-    font_color = { 0, 0, 0 };
+    font_color.r = 0;
+    font_color.g = 0;
+    font_color.b = 0;
 
     //creation des images :
     if (d == 4) {
@@ -126,7 +128,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
             path += "_Over.png";
             im_selectionChiffre[i].loadFromFile(path.c_str(), renderer);
         }
-    }//Chargement des images pour la selection du chiffre a placé
+    }//Chargement des images pour la selection du chiffre a placï¿½
     l_toChange = 0;
     c_toChange = 0;
     mousse_x = 0;
@@ -174,7 +176,7 @@ void sdlJeuPasAPas::sdlAff() {
     //supprime les hitboxe de i'affichage precendent
     resetTabHitGrille();
     resetTabHitSelectionNombre();
-    //Remplir i'écran de blanc
+    //Remplir i'Ã©cran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
 
@@ -188,7 +190,7 @@ void sdlJeuPasAPas::sdlAff() {
     sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrille, hauteurGrille);
     sdlAffChrono(xGrille + hauteurGrille + WIDTH * 2 / 100 , yGrille, (WIDTH-hauteurGrille-xGrille) * 80/100, (yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100)*1/10);
 
-    // Si une valeur doit être entree on affiche le menu 
+    // Si une valeur doit ï¿½tre entree on affiche le menu 
     if (l_toChange != 0) {
         int selectHauteur = 40;
         sdlAffSelectionChiffre(620, 200, dimGrille * selectHauteur, selectHauteur);
@@ -214,6 +216,17 @@ void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteu
 
 
 
+}
+
+void sdlJeuPasAPas::resetTabHitGrille() {
+    for (int l = 0; l < dimGrille; l++) {
+        for (int c = 0; c < dimGrille; c++) {
+            tabHitBoxeGrille[l * dimGrille + c].x1 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].y1 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].x2 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].y2 = 0;
+        }
+    }
 }
 
 void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
@@ -254,8 +267,10 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
                 break;
             }
             if (grille.grille.getCase(l, c).getVal() != 0) {
-                if (!grille.grille.getCase(l, c).modifiable && grille.grille.getCase(l,c).etat == 0) {
-                    couleur = {100, 100, 100};
+                if (!grille.grille.getCase(l, c).modifiable) {
+                    couleur.r = 255;
+                    couleur.g = 0;
+                    couleur.b = 0;
                 }
                
                 if (grille.grille.getCase(l, c).getVal() < 10) {
@@ -306,7 +321,9 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
             tabHitBoxeGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
             tabHitBoxeGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
             tabHitBoxeGrille[l * dimGrille + c].y2 = y + l * hauteurCase + hauteurCase;
-            couleur = {0, 0 ,0};
+            couleur.r = 0;
+            couleur.g = 0;
+            couleur.b = 0;
 
         }
     }
@@ -380,7 +397,7 @@ void sdlJeuPasAPas::sdlBoucle() {
                 SDL_GetMouseState(&mousse_x, &mousse_y);
             }
 
-            //----On fait les actions liées au differentes touches du clavier si elles sont pressées
+            //----On fait les actions liÃ©es au differentes touches du clavier si elles sont pressÃ©es
             if (event.type == SDL_KEYDOWN)
             {
 
@@ -412,7 +429,7 @@ void sdlJeuPasAPas::sdlBoucle() {
 
                     if (valeur == 0) { //place la valeur si la case est vide
                         jeu.grilleJeu.setCase(l - 1, c - 1, jeu.grilleSolution.grille.getCase(l - 1, c - 1).getVal());
-                        aideRemplir = true; //aide à savoir si la valeur à été placée
+                        aideRemplir = true; //aide ï¿½ savoir si la valeur ï¿½ ï¿½tï¿½ placï¿½e
                     }
 
                 } while (aideRemplir == false && essaie < 500);
@@ -430,10 +447,10 @@ void sdlJeuPasAPas::sdlBoucle() {
                 }
             }
 
-            //----On fait les actions liées aux clics souris
+            //----On fait les actions liÃ©es aux clics souris
 
             if (event.type == SDL_MOUSEBUTTONDOWN) {
-                //---Si une case devait être changé on verifie si le clic a été effectué sur une des hit box des chiffres
+                //---Si une case devait ï¿½tre changï¿½ on verifie si le clic a ï¿½tï¿½ effectuï¿½ sur une des hit box des chiffres
                 if (l_toChange != 0) {
                     for (int i = 0; i < dimGrille; i++) {
                         if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
@@ -443,7 +460,7 @@ void sdlJeuPasAPas::sdlBoucle() {
                 }
                 c_toChange = 0;
                 l_toChange = 0;
-                //---On regarde si le clic a été effectué sur une des case de la grille, si oui: clic gauche --> Selectionne la case et affiche le menu de selection chiffre, clic droit --> vide la case
+                //---On regarde si le clic a ï¿½tï¿½ effectuï¿½ sur une des case de la grille, si oui: clic gauche --> Selectionne la case et affiche le menu de selection chiffre, clic droit --> vide la case
                 for (int l = 0; l < dimGrille; l++) {
                     for (int c = 0; c < dimGrille; c++) {
                         if (tabHitBoxeGrille[l * dimGrille + c].is_in(mousse_x, mousse_y)) {

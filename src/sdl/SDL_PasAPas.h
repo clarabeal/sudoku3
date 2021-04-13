@@ -32,6 +32,11 @@ public:
     sdlJeuPasAPas(unsigned char d);
     ~sdlJeuPasAPas();
     void sdlBoucle();
+    void updateDiffCase();
+    unsigned char getDiffCase(unsigned char l, unsigned char c, bool diff_type = 1);
+    void coordCaseSimple(unsigned char& l, unsigned char& c);
+    void printTabDiff() const;
+    void retirerCasesFausses();
     void resetTabHitGrille();
     /////////////////Les fonctions d'affichage
     void sdlAff();
@@ -52,6 +57,11 @@ private:
 
     Image im_grille;
     Image* im_selectionChiffre;
+    Image bleu;
+    Image gris;
+    Image rouge;
+    Image vert;
+
 
     float temps();
 
@@ -60,6 +70,7 @@ private:
 
     const int dimGrille;
     int c_toChange, l_toChange, mousse_x, mousse_y;
+    unsigned char* tabDiffCase;
 
 
 };

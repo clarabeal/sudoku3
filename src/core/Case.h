@@ -35,7 +35,7 @@ class Case {
 
     /**
      @brief indique l'etat de la case
-     \details  0: On sait pas, 1 : La case est juste, 2:La case est fausse
+     \details  0: On sait pas, 1 : La case est juste(vert), 2:La case est fausse(rouge), 3:la case est facile(bleu)
     */
     unsigned char etat;
     private:

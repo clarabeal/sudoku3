@@ -20,4 +20,7 @@ unsigned char Case::getVal () const {
 
 void Case::setVal (unsigned char nb) {
     val=nb;
+    if (etat == 3) {
+        etat = 0;
+    }
 }

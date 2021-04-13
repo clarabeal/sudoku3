@@ -5,7 +5,7 @@
 using namespace std;
 //format 16/9
 #define WIDTH 1024
-#define HEIGHT 572
+#define HEIGHT 576
 
 
 void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit); //tab_img img contient les pointeurs sur les images dans lordre suivant: Image& im_modeClassiqueOver, Image& im_modeClassiqueAway, Image& im_modePasAPasOver, Image& im_modePasAPasAway, Image& im_mode1vs1Over, Image& im_mode1vs1Away, Image& im_sauvegardeOver, Image& im_sauvegardeAway
@@ -208,11 +208,11 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
     SDL_RenderClear(renderer);
    
     
-    const  int largeur_tuile_mode = WIDTH/4;
+    const  int largeur_tuile_mode = WIDTH/5;
     const  int espace_tuile_mode = (float)((WIDTH - 3*largeur_tuile_mode)/2*       /*Pourcentage de l'espace vide attribué au marge sur le cote                                               -->*/    20/100);
     const  int marge_cote_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode)/2* /*Pourcentage de l'espace vide attribué pour entre les tuiles le total doit faire 100% avec celui du dessus -->*/   80/100);
     const  int marge_hauteur_tuile_mode = HEIGHT * 25 / 100;;
-    const  int hauteur_tuile_mode = HEIGHT*40/100;
+    const  int hauteur_tuile_mode = largeur_tuile_mode * 20/13;
    
 
     //*********************On indique les positions des hitboxes **********************//

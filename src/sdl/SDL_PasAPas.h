@@ -43,6 +43,7 @@ public:
 
     //------------------Les fonctions d'affichage
     void sdlAff();
+    void sdlAffMenu(int x, int y, int largeur, int hauteur);
     void sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
     void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
     void sdlAffChrono(int x, int y, int largeur, int hauteur, bool full = false);
@@ -68,6 +69,8 @@ private:
 
     //------------------Image globale
     Image im_grille;
+    Image im_menu;
+
     Image* im_selectionChiffre;
     Image bleu;
     Image gris;

@@ -81,7 +81,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
     rouge.loadFromFile("data/assets/couleursDeFond/Rouge.png", renderer);
     vert.loadFromFile("data/assets/couleursDeFond/Vert.png", renderer);
     gris.loadFromFile("data/assets/couleursDeFond/Gris.png", renderer);
-
+    im_menu.loadFromFile("data/assets/menu/pasAPas/menu.png", renderer);
     for (int i = 0; i < d+1; i++) {
         if (i == 0){
             string path = "data/assets/selectionChiffres/";
@@ -161,52 +161,6 @@ void sdlJeuPasAPas::resetTabHitSelectionNombre() {
     }
 }
 
-void sdlJeuPasAPas::sdlAff() {
-    //supprime les hitboxe de i'affichage precendent
-    resetTabHitGrille();
-    resetTabHitSelectionNombre();
-    //Remplir i'écran de blanc
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
-
-
-
-    // Affiche la grille vide
-    int hauteurGrille = HEIGHT * 80 / 100;
-    int xGrille = HEIGHT * 10 / 100;
-    int yGrille = WIDTH * 5 / 100;
-
-    sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrille, hauteurGrille);
-    sdlAffChrono(xGrille + hauteurGrille + WIDTH * 2 / 100 , yGrille, (WIDTH-hauteurGrille-xGrille) * 80/100, (yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100)*1/10);
-
-    // Si une valeur doit �tre entree on affiche le menu 
-    if (l_toChange != 0) {
-        int selectHauteur = 40;
-        sdlAffSelectionChiffre(620, 200, dimGrille * selectHauteur, selectHauteur);
-    }
-}
-
-void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur) {
-    for (int i = 0; i < dimGrille; i++) {
-        tabHitBoxeSelectionNombre[i].x1 = x + (i * largeur/dimGrille);
-        tabHitBoxeSelectionNombre[i].x2 = tabHitBoxeSelectionNombre[i].x1 + (largeur / dimGrille);
-        tabHitBoxeSelectionNombre[i].y1 = y;
-        tabHitBoxeSelectionNombre[i].y2 = tabHitBoxeSelectionNombre[i].y1 + hauteur;
-    }
-    for (int i = 0; i < dimGrille; i++) {
-        if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
-            im_selectionChiffre[i+1].draw(renderer, x, y, largeur, hauteur);
-            return;
-        }
-
-    }
-    im_selectionChiffre[0].draw(renderer, x, y, largeur, hauteur);
-
-
-
-
-}
-
 void sdlJeuPasAPas::resetTabHitGrille() {
     for (int l = 0; l < dimGrille; l++) {
         for (int c = 0; c < dimGrille; c++) {
@@ -216,160 +170,6 @@ void sdlJeuPasAPas::resetTabHitGrille() {
             tabHitBoxeGrille[l * dimGrille + c].y2 = 0;
         }
     }
-}
-
-void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
-    im_grille.draw(renderer, x, y, largeur, hauteur);
-    SDL_Color couleur = { 0, 0, 0 };
-    SDL_Surface* texte = nullptr;
-    SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
-
-    int dimGrille = (int)grille.dim;
-    int largeurCase = largeur / dimGrille;
-    int hauteurCase = hauteur / dimGrille;
-    if (l_toChange != 0) {// si une case est en cours de modification, on met un fond gris sur celle ci
-        gris.draw(renderer, x + (c_toChange-1) * largeurCase, y + (l_toChange-1)*hauteurCase, hauteurCase, largeurCase);
-    }
-
-
-
-    char* buffConversion = new char[3];
-    for (int l = 0; l < dimGrille; l++) {
-        for (int c = 0; c < dimGrille; c++) {
-            switch ((int)grille.grille.getCase(l, c).etat)
-            {
-            case 0:
-                couleur.r = 0;
-                couleur.g = 0;
-                couleur.b = 0;
-
-                break;
-            case 1:
-                couleur.r = 0;
-                couleur.g = 255;
-                couleur.b = 0;
-                break;
-            case 2:
-                couleur.r = 255;
-                couleur.g = 0;
-                couleur.b = 0;
-                break;
-            case 3:
-                bleu.draw(renderer, x + (c - 1) * largeurCase, y + (l - 1) * hauteurCase, hauteurCase, largeurCase);
-                break;
-            default:
-                break;
-            }
-            if (grille.grille.getCase(l, c).getVal() != 0) {
-                if (!grille.grille.getCase(l, c).modifiable) {
-                    couleur.r = 255;
-                    couleur.g = 0;
-                    couleur.b = 0;
-                }
-               
-                if (grille.grille.getCase(l, c).getVal() < 10) {
-                    buffConversion[0] = (int)grille.grille.getCase(l, c).getVal() + '0';
-                    buffConversion[1] = '\0';
-                }
-                else {
-
-                    buffConversion[0] = '1';
-                    buffConversion[1] = (int)grille.grille.getCase(l, c).getVal() - 10 + '0';
-                    buffConversion[2] = '\0';
-
-                }
-
-                //cout << "res: " << (int)grille.grille.getCase(i, c).getVal() << " n1: " << buffConversion[0] << " n2: " << buffConversion[1] << endl;
-                texte = TTF_RenderText_Blended(font, buffConversion, couleur);
-                texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
-                SDL_FreeSurface(texte);
-
-                //on positionne le nombre au centre de ca case
-                if (dimGrille > 9) {
-                    if (grille.grille.getCase(l, c).getVal() < 10) {// si il n'y a qu'un chiffre
-                        position.x = x + c * largeurCase + 4 * (largeurCase / 12);
-                        position.y = y + l * hauteurCase + hauteurCase / 4;
-                        position.w = 5 * (float)(largeurCase / 12);
-                        position.h = 3 * (float)(hauteurCase / 4);
-                    }
-                    else {// si il y a deux chiffres
-                        position.x = x + c * largeurCase + largeurCase / 12;
-                        position.y = y + l * hauteurCase + hauteurCase / 4;
-                        position.w = 10 * (float)(largeurCase / 12);
-                        position.h = 3 * (float)(hauteurCase / 4);
-                    }
-                }
-                else {
-                    position.x = x + c * largeurCase + largeurCase / 4;
-                    position.y = y + l * hauteurCase + hauteurCase / 4;
-                    position.w = 3 * (float)(largeurCase / 4);
-                    position.h = 3 * (float)(hauteurCase / 4);
-                }
-                int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
-                SDL_DestroyTexture(texte_texture);
-               
-
-                assert(ok == 0);
-            }
-            tabHitBoxeGrille[l * dimGrille + c].x1 = x + c * largeurCase;
-            tabHitBoxeGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
-            tabHitBoxeGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
-            tabHitBoxeGrille[l * dimGrille + c].y2 = y + l * hauteurCase + hauteurCase;
-            couleur.r = 0;
-            couleur.g = 0;
-            couleur.b = 0;
-
-        }
-    }
-    delete[]buffConversion;
-}
-
-void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur,bool full) {
-    SDL_Color couleur = { 0, 0, 0 };
-    SDL_Surface* texte = nullptr;
-    SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
-    char buffConversion[80];
-    jeu.chrono.update();
-    if (!full) {
-        buffConversion[sprintf(buffConversion, "%luh  %lum  %lus", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin() % 60, jeu.chrono.getTimeInSec() % 60/*, jeu.chrono.getTimeInMSec()%1000*/) + 1] = '\0';
-    }
-    else {
-        buffConversion[sprintf(buffConversion, "%luh  %lum  %lus %lums", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin() % 60, jeu.chrono.getTimeInSec() % 60, jeu.chrono.getTimeInMSec()%1000) + 1] = '\0';
-
-    }
-    texte = TTF_RenderText_Blended(font, buffConversion, couleur);
-    texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
-    SDL_FreeSurface(texte);
-
-
-    position.x = x;
-    position.y = y;
-    position.w = largeur;
-    position.h = hauteur;
-
-    int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
-    SDL_DestroyTexture(texte_texture);
-    assert(ok == 0);
-}
-
-void sdlJeuPasAPas::sdlAffFinDePartie()
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
-
-    // Affiche des grilles
-    int hauteurGrilles = HEIGHT * 80 / 100;
-    int xGrille = HEIGHT * 10 / 100;
-    int yGrille = WIDTH * 5 / 100;
-
-    sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrilles, hauteurGrilles);
-    sdlAffGrille(jeu.grilleSolution, xGrille + hauteurGrilles + WIDTH * 2/100, yGrille, hauteurGrilles, hauteurGrilles);
-
-    sdlAffChrono(xGrille , (yGrille)*2/100, WIDTH * 80 / 100, yGrille * 80/100,true);
-
-
 }
 
 void sdlJeuPasAPas::sdlBoucle() {
@@ -406,7 +206,7 @@ void sdlJeuPasAPas::sdlBoucle() {
                 case SDLK_b:
                     unsigned char c_f, l_f;
                     coordCaseSimple(l_f, c_f);
-                    jeu.grilleJeu.grille.getCase(l_f, c_f).etat = 3;
+                    jeu.grilleJeu.grille.getCase(l_f-1, c_f-1).etat = 3;
                     break;
                 case SDLK_c:
 
@@ -433,24 +233,25 @@ void sdlJeuPasAPas::sdlBoucle() {
                 break; }
                 case SDLK_d:
                     jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
-
                     break;
+
                 case SDLK_e:
                     jeu.init();
                     break;
+
                 default:
                     break;
                 }
             }
 
             //----On fait les actions liées aux clics souris
-
+            
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 //---Si une case devait �tre chang� on verifie si le clic a �t� effectu� sur une des hit box des chiffres
                 if (l_toChange != 0) {
                     for (int i = 0; i < dimGrille; i++) {
                         if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
-                            jeu.grilleJeu.grille.getCase(l_toChange - 1, c_toChange - 1).setVal(i + 1);
+                            jeu.grilleJeu.grille.getCase((unsigned char)(l_toChange - 1), (unsigned char)c_toChange - 1).setVal(i + 1);
                         }
                     }
                 }
@@ -496,6 +297,219 @@ void sdlJeuPasAPas::sdlBoucle() {
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
+}
+
+// ============= Partie affichage =============== //
+
+void sdlJeuPasAPas::sdlAff() {
+    //supprime les hitboxe de i'affichage precendent
+    resetTabHitGrille();
+    resetTabHitSelectionNombre();
+    //Remplir i'écran de blanc
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+
+
+
+    // Affiche la grille vide
+    int hauteurGrille = HEIGHT * 80 / 100;
+    int xGrille = HEIGHT * 10 / 100;
+    int yGrille = WIDTH * 5 / 100;
+
+    sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrille, hauteurGrille);
+    sdlAffChrono(xGrille + hauteurGrille + WIDTH * 2 / 100, yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100, (yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100) * 1 / 10);
+
+    // Si une valeur doit �tre entree on affiche la selection 
+    int selectHauteur = 0;
+    int y_pos_select = yGrille + (WIDTH - hauteurGrille - xGrille) * 80 / 100 * 1 / 10 + HEIGHT * 5 / 100;
+    if (l_toChange != 0) {
+        selectHauteur = 40;
+        sdlAffSelectionChiffre(xGrille + hauteurGrille + WIDTH * 1 / 100, y_pos_select, dimGrille * selectHauteur, selectHauteur);
+    }
+    sdlAffMenu(xGrille + hauteurGrille + WIDTH * 1 / 100, y_pos_select + selectHauteur, hauteurGrille*80/100, hauteurGrille*80/100);
+}
+
+void sdlJeuPasAPas::sdlAffMenu(int x, int y, int largeur, int hauteur) {
+    im_menu.draw(renderer, x, y, largeur, hauteur);
+
+}
+
+
+void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur) {
+    for (int i = 0; i < dimGrille; i++) {
+        tabHitBoxeSelectionNombre[i].x1 = x + (i * largeur / dimGrille);
+        tabHitBoxeSelectionNombre[i].x2 = tabHitBoxeSelectionNombre[i].x1 + (largeur / dimGrille);
+        tabHitBoxeSelectionNombre[i].y1 = y;
+        tabHitBoxeSelectionNombre[i].y2 = tabHitBoxeSelectionNombre[i].y1 + hauteur;
+    }
+    for (int i = 0; i < dimGrille; i++) {
+        if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
+            im_selectionChiffre[i + 1].draw(renderer, x, y, largeur, hauteur);
+            return;
+        }
+
+    }
+    im_selectionChiffre[0].draw(renderer, x, y, largeur, hauteur);
+
+
+
+
+}
+
+void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
+    im_grille.draw(renderer, x, y, largeur, hauteur);
+    SDL_Color couleur = { 0, 0, 0 };
+    SDL_Surface* texte = nullptr;
+    SDL_Rect position;
+    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+
+    int dimGrille = (int)grille.dim;
+    int largeurCase = largeur / dimGrille;
+    int hauteurCase = hauteur / dimGrille;
+    
+
+
+
+    char* buffConversion = new char[3];
+    for (int l = 0; l < dimGrille; l++) {
+        for (int c = 0; c < dimGrille; c++) {
+            cout << (int)grille.grille.getCase(l, c).etat << endl;
+            switch ((int)grille.grille.getCase(l, c).etat)
+            {
+            case 0:
+                couleur.r = 0;
+                couleur.g = 0;
+                couleur.b = 0;
+
+                break;
+            case 1:
+                couleur.r = 0;
+                couleur.g = 255;
+                couleur.b = 0;
+                break;
+            case 2:
+                couleur.r = 255;
+                couleur.g = 0;
+                couleur.b = 0;
+                break;
+            case 3:
+                bleu.draw(renderer, x + (c) * largeurCase, y + (l) * hauteurCase, hauteurCase, largeurCase);
+                break;
+            default:
+                break;
+            }
+            if (l_toChange != 0) {// si une case est en cours de modification, on met un fond gris sur celle ci
+                gris.draw(renderer, x + (c_toChange - 1) * largeurCase, y + (l_toChange - 1) * hauteurCase, hauteurCase, largeurCase);
+            }
+            if (grille.grille.getCase(l, c).getVal() != 0) {
+                if (!grille.grille.getCase(l, c).modifiable && grille.grille.getCase(l, c).etat == 0) {
+                    couleur.r = 100;
+                    couleur.g = 100;
+                    couleur.b = 100;
+                }
+
+                if (grille.grille.getCase(l, c).getVal() < 10) {
+                    buffConversion[0] = (int)grille.grille.getCase(l, c).getVal() + '0';
+                    buffConversion[1] = '\0';
+                }
+                else {
+
+                    buffConversion[0] = '1';
+                    buffConversion[1] = (int)grille.grille.getCase(l, c).getVal() - 10 + '0';
+                    buffConversion[2] = '\0';
+
+                }
+
+                //cout << "res: " << (int)grille.grille.getCase(i, c).getVal() << " n1: " << buffConversion[0] << " n2: " << buffConversion[1] << endl;
+                texte = TTF_RenderText_Blended(font, buffConversion, couleur);
+                texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
+                SDL_FreeSurface(texte);
+
+                //on positionne le nombre au centre de ca case
+                if (dimGrille > 9) {
+                    if (grille.grille.getCase(l, c).getVal() < 10) {// si il n'y a qu'un chiffre
+                        position.x = x + c * largeurCase + 4 * (largeurCase / 12);
+                        position.y = y + l * hauteurCase + hauteurCase / 4;
+                        position.w = 5 * (float)(largeurCase / 12);
+                        position.h = 3 * (float)(hauteurCase / 4);
+                    }
+                    else {// si il y a deux chiffres
+                        position.x = x + c * largeurCase + largeurCase / 12;
+                        position.y = y + l * hauteurCase + hauteurCase / 4;
+                        position.w = 10 * (float)(largeurCase / 12);
+                        position.h = 3 * (float)(hauteurCase / 4);
+                    }
+                }
+                else {
+                    position.x = x + c * largeurCase + largeurCase / 4;
+                    position.y = y + l * hauteurCase + hauteurCase / 4;
+                    position.w = 3 * (float)(largeurCase / 4);
+                    position.h = 3 * (float)(hauteurCase / 4);
+                }
+                int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+                SDL_DestroyTexture(texte_texture);
+
+
+                assert(ok == 0);
+            }
+            tabHitBoxeGrille[l * dimGrille + c].x1 = x + c * largeurCase;
+            tabHitBoxeGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
+            tabHitBoxeGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
+            tabHitBoxeGrille[l * dimGrille + c].y2 = y + l * hauteurCase + hauteurCase;
+            couleur.r = 0;
+            couleur.g = 0;
+            couleur.b = 0;
+
+        }
+    }
+    delete[]buffConversion;
+}
+
+void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur, bool full) {
+    SDL_Color couleur = { 0, 0, 0 };
+    SDL_Surface* texte = nullptr;
+    SDL_Rect position;
+    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    char buffConversion[80];
+    jeu.chrono.update();
+    if (!full) {
+        buffConversion[sprintf(buffConversion, "%luh  %lum  %lus", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin() % 60, jeu.chrono.getTimeInSec() % 60/*, jeu.chrono.getTimeInMSec()%1000*/) + 1] = '\0';
+    }
+    else {
+        buffConversion[sprintf(buffConversion, "%luh  %lum  %lus %lums", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin() % 60, jeu.chrono.getTimeInSec() % 60, jeu.chrono.getTimeInMSec() % 1000) + 1] = '\0';
+
+    }
+    texte = TTF_RenderText_Blended(font, buffConversion, couleur);
+    texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
+    SDL_FreeSurface(texte);
+
+
+    position.x = x;
+    position.y = y;
+    position.w = largeur;
+    position.h = hauteur;
+
+    int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+    SDL_DestroyTexture(texte_texture);
+    assert(ok == 0);
+}
+
+void sdlJeuPasAPas::sdlAffFinDePartie()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+
+    // Affiche des grilles
+    int hauteurGrilles = HEIGHT * 80 / 100;
+    int xGrille = HEIGHT * 10 / 100;
+    int yGrille = WIDTH * 5 / 100;
+
+    sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrilles, hauteurGrilles);
+    sdlAffGrille(jeu.grilleSolution, xGrille + hauteurGrilles + WIDTH * 2 / 100, yGrille, hauteurGrilles, hauteurGrilles);
+
+    sdlAffChrono(xGrille, (yGrille) * 2 / 100, WIDTH * 80 / 100, yGrille * 80 / 100, true);
+
+
 }
 
 

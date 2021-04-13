@@ -240,14 +240,20 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
             switch ((int)grille.grille.getCase(l, c).etat)
             {
             case 0:
-                couleur = { 0, 0, 0 };
+                couleur.r = 0;
+                couleur.g = 0;
+                couleur.b = 0;
 
                 break;
             case 1:
-                couleur = { 0, 255, 0 };
+                couleur.r = 0;
+                couleur.g = 255;
+                couleur.b = 0;
                 break;
             case 2:
-                couleur = { 255, 0, 0 };
+                couleur.r = 255;
+                couleur.g = 0;
+                couleur.b = 0;
                 break;
             case 3:
                 bleu.draw(renderer, x + (c - 1) * largeurCase, y + (l - 1) * hauteurCase, hauteurCase, largeurCase);

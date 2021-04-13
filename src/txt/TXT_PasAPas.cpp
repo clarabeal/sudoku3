@@ -262,7 +262,7 @@ void TXT_PasAPas::boucle() {
 
 }
 
-unsigned char TXT_PasAPas::menu() const {
+unsigned char TXT_PasAPas::menu(){
     int value;
 
     do {

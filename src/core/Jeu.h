@@ -16,15 +16,18 @@ public:
     ~chronometre();
     /**
     \brief mets a jour le temps du chronometre
-    \details Doit etre appele a chaque fois avant de recuperer le temps
     */
     void update();
 
     /**
-    \brief Ignore le temps ecoule depuis le dernier update
-    \details Pour mettre le chronometre en pause, faire un update au debut de la pause, puis lorsque le chronometre doit redemarrer, faire start
+    \brief (Re)Demarre le chrono
     */
     void start();
+
+    /**
+    \brief Mets en pause le chrono
+    */
+    void pause();
     /**
     \brief Remet le chronometre a 0*/
     void reset();
@@ -32,28 +35,28 @@ public:
     /**
     \brief retourne le temps en millisecondes
     */
-    unsigned long int getTimeInMSec() const;
+    unsigned long int getTimeInMSec();
     /**
     \brief retourne le temps en secondes
     */
-    unsigned long int getTimeInSec() const;
+    unsigned long int getTimeInSec();
     /**
     \brief retourne le temps en minutes
     */
-    unsigned long int getTimeInMin() const;
+    unsigned long int getTimeInMin();
     /**
     \brief retourne le temps en heures
     */
-    unsigned long int getTimeInHours() const;
+    unsigned long int getTimeInHours();
 
     /**
     \brief affiche le temps ecoulé sous la forme hh:mm:ss:msmsmsms*/
-    void afficher()const;
+    void afficher();
 
 private:
     clock_t t1, t2;
     unsigned long int ms;
-
+    bool enPause;
 
 };
 class Jeu {

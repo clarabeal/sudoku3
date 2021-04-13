@@ -198,7 +198,7 @@ void TXT_Classique::boucle () {
     } while (!stop);
 }
 
-unsigned char TXT_Classique::menu() const {
+unsigned char TXT_Classique::menu(){
     int value;
 
     do {

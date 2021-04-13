@@ -91,7 +91,7 @@ public:
 	\param[in] id id de la partie a mettre a jour Parametre facultatif
 	\warning Retourne -1 si une erreur c'est produit lors de l'ouverture de l'index des sauvegardes ou de la creationd du fichier de sauvegarde
 	*/
-	int sauvegarder(const Jeu& jeu, string name, int mode, int id = 0);
+	int sauvegarder(Jeu& jeu, string name, int mode, int id = 0);
 
 	/**
 	\brief supprime la sauvegarde dont l'id est id

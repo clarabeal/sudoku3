@@ -16,7 +16,7 @@ public:
 	*/
 	void boucle();
 
-	unsigned char menu() const;
+	unsigned char menu();
 
 private:
 	Jeu jeu;

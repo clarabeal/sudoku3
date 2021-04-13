@@ -143,7 +143,7 @@ void gestSauvegarde::loadFromFile(int id, Grille& g_sol, Grille& g_orig, Grille&
 	}
 }
 
-int gestSauvegarde::sauvegarder(const Jeu &jeu ,string name, int mode, int id) {
+int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, int id) {
 	if (id != 0 && !valideId(id)) return -1;
 	cout << "id recus ";
 	cout << id << endl;

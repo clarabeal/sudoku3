@@ -35,7 +35,7 @@ private:
 
 	void termClear() const;
 
-	unsigned char menu() const;
+	unsigned char menu();
 };
 
 #endif

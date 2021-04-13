@@ -141,7 +141,7 @@ void TXT_1vs1::boucle () {
     //PB allocation memoire a la fin
 }
 
-unsigned char TXT_1vs1::menu () const {
+unsigned char TXT_1vs1::menu (){
     int value;
 
     do {

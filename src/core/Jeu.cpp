@@ -211,9 +211,16 @@ void Jeu::init()
 	grilleJeu.viderGrille();
 	genererGrillePleine();
 	genererGrilleMinimale();
-	grilleOriginale.grille = grilleJeu.grille;
+	unsigned char dimGrille = grilleSolution.dim;
+
+	for (unsigned char l = 0; l < dimGrille; l++) {
+		for (unsigned char c = 0; c < dimGrille; c++) {
+			grilleSolution.grille.getCase(l, c).etat = 1; // on indique que tt les cases de la grille solution sont juste
+		}
+	}
+	grilleOriginale = grilleJeu;
 	chrono.reset();
-	chrono.update();
+	chrono.start();
 }
 
 bool Jeu::estValValide (unsigned char valeur) const {
@@ -246,6 +253,8 @@ chronometre::chronometre()
 	ms = 0;
 	t1 = clock();
 	t2 = clock();
+	enPause = true;
+
 }
 
 chronometre::chronometre(unsigned long int ms)
@@ -253,6 +262,8 @@ chronometre::chronometre(unsigned long int ms)
 	this->ms = ms;
 	t1 = clock();
 	t2 = clock();
+	enPause = true;
+
 }
 
 chronometre::~chronometre()
@@ -261,44 +272,58 @@ chronometre::~chronometre()
 
 void chronometre::update()
 {
-	t2 = clock();
-	ms = ms + ((t2 - t1)*1000/ CLOCKS_PER_SEC);
-	t1 = clock();
+	if (!enPause) {
+		t2 = clock();
+		ms = ms + ((t2 - t1) * 1000 / CLOCKS_PER_SEC);
+		t1 = clock();
+	}
 }
 
 void chronometre::start()
 {	
-	t1 = clock();
-	update();
+	if (enPause) {
+		enPause = false;
+		t1 = clock();
+		update();
+	}
+}
+
+void chronometre::pause()
+{
+	if (!enPause) {
+		update();
+		enPause = true;
+	}
 }
 
 void chronometre::reset()
 {
 	ms = 0;
-	t1 = clock();
+	pause();
 }
 
-unsigned long int chronometre::getTimeInMSec() const
+unsigned long int chronometre::getTimeInMSec()
 {
+	update();
 	return ms;
 }
 
-unsigned long int chronometre::getTimeInSec() const
+unsigned long int chronometre::getTimeInSec()
 {
 	return (unsigned long int) getTimeInMSec() /1000;
 }
 
-unsigned long int chronometre::getTimeInMin() const
+unsigned long int chronometre::getTimeInMin()
 {
 	return (unsigned long int) getTimeInSec()/60;
 }
 
-unsigned long int chronometre::getTimeInHours() const
+unsigned long int chronometre::getTimeInHours()
 {
 	return (unsigned long int) getTimeInMin()/60;
 }
 
-void chronometre::afficher() const
+void chronometre::afficher()
 {
 	cout << getTimeInHours() << "h " << getTimeInMin() % 60 << "m " << getTimeInSec() % 60 << "s " << getTimeInMSec() % 1000<< "ms";
 }

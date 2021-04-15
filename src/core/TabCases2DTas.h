@@ -9,7 +9,7 @@ public:
 
 	/**
 	@brief Constructeur
-	@details Cree un tableau de taille dimLignes*dimColonnes sur le tas, initialise les donnes dimLigne et dimColonne avec les param fournis
+	@details Cree un tableau de taille dimLignes*dimColonnes sur le tas, initialise les donnees dimLigne et dimColonne avec les parametres fournis
     */
 	TabCases2DTas(unsigned char dimLignes, unsigned char dimColonnes);
 
@@ -49,7 +49,7 @@ public:
 	void print() const;
 
 	/**
-	@brief Set toutes les cases du tableau a 0 et les rends non modifiable
+	@brief Set toutes les cases du tableau a 0 et les rends non modifiables
 	*/
 	void vider();
 

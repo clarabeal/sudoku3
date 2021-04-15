@@ -101,7 +101,7 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
 
     int dimGrille = (int)grille.dim;
     int largeurCase = largeur / dimGrille;
@@ -127,7 +127,7 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
                 texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
                 SDL_FreeSurface(texte);
 
-                //on positionne le nombre au centre de ca case
+                //on positionne le nombre au centre de la case
                 if (dimGrille > 9) {
                     if (grille.grille.getCase(l, c).getVal() < 10) {// si il n'y a qu'un chiffre
                         position.x = x + c * largeurCase + 4*(largeurCase / 12);
@@ -158,11 +158,11 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
 }
 
 void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
-    jeu.chrono.update();// a enlever apres les test, ne doit pa être la
+    jeu.chrono.update();// a enlever apres les tests, ne doit pas être la
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
     char buffConversion[80];
     buffConversion[sprintf(buffConversion, "%luh  %lum  %lus", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin()%60, jeu.chrono.getTimeInSec()%60/*, jeu.chrono.getTimeInMSec()%1000*/)+1] = '\0';
     texte = TTF_RenderText_Blended(font, buffConversion, couleur);

@@ -128,7 +128,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
             path += "_Over.png";
             im_selectionChiffre[i].loadFromFile(path.c_str(), renderer);
         }
-    }//Chargement des images pour la selection du chiffre a plac�
+    }//Chargement des images pour la selection du chiffre a placer
     l_toChange = 0;
     c_toChange = 0;
     mousse_x = 0;
@@ -225,7 +225,7 @@ void sdlJeuPasAPas::sdlBoucle() {
 
                     if (valeur == 0) { //place la valeur si la case est vide
                         jeu.grilleJeu.setCase(l - 1, c - 1, jeu.grilleSolution.grille.getCase(l - 1, c - 1).getVal());
-                        aideRemplir = true; //aide � savoir si la valeur � �t� plac�e
+                        aideRemplir = true; //aide a savoir si la valeur a ete placee
                     }
 
                 } while (aideRemplir == false && essaie < 500);
@@ -247,7 +247,7 @@ void sdlJeuPasAPas::sdlBoucle() {
             //----On fait les actions liées aux clics souris
             
             if (event.type == SDL_MOUSEBUTTONDOWN) {
-                //---Si une case devait �tre chang� on verifie si le clic a �t� effectu� sur une des hit box des chiffres
+                //---Si une case devait etre change on verifie si le clic a ete effectue sur une des hit box des chiffres
                 if (l_toChange != 0) {
                     for (int i = 0; i < dimGrille; i++) {
                         if (tabHitBoxeSelectionNombre[i].is_in(mousse_x, mousse_y)) {
@@ -257,7 +257,7 @@ void sdlJeuPasAPas::sdlBoucle() {
                 }
                 c_toChange = 0;
                 l_toChange = 0;
-                //---On regarde si le clic a �t� effectu� sur une des case de la grille, si oui: clic gauche --> Selectionne la case et affiche le menu de selection chiffre, clic droit --> vide la case
+                //---On regarde si le clic a ete effectue sur une des case de la grille, si oui: clic gauche --> Selectionne la case et affiche le menu de selection chiffre, clic droit --> vide la case
                 for (int l = 0; l < dimGrille; l++) {
                     for (int c = 0; c < dimGrille; c++) {
                         if (tabHitBoxeGrille[l * dimGrille + c].is_in(mousse_x, mousse_y)) {
@@ -302,10 +302,10 @@ void sdlJeuPasAPas::sdlBoucle() {
 // ============= Partie affichage =============== //
 
 void sdlJeuPasAPas::sdlAff() {
-    //supprime les hitboxe de i'affichage precendent
+    //supprime les hitboxs de l'affichage precedent
     resetTabHitGrille();
     resetTabHitSelectionNombre();
-    //Remplir i'écran de blanc
+    //Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
 
@@ -319,7 +319,7 @@ void sdlJeuPasAPas::sdlAff() {
     sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrille, hauteurGrille);
     sdlAffChrono(xGrille + hauteurGrille + WIDTH * 2 / 100, yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100, (yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100) * 1 / 10);
 
-    // Si une valeur doit �tre entree on affiche la selection 
+    // Si une valeur doit etre entree on affiche la selection 
     int selectHauteur = 0;
     int y_pos_select = yGrille + (WIDTH - hauteurGrille - xGrille) * 80 / 100 * 1 / 10 + HEIGHT * 5 / 100;
     if (l_toChange != 0) {
@@ -361,7 +361,7 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
 
     int dimGrille = (int)grille.dim;
     int largeurCase = largeur / dimGrille;
@@ -425,7 +425,7 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
                 texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
                 SDL_FreeSurface(texte);
 
-                //on positionne le nombre au centre de ca case
+                //on positionne le nombre au centre de la case
                 if (dimGrille > 9) {
                     if (grille.grille.getCase(l, c).getVal() < 10) {// si il n'y a qu'un chiffre
                         position.x = x + c * largeurCase + 4 * (largeurCase / 12);
@@ -469,7 +469,7 @@ void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur, bool fu
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
     char buffConversion[80];
     jeu.chrono.update();
     if (!full) {
@@ -540,7 +540,7 @@ void sdlJeuPasAPas::updateDiffCase() {
                 //std::cout << "La case " << (int)li << " " << (int)co << " a un score de: " << (int)tabDiffCase[(co - 1) * dimGrille + (li - 1)] << endl;
 
                 //version nombre d'indice different
-                bool* liste_val = new bool[dimGrille];//les valeur a true sont les valeurs possible pour la case (liste_val[0] == true veux dire que 1 est une valeur possible, liste_val[1] == false veux dire que 2 n'est pas  une valeur possible...)
+                bool* liste_val = new bool[dimGrille];//les valeur a true sont les valeurs possibles pour la case (liste_val[0] == true veux dire que 1 est une valeur possible, liste_val[1] == false veux dire que 2 n'est pas une valeur possible...)
                 for (unsigned char i = 0; i < dimGrille; i++) {
                     liste_val[i] = true;
                 }
@@ -570,7 +570,7 @@ void sdlJeuPasAPas::updateDiffCase() {
     }
 }
 
-unsigned char sdlJeuPasAPas::getDiffCase(unsigned char l, unsigned char c, bool diff_type)//diff type = 1: retourne le nombre de valeur possible, diff type = 0, retourne "la tendance a avoir bcp de chiffre dans un meme bloc/ligne/col permet de departager en les diff type = 1 egaux 
+unsigned char sdlJeuPasAPas::getDiffCase(unsigned char l, unsigned char c, bool diff_type)//diff type = 1: retourne le nombre de valeur possibles, diff type = 0, retourne "la tendance a avoir bcp de chiffre dans un meme bloc/ligne/col permet de departager en les diff type = 1 egaux 
 {
     unsigned char dimGrille = jeu.grilleJeu.dim;
     if (diff_type) {

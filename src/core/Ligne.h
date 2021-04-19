@@ -7,7 +7,6 @@ class Ligne
 {
 	public:
 
-	bool valide;
 
 	/**
 	@brief Indique la taille de la grille

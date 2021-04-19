@@ -13,16 +13,11 @@ void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Imag
 int selectDim(SDL_Renderer* renderer, TTF_Font* font);
 
 int main (int argc, char* argv[]){
+    cout << "hello" << endl;
     SDL_Window* window;
     SDL_Renderer* renderer;
 
     TTF_Font* font_menu;
-    Image font_im;
-    SDL_Color font_color;
-
-    Image im_grille;
-
-
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -51,7 +46,7 @@ int main (int argc, char* argv[]){
 
     //creation de la fenetre : 
     window = SDL_CreateWindow("Sudoku 3", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-    if (window == NULL)
+    if (window == nullptr)
     {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
         SDL_Quit();
@@ -60,7 +55,7 @@ int main (int argc, char* argv[]){
 
     //creation du rendu : 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == NULL)
+    if (renderer == nullptr)
     {
         cout << "Erreur lors de la creation du renderer : " << SDL_GetError() << endl;
         SDL_Quit();
@@ -83,6 +78,7 @@ int main (int argc, char* argv[]){
         if (dim == -2) return 0;
 
     } while (dim == -1);
+    
     TTF_CloseFont(font_menu);
     TTF_Quit();
     SDL_DestroyRenderer(renderer);
@@ -100,7 +96,7 @@ int main (int argc, char* argv[]){
    else if(mode == 3) {
        // 1vs1
    }
-  
+
     return 0;
 }
 
@@ -199,6 +195,8 @@ int selectMode(SDL_Renderer *renderer, TTF_Font* font) {
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
+    return -1;
+
 }
 
 void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit){ //tab_img img contient les pointeurs sur les images dans lordre suivant: Image& im_modeClassiqueOver, Image& im_modeClassiqueAway, Image& im_modePasAPasOver, Image& im_modePasAPasAway, Image& im_mode1vs1Over, Image& im_mode1vs1Away, Image& im_sauvegardeOver, Image& im_sauvegardeAway
@@ -247,7 +245,7 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    SDL_Texture* texte_texture = nullptr;    //Create Texture pointer
 
     position.w = WIDTH*70/100;
     position.h = HEIGHT*20/100;
@@ -276,7 +274,7 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
 
     }
 
-    int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+    SDL_RenderCopy(renderer, texte_texture, nullptr, &position);
     SDL_DestroyTexture(texte_texture);
 }
 
@@ -356,15 +354,19 @@ int selectDim(SDL_Renderer* renderer, TTF_Font* font) {
                 SDL_GetMouseState(&xm, &ym);
 
                 if (hit_4x4.is_in(xm, ym)) {
+
                     return 4;
                 }
                 else if (hit_9x9.is_in(xm, ym)) {
+
                     return 9;
                 }
                 else if (hit_16x16.is_in(xm, ym)) {
+
                     return 16;
                 }
                 else if (hit_retour.is_in(xm, ym)) {
+
                     return -1;
                 }
             }
@@ -376,6 +378,8 @@ int selectDim(SDL_Renderer* renderer, TTF_Font* font) {
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
+    return -1;
+
 }
 
 void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit) {
@@ -421,7 +425,7 @@ void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Imag
     
     //*********************Position Du titre***************************//
     SDL_Color couleur = { 0, 0, 0 }; //Couleur du Titre
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointer
+    SDL_Texture* texte_texture = nullptr;    //Create Texture pointer
     SDL_Surface* texte = nullptr;
     SDL_Rect position;//Position du titre
 
@@ -454,6 +458,6 @@ void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Imag
     }
     //********************************************************************************************//
 
-    int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+    SDL_RenderCopy(renderer, texte_texture, nullptr, &position);
     SDL_DestroyTexture(texte_texture);
 }

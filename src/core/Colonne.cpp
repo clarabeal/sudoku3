@@ -6,6 +6,8 @@ using namespace std;
 
 Colonne::Colonne():valide(1)
 {
+	tabcl = nullptr;
+	tailleGrille = 0;
 }
 
 Colonne::Colonne(unsigned char numeroColonne, TabCases2DTas& grille)
@@ -15,8 +17,9 @@ Colonne::Colonne(unsigned char numeroColonne, TabCases2DTas& grille)
 
 void Colonne::remplir(unsigned char numeroColonne, TabCases2DTas& grille) {
 	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit �tre carr� sinon c'est pas une grille
-	tabcl = new Case *[grille.getDimCol()];
 	tailleGrille = grille.getDimLignes();
+
+	tabcl = new Case *[tailleGrille];
 	for (unsigned char i = 0; i < tailleGrille; ++i) {
 			tabcl[i] = grille.getPtr(i, numeroColonne-1);//tab[tab[col * tailleCarre + ligne];
 			//cout << "i: " << i << " | " << tab[i] << " = " << tab[i]->getVal() << endl;
@@ -25,7 +28,7 @@ void Colonne::remplir(unsigned char numeroColonne, TabCases2DTas& grille) {
 
 Colonne::~Colonne()
 {
-	delete []tabcl;
+	if(tabcl != nullptr) delete []tabcl;
 }
 
 void Colonne::print() const

@@ -3,24 +3,34 @@ using namespace std;
 
 // ============= CLASS IMAGE =============== //
 
-Image::Image() {
-    surface = NULL;
-    texture = NULL;
+Image::Image():name("test") {
+    surface = nullptr;
+    texture = nullptr;
     has_changed = false;
+
 }
 
+Image::~Image()
+{
+    SDL_DestroyTexture(this->texture);
+    SDL_FreeSurface(this->surface);
+    cout <<" deleted: "<< name << endl;
+}
+
+
 void Image::loadFromFile(const char* filename, SDL_Renderer* renderer) {
+    strcpy(name, filename);
     surface = IMG_Load(filename);
-    if (surface == NULL) {
+    if (surface == nullptr) {
         string nfn = string("../") + filename;
         cout << "Error: cannot load " << filename << ". Trying " << nfn << endl;
         surface = IMG_Load(nfn.c_str());
-        if (surface == NULL) {
+        if (surface == nullptr) {
             nfn = string("../") + nfn;
             surface = IMG_Load(nfn.c_str());
         }
     }
-    if (surface == NULL) {
+    if (surface == nullptr) {
         cout << "Error: cannot load " << filename << endl;
         SDL_Quit();
         exit(1);
@@ -31,7 +41,7 @@ void Image::loadFromFile(const char* filename, SDL_Renderer* renderer) {
     surface = surfaceCorrectPixelFormat;
 
     texture = SDL_CreateTextureFromSurface(renderer, surfaceCorrectPixelFormat);
-    if (texture == NULL) {
+    if (texture == nullptr) {
         cout << "Error: problem to create the texture of " << filename << endl;
         SDL_Quit();
         exit(1);
@@ -40,7 +50,7 @@ void Image::loadFromFile(const char* filename, SDL_Renderer* renderer) {
 
 void Image::loadFromCurrentSurface(SDL_Renderer* renderer) {
     texture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (texture == NULL) {
+    if (texture == nullptr) {
         cout << "Error: problem to create the texture from surface " << endl;
         SDL_Quit();
         exit(1);
@@ -56,12 +66,12 @@ void Image::draw(SDL_Renderer* renderer, int x, int y, int w, int h) {
     r.h = (h < 0) ? surface->h : h;
 
     if (has_changed) {
-        ok = SDL_UpdateTexture(texture, NULL, surface->pixels, surface->pitch);
+        ok = SDL_UpdateTexture(texture, nullptr, surface->pixels, surface->pitch);
         assert(ok == 0);
         has_changed = false;
     }
 
-    ok = SDL_RenderCopy(renderer, texture, NULL, &r);
+    ok = SDL_RenderCopy(renderer, texture, nullptr, &r);
     assert(ok == 0);
 }
 

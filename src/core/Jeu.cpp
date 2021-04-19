@@ -25,7 +25,7 @@ Jeu::~Jeu(){
 
 bool Jeu::genererGrillePleine(int etape)
 {
-	srand((unsigned int)time(NULL));// a mettre dans le main apres
+	srand((unsigned int)time(nullptr));// a mettre dans le main apres
 	//cout << "///////Etape: " << etape<<  endl;
 
 	unsigned char dimGrille = grilleSolution.dim;
@@ -160,7 +160,7 @@ void Jeu::genererGrilleMinimale (){
 
 	unsigned char l,c,val;
 	
-	srand((unsigned int)time(NULL));// a mettre dans le main apres
+	srand((unsigned int)time(nullptr));// a mettre dans le main apres
 	unsigned char attempt = dimGrille;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
 	//unsigned char atp = attempt;//juste pour aficher le %
 	//cout << "generation grille partielle" << endl << "0%" << endl;
@@ -207,20 +207,39 @@ bool Jeu::verifGrillePleine(Grille &grille) const
 
 void Jeu::init()
 {
+	cout << "init etape 1" << endl;
+
 	grilleSolution.viderGrille();
+
+	cout << "init etape 2" << endl;
 	grilleJeu.viderGrille();
+	cout << "init etape 3" << endl;
+
 	genererGrillePleine();
+	cout << "init etape 4" << endl;
+
 	genererGrilleMinimale();
+	cout << "init etape 5" << endl;
+
 	unsigned char dimGrille = grilleSolution.dim;
+	cout << "init etape 6" << endl;
 
 	for (unsigned char l = 0; l < dimGrille; l++) {
 		for (unsigned char c = 0; c < dimGrille; c++) {
 			grilleSolution.grille.getCase(l, c).etat = 1; // on indique que tt les cases de la grille solution sont juste
 		}
 	}
+	cout << "init etape 7" << endl;
+
 	grilleOriginale = grilleJeu;
+	cout << "init etape 8" << endl;
+
 	chrono.reset();
+	cout << "init etape 9" << endl;
+
 	chrono.start();
+	cout << "init etape 10" << endl;
+
 }
 
 bool Jeu::estValValide (unsigned char valeur) const {

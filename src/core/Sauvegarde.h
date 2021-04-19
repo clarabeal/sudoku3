@@ -11,14 +11,14 @@ using namespace std;
 \brief Contient toutes les donnees relatives a une partie sauvegardee de jeu a l'exception des grilles
 */
 struct InfoSauvegarde {
-	unsigned int id;/**<L'identifiant unique de la partie, un entier positif (l'unicite doit etre verifiee lors de la creation d'une nouvelle sauvegarde)*/
+	unsigned int id = 0;/**<L'identifiant unique de la partie, un entier positif (l'unicite doit etre verifiee lors de la creation d'une nouvelle sauvegarde)*/
 	string name;
 	/**<
 	Le nom donne par le joueur a la sauvegarde
 	\warning Ne peut pas contenir d'espace!*/
-	unsigned int modeJeu;/**<Mode de jeu dans lequel la partie a ete lance, 1: Mode classique, 2: Mode Pas a Pas, 3: Mode 1vs1  */
-	unsigned int tailleGrille;/**< La taille de la grille */
-	unsigned long int chrono;/**< Le temps en milliseconde depuis le debut de la partie */
+	unsigned int modeJeu = 0;/**<Mode de jeu dans lequel la partie a ete lance, 1: Mode classique, 2: Mode Pas a Pas, 3: Mode 1vs1  */
+	unsigned int tailleGrille = 0;/**< La taille de la grille */
+	unsigned long int chrono = 0;/**< Le temps en milliseconde depuis le debut de la partie */
 };
 
 /**\brief Gestionnaire d'acces aux sauvegardes
@@ -77,7 +77,7 @@ public:
 	\see valideId
 
 	*/
-	void loadFromFile(int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+	void loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
 
 	/**
 	\brief Permet de sauvegarder une partie de jeu
@@ -91,7 +91,7 @@ public:
 	\param[in] id id de la partie a mettre a jour Parametre facultatif
 	\warning Retourne -1 si une erreur s'est produite lors de l'ouverture de l'index des sauvegardes ou de la creation du fichier de sauvegarde
 	*/
-	int sauvegarder(Jeu& jeu, string name, int mode, int id = 0);
+	int sauvegarder(Jeu& jeu, string name, int mode, unsigned int id = 0);
 
 	/**
 	\brief Supprime la sauvegarde dont l'id est id

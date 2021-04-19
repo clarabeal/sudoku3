@@ -7,7 +7,7 @@ using namespace std;
 TabCases2DTas::TabCases2DTas(unsigned char dimLignes_, unsigned char dimColonnes_) {
 	dimColonnes = dimColonnes_;
 	dimLignes = dimLignes_;
-	tab = new Case[(int)dimLignes_* (int)dimColonnes_];
+	tab = new Case[dimLignes_*dimColonnes_];
 }
 
 TabCases2DTas::~TabCases2DTas()
@@ -77,7 +77,7 @@ void TabCases2DTas::print() const
 		}
 		if ((l) % (unsigned char)sqrt(dimLignes) == 0 && l > 0) {
 			cout << " ";
-			for (int i = 0; i < ((int)dimColonnes * (TailleNombre+1) + 2 * (dimColonnes / sqrt(dimColonnes) - 1)); i++) {
+			for (int i = 0; i < (static_cast<int>(dimColonnes) * static_cast<int>(TailleNombre+1) + 2 * static_cast<int>(dimColonnes / sqrt(dimColonnes) - 1)); i++) {
 				cout << "-";
 			}
 			cout << endl;

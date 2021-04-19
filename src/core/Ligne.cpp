@@ -3,7 +3,8 @@
 #include <cassert>
 using namespace std;
 
-Ligne::Ligne():valide(1){
+Ligne::Ligne():tailleGrille(0), tailleLigne(0) {
+	tabl = nullptr;
 
 }
 

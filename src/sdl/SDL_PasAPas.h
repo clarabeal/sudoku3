@@ -21,7 +21,7 @@
 #include <SDL2/SDL_mixer.h>
 #endif
 
-
+using namespace std;
 /**
     La classe gerant le jeu avec un affichage SDL
 */
@@ -46,6 +46,7 @@ public:
     void sdlAffMenu(int x, int y, int largeur, int hauteur);
     void sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
     void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
+    void sdlAffTexte(string txt, int x, int y, int largeur, int hauteur);
     void sdlAffChrono(int x, int y, int largeur, int hauteur, bool full = false);
     void sdlAffFinDePartie();
     //------------------Fonctions liées aux hitboxes
@@ -63,8 +64,9 @@ private:
     //------------------Données SDL
     SDL_Window* window;
     SDL_Renderer* renderer;
+    SDL_Event event;
+
     TTF_Font* font;
-    Image font_im;
     SDL_Color font_color;
 
     //------------------Image globale

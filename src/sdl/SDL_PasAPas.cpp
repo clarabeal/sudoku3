@@ -1,5 +1,6 @@
 #include "SDL_PasAPas.h"
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 #define WIDTH 1024
@@ -14,7 +15,6 @@ float sdlJeuPasAPas::temps() {
 // ============= CLASS SDLJEU =============== //
 
 sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
-
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -43,7 +43,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
 
     //creation de la fenetre : 
     window = SDL_CreateWindow("Sudoku 3", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-    if (window == NULL)
+    if (window == nullptr)
     {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
         SDL_Quit();
@@ -52,7 +52,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
 
     //creation du rendu : 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == NULL)
+    if (renderer == nullptr)
     {
         cout << "Erreur lors de la creation du renderer : " << SDL_GetError() << endl;
         SDL_Quit();
@@ -73,9 +73,11 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
         im_grille.loadFromFile("data/assets/grilles/16x16color.jpg", renderer);
     }
 
-    tabHitBoxeGrille = new hitBox[d * d];
-    tabHitBoxeSelectionNombre = new hitBox[d];
-    im_selectionChiffre = new Image[d];
+    tabHitBoxeGrille = new hitBox[d*d];
+    //tabHitBoxeGrille = new hitBox[100];
+
+    tabHitBoxeSelectionNombre = new hitBox[d+1];
+    im_selectionChiffre = new Image[d+1];
     char buffConversion[3];
     bleu.loadFromFile("data/assets/couleursDeFond/Bleu.png", renderer);
     rouge.loadFromFile("data/assets/couleursDeFond/Rouge.png", renderer);
@@ -134,22 +136,21 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d) {
     mousse_x = 0;
     mousse_y = 0;
     finDePartie = false;
-    tabDiffCase = new unsigned char[2 * d * d];
+    tabDiffCase = new unsigned char[2*d*d];
 
 }
 
 sdlJeuPasAPas::~sdlJeuPasAPas() {
 
     TTF_CloseFont(font);
-    TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_Quit();
     SDL_Quit();
-    delete []tabHitBoxeGrille;
-    delete[]tabHitBoxeSelectionNombre;
-    delete[]im_selectionChiffre;
-    delete[]tabDiffCase;
-
+    delete[] tabHitBoxeGrille;
+    delete[] tabHitBoxeSelectionNombre;
+    delete[] im_selectionChiffre;
+    delete[] tabDiffCase;
 }
 
 void sdlJeuPasAPas::resetTabHitSelectionNombre() {
@@ -174,17 +175,24 @@ void sdlJeuPasAPas::resetTabHitGrille() {
 
 void sdlJeuPasAPas::sdlBoucle() {
     bool gameRunning = true;
-    SDL_Event event;
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+    string txt_sdlAffTxt = "Chargement";
+    sdlAffTexte(txt_sdlAffTxt , 0, 0, WIDTH / 2, ((WIDTH / 2) * 1.6)/ txt_sdlAffTxt.length());
+    SDL_RenderPresent(renderer);
+
     if (!jeu.initDone) {
         jeu.init();
         jeu.initDone = true;
+        SDL_RenderPresent(renderer);
+
     }
     jeu.chrono.start();
     while (gameRunning) {
+        sdlAff();
 
         while (SDL_PollEvent(&event))
         {
-            sdlAff();
             //----Quitte la partie si croix
             if (event.type == SDL_QUIT) gameRunning = false;
 
@@ -302,9 +310,13 @@ void sdlJeuPasAPas::sdlBoucle() {
 // ============= Partie affichage =============== //
 
 void sdlJeuPasAPas::sdlAff() {
+
     //supprime les hitboxs de l'affichage precedent
     resetTabHitGrille();
+
+
     resetTabHitSelectionNombre();
+
     //Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
@@ -317,16 +329,21 @@ void sdlJeuPasAPas::sdlAff() {
     int yGrille = WIDTH * 5 / 100;
 
     sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrille, hauteurGrille);
-    sdlAffChrono(xGrille + hauteurGrille + WIDTH * 2 / 100, yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100, (yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100) * 1 / 10);
+
+    sdlAffChrono(xGrille + hauteurGrille + WIDTH * 2 / 100, yGrille, (WIDTH - hauteurGrille - xGrille) * 80 / 100, ((WIDTH - hauteurGrille - xGrille) * 80 / 100) * 1 / 10);
 
     // Si une valeur doit etre entree on affiche la selection 
     int selectHauteur = 0;
     int y_pos_select = yGrille + (WIDTH - hauteurGrille - xGrille) * 80 / 100 * 1 / 10 + HEIGHT * 5 / 100;
+
     if (l_toChange != 0) {
+
         selectHauteur = 40;
         sdlAffSelectionChiffre(xGrille + hauteurGrille + WIDTH * 1 / 100, y_pos_select, dimGrille * selectHauteur, selectHauteur);
     }
+
     sdlAffMenu(xGrille + hauteurGrille + WIDTH * 1 / 100, y_pos_select + selectHauteur, hauteurGrille*80/100, hauteurGrille*80/100);
+
 }
 
 void sdlJeuPasAPas::sdlAffMenu(int x, int y, int largeur, int hauteur) {
@@ -357,23 +374,20 @@ void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteu
 }
 
 void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur) {
+
     im_grille.draw(renderer, x, y, largeur, hauteur);
+
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
-
+    SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur
     int dimGrille = (int)grille.dim;
     int largeurCase = largeur / dimGrille;
     int hauteurCase = hauteur / dimGrille;
-    
 
-
-
-    char* buffConversion = new char[3];
+    char buffConversion[3];
     for (int l = 0; l < dimGrille; l++) {
         for (int c = 0; c < dimGrille; c++) {
-            cout << (int)grille.grille.getCase(l, c).etat << endl;
             switch ((int)grille.grille.getCase(l, c).etat)
             {
             case 0:
@@ -446,7 +460,7 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
                     position.w = 3 * (float)(largeurCase / 4);
                     position.h = 3 * (float)(hauteurCase / 4);
                 }
-                int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+                int ok = SDL_RenderCopy(renderer, texte_texture, nullptr, &position);
                 SDL_DestroyTexture(texte_texture);
 
 
@@ -462,14 +476,33 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
 
         }
     }
-    delete[]buffConversion;
+}
+
+void sdlJeuPasAPas::sdlAffTexte(string txt, int x, int y, int largeur, int hauteur) {
+    SDL_Color couleur = { 0, 0, 0 };
+    SDL_Surface* texte = nullptr;
+    SDL_Rect position;
+    SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur
+    texte = TTF_RenderText_Blended(font, txt.c_str(), couleur);
+    texte_texture = SDL_CreateTextureFromSurface(renderer, texte);
+    SDL_FreeSurface(texte);
+
+
+    position.x = x;
+    position.y = y;
+    position.w = largeur;
+    position.h = hauteur;
+
+    int ok = SDL_RenderCopy(renderer, texte_texture, nullptr, &position);
+    SDL_DestroyTexture(texte_texture);
+    assert(ok == 0);
 }
 
 void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur, bool full) {
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
+    SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur
     char buffConversion[80];
     jeu.chrono.update();
     if (!full) {
@@ -489,7 +522,7 @@ void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur, bool fu
     position.w = largeur;
     position.h = hauteur;
 
-    int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+    int ok = SDL_RenderCopy(renderer, texte_texture, nullptr, &position);
     SDL_DestroyTexture(texte_texture);
     assert(ok == 0);
 }
@@ -561,6 +594,7 @@ void sdlJeuPasAPas::updateDiffCase() {
                         tabDiffCase[(co - 1) * dimGrille + (li - 1)] --;
                     }
                 }
+                delete [] liste_val;
 
             }
             else {

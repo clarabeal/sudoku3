@@ -18,12 +18,15 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #endif
+#include <string>
 
 //! \brief Pour gerer une image avec SDL2
 class Image {
 
 public:
     Image();
+    ~Image();
+
     void loadFromFile(const char* filename, SDL_Renderer* renderer);
     void loadFromCurrentSurface(SDL_Renderer* renderer);
     void draw(SDL_Renderer* renderer, int x, int y, int w = -1, int h = -1);
@@ -35,6 +38,7 @@ private:
     SDL_Surface* surface;
     SDL_Texture* texture;
     bool has_changed;
+    char name[100];
 
 };
 #endif

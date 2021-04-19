@@ -13,7 +13,8 @@ float temps () {
 
 // ============= CLASS SDLJEU =============== //
 
-sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d) {
+sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d), font_color() {
+
 
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -43,7 +44,7 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d) {
 
     //creation de la fenetre : 
     window = SDL_CreateWindow("Sudoku 3", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-    if (window == NULL)
+    if (window == nullptr)
     {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
         SDL_Quit();
@@ -52,7 +53,7 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d) {
 
     //creation du rendu : 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == NULL)
+    if (renderer == nullptr)
     {
         cout << "Erreur lors de la creation du renderer : " << SDL_GetError() << endl;
         SDL_Quit();
@@ -101,12 +102,12 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
+    SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur
 
     int dimGrille = (int)grille.dim;
     int largeurCase = largeur / dimGrille;
     int hauteurCase = hauteur / dimGrille;
-    char* buffConversion = new char[3];
+    char buffConversion[3];
     for (int l = 0; l < dimGrille; l++) {
         for (int c = 0; c < dimGrille; c++) {
             if (grille.grille.getCase(l, c).getVal() != 0) {
@@ -148,13 +149,12 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
                     position.w = 3 * (float)(largeurCase / 4);
                     position.h = 3 * (float)(hauteurCase / 4);
                 }
-                int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+                int ok = SDL_RenderCopy(renderer, texte_texture, nullptr, &position);
                 SDL_DestroyTexture(texte_texture);
                 assert(ok == 0);
             }
         }
     }
-    delete []buffConversion;
 }
 
 void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
@@ -162,7 +162,7 @@ void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
-    SDL_Texture* texte_texture = NULL;    //Create Texture pointeur
+    SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur
     char buffConversion[80];
     buffConversion[sprintf(buffConversion, "%luh  %lum  %lus", jeu.chrono.getTimeInHours(), jeu.chrono.getTimeInMin()%60, jeu.chrono.getTimeInSec()%60/*, jeu.chrono.getTimeInMSec()%1000*/)+1] = '\0';
     texte = TTF_RenderText_Blended(font, buffConversion, couleur);
@@ -175,7 +175,7 @@ void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     position.w = largeur;
     position.h = hauteur;
                 
-    int ok = SDL_RenderCopy(renderer, texte_texture, NULL, &position);
+    int ok = SDL_RenderCopy(renderer, texte_texture, nullptr, &position);
     SDL_DestroyTexture(texte_texture);
     assert(ok == 0);
 }

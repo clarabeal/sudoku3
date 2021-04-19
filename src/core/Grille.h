@@ -10,7 +10,7 @@ class Grille {
     public :
 
     /**
-	@brief La grille est un tableau 2D de cases stocké sur le tas
+	@brief La grille est un tableau 2D de cases stocke sur le tas
     */
     TabCases2DTas grille;
 
@@ -38,7 +38,7 @@ class Grille {
     Carre* carres;
 
     /**
-	@brief Constructeur a parametres
+	@brief Constructeur a parametre
     @param [in] d dimension de la grille a creer
     @details Initialise la donnee dim avec d, cree un tableau 2D de cases de taille dim, remplit les lignes, colonnes, carres de la grille
     */
@@ -60,7 +60,7 @@ class Grille {
     void setCase (unsigned char l, unsigned char c, unsigned char nb);
 
     /**
-    @brief Set toutes les cases de la grille a 0 et les rends non modifiable
+    @brief Set toutes les cases de la grille a 0 et les rend non modifiable
     */
     void viderGrille();
 

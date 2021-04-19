@@ -9,51 +9,55 @@ class chronometre
 public:
     chronometre();
     /**
-    \brief Constructeur qui initialise le chorno avec un certains temps en ms 
+    \brief Constructeur qui initialise le chorno avec un certain temps en ms 
     */
     chronometre(unsigned long int ms);
 
     ~chronometre();
     /**
-    \brief mets a jour le temps du chronometre
-    \details Doit etre appele a chaque fois avant de recuperer le temps
+    \brief Met a jour le temps du chronometre
     */
     void update();
 
     /**
-    \brief Ignore le temps ecoule depuis le dernier update
-    \details Pour mettre le chronometre en pause, faire un update au debut de la pause, puis lorsque le chronometre doit redemarrer, faire start
+    \brief (Re)Demarre le chrono
     */
     void start();
+
     /**
-    \brief Remet le chronometre a 0*/
+    \brief Mets en pause le chrono
+    */
+    void pause();
+    /**
+    \brief Remet le chronometre a 0
+    */
     void reset();
 
     /**
-    \brief retourne le temps en millisecondes
+    \brief Retourne le temps en millisecondes
     */
-    unsigned long int getTimeInMSec() const;
+    unsigned long int getTimeInMSec();
     /**
-    \brief retourne le temps en secondes
+    \brief Retourne le temps en secondes
     */
-    unsigned long int getTimeInSec() const;
+    unsigned long int getTimeInSec();
     /**
-    \brief retourne le temps en minutes
+    \brief Retourne le temps en minutes
     */
-    unsigned long int getTimeInMin() const;
+    unsigned long int getTimeInMin();
     /**
-    \brief retourne le temps en heures
+    \brief Retourne le temps en heures
     */
-    unsigned long int getTimeInHours() const;
+    unsigned long int getTimeInHours();
 
     /**
-    \brief affiche le temps ecoulé sous la forme hh:mm:ss:msmsmsms*/
-    void afficher()const;
+    \brief Affiche le temps ecoule sous la forme hh:mm:ss:msmsmsms*/
+    void afficher();
 
 private:
     clock_t t1, t2;
     unsigned long int ms;
-
+    bool enPause;
 
 };
 class Jeu {
@@ -77,7 +81,7 @@ class Jeu {
 
     /**
     @brief Constructeur a parametres
-    @details Cree une grilleJeu et une grilleSolution ttes les 2 de taille dim
+    @details Cree une grilleJeu et une grilleSolution toutes les 2 de taille dim
     */
     Jeu(unsigned char d);
 
@@ -94,9 +98,9 @@ class Jeu {
     bool genererGrillePleine (int etape = 0);
 
     /**
-    @brief Remplit un tableau avec entiers aleatoires compris entre 1 et max
+    @brief Remplit un tableau avec des entiers aleatoires compris entre 1 et max
     @param [je sais pas] tab : le tableau a remplir
-    @param [in] max la valeur maximale que doivent prendre les nombres geres aleatoirement
+    @param [in] max la valeur maximale que doit prendre les nombres geres aleatoirement
     */
     void remplirTblAlea(unsigned char* tab, unsigned char max);
 
@@ -113,26 +117,26 @@ class Jeu {
 
     /**
     @brief Verifie si la grille est pleine ou non
-    @details Retourne 1 si pleine 0 sinon
+    @details Retourne 1 si pleine, 0 sinon
      */
     bool verifGrillePleine(Grille& grille) const;
 
     /**
     @brief Initialise une grille
-    @details Genere une nouvelle grille pleine stocker dans grilleSolution et une grille a troue dans grilleJeu
+    @details Genere une nouvelle grille pleine stockee dans grilleSolution et une grille a trou dans grilleJeu
     \see genererGrillePleine genererGrilleMinimale
     */
     void init();
 
     /**
     @brief Verifie si la valeur donnée est valide
-    @details Retourne true si la valeur est valide false sinon
+    @details Retourne true si la valeur est valide, false sinon
     */
     bool estValValide (unsigned char valeur) const;
 
     /**
     @brief Verifie si les coordonnées données sont valides et si la case est modifiable
-    @details Retourne true si elles sont valides false sinon
+    @details Retourne true si elles sont valides, false sinon
     */
     bool sontCorValides (unsigned char l, unsigned char c) const;
 
@@ -155,14 +159,14 @@ class Jeu {
     unsigned char trouverNumeroCarre(unsigned char l, unsigned char c) const;
 
     /**
-    @brief indique si la partie a déja été initialisé
-    @details Utilisé pour la gestion des sauvegardes
+    @brief Indique si la partie a déja été initialisé
+    @details Utilise pour la gestion des sauvegardes
     */
     bool initDone;
 
     /**
-   @brief Id de la sauvegarde associee a cette partie, vaut -1 si la partie n'a jamais été sauvegardee
-   */
+    @brief Id de la sauvegarde associee a cette partie, vaut -1 si la partie n'a jamais été sauvegardee
+    */
     int sauvegardeId;
 
     /**

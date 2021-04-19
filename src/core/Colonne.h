@@ -29,7 +29,7 @@ public:
 
 	/**
 	@brief Constructeur a parametres
-	@details Remplit la colonne avec la colonne numeroColonne de la grille passee en param
+	@details Remplit la colonne avec la colonne numeroColonne de la grille passee en parametre
     */
 	Colonne(unsigned char numeroColonne, TabCases2DTas& grille);
 

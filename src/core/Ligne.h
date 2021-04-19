@@ -33,7 +33,7 @@ class Ligne
 
 	/**
 	@brief Constructeur a parametres
-	@details Remplit la ligne avec la ligne numeroLigne de la grille passee en param
+	@details Remplit la ligne avec la ligne numeroLigne de la grille passee en parametre
     */
 	Ligne(unsigned char numeroLigne, TabCases2DTas& grille);
 

@@ -205,7 +205,7 @@ void TXT_1vs1::boucle () {
     } while (!stop);
 }
 
-unsigned char TXT_1vs1::menu () const {
+unsigned char TXT_1vs1::menu (){
     int value;
 
     do {

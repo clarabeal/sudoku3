@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="sdlJeuPasAPas">
+    <Position X="1.75" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QQagRgECAABQAAASAgmCAgEIAAwSBAIIoAAkAAIAgAI=</HashCode>
+      <FileName>sdl\SDL_PasAPas.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="bleu" />
+      <Field Name="vert" />
+      <Field Name="rouge" />
+      <Field Name="jeu" />
+      <Field Name="im_selectionChiffre" />
+      <Field Name="im_menu" />
+      <Field Name="im_grille" />
+      <Field Name="gris" />
+      <Field Name="tabHitBoxeSelectionNombre" />
+      <Field Name="tabHitBoxeGrille" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Image">
+    <Position X="11.5" Y="0.5" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAZAAAAAAgAEAhIAAAAQAAAAAAA=</HashCode>
+      <FileName>sdl\Image.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jeu">
+    <Position X="3.5" Y="4.25" Width="3.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgQAAAIAgACQAEgAACAACQoAgAAIAABBAAA=</HashCode>
+      <FileName>core\Jeu.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="chrono" />
+      <Field Name="grilleJeu" />
+      <Field Name="grilleOriginale" />
+      <Field Name="grilleSolution" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="chronometre" Collapsed="true">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACIEEAAAAAAAgAAAAABAIAFAAACAEAAwAAAAEIAA=</HashCode>
+      <FileName>core\Jeu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grille">
+    <Position X="11" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAACAAEAAAAAgAAAAAAAAEACAgAAAgAAAAAIA=</HashCode>
+      <FileName>core\Grille.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="carres" />
+      <Field Name="colonnes" />
+      <Field Name="lignes" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="hitBox" Collapsed="true">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DAAAAAAEAAAAAAIAAAAAAAEAAwAAAACAAQAAAAAAAAA=</HashCode>
+      <FileName>sdl\HitBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Carre">
+    <Position X="16.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAIAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAFAgAAQ=</HashCode>
+      <FileName>core\Carre.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="tabc" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Colonne">
+    <Position X="15" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAAAAAgAAEAAABAAAAIAAAAAAAAAAAABAAAAQ=</HashCode>
+      <FileName>core\Colonne.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="tabcl" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Ligne">
+    <Position X="17.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAAgAAAADABAAAAAAAAAAAAAAAAABAAAgA=</HashCode>
+      <FileName>core\Ligne.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="tabl" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Case" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAIAAIAAAAAAAAAAAAAAAAAAAAAAIAACAAAAAAAA=</HashCode>
+      <FileName>core\Case.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

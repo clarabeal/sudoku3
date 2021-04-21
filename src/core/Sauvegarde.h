@@ -99,8 +99,13 @@ public:
 	*/
 	void supprimerSauvegarde(unsigned char id);
 
+	/**
+	\brief renomme la sauvegarde dont l'id est id
+	\param[in] id l'id de la sauvegarde a supprimer
+	\param[in] nzme le nouveau nom de la sauvegarde
+	*/
+	void renommerSauvegarde(unsigned int id, string name);
 private:
-
 };
 
 #endif

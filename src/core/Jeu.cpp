@@ -207,39 +207,21 @@ bool Jeu::verifGrillePleine(Grille &grille) const
 
 void Jeu::init()
 {
-	cout << "init etape 1" << endl;
-
 	grilleSolution.viderGrille();
-
-	cout << "init etape 2" << endl;
 	grilleJeu.viderGrille();
-	cout << "init etape 3" << endl;
-
 	genererGrillePleine();
-	cout << "init etape 4" << endl;
-
 	genererGrilleMinimale();
-	cout << "init etape 5" << endl;
-
 	unsigned char dimGrille = grilleSolution.dim;
-	cout << "init etape 6" << endl;
 
 	for (unsigned char l = 0; l < dimGrille; l++) {
 		for (unsigned char c = 0; c < dimGrille; c++) {
-			grilleSolution.grille.getCase(l, c).etat = 1; // on indique que tt les cases de la grille solution sont juste
+			grilleSolution.grille.getCase(l, c).modifiable = false; // on indique que tt les cases de la grille solution ne sont pas modfiable
 		}
 	}
-	cout << "init etape 7" << endl;
 
 	grilleOriginale = grilleJeu;
-	cout << "init etape 8" << endl;
-
 	chrono.reset();
-	cout << "init etape 9" << endl;
-
 	chrono.start();
-	cout << "init etape 10" << endl;
-
 }
 
 bool Jeu::estValValide (unsigned char valeur) const {
@@ -345,4 +327,9 @@ unsigned long int chronometre::getTimeInHours()
 void chronometre::afficher()
 {
 	cout << getTimeInHours() << "h " << getTimeInMin() % 60 << "m " << getTimeInSec() % 60 << "s " << getTimeInMSec() % 1000<< "ms";
+}
+
+bool chronometre::estEnPause()
+{
+	return enPause;
 }

@@ -2,6 +2,7 @@
 #define _SDL_PasAPas
 
 #include "../core/Jeu.h"
+#include "../core/Sauvegarde.h"
 #include "Image.h"
 #include "HitBox.h"
 #ifdef _WIN32
@@ -30,6 +31,7 @@ class sdlJeuPasAPas {
 public:
 
     sdlJeuPasAPas(unsigned char d);
+    sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
     ~sdlJeuPasAPas();
     void sdlBoucle();
     float temps();
@@ -40,12 +42,12 @@ public:
     void coordCaseSimple(unsigned char& l, unsigned char& c);
     void printTabDiff() const;
     void retirerCasesFausses();
-
+    void colorerCase();
     //------------------Les fonctions d'affichage
     void sdlAff();
     void sdlAffMenu(int x, int y, int largeur, int hauteur);
     void sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
-    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
+    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool force = false);
     void sdlAffTexte(string txt, int x, int y, int largeur, int hauteur);
     void sdlAffChrono(int x, int y, int largeur, int hauteur, bool full = false);
     void sdlAffFinDePartie();
@@ -61,6 +63,13 @@ private:
     int c_toChange, l_toChange;
     int mousse_x, mousse_y;
     bool finDePartie;
+    bool autoSave;
+    bool coloration;
+    //------------------Donneées/focntions sauvegarde
+    gestSauvegarde gestionnaireSauvegarde;
+    void sauvegarder(bool force = false);
+
+
     //------------------Données SDL
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -71,7 +80,7 @@ private:
 
     //------------------Image globale
     Image im_grille;
-    Image im_menu;
+    Image im_menu[24];
 
     Image* im_selectionChiffre;
     Image bleu;
@@ -81,9 +90,15 @@ private:
     //------------------Hitboxes
     hitBox* tabHitBoxeGrille;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
     hitBox* tabHitBoxeSelectionNombre;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
+    hitBox  tabHitBoxeSelectionMenu[24];//tableau 2D stockant les positions des bouton du menu (associé a im_menu)
 
+    //------------------Fonction d'init
+    void init_im_menu();
+    void init_hit_menu(int x1, int y1, int x2, int y2 = 0);
+    void effacer_hit_menu();
 
-
+    //------------------Focntion d'affichage
+    void affImgInHitBox(Image& img, hitBox& hit);
 
 };
 

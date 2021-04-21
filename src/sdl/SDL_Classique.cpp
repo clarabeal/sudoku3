@@ -75,6 +75,68 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d), font_color() {
 
 }
 
+sdlJeuClassique::sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), font_color() {
+
+
+    // Initialisation de la SDL
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+
+    if (TTF_Init() != 0) {
+        cout << "Erreur lors de l'initialisation de la SDL_ttf : " << TTF_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+    font = TTF_OpenFont("data/fonts/BungeeShade-Regular.ttf", 120);
+    if (!font) {
+        font = TTF_OpenFont("../data/fonts/BungeeShade-Regular.ttf", 120);
+
+    }
+    //font = TTF_OpenFont("../data/fonts/arial.ttf", 40);
+
+    int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+    if (!(IMG_Init(imgFlags) & imgFlags)) {
+        cout << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+
+    //creation de la fenetre : 
+    window = SDL_CreateWindow("Sudoku 3", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    if (window == nullptr)
+    {
+        cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+
+    //creation du rendu : 
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == nullptr)
+    {
+        cout << "Erreur lors de la creation du renderer : " << SDL_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+
+    //creation des images :
+    if (d == 4) {
+        im_grille.loadFromFile("data/assets/grilles/4x4color.jpg", renderer);
+    }
+    else if (d == 9) {
+        im_grille.loadFromFile("data/assets/grilles/9x9color.jpg", renderer);
+    }
+    else if (d == 16) {
+        im_grille.loadFromFile("data/assets/grilles/16x16color.jpg", renderer);
+    }
+
+
+
+}
+
 sdlJeuClassique::~sdlJeuClassique(){
 
     TTF_CloseFont(font);

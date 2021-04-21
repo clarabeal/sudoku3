@@ -13,6 +13,7 @@ public:
     bool is_in(const int x, const int y);
     int getLargeur();
     int getHauteur();
+    void reset();
 };
 
 

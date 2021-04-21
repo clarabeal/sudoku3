@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <stdio.h>
-
+#include <cassert>
 gestSauvegarde::gestSauvegarde(string emplacement, string emplacement2)
 {
 	listeSauvegarde = nullptr;
@@ -22,10 +22,12 @@ bool gestSauvegarde::updateListe()
 		//cout << "index des sauvegarde ouvert a avec succes" << endl;
 		fichier >> nbSauvegarde;
 		fichier >> maxId;
+		maxId = 0;
 		//cout << nbSauvegarde << " sauvegardes ont ete trouves" << endl;
 		listeSauvegarde = new InfoSauvegarde[nbSauvegarde];
 		for (unsigned int i = 0; i < nbSauvegarde; i++) {
 			fichier >> listeSauvegarde[i].id >> listeSauvegarde[i].name >> listeSauvegarde[i].modeJeu >> listeSauvegarde[i].tailleGrille >> listeSauvegarde[i].chrono;
+			if (listeSauvegarde[i].id > maxId) maxId = listeSauvegarde[i].id;
 		}
 		fichier.close();
 		return true;
@@ -52,6 +54,7 @@ InfoSauvegarde& gestSauvegarde::getInfoSauvegarde(unsigned char id) const {
 			return listeSauvegarde[i];
 		}
 	}
+	assert(false);
 }
 
 bool gestSauvegarde::valideId(unsigned char id) const {
@@ -149,8 +152,6 @@ void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig
 
 int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int id) {
 	if (id != 0 && !valideId(id)) return -1;
-	cout << "id recus ";
-	cout << id << endl;
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
 	
@@ -312,6 +313,7 @@ void gestSauvegarde::supprimerSauvegarde(unsigned char id)
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
 	if (fichierIndex.is_open()) {
+		if (id == maxId) maxId--;
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
 		for (unsigned int i = 0; i < nbSauvegarde +1; i++) {
 			if (listeSauvegarde[i].id != id) {
@@ -325,8 +327,30 @@ void gestSauvegarde::supprimerSauvegarde(unsigned char id)
 		else {
 			cout << "Fichier supprim�" << endl;
 		}
+	}
+	else {
+		cout << "Une erreur c'est produite lors de l'ouverture de l'index!" << endl;
+	}
+	updateListe();
+}
 
-			
+void gestSauvegarde::renommerSauvegarde(unsigned int id, string name)
+{
+	if (!valideId(id)) return;
+	if (name == "") return;
+	ofstream fichierIndex;
+	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
+	if (fichierIndex.is_open()) {
+		fichierIndex << nbSauvegarde << " " << maxId << endl;
+		for (unsigned int i = 0; i < nbSauvegarde; i++) {
+			if (listeSauvegarde[i].id != id) {
+				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << 0 << endl;
+			}
+			else {
+				fichierIndex << listeSauvegarde[i].id << " " << name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << 0 << endl;
+			}
+		}
+
 	}
 	else {
 		cout << "Une erreur c'est produite lors de l'ouverture de l'index!" << endl;

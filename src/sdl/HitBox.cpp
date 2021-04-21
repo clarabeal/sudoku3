@@ -35,3 +35,10 @@ bool hitBox::is_in(const int x, const int y)
 	if (x >= x1 && x <= x2 && y >= y1 && y <= y2) return true;
 	return false;
 }
+void hitBox::reset()
+{
+	x1 = 0;
+	x2 = 0;
+	y1 = 0;
+	y2 = 0;
+}

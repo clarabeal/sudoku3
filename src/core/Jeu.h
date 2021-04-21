@@ -54,6 +54,7 @@ public:
     \brief Affiche le temps ecoule sous la forme hh:mm:ss:msmsmsms*/
     void afficher();
 
+    bool estEnPause();
 private:
     clock_t t1, t2;
     unsigned long int ms;

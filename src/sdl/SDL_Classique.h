@@ -29,6 +29,10 @@ class sdlJeuClassique {
 public :
 
     sdlJeuClassique (unsigned char d);
+
+    sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+
+
     ~sdlJeuClassique ();
     void sdlAffChrono(int x, int y, int largeur, int hauteur);
     void sdlBoucle ();

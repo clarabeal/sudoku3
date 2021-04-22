@@ -305,7 +305,6 @@ void sdlJeuPasAPas::init_im_menu()
 void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
     effacer_hit_menu();
     const int nb_element = 9;
-    const float ratioTaille = 1/11; //(hauteur d'un btn)/(largeur btn)
 
     if (y2 == 0) {
         y2 = (x2 - x1) * nb_element /11;//on respect le format par defaut pour que la police ne soit pas deformé

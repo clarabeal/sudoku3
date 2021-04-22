@@ -1,6 +1,6 @@
 #include "SDL_Classique.h"
 #include "SDL_PasAPas.h"
-#include "../core/sauvegarde.h"
+#include "../core/Sauvegarde.h"
 #include "SdlSaisieTxt.h"
 #include <iostream>
 #include <algorithm>  //pour la fonciton min(a, b)
@@ -23,7 +23,6 @@ void affMenuSelectOptionSauvegarde(int boutonOver, unsigned int idSauvegarde, ge
 
 
 int main(int argc, char* argv[]) {
-    cout << "hello" << endl;
     SDL_Window* window;
     SDL_Renderer* renderer;
 

@@ -1,5 +1,7 @@
 #include "SDL_Classique.h"
+
 #include <iostream>
+
 using namespace std;
 
 #define WIDTH 1280

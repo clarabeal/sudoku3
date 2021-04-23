@@ -1,7 +1,7 @@
 #ifndef _TXT_PasAPas_H
 #define _TXT_PasAPas_H
 
-#include "../core/Jeu.h"
+#include "../core/Sauvegarde.h"
 
 class TXT_PasAPas
 {

@@ -4,6 +4,7 @@
 #include <string>
 #include <stdio.h>
 #include <cassert>
+
 gestSauvegarde::gestSauvegarde(string emplacement, string emplacement2)
 {
 	listeSauvegarde = nullptr;

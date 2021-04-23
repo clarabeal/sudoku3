@@ -1,7 +1,6 @@
 #include "SDL_PasAPas.h"
-#include "SdlSaisieTxt.h"
-#include <algorithm>  //pour la fonciton max(a, b)
 
+#include <algorithm>  //pour la fonciton max(a, b)
 #include <iostream>
 #include <string.h>
 using namespace std;

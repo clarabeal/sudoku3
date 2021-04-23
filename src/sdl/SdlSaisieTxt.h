@@ -2,6 +2,7 @@
 #define _SDL_SAISIE_TEXTE_H
 
 #include <string>
+
 #ifdef _WIN32
 #include <SDL.h>
 #include <SDL_ttf.h>

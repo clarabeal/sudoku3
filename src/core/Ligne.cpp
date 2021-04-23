@@ -1,6 +1,8 @@
 #include "Ligne.h"
+
 #include <iostream>
 #include <cassert>
+
 using namespace std;
 
 Ligne::Ligne():tailleGrille(0), tailleLigne(0) {

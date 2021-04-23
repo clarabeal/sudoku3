@@ -1,8 +1,6 @@
 #include "TXT_Classique.h"
 
 #include <iostream>
-#include "../core/Sauvegarde.h"
-
 #include <stdlib.h>
 
 using namespace std;

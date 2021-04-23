@@ -1,10 +1,11 @@
 #ifndef _SDL_PasAPas
 #define _SDL_PasAPas
 
-#include "../core/Jeu.h"
 #include "../core/Sauvegarde.h"
 #include "Image.h"
 #include "HitBox.h"
+#include "SdlSaisieTxt.h"
+
 #ifdef _WIN32
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -51,12 +52,12 @@ public:
     void sdlAffTexte(string txt, int x, int y, int largeur, int hauteur);
     void sdlAffChrono(int x, int y, int largeur, int hauteur, bool full = false);
     void sdlAffFinDePartie();
-    //------------------Fonctions liées aux hitboxes
+    //------------------Fonctions liï¿½es aux hitboxes
     void resetTabHitGrille();
     void resetTabHitSelectionNombre();
 
 private:
-    //------------------Données core mode pas a pas
+    //------------------Donnï¿½es core mode pas a pas
     Jeu jeu;
     const int dimGrille;
     unsigned char* tabDiffCase;
@@ -65,12 +66,12 @@ private:
     bool finDePartie;
     bool autoSave;
     bool coloration;
-    //------------------Donneées/focntions sauvegarde
+    //------------------Donneï¿½es/focntions sauvegarde
     gestSauvegarde gestionnaireSauvegarde;
     void sauvegarder(bool force = false);
 
 
-    //------------------Données SDL
+    //------------------Donnï¿½es SDL
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Event event;
@@ -90,7 +91,7 @@ private:
     //------------------Hitboxes
     hitBox* tabHitBoxeGrille;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
     hitBox* tabHitBoxeSelectionNombre;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
-    hitBox  tabHitBoxeSelectionMenu[24];//tableau 2D stockant les positions des bouton du menu (associé a im_menu)
+    hitBox  tabHitBoxeSelectionMenu[24];//tableau 2D stockant les positions des bouton du menu (associï¿½ a im_menu)
 
     //------------------Fonction d'init
     void init_im_menu();

@@ -1,11 +1,11 @@
 #include "SDL_Classique.h"
 #include "SDL_PasAPas.h"
-#include "../core/Sauvegarde.h"
-#include "SdlSaisieTxt.h"
+
 #include <iostream>
 #include <algorithm>  //pour la fonciton min(a, b)
 
 using namespace std;
+
 //format 16/9
 #define WIDTH 1024
 #define HEIGHT 576

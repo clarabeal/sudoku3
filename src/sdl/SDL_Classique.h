@@ -1,6 +1,7 @@
 #ifndef _SDL_CLASSIQUE
 #define _SDL_CLASSIQUE
-#include "../core/Jeu.h"
+
+#include "../core/Sauvegarde.h"
 #include "Image.h"
 #include "HitBox.h"
 

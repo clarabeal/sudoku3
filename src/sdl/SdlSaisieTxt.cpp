@@ -1,4 +1,5 @@
 #include "SdlSaisieTxt.h"
+
 #include <iostream>
 #include <algorithm>  //pour la fonciton max(a, b)
 

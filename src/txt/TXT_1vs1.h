@@ -1,7 +1,7 @@
 #ifndef _TXT_1Vs1_H
 #define _TXT_1Vs1_H
 
-#include "../core/Jeu.h"
+#include "../core/Sauvegarde.h"
 
 class TXT_1vs1
 {

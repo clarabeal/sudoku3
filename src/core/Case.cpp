@@ -1,4 +1,5 @@
 #include "Case.h"
+
 Case::Case() {
 
     modifiable = false;

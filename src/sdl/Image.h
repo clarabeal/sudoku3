@@ -1,6 +1,5 @@
 #ifndef _SDL_Image_
 #define _SDL_Image_
-#include "../core/Jeu.h"
 
 #ifdef _WIN32
 #include <SDL.h>
@@ -18,6 +17,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #endif
+
 #include <string>
 
 //! \brief Pour gerer une image avec SDL2

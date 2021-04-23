@@ -39,8 +39,8 @@ int main(int argc, char* argv[]) {
         SDL_Quit();
         exit(1);
     }
-    //font_menu = TTF_OpenFont("data/fonts/BungeeShade-Regular.ttf", 120);
-    font_menu = TTF_OpenFont("../data/fonts/arial.ttf", 120);
+    //font_menu = TTF_OpenFont("data/fonts/arial.ttf", 120);
+    font_menu = TTF_OpenFont("data/fonts/BungeeShade-Regular.ttf", 120);
     if (!font_menu) {
         font_menu = TTF_OpenFont("../data/fonts/BungeeShade-Regular.ttf", 120);
     }

@@ -29,21 +29,24 @@ class sdlJeuClassique {
 
 public :
 
-    sdlJeuClassique (unsigned char d);
-
+    sdlJeuClassique(unsigned char d);
     sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+    ~sdlJeuClassique();
+    void sdlBoucle();
 
-
-    ~sdlJeuClassique ();
-    void sdlAffChrono(int x, int y, int largeur, int hauteur);
-    void sdlBoucle ();
-    void sdlAff ();
-
+    void sdlAff();
     void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
+
+    void sdlAffChrono(int x, int y, int largeur, int hauteur);
+
+    void resetTabHitGrille();
 
 private :
 
 	Jeu jeu;
+    int c_toChange, l_toChange;
+    int mousse_x, mousse_y;
+    const int dimGrille;
 
     SDL_Window * window;
     SDL_Renderer * renderer;
@@ -53,6 +56,8 @@ private :
     SDL_Color font_color;
 
     Image im_grille;
+
+    hitBox * tabHitBoxeGrille;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
 
 };
 

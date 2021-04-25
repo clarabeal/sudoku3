@@ -11,7 +11,7 @@ Jeu::Jeu(unsigned char d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
 
 }
 
-Jeu::Jeu(unsigned char d, int id,unsigned long int time,  Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d),chrono(time) {
+Jeu::Jeu(unsigned char d, int id, unsigned long int time, Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d), chrono(time) {
 	grilleSolution.grille = g_sol.grille;
 	grilleOriginale.grille = g_orig.grille;
 	grilleJeu.grille = g_jeu.grille;

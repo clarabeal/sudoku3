@@ -15,7 +15,7 @@ float temps () {
 
 // ============= CLASS SDLJEU =============== //
 
-sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d), font_color() {
+sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d), dimGrille(d), font_color() {
 
 
     // Initialisation de la SDL
@@ -73,11 +73,16 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d), font_color() {
         im_grille.loadFromFile("data/assets/grilles/16x16color.jpg", renderer);
     }
 
+    l_toChange = 0;
+    c_toChange = 0;
+    mousse_x = 0;
+    mousse_y = 0;
 
+    tabHitBoxeGrille = new hitBox[d*d];
 
 }
 
-sdlJeuClassique::sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), font_color() {
+sdlJeuClassique::sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), font_color() {
 
 
     // Initialisation de la SDL
@@ -135,7 +140,12 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d, int id, unsigned long time, Gr
         im_grille.loadFromFile("data/assets/grilles/16x16color.jpg", renderer);
     }
 
+    l_toChange = 0;
+    c_toChange = 0;
+    mousse_x = 0;
+    mousse_y = 0;
 
+    tabHitBoxeGrille = new hitBox[d*d];
 
 }
 
@@ -146,6 +156,7 @@ sdlJeuClassique::~sdlJeuClassique(){
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    delete[] tabHitBoxeGrille;
 
 }
 
@@ -217,6 +228,15 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
                 SDL_DestroyTexture(texte_texture);
                 assert(ok == 0);
             }
+
+            tabHitBoxeGrille[l * dimGrille + c].x1 = x + c * largeurCase;
+            tabHitBoxeGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
+            tabHitBoxeGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
+            tabHitBoxeGrille[l * dimGrille + c].y2 = y + l * hauteurCase + hauteurCase;
+
+            //cout << "tabHitBoxeGrille[" << l+1 << "][" << c+1 << "] = " << tabHitBoxeGrille[l * dimGrille + c].x1 << " " << tabHitBoxeGrille[l * dimGrille + c].y1 << " " ;
+            //cout << tabHitBoxeGrille[l * dimGrille + c].x2 << " " << tabHitBoxeGrille[l * dimGrille + c].y2;
+
         }
     }
 }
@@ -244,10 +264,22 @@ void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     assert(ok == 0);
 }
 
+void sdlJeuClassique::resetTabHitGrille() {
+    for (int l = 0; l < dimGrille; l++) {
+        for (int c = 0; c < dimGrille; c++) {
+            tabHitBoxeGrille[l * dimGrille + c].x1 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].y1 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].x2 = 0;
+            tabHitBoxeGrille[l * dimGrille + c].y2 = 0;
+        }
+    }
+}
+
 void sdlJeuClassique::sdlBoucle(){
 
     bool gameRunning = true;
     SDL_Event event;
+
     if (!jeu.initDone) {
         jeu.init();
         jeu.initDone = true;
@@ -256,20 +288,66 @@ void sdlJeuClassique::sdlBoucle(){
 
         while (SDL_PollEvent(&event))
         {
+            //----Quitte la partie si croix
             if (event.type == SDL_QUIT) gameRunning = false;
+
+            //----On fait les actions liées au differentes touches du clavier si elles sont pressées
             if (event.type == SDL_KEYDOWN)
             {
-                switch (event.key.keysym.scancode)
+                switch (event.key.keysym.sym)
                 {
-                    case SDL_SCANCODE_Q:
+                    case SDLK_q:
                         gameRunning = false;
                         break;
+
                     default:
+                        if (c_toChange != 0) {
+                            if (event.key.keysym.sym == SDLK_0 || event.key.keysym.sym == SDLK_1 || event.key.keysym.sym == SDLK_2 || event.key.keysym.sym == SDLK_3 || event.key.keysym.sym == SDLK_4 || event.key.keysym.sym == SDLK_5 || event.key.keysym.sym == SDLK_6 || event.key.keysym.sym == SDLK_7 || event.key.keysym.sym == SDLK_8 || event.key.keysym.sym == SDLK_9) {
+                                if (dimGrille < 10) {
+                                    jeu.grilleJeu.grille.getCase((unsigned char)(l_toChange - 1), (unsigned char)c_toChange - 1).setVal(int(event.key.keysym.sym - '0'));
+                                    c_toChange = 0;
+                                    l_toChange = 0;
+                                }
+                                //faire else
+                            }
+                        }
                         break;
                 }
             }
-        }
 
+            //----On fait les actions liées aux clics souris
+            
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+
+                //---On regarde si le clic a ete effectue sur une des case de la grille, si oui: clic gauche --> selectionne la case, clic droit --> vide la case
+                for (int l = 0; l < dimGrille; l++) {
+                    for (int c = 0; c < dimGrille; c++) {
+
+                        if (tabHitBoxeGrille[l * dimGrille + c].is_in(mousse_x, mousse_y)) {
+                            cout << "Colonne " << c + 1 << " | Ligne " << l + 1 << endl;
+                            if (jeu.grilleJeu.grille.getCase(l, c).modifiable) {
+
+                                if (event.button.button == SDL_BUTTON_LEFT) {
+                                    c_toChange = c + 1;
+                                    l_toChange = l + 1;
+                                }
+                                else if (event.button.button == SDL_BUTTON_RIGHT) {
+                                    c_toChange = 0;
+                                    l_toChange = 0;
+                                    jeu.grilleJeu.grille.getCase(l, c).setVal(0);
+                                }
+
+                            }
+                            else {
+                                cout << "la case n'est pas modifiable" << endl;
+                                c_toChange = 0;
+                                l_toChange = 0;
+                            }
+                        }
+                    }
+                } 
+            }
+        }
 
         sdlAff();
 

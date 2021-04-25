@@ -1,5 +1,5 @@
 #include "Image.h"
-
+#include <cassert>
 #include <iostream>
 using namespace std;
 

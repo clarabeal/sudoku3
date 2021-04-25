@@ -16,7 +16,7 @@ float sdlJeuPasAPas::temps() {
 
 // ============= CLASS SDLJEU =============== //
 
-sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false), coloration(true)
+sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false), coloration(false)
 {
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -143,7 +143,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnai
 
 }
 
-sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false), coloration(true) {
+sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false), coloration(false) {
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -310,6 +310,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
     }
     int y1courant = y1;
     int y2courant = 0;
+    //---------> Les hitbox des 5 premieres options ( Retirer czses fausses, aff case simple, Recommencer grille, generer nouvelle grille)
     y2courant = y1courant + y2 / nb_element;
     tabHitBoxeSelectionMenu[0].x1 = x1;
     tabHitBoxeSelectionMenu[0].x2 = x2;
@@ -332,92 +333,8 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[i+1].y1 = y1courant;
         tabHitBoxeSelectionMenu[i+1].y2 = y2courant;
     }
-    y1courant = y2courant;
-    y2courant = y1courant + y2 / nb_element;
 
-    if (jeu.sauvegardeId == 0) {
-       
-        tabHitBoxeSelectionMenu[10].x1 = x1;
-        tabHitBoxeSelectionMenu[10].x2 = x2;
-        tabHitBoxeSelectionMenu[10].y1 = y1courant;
-        tabHitBoxeSelectionMenu[10].y2 = y2courant;
-
-        tabHitBoxeSelectionMenu[11].x1 = x1;
-        tabHitBoxeSelectionMenu[11].x2 = x2;
-        tabHitBoxeSelectionMenu[11].y1 = y1courant;
-        tabHitBoxeSelectionMenu[11].y2 = y2courant;
-        tabHitBoxeSelectionMenu[12].reset();
-        tabHitBoxeSelectionMenu[13].reset();
-        tabHitBoxeSelectionMenu[14].reset();
-        tabHitBoxeSelectionMenu[15].reset();
-    }
-    else {
-       
-        if (autoSave) {
-            tabHitBoxeSelectionMenu[10].reset();
-            tabHitBoxeSelectionMenu[11].reset();
-            tabHitBoxeSelectionMenu[14].x1 = x1;
-            tabHitBoxeSelectionMenu[14].x2 = x2;
-            tabHitBoxeSelectionMenu[14].y1 = y1courant;
-            tabHitBoxeSelectionMenu[14].y2 = y2courant;
-            tabHitBoxeSelectionMenu[15].x1 = x1;
-            tabHitBoxeSelectionMenu[15].x2 = x2;
-            tabHitBoxeSelectionMenu[15].y1 = y1courant;
-            tabHitBoxeSelectionMenu[15].y2 = y2courant;
-        }
-        else {
-            tabHitBoxeSelectionMenu[10].x1 = x1;
-            tabHitBoxeSelectionMenu[10].x2 = x2;
-            tabHitBoxeSelectionMenu[10].y1 = y1courant;
-            tabHitBoxeSelectionMenu[10].y2 = y2courant;
-
-            tabHitBoxeSelectionMenu[11].x1 = x1;
-            tabHitBoxeSelectionMenu[11].x2 = x2;
-            tabHitBoxeSelectionMenu[11].y1 = y1courant;
-            tabHitBoxeSelectionMenu[11].y2 = y2courant;
-            y1courant = y2courant;
-            y2courant = y1courant + y2 / nb_element;
-            tabHitBoxeSelectionMenu[12].x1 = x1;
-            tabHitBoxeSelectionMenu[12].x2 = x2;
-            tabHitBoxeSelectionMenu[12].y1 = y1courant;
-            tabHitBoxeSelectionMenu[12].y2 = y2courant;
-            tabHitBoxeSelectionMenu[13].x1 = x1;
-            tabHitBoxeSelectionMenu[13].x2 = x2;
-            tabHitBoxeSelectionMenu[13].y1 = y1courant;
-            tabHitBoxeSelectionMenu[13].y2 = y2courant;
-            tabHitBoxeSelectionMenu[14].reset();
-            tabHitBoxeSelectionMenu[15].reset();
-        }
-    }
-    y1courant = y2courant;
-    y2courant = y1courant + y2 / nb_element;
-    if (jeu.chrono.estEnPause()) {
-
-        tabHitBoxeSelectionMenu[16].x1 = x1;
-        tabHitBoxeSelectionMenu[16].y1 = y1courant;
-        tabHitBoxeSelectionMenu[16].x2 = x2;
-        tabHitBoxeSelectionMenu[16].y2 = y2courant;
-        tabHitBoxeSelectionMenu[17].x1 = x1;
-        tabHitBoxeSelectionMenu[17].y1 = y1courant;
-        tabHitBoxeSelectionMenu[17].x2 = x2;       
-        tabHitBoxeSelectionMenu[17].y2 = y2courant;
-        tabHitBoxeSelectionMenu[18].reset();
-        tabHitBoxeSelectionMenu[19].reset();
-
-    }
-    else {
-        tabHitBoxeSelectionMenu[18].x1 = x1;
-        tabHitBoxeSelectionMenu[18].y1 = y1courant;
-        tabHitBoxeSelectionMenu[18].x2 = x2;
-        tabHitBoxeSelectionMenu[18].y2 = y2courant;
-        tabHitBoxeSelectionMenu[19].x1 = x1;
-        tabHitBoxeSelectionMenu[19].y1 = y1courant;
-        tabHitBoxeSelectionMenu[19].x2 = x2;
-        tabHitBoxeSelectionMenu[19].y2 = y2courant;
-        tabHitBoxeSelectionMenu[16].reset();
-        tabHitBoxeSelectionMenu[17].reset();
-    }
-
+    //---------> LEs hitboxs des btn activer/descativer la coloration
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
     if (!coloration) {
@@ -446,6 +363,92 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[20].reset();
         tabHitBoxeSelectionMenu[21].reset();
     }
+
+    //---------> LEs hitboxs des btn start/pause
+    y1courant = y2courant;
+    y2courant = y1courant + y2 / nb_element;
+    if (jeu.chrono.estEnPause()) {
+
+        tabHitBoxeSelectionMenu[16].x1 = x1;
+        tabHitBoxeSelectionMenu[16].y1 = y1courant;
+        tabHitBoxeSelectionMenu[16].x2 = x2;
+        tabHitBoxeSelectionMenu[16].y2 = y2courant;
+        tabHitBoxeSelectionMenu[17].x1 = x1;
+        tabHitBoxeSelectionMenu[17].y1 = y1courant;
+        tabHitBoxeSelectionMenu[17].x2 = x2;
+        tabHitBoxeSelectionMenu[17].y2 = y2courant;
+        tabHitBoxeSelectionMenu[18].reset();
+        tabHitBoxeSelectionMenu[19].reset();
+
+    }
+    else {
+        tabHitBoxeSelectionMenu[18].x1 = x1;
+        tabHitBoxeSelectionMenu[18].y1 = y1courant;
+        tabHitBoxeSelectionMenu[18].x2 = x2;
+        tabHitBoxeSelectionMenu[18].y2 = y2courant;
+        tabHitBoxeSelectionMenu[19].x1 = x1;
+        tabHitBoxeSelectionMenu[19].y1 = y1courant;
+        tabHitBoxeSelectionMenu[19].x2 = x2;
+        tabHitBoxeSelectionMenu[19].y2 = y2courant;
+        tabHitBoxeSelectionMenu[16].reset();
+        tabHitBoxeSelectionMenu[17].reset();
+    }
+
+    //---------> LEs hitboxs des btn de sauvegardes
+    y1courant = y2courant;
+    y2courant = y1courant + y2 / nb_element;
+    if (!autoSave) {
+
+        tabHitBoxeSelectionMenu[12].x1 = x1;
+        tabHitBoxeSelectionMenu[12].x2 = x2;
+        tabHitBoxeSelectionMenu[12].y1 = y1courant;
+        tabHitBoxeSelectionMenu[12].y2 = y2courant;
+
+        tabHitBoxeSelectionMenu[13].x1 = x1;
+        tabHitBoxeSelectionMenu[13].x2 = x2;
+        tabHitBoxeSelectionMenu[13].y1 = y1courant;
+        tabHitBoxeSelectionMenu[13].y2 = y2courant;
+
+        tabHitBoxeSelectionMenu[14].reset();
+        tabHitBoxeSelectionMenu[15].reset();
+        y1courant = y2courant;
+        y2courant = y1courant + y2 / nb_element;
+    }
+    else if (jeu.sauvegardeId != 0) {
+        tabHitBoxeSelectionMenu[14].x1 = x1;
+        tabHitBoxeSelectionMenu[14].x2 = x2;
+        tabHitBoxeSelectionMenu[14].y1 = y1courant;
+        tabHitBoxeSelectionMenu[14].y2 = y2courant;
+
+        tabHitBoxeSelectionMenu[15].x1 = x1;
+        tabHitBoxeSelectionMenu[15].x2 = x2;
+        tabHitBoxeSelectionMenu[15].y1 = y1courant;
+        tabHitBoxeSelectionMenu[15].y2 = y2courant;
+
+        tabHitBoxeSelectionMenu[12].reset();
+        tabHitBoxeSelectionMenu[13].reset();
+        y1courant = y2courant;
+        y2courant = y1courant + y2 / nb_element;
+    }
+   
+    if(jeu.sauvegardeId == 0 || !autoSave) {
+        tabHitBoxeSelectionMenu[10].x1 = x1;
+        tabHitBoxeSelectionMenu[10].x2 = x2;
+        tabHitBoxeSelectionMenu[10].y1 = y1courant;
+        tabHitBoxeSelectionMenu[10].y2 = y2courant;
+
+        tabHitBoxeSelectionMenu[11].x1 = x1;
+        tabHitBoxeSelectionMenu[11].x2 = x2;
+        tabHitBoxeSelectionMenu[11].y1 = y1courant;
+        tabHitBoxeSelectionMenu[11].y2 = y2courant;
+
+        y1courant = y2courant;
+        y2courant = y1courant + y2 / nb_element;
+    }
+   
+
+    
+   
 }
 
 void sdlJeuPasAPas::effacer_hit_menu() {//supprime les hitboxe du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché

@@ -83,7 +83,7 @@ int main(int argc, char* argv[]) {
             fenetreEstFerme = false;
         }
         Image im_fondEcran;
-        im_fondEcran.loadFromFile("data/assets/menu/principal/fondEcran.jpg", renderer);
+        im_fondEcran.loadFromFile("data/assets/menu/principal/fondEcran.png", renderer);
         int mode = 0;
         mode = selectMode(renderer, font_menu, im_fondEcran);  //----------> Affiche et recupere l'info du mode de jeux dans le quel le joueur veux jouer ou si il il veut ouvrire une sauvegarde
         

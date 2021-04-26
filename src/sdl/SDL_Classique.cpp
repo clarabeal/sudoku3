@@ -162,6 +162,9 @@ sdlJeuClassique::~sdlJeuClassique(){
 
 void sdlJeuClassique::sdlAff(){
 
+    //supprime les hitboxs de l'affichage precedent
+    resetTabHitGrille();
+
     //Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
@@ -229,6 +232,8 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
                 assert(ok == 0);
             }
 
+            //on initialise les coordonnées des cases
+
             tabHitBoxeGrille[l * dimGrille + c].x1 = x + c * largeurCase;
             tabHitBoxeGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
             tabHitBoxeGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
@@ -242,6 +247,7 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
 }
 
 void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
+
     jeu.chrono.update();// a enlever apres les tests, ne doit pas être la
     SDL_Color couleur = { 0, 0, 0 };
     SDL_Surface* texte = nullptr;
@@ -264,7 +270,25 @@ void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     assert(ok == 0);
 }
 
+void sdlJeuClassique::sdlAffFinDePartie() {
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+
+    // Affiche des grilles
+    int hauteurGrilles = HEIGHT * 80 / 100;
+    int xGrille = HEIGHT * 10 / 100;
+    int yGrille = WIDTH * 5 / 100;
+
+    sdlAffGrille(jeu.grilleJeu, xGrille, yGrille, hauteurGrilles, hauteurGrilles);
+    sdlAffGrille(jeu.grilleSolution, xGrille + hauteurGrilles + WIDTH * 2 / 100, yGrille, hauteurGrilles, hauteurGrilles);
+
+    sdlAffChrono(xGrille, (yGrille) * 2 / 100, WIDTH * 80 / 100, yGrille * 80 / 100);
+
+}
+
 void sdlJeuClassique::resetTabHitGrille() {
+
     for (int l = 0; l < dimGrille; l++) {
         for (int c = 0; c < dimGrille; c++) {
             tabHitBoxeGrille[l * dimGrille + c].x1 = 0;
@@ -284,31 +308,52 @@ void sdlJeuClassique::sdlBoucle(){
         jeu.init();
         jeu.initDone = true;
     }
+
     while (gameRunning) {
+
+        sdlAff();
 
         while (SDL_PollEvent(&event))
         {
             //----Quitte la partie si croix
             if (event.type == SDL_QUIT) gameRunning = false;
 
+            //----On enregistre la postion de la souris
+            if (event.type == SDL_MOUSEMOTION) {
+                SDL_GetMouseState(&mousse_x, &mousse_y);
+            }
+
             //----On fait les actions liées au differentes touches du clavier si elles sont pressées
             if (event.type == SDL_KEYDOWN)
             {
                 switch (event.key.keysym.sym)
                 {
-                    case SDLK_q:
+                    case SDLK_q: //quitter
                         gameRunning = false;
                         break;
 
-                    default:
+                    case SDLK_r: //recommencer sur la meme grille
+                        jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
+                        break;
+
+                    case SDLK_n: //nouvelle grille
+                        jeu.init();
+                        break;
+
+                    default: //remplir une case
+
                         if (c_toChange != 0) {
                             if (event.key.keysym.sym == SDLK_0 || event.key.keysym.sym == SDLK_1 || event.key.keysym.sym == SDLK_2 || event.key.keysym.sym == SDLK_3 || event.key.keysym.sym == SDLK_4 || event.key.keysym.sym == SDLK_5 || event.key.keysym.sym == SDLK_6 || event.key.keysym.sym == SDLK_7 || event.key.keysym.sym == SDLK_8 || event.key.keysym.sym == SDLK_9) {
-                                if (dimGrille < 10) {
-                                    jeu.grilleJeu.grille.getCase((unsigned char)(l_toChange - 1), (unsigned char)c_toChange - 1).setVal(int(event.key.keysym.sym - '0'));
+                                
+                                SaisieTextPopUp popUp(font);
+                                cout << to_string(int(event.key.keysym.sym - '0')) << endl;
+                                string valeurSaisie = popUp.getTexteSaisie(500, 100, "Saisie valeur", to_string(int(event.key.keysym.sym - '0')), "", false);
+
+                                if (stoi(valeurSaisie) >= 0 && stoi(valeurSaisie) <= dimGrille) {
+                                    jeu.grilleJeu.grille.getCase((unsigned char)(l_toChange - 1), (unsigned char)c_toChange - 1).setVal(stoi(valeurSaisie));
                                     c_toChange = 0;
                                     l_toChange = 0;
                                 }
-                                //faire else
                             }
                         }
                         break;
@@ -349,9 +394,17 @@ void sdlJeuClassique::sdlBoucle(){
             }
         }
 
-        sdlAff();
+        if(jeu.verifGrillePleine(jeu.grilleJeu)){
+
+            jeu.chrono.pause();
+            sdlAffFinDePartie();
+            gameRunning=false;
+        }
 
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer); 
     }
+
+    SDL_Delay(10000);
+
 }

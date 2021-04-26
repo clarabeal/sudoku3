@@ -4,6 +4,7 @@
 #include "../core/Sauvegarde.h"
 #include "Image.h"
 #include "HitBox.h"
+#include "SdlSaisieTxt.h"
 
 #ifdef _WIN32
 #include <SDL.h>
@@ -32,14 +33,15 @@ public :
     sdlJeuClassique(unsigned char d);
     sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
     ~sdlJeuClassique();
-    void sdlBoucle();
 
     void sdlAff();
     void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
-
     void sdlAffChrono(int x, int y, int largeur, int hauteur);
+    void sdlAffFinDePartie();
 
     void resetTabHitGrille();
+
+    void sdlBoucle();
 
 private :
 
@@ -57,7 +59,7 @@ private :
 
     Image im_grille;
 
-    hitBox * tabHitBoxeGrille;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
+    hitBox * tabHitBoxeGrille; //tableau 2D stockant les positions des cases de la grille pour gerer les clics
 
 };
 

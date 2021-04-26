@@ -35,7 +35,7 @@ public :
     ~sdlJeuClassique();
 
     void sdlAff();
-    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2);
+    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool force = false);
     void sdlAffChrono(int x, int y, int largeur, int hauteur);
     void sdlAffFinDePartie();
 
@@ -58,6 +58,8 @@ private :
     SDL_Color font_color;
 
     Image im_grille;
+
+    Image gris;
 
     hitBox * tabHitBoxeGrille; //tableau 2D stockant les positions des cases de la grille pour gerer les clics
 

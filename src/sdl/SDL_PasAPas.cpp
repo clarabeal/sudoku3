@@ -306,11 +306,11 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
     const int nb_element = 9;
 
     if (y2 == 0) {
-        y2 = (x2 - x1) * nb_element /11;//on respect le format par defaut pour que la police ne soit pas deformé
+        y2 = (x2 - x1) * nb_element /11;//on respecte le format par defaut pour que la police ne soit pas deformée
     }
     int y1courant = y1;
     int y2courant = 0;
-    //---------> Les hitbox des 5 premieres options ( Retirer czses fausses, aff case simple, Recommencer grille, generer nouvelle grille)
+    //---------> Les hitboxs des 5 premieres options ( Retirer cases fausses, aff case simple, Recommencer grille, generer nouvelle grille)
     y2courant = y1courant + y2 / nb_element;
     tabHitBoxeSelectionMenu[0].x1 = x1;
     tabHitBoxeSelectionMenu[0].x2 = x2;
@@ -334,7 +334,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[i+1].y2 = y2courant;
     }
 
-    //---------> LEs hitboxs des btn activer/descativer la coloration
+    //---------> Les hitboxs des btn activer/desactiver la coloration
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
     if (!coloration) {
@@ -364,7 +364,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[21].reset();
     }
 
-    //---------> LEs hitboxs des btn start/pause
+    //---------> Les hitboxs des btn start/pause
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
     if (jeu.chrono.estEnPause()) {
@@ -394,7 +394,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[17].reset();
     }
 
-    //---------> LEs hitboxs des btn de sauvegardes
+    //---------> Les hitboxs des btn de sauvegarde
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
     if (!autoSave) {
@@ -451,7 +451,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
    
 }
 
-void sdlJeuPasAPas::effacer_hit_menu() {//supprime les hitboxe du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché
+void sdlJeuPasAPas::effacer_hit_menu() {//supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché
     for (int i = 0; i <= 20; i++) {
         tabHitBoxeSelectionMenu[i].reset();
     }

@@ -34,12 +34,17 @@ public :
     sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
     ~sdlJeuClassique();
 
+    void init_im_menu();
+    void init_hit_menu(int x1, int y1, int x2, int y2);
+    void resetTabHitSelectionMenu(); //supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché
+    void resetTabHitGrille();
+
     void sdlAff();
     void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool force = false);
     void sdlAffChrono(int x, int y, int largeur, int hauteur);
+    void sdlAffMenu(int x, int y, int largeur, int hauteur);
+    void affImgInHitBox(Image& img, hitBox& hit);
     void sdlAffFinDePartie();
-
-    void resetTabHitGrille();
 
     void sdlBoucle();
 
@@ -58,10 +63,12 @@ private :
     SDL_Color font_color;
 
     Image im_grille;
+    Image im_menu[8];
 
     Image gris;
 
     hitBox * tabHitBoxeGrille; //tableau 2D stockant les positions des cases de la grille pour gerer les clics
+    hitBox tabHitBoxeSelectionMenu[8];//tableau 2D stockant les positions des bouton du menu (associe a im_menu)
 
 };
 

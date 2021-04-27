@@ -164,6 +164,47 @@ sdlJeuClassique::~sdlJeuClassique(){
 
 }
 
+void sdlJeuClassique::init_im_menu(){
+
+    im_menu[0].loadFromFile("data/assets/menu/classique/NouvelleGrille_MousseAway.png", renderer);
+    im_menu[1].loadFromFile("data/assets/menu/classique/NouvelleGrille_MousseOver.png", renderer);
+    im_menu[2].loadFromFile("data/assets/menu/classique/Recommencer_MousseAway.png", renderer);
+    im_menu[3].loadFromFile("data/assets/menu/classique/Recommencer_MousseOver.png", renderer);
+    im_menu[4].loadFromFile("data/assets/menu/classique/Start_MousseAway.png", renderer);
+    im_menu[5].loadFromFile("data/assets/menu/classique/Start_MousseOver.png", renderer);
+    im_menu[6].loadFromFile("data/assets/menu/classique/Pause_MousseAway.png", renderer);
+    im_menu[7].loadFromFile("data/assets/menu/classique/Pause_MousseOver.png", renderer);
+}
+
+
+void sdlJeuClassique::init_hit_menu(int x1, int y1, int x2, int y2){
+
+    resetTabHitSelectionMenu();
+
+}
+
+
+void sdlJeuClassique::resetTabHitSelectionMenu(){
+
+    for (int i = 0; i < 8; i++) {
+
+        tabHitBoxeSelectionMenu[i].reset();
+
+    }
+}
+
+
+void sdlJeuClassique::resetTabHitGrille() {
+
+    for (int l = 0; l < dimGrille; l++) {
+        for (int c = 0; c < dimGrille; c++) {
+            tabHitBoxeGrille[l * dimGrille + c].reset();
+        }
+    }
+}
+
+
+
 void sdlJeuClassique::sdlAff(){
 
     //supprime les hitboxs de l'affichage precedent
@@ -292,6 +333,30 @@ void sdlJeuClassique::sdlAffChrono(int x, int y, int largeur, int hauteur) {
     assert(ok == 0);
 }
 
+void sdlJeuClassique::sdlAffMenu(int x, int y, int largeur, int hauteur){
+
+    init_hit_menu(x, y , x + largeur, 0);
+
+    for (int i = 0; i < 8; i += 2) {
+        if (!tabHitBoxeSelectionMenu[i].is_in(mousse_x, mousse_y)) {
+            
+            affImgInHitBox(im_menu[i], tabHitBoxeSelectionMenu[i]);
+        }
+        else {
+            affImgInHitBox(im_menu[i+1], tabHitBoxeSelectionMenu[i+1]);
+
+        }
+
+    }
+
+}
+
+void sdlJeuClassique::affImgInHitBox(Image& img, hitBox& hit){
+
+    img.draw(renderer, hit.x1, hit.y1, hit.getLargeur(), hit.getHauteur());
+
+}
+
 void sdlJeuClassique::sdlAffFinDePartie() {
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -307,18 +372,6 @@ void sdlJeuClassique::sdlAffFinDePartie() {
 
     sdlAffChrono(xGrille, (yGrille) * 2 / 100, WIDTH * 80 / 100, yGrille * 80 / 100);
 
-}
-
-void sdlJeuClassique::resetTabHitGrille() {
-
-    for (int l = 0; l < dimGrille; l++) {
-        for (int c = 0; c < dimGrille; c++) {
-            tabHitBoxeGrille[l * dimGrille + c].x1 = 0;
-            tabHitBoxeGrille[l * dimGrille + c].y1 = 0;
-            tabHitBoxeGrille[l * dimGrille + c].x2 = 0;
-            tabHitBoxeGrille[l * dimGrille + c].y2 = 0;
-        }
-    }
 }
 
 void sdlJeuClassique::sdlBoucle(){

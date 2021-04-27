@@ -428,13 +428,11 @@ void sdlJeuClassique::sdlBoucle(){
 
             jeu.chrono.pause();
             sdlAffFinDePartie();
-            gameRunning=false;
+
         }
 
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer); 
     }
-
-    SDL_Delay(10000);
 
 }

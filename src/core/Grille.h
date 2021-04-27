@@ -9,34 +9,7 @@ class Grille {
 
     public :
 
-    /**
-	@brief La grille est un tableau 2D de cases stocke sur le tas
-    */
-    TabCases2DTas grille;
-
-    /**
-	@brief Indique la taille de la grille
-    */
-    unsigned char dim;
-
-    /**
-	@brief Tableau des lignes de la grille
-    @details Modelise par un pointeur sur une Ligne
-    */
-    Ligne* lignes;
-
-    /**
-	@brief Tableau des colonnes de la grille
-    @details Modelise par un pointeur sur une Colonne
-    */
-    Colonne* colonnes;
-
-    /**
-	@brief Tableau des Carre de la grille
-    @details Modelise par un pointeur sur un Carre
-    */
-    Carre* carres;
-
+   
     /**
 	@brief Constructeur a parametre
     @param [in] d dimension de la grille a creer
@@ -49,6 +22,35 @@ class Grille {
     @details Supprime les tableaux lignes, colonnes, carres qui etaient stockes sur le tas
     */
     ~Grille();
+
+    /**
+   @brief La grille est un tableau 2D de cases stocke sur le tas
+   */
+    TabCases2DTas grille;
+
+    /**
+    @brief Indique la taille de la grille
+    */
+    unsigned char dim;
+
+    /**
+    @brief Tableau des lignes de la grille
+    @details Modelise par un pointeur sur une Ligne
+    */
+    Ligne* lignes;
+
+    /**
+    @brief Tableau des colonnes de la grille
+    @details Modelise par un pointeur sur une Colonne
+    */
+    Colonne* colonnes;
+
+    /**
+    @brief Tableau des Carre de la grille
+    @details Modelise par un pointeur sur un Carre
+    */
+    Carre* carres;
+
 
     /**
 	@brief Procedure de modification d'une case de la grille

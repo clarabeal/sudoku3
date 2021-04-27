@@ -12,7 +12,8 @@ gestSauvegarde::gestSauvegarde(string emplacement, string emplacement2)
 	if (!updateListe()) {
 		cheminDossier = emplacement2;
 	}
-	updateListe();
+	assert(updateListe());
+
 }
 
 bool gestSauvegarde::updateListe()
@@ -24,7 +25,7 @@ bool gestSauvegarde::updateListe()
 		fichier >> nbSauvegarde;
 		fichier >> maxId;
 		maxId = 0;
-		//cout << nbSauvegarde << " sauvegardes ont ete trouves" << endl;
+		cout << nbSauvegarde << " sauvegardes ont ete trouves" << endl;
 		listeSauvegarde = new InfoSauvegarde[nbSauvegarde];
 		for (unsigned int i = 0; i < nbSauvegarde; i++) {
 			fichier >> listeSauvegarde[i].id >> listeSauvegarde[i].name >> listeSauvegarde[i].modeJeu >> listeSauvegarde[i].tailleGrille >> listeSauvegarde[i].chrono;
@@ -67,10 +68,11 @@ bool gestSauvegarde::valideId(unsigned char id) const {
 	return false;
 }
 
-void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu)
+void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille* grilleJ1, Grille* grilleJ2, unsigned long int* chronoJ1, unsigned long int* chronoJ2, int *nbErrJ1, int *nbErrj2, bool *stopJ1, bool *stopJ2)
 {
 	ifstream fichier;
 	InfoSauvegarde& infoSurLaSauvegarde = getInfoSauvegarde(id);
+	cout << "Id: " << id << endl;
 	assert(infoSurLaSauvegarde.tailleGrille == g_sol.dim && infoSurLaSauvegarde.tailleGrille == g_jeu.dim && infoSurLaSauvegarde.tailleGrille == g_orig.dim);// on verifie que les grilles fournit soit de la bonne taille
 	fichier.open(cheminDossier + to_string(id) + ".sudokujeu", ios::in);
 	if (fichier.is_open()) {
@@ -144,6 +146,78 @@ void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig
 			}
 		}
 		
+		if (infoSurLaSauvegarde.modeJeu == 3) {//info pour les mode pas a pas
+			//chargement valeur grille j1
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					fichier >> val;
+					conv = (unsigned char)val;
+					grilleJ1->grille.getCase(l, c).setVal(conv);
+				}
+			}
+			//chargement valeur grille j2
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					fichier >> val;
+					conv = (unsigned char)val;
+					grilleJ2->grille.getCase(l, c).setVal(conv);
+				}
+			}
+			//chargement modifiable grille j1
+			bool valMod;
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					fichier >> valMod;
+					grilleJ1->grille.getCase(l, c).modifiable = valMod;
+				}
+			}
+			//chargement modifiable grille j2
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					fichier >> valMod;
+					grilleJ2->grille.getCase(l, c).modifiable = valMod;
+				}
+			}
+
+			//chargement des etat grille j1
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					fichier >> val;
+					conv = (unsigned char)val;
+					grilleJ1->grille.getCase(l, c).etat = conv;
+				}
+			}
+			//chargement des etat grille j1
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					fichier >> val;
+					conv = (unsigned char)val;
+					grilleJ2->grille.getCase(l, c).etat = conv;
+				}
+			}
+			//chargements des chronos
+			fichier >> *chronoJ1;
+			fichier >> *chronoJ2;
+
+			//chargements des val nb erreur
+			fichier >> *nbErrJ1;
+			fichier >> *nbErrj2;
+			//chargements des val stop
+			bool valStop;
+			fichier >> valStop;
+			cout << "valstop " <<valStop;
+			*stopJ1 = valStop;
+			cout << " stop j1 " << *stopJ1;
+
+			fichier >> valStop;
+			cout << "valstop " << valStop;
+
+			*stopJ2 = valStop;
+			cout << " stopj2 " << *stopJ2;
+
+
+		}
+		
 
 	}
 	else {
@@ -151,7 +225,7 @@ void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig
 	}
 }
 
-int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int id) {
+int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int id, Grille* grilleJ1, Grille* grilleJ2, chronometre* chronoJ1, chronometre* chronoJ2, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2) {
 	if (id != 0 && !valideId(id)) return -1;
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
@@ -295,6 +369,90 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int i
 				if (!(l == 0 && c == 0))fichier << (int)jeu.grilleJeu.grille.getCase(l, c).etat << " ";
 			}
 			fichier << endl;
+
+		}
+		if (mode == 3) {
+			assert(grilleJ1 != NULL&& grilleJ2 != NULL && chronoJ1 != NULL && chronoJ2 != NULL);
+			//Partie sauvegarde 1vs1
+			//sauveagrde  valeur grille J1
+			fichier << (int)grilleJ1->grille.getCase(0, 0).getVal() << " ";
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					if (!(l == 0 && c == 0))fichier << (int)grilleJ1->grille.getCase(l, c).getVal() << " ";
+				}
+				fichier << endl;
+			}
+			fichier << endl;
+			//sauveagrde  valeur grille J2
+			fichier << (int)grilleJ2->grille.getCase(0, 0).getVal() << " ";
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					if (!(l == 0 && c == 0))fichier << (int)grilleJ2->grille.getCase(l, c).getVal() << " ";
+				}
+				fichier << endl;
+			}
+			fichier << endl;
+
+
+			//sauvegarde modifiable grilleJ1
+			fichier << (int)grilleJ1->grille.getCase(0, 0).modifiable << " ";
+
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					if (!(l == 0 && c == 0))fichier << grilleJ1->grille.getCase(l, c).modifiable << " ";
+				}
+				fichier << endl;
+			}
+			fichier << endl;
+			//sauvegarde modifiable grilleJ2
+			fichier << (int)grilleJ2->grille.getCase(0, 0).modifiable << " ";
+
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					if (!(l == 0 && c == 0))fichier << grilleJ2->grille.getCase(l, c).modifiable << " ";
+				}
+				fichier << endl;
+			}
+			fichier << endl;
+
+
+			//sauveagrde etat grille J1
+			fichier << (int)grilleJ1->grille.getCase(0, 0).etat << " ";
+
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					if (!(l == 0 && c == 0))fichier << (int)grilleJ1->grille.getCase(l, c).etat << " ";
+				}
+				fichier << endl;
+			}
+			fichier << endl;
+			//sauveagrde etat grille J2
+			fichier << (int)grilleJ2->grille.getCase(0, 0).etat << " ";
+
+			for (int l = 0; l < dimGrille; l++) {
+				for (int c = 0; c < dimGrille; c++) {
+					if (!(l == 0 && c == 0))fichier << (int)grilleJ2->grille.getCase(l, c).etat << " ";
+				}
+				fichier << endl;
+			}
+			fichier << endl;
+
+			//sauvegarde chrnono j1
+			fichier << chronoJ1->getTimeInMSec() << endl;
+			//sauvegarde chrnono j2
+			fichier << chronoJ2->getTimeInMSec() << endl;
+
+			//sauvegarde nberrj1
+			fichier << nbErrJ1 << endl;
+
+			//sauvegarde nberrj2
+			fichier << nbErrj2 << endl;
+
+			//sauvegarde etat boucle j1
+			fichier << stopJ1 << endl;
+
+			//sauvegarde etat boucle j2
+			fichier << stopJ2 << endl;
 
 		}
 		fichier.close();

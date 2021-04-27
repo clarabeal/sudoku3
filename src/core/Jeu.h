@@ -15,6 +15,11 @@ public:
     chronometre(unsigned long int ms);
 
     ~chronometre();
+    
+    /**
+   \brief Regle le chrnometre a un certain temps en ms
+   */
+    void forceTime(unsigned long int ms);
     /**
     \brief Met a jour le temps du chronometre
     */

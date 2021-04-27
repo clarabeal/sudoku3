@@ -79,7 +79,7 @@ public:
 	\see valideId
 
 	*/
-	void loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+	void loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille* grilleJ1 = NULL, Grille* grilleJ2 = NULL, unsigned long int* chronoJ1 = NULL, unsigned long int* chronoJ2 = NULL, int* nbErrJ1 = NULL, int* nbErrj2 = NULL, bool* stopJ1 = NULL, bool* stopJ2= NULL);
 
 	/**
 	\brief Permet de sauvegarder une partie de jeu
@@ -93,7 +93,7 @@ public:
 	\param[in] id id de la partie a mettre a jour Parametre facultatif
 	\warning Retourne -1 si une erreur s'est produite lors de l'ouverture de l'index des sauvegardes ou de la creation du fichier de sauvegarde
 	*/
-	int sauvegarder(Jeu& jeu, string name, int mode, unsigned int id = 0);
+	int sauvegarder(Jeu& jeu, string name, int mode, unsigned int id = 0, Grille* grilleJ1 = nullptr, Grille* grilleJ2 = nullptr, chronometre* chronoJ1 = nullptr, chronometre* chronoJ2 = nullptr, int nbErrJ1 = 0, int nbErrj2 =0, bool stopJ1 = false, bool stopJ2 = false);
 
 	/**
 	\brief Supprime la sauvegarde dont l'id est id

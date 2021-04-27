@@ -191,8 +191,6 @@ unsigned char Jeu::trouverNumeroCarre(unsigned char l, unsigned char c) const
 		return nb_carre;
 }
 
-
-
 bool Jeu::verifGrillePleine(Grille &grille) const
 {
 	unsigned char dimGrille = grille.dim;
@@ -266,6 +264,12 @@ chronometre::chronometre(unsigned long int ms)
 	t2 = clock();
 	enPause = true;
 
+}
+void chronometre::forceTime(unsigned long int ms)
+{
+	this->ms = ms;
+	t1 = clock();
+	t2 = clock();
 }
 
 chronometre::~chronometre()

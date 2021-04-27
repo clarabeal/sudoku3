@@ -9,6 +9,8 @@ x64
 *.vcxproj.filters
 *.vcxproj.user
 *.DS_Store
+.DS_Store
 src/packages/*
 src/packages.*
 ./doc/html/*
+.obj/core/*.o

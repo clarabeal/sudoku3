@@ -80,7 +80,7 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d), dimGrille(d), font_c
     mousse_x = 0;
     mousse_y = 0;
 
-    tabHitBoxeGrille = new hitBox[d*d];
+    tabHitBoxGrille = new hitBox[d*d];
 
 }
 
@@ -149,7 +149,7 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d, int id, unsigned long time, Gr
     mousse_x = 0;
     mousse_y = 0;
 
-    tabHitBoxeGrille = new hitBox[d*d];
+    tabHitBoxGrille = new hitBox[d*d];
 
 }
 
@@ -160,7 +160,7 @@ sdlJeuClassique::~sdlJeuClassique(){
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    delete[] tabHitBoxeGrille;
+    delete[] tabHitBoxGrille;
 
 }
 
@@ -181,6 +181,41 @@ void sdlJeuClassique::init_hit_menu(int x1, int y1, int x2, int y2){
 
     resetTabHitSelectionMenu();
 
+    const int nb_element = 9;
+
+    if (y2 == 0) {
+
+        y2 = (x2 - x1) * nb_element /11;//on respecte le format par defaut pour que la police ne soit pas deformée
+    }
+
+    int y1courant = y1;
+    int y2courant = 0;
+
+    y2courant = y1courant + y2 / nb_element;
+    tabHitBoxSelectionMenu[0].x1 = x1;
+    tabHitBoxSelectionMenu[0].x2 = x2;
+    tabHitBoxSelectionMenu[0].y1 = y1courant;
+    tabHitBoxSelectionMenu[0].y2 = y2courant;
+    tabHitBoxSelectionMenu[1].x1 = x1;
+    tabHitBoxSelectionMenu[1].x2 = x2;
+    tabHitBoxSelectionMenu[1].y1 = y1courant;
+    tabHitBoxSelectionMenu[1].y2 = y2courant;
+
+    for (int i = 2; i < 8; i = i+2) {
+
+        y1courant = y2courant;
+        y2courant = y1courant + y2 / nb_element;
+
+        tabHitBoxSelectionMenu[i].x1 = x1;
+        tabHitBoxSelectionMenu[i].x2 = x2;
+        tabHitBoxSelectionMenu[i].y1 = y1courant;
+        tabHitBoxSelectionMenu[i].y2 = y2courant;
+        tabHitBoxSelectionMenu[i+1].x1 = x1;
+        tabHitBoxSelectionMenu[i+1].x2 = x2;
+        tabHitBoxSelectionMenu[i+1].y1 = y1courant;
+        tabHitBoxSelectionMenu[i+1].y2 = y2courant;
+    }
+
 }
 
 
@@ -188,7 +223,7 @@ void sdlJeuClassique::resetTabHitSelectionMenu(){
 
     for (int i = 0; i < 8; i++) {
 
-        tabHitBoxeSelectionMenu[i].reset();
+        tabHitBoxSelectionMenu[i].reset();
 
     }
 }
@@ -198,7 +233,7 @@ void sdlJeuClassique::resetTabHitGrille() {
 
     for (int l = 0; l < dimGrille; l++) {
         for (int c = 0; c < dimGrille; c++) {
-            tabHitBoxeGrille[l * dimGrille + c].reset();
+            tabHitBoxGrille[l * dimGrille + c].reset();
         }
     }
 }
@@ -217,6 +252,16 @@ void sdlJeuClassique::sdlAff(){
     // Affiche la grille vide
     sdlAffGrille(jeu.grilleJeu, 10, 80, 600, 600);
     sdlAffChrono(620, 80, 400, 100);
+
+    /*
+    int hauteurGrille = HEIGHT * 80 / 100;
+    int xGrille = HEIGHT * 10 / 100;
+    int yGrille = WIDTH * 5 / 100;
+    int selectHauteur = 0;
+    int y_pos_select = yGrille + (WIDTH - hauteurGrille - xGrille) * 80 / 100 * 1 / 10 + HEIGHT * 5 / 100;
+
+    sdlAffMenu(xGrille + hauteurGrille + WIDTH * 2 / 100 +20, y_pos_select + selectHauteur, hauteurGrille*80/100, hauteurGrille*80/100);
+    */
 
 }
 
@@ -295,13 +340,10 @@ void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, in
 
                 //on initialise les coordonnées des cases
 
-                tabHitBoxeGrille[l * dimGrille + c].x1 = x + c * largeurCase;
-                tabHitBoxeGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
-                tabHitBoxeGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
-                tabHitBoxeGrille[l * dimGrille + c].y2 = y + l * hauteurCase + hauteurCase;
-
-                //cout << "tabHitBoxeGrille[" << l+1 << "][" << c+1 << "] = " << tabHitBoxeGrille[l * dimGrille + c].x1 << " " << tabHitBoxeGrille[l * dimGrille + c].y1 << " " ;
-                //cout << tabHitBoxeGrille[l * dimGrille + c].x2 << " " << tabHitBoxeGrille[l * dimGrille + c].y2;
+                tabHitBoxGrille[l * dimGrille + c].x1 = x + c * largeurCase;
+                tabHitBoxGrille[l * dimGrille + c].y1 = y + l * hauteurCase;
+                tabHitBoxGrille[l * dimGrille + c].x2 = x + c * largeurCase + largeurCase;
+                tabHitBoxGrille[l * dimGrille + c].y2 = y + l * hauteurCase + hauteurCase;
 
             }
         }
@@ -338,12 +380,12 @@ void sdlJeuClassique::sdlAffMenu(int x, int y, int largeur, int hauteur){
     init_hit_menu(x, y , x + largeur, 0);
 
     for (int i = 0; i < 8; i += 2) {
-        if (!tabHitBoxeSelectionMenu[i].is_in(mousse_x, mousse_y)) {
-            
-            affImgInHitBox(im_menu[i], tabHitBoxeSelectionMenu[i]);
+        if (!tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
+
+            affImgInHitBox(im_menu[i], tabHitBoxSelectionMenu[i]);
         }
         else {
-            affImgInHitBox(im_menu[i+1], tabHitBoxeSelectionMenu[i+1]);
+            affImgInHitBox(im_menu[i+1], tabHitBoxSelectionMenu[i+1]);
 
         }
 
@@ -451,7 +493,7 @@ void sdlJeuClassique::sdlBoucle(){
                 for (int l = 0; l < dimGrille; l++) {
                     for (int c = 0; c < dimGrille; c++) {
 
-                        if (tabHitBoxeGrille[l * dimGrille + c].is_in(mousse_x, mousse_y)) {
+                        if (tabHitBoxGrille[l * dimGrille + c].is_in(mousse_x, mousse_y)) {
                             cout << "Colonne " << c + 1 << " | Ligne " << l + 1 << endl;
                             if (jeu.grilleJeu.grille.getCase(l, c).modifiable) {
 
@@ -476,6 +518,32 @@ void sdlJeuClassique::sdlBoucle(){
                 } 
             }
         }
+
+        //---On regarde si clic sur le menu
+
+        for (int i = 0; i < 21; i++) {
+            if (tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
+                cout << "clic sur la hit box: " << i << endl;
+            }
+        }
+
+        if (tabHitBoxSelectionMenu[0].is_in(mousse_x, mousse_y)) {//Nouvelle grille
+            jeu.init();
+        }
+
+        if (tabHitBoxSelectionMenu[2].is_in(mousse_x, mousse_y)) {//Recommencer sur la meme grille
+            jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
+        }
+
+        if (tabHitBoxSelectionMenu[4].is_in(mousse_x, mousse_y)) {//Start
+            jeu.chrono.start();
+        }
+
+        if (tabHitBoxSelectionMenu[6].is_in(mousse_x, mousse_y)) {//Pause
+            jeu.chrono.pause();
+        }
+
+
 
         if(jeu.verifGrillePleine(jeu.grilleJeu)){
 

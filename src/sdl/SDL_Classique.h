@@ -67,8 +67,8 @@ private :
 
     Image gris;
 
-    hitBox * tabHitBoxeGrille; //tableau 2D stockant les positions des cases de la grille pour gerer les clics
-    hitBox tabHitBoxeSelectionMenu[8];//tableau 2D stockant les positions des bouton du menu (associe a im_menu)
+    hitBox * tabHitBoxGrille; //tableau 2D stockant les positions des cases de la grille pour gerer les clics
+    hitBox tabHitBoxSelectionMenu[8];//tableau 2D stockant les positions des bouton du menu (associe a im_menu)
 
 };
 

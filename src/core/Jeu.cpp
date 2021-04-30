@@ -408,6 +408,27 @@ void JeuPasAPas::colorerCase() {
 	}
 }
 
+//---------Class jeuPasAPas (herité de jeu)
+Jeu1Vs1::Jeu1Vs1(unsigned char d) :Jeu(d), grilleJ1(d), grilleJ2(d) {
+
+}
+
+Jeu1Vs1::Jeu1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2) : Jeu(d, id, time, g_sol, g_orig, g_jeu), grilleJ1(d), grilleJ2(d){
+	nbErreurJ1 = nbErrJ1;
+	nbErreurJ2 = nbErrj2;
+	stopBoucleJ1 = stopJ1;
+	stopBoucleJ2 = stopJ2;
+	chronoJ1.forceTime(chronoJ1_);
+	chronoJ2.forceTime(chronoJ2_);
+	grilleJ1 = grilleJ1_;
+	grilleJ2 = grilleJ2_;
+
+}
+
+Jeu1Vs1::~Jeu1Vs1() {
+
+}
+
 //---------Class chronometre
 
 chronometre::chronometre()

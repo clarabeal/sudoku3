@@ -5,21 +5,11 @@
 
 using namespace std;
 
-TXT_1vs1::TXT_1vs1(unsigned char d) : jeu(d), grilleJ1(d), grilleJ2(d), gestionnaireSauvegarde("data/saves/", "../data/saves/"){
-    nbErreurJ1 = 0;
-    nbErreurJ2 = 0;
-    stopBoucleJ1 = false;
-    stopBoucleJ2 = false;
+TXT_1vs1::TXT_1vs1(unsigned char d) : jeu(d), gestionnaireSauvegarde("data/saves/", "../data/saves/"){
+
 }
-TXT_1vs1::TXT_1vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu), grilleJ1(d), grilleJ2(d), gestionnaireSauvegarde("data/saves/", "../data/saves/") {
-    nbErreurJ1 = nbErrJ1;
-    nbErreurJ2 = nbErrj2;
-    stopBoucleJ1 = stopJ1;
-    stopBoucleJ2 = stopJ2;
-    chronoJ1.forceTime(chronoJ1_);
-    chronoJ2.forceTime(chronoJ2_);
-    grilleJ1 = grilleJ1_;
-    grilleJ2 = grilleJ2_;
+TXT_1vs1::TXT_1vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrJ2, bool stopJ1, bool stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2),gestionnaireSauvegarde("data/saves/", "../data/saves/") {
+  
 }
 TXT_1vs1::~TXT_1vs1 () {
 }
@@ -58,16 +48,16 @@ void TXT_1vs1::boucle () {
         cout << "Grille generee"<<endl;
         jeu.initDone = true;
         jeu.chrono.start();
-        chronoJ1.reset();
+        jeu.chronoJ1.reset();
 
     }
 
     
     //Premiere boucle de jeu
     /*On reste ds cette boucle tant que J1 n'a pas rempli la grille en entier*/
-    chronoJ2.pause();
-    chronoJ1.start();
-    while (!stopBoucleJ1) {
+    jeu.chronoJ2.pause();
+    jeu.chronoJ1.start();
+    while (!jeu.stopBoucleJ1) {
 
         termClear();
         jeu.grilleJeu.grille.print();
@@ -108,7 +98,7 @@ void TXT_1vs1::boucle () {
                 jeu.grilleJeu.grille.print();
                 cout << endl << "Grille solution :" << endl;
                 jeu.grilleSolution.grille.print();
-                stopBoucleJ1 = true;
+                jeu.stopBoucleJ1 = true;
                 stop = true;
                 break;
             case 3:
@@ -118,7 +108,7 @@ void TXT_1vs1::boucle () {
                     cout << "Nom de la sauvegarde(sans espace): ";
                     string name;
                     cin >> name;
-                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0, &grilleJ1, &grilleJ2, &chronoJ1, &chronoJ2, nbErreurJ1, nbErreurJ2, stopBoucleJ1, stopBoucleJ2);
+                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
                     termClear();
                     jeu.grilleJeu.grille.print();
                     cout << "Votre temps ";
@@ -133,7 +123,7 @@ void TXT_1vs1::boucle () {
                 }
                 else {
 
-                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3, jeu.sauvegardeId, &grilleJ1, &grilleJ2, &chronoJ1, &chronoJ2, nbErreurJ1, nbErreurJ2, stopBoucleJ1, stopBoucleJ2);
+                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3, jeu.sauvegardeId, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
                     termClear();
                     jeu.grilleJeu.grille.print();
                     cout << "Votre temps ";
@@ -163,7 +153,7 @@ void TXT_1vs1::boucle () {
                     cin >> choix;
 
                 } while (choix != 0 && choix != 1);
-                if (choix) { return; stop = true; stopBoucleJ1 = true; }
+                if (choix) { return; stop = true; jeu.stopBoucleJ1 = true; }
                 else {
                     termClear();
                     jeu.grilleJeu.grille.print();
@@ -192,12 +182,12 @@ void TXT_1vs1::boucle () {
          if (jeu.verifGrillePleine(jeu.grilleJeu)) {
                 termClear();
                 jeu.grilleJeu.grille.print();
-                chronoJ2.reset();
-                chronoJ1.pause();
-                stopBoucleJ1 = true;
-                nbErreurJ1 = jeu.nbErreurs();
+                jeu.chronoJ2.reset();
+                jeu.chronoJ1.pause();
+                jeu.stopBoucleJ1 = true;
+                jeu.nbErreurJ1 = jeu.nbErreurs();
                 //On copie la grille dans une grille temporaire
-                grilleJ1 = jeu.grilleJeu;         
+                jeu.grilleJ1 = jeu.grilleJeu;         
                 //On remet la grille de jeu comme au départ
                 jeu.grilleJeu = jeu.grilleOriginale;
                 cout << "J1 : Grille remplie : au tour du joueur suivant !" << endl;
@@ -208,10 +198,10 @@ void TXT_1vs1::boucle () {
 
     
     //Deuxième boucle de jeu
-    chronoJ1.pause();
-    chronoJ2.start();
+    jeu.chronoJ1.pause();
+    jeu.chronoJ2.start();
 
-    while (!stopBoucleJ2){
+    while (!jeu.stopBoucleJ2){
 
             termClear();
             jeu.grilleJeu.grille.print();
@@ -257,7 +247,7 @@ void TXT_1vs1::boucle () {
                         cout << "Nom de la sauvegarde(sans espace): ";
                         string name;
                         cin >> name;
-                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0, &grilleJ1, &grilleJ2, &chronoJ1, &chronoJ2, nbErreurJ1, nbErreurJ2, stopBoucleJ1, stopBoucleJ2);
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
                         termClear();
                         jeu.grilleJeu.grille.print();
                         cout << "Votre temps ";
@@ -272,7 +262,7 @@ void TXT_1vs1::boucle () {
                     }
                     else {
 
-                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3, jeu.sauvegardeId, &grilleJ1, &grilleJ2, &chronoJ1, &chronoJ2, nbErreurJ1, nbErreurJ2, stopBoucleJ1, stopBoucleJ2);
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3, jeu.sauvegardeId, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
                         termClear();
                         jeu.grilleJeu.grille.print();
                         cout << "Votre temps ";
@@ -330,10 +320,10 @@ void TXT_1vs1::boucle () {
             }
             //Si la grille est pleine
             if (jeu.verifGrillePleine(jeu.grilleJeu)) {
-                chronoJ2.pause();
-                stopBoucleJ2 = true;
-                nbErreurJ2 = jeu.nbErreurs();
-                grilleJ2 = jeu.grilleJeu;
+                jeu.chronoJ2.pause();
+                jeu.stopBoucleJ2 = true;
+                jeu.nbErreurJ2 = jeu.nbErreurs();
+                jeu.grilleJ2 = jeu.grilleJeu;
                 termClear();                
             }
         }
@@ -341,15 +331,15 @@ void TXT_1vs1::boucle () {
     cout << "J2 : Grille remplie : partie terminée !" << endl;
 
     cout << endl << "Grille du joueur 1 :" << endl;
-    grilleJ1.grille.print();
-    cout << endl << "J1 a fait " << nbErreurJ1 << " erreur(s) en ";
-    chronoJ1.afficher();
+    jeu.grilleJ1.grille.print();
+    cout << endl << "J1 a fait " << jeu.nbErreurJ1 << " erreur(s) en ";
+    jeu.chronoJ1.afficher();
     cout << endl;
 
     cout << endl << "Grille du joueur 2 :" << endl;
-    grilleJ2.grille.print();
-    cout << endl << "J2 a fait " << nbErreurJ2 << " erreur(s) en ";
-    chronoJ2.afficher();
+    jeu.grilleJ2.grille.print();
+    cout << endl << "J2 a fait " << jeu.nbErreurJ2 << " erreur(s) en ";
+    jeu.chronoJ2.afficher();
     cout << endl;
 
     cout << endl << "Grille solution :" << endl;

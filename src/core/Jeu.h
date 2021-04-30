@@ -216,4 +216,29 @@ private:
 
 
 };
+
+class Jeu1Vs1 : public Jeu
+{
+public:
+    Jeu1Vs1(unsigned char d);
+    Jeu1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2);
+
+    ~Jeu1Vs1();
+
+    Grille grilleJ1;
+    Grille grilleJ2;
+
+    chronometre chronoJ1;
+    chronometre chronoJ2;
+
+    int nbErreurJ1;
+    int nbErreurJ2;
+
+    bool stopBoucleJ1;
+    bool stopBoucleJ2;
+
+private:
+
+
+};
 #endif

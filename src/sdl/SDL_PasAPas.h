@@ -37,13 +37,13 @@ public:
     void sdlBoucle();
     float temps();
 
-    //------------------Fonctions core du mode pas a pas
-    void updateDiffCase();
+    //------------------Fonctions core du mode pas a pas (!!Elles sont desormais integrées a la donneé membre jeu de type JeuPasAPas herité de Jeu)
+    /*void updateDiffCase();
     unsigned char getDiffCase(unsigned char l, unsigned char c, bool diff_type = 1);
     void coordCaseSimple(unsigned char& l, unsigned char& c);
     void printTabDiff() const;
     void retirerCasesFausses();
-    void colorerCase();
+    void colorerCase();*/
     //------------------Les fonctions d'affichage
     void sdlAff();
     void sdlAffMenu(int x, int y, int largeur, int hauteur);
@@ -58,14 +58,13 @@ public:
 
 private:
     //------------------Donn�es core mode pas a pas
-    Jeu jeu;
+    JeuPasAPas jeu;
     const int dimGrille;
     unsigned char* tabDiffCase;
     int c_toChange, l_toChange;
     int mousse_x, mousse_y;
     bool finDePartie;
     bool autoSave;
-    bool coloration;
     //------------------Donne�es/focntions sauvegarde
     gestSauvegarde gestionnaireSauvegarde;
     void sauvegarder(bool force = false);

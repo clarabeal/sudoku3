@@ -5,6 +5,8 @@
 #include <math.h>
 using namespace std;
 
+
+//---------Class Jeu
 Jeu::Jeu(unsigned char d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
 	initDone = false;
 	sauvegardeId = 0;
@@ -248,6 +250,166 @@ unsigned int Jeu::nbErreurs () const {
 	return compteur;
 }
 
+
+//---------Class jeuPasAPas (herité de jeu)
+JeuPasAPas::JeuPasAPas(unsigned char d):Jeu(d) {
+	tabDiffCase = new unsigned char[2 * d * d];
+	coloration = false;
+}
+
+JeuPasAPas::JeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu): Jeu(d, id, time, g_sol, g_orig, g_jeu) {
+	tabDiffCase = new unsigned char[2 * d * d];
+	coloration = false;
+
+}
+
+JeuPasAPas::~JeuPasAPas() {
+	delete[]tabDiffCase;
+}
+
+void JeuPasAPas::updateDiffCase() {
+	unsigned char dimGrille = grilleJeu.dim;
+	for (unsigned char li = 1; li <= dimGrille; ++li) {
+		for (unsigned char co = 1; co <= dimGrille; ++co) {
+			if (grilleJeu.grille.getCase(li - 1, co - 1).getVal() == 0 || grilleSolution.grille.getCase(li - 1, co - 1).getVal() != grilleJeu.grille.getCase(li - 1, co - 1).getVal()) {
+				// Verison nombre total indices l/c/carre
+				unsigned char scoreLi = 1;
+				unsigned char scoreCol = 1;
+				unsigned char scoreCar = 1;
+
+				for (unsigned char i = 0; i < dimGrille; i++) {
+					if (grilleJeu.lignes[li - 1].tabl[i]->getVal() == grilleSolution.lignes[li - 1].tabl[i]->getVal()) {
+						scoreLi = scoreLi * 2;
+					}
+					if (grilleJeu.colonnes[co - 1].tabcl[i]->getVal() == grilleSolution.colonnes[co - 1].tabcl[i]->getVal()) {
+						scoreCol = scoreCol * 2;
+					}
+					if (grilleJeu.carres[trouverNumeroCarre(li, co) - 1].tabc[i]->getVal() == grilleSolution.carres[trouverNumeroCarre(li, co) - 1].tabc[i]->getVal()) {
+						scoreCar = scoreCar * 2;
+					}
+				}
+				tabDiffCase[(co - 1) * dimGrille + (li - 1) + dimGrille * dimGrille] = scoreCar + scoreCol + scoreLi;
+				//std::cout << "La case " << (int)li << " " << (int)co << " a un score de: " << (int)tabDiffCase[(co - 1) * dimGrille + (li - 1)] << endl;
+
+				//version nombre d'indice different
+				bool* liste_val = new bool[dimGrille];//les valeur a true sont les valeurs possible pour la case (liste_val[0] == true veux dire que 1 est une valeur possible, liste_val[1] == false veux dire que 2 n'est pas  une valeur possible...)
+				for (unsigned char i = 0; i < dimGrille; i++) {
+					liste_val[i] = true;
+				}
+				for (unsigned char i = 0; i < dimGrille; i++) {
+					if (grilleJeu.lignes[li - 1].tabl[i]->getVal() == grilleSolution.lignes[li - 1].tabl[i]->getVal()) {
+						liste_val[grilleJeu.lignes[li - 1].tabl[i]->getVal() - 1] = false;
+					}
+					if (grilleJeu.colonnes[co - 1].tabcl[i]->getVal() == grilleSolution.colonnes[co - 1].tabcl[i]->getVal()) {
+						liste_val[grilleJeu.colonnes[co - 1].tabcl[i]->getVal() - 1] = false;
+					}
+					if (grilleJeu.carres[trouverNumeroCarre(li, co) - 1].tabc[i]->getVal() == grilleSolution.carres[trouverNumeroCarre(li, co) - 1].tabc[i]->getVal()) {
+						liste_val[grilleJeu.carres[trouverNumeroCarre(li, co) - 1].tabc[i]->getVal() - 1] = false;
+					}
+				}
+				tabDiffCase[(co - 1) * dimGrille + (li - 1)] = dimGrille;
+				for (unsigned char i = 0; i < dimGrille; i++) {
+					if (liste_val[i]) {
+						tabDiffCase[(co - 1) * dimGrille + (li - 1)] --;
+					}
+				}
+
+			}
+			else {
+				tabDiffCase[(co - 1) * dimGrille + (li - 1)] = 0;
+			}
+		}
+	}
+}
+
+
+unsigned char JeuPasAPas::getDiffCase(unsigned char l, unsigned char c, bool diff_type)//diff type = 1: retourne le nombre de valeur possible, diff type = 0, retourne "la tendance a avoir bcp de chiffre dans un meme bloc/ligne/col permet de departager en les diff type = 1 egaux 
+{
+	unsigned char dimGrille = grilleJeu.dim;
+	if (diff_type) {
+		return tabDiffCase[(c - 1) * dimGrille + (l - 1)];
+	}
+	return tabDiffCase[(c - 1) * dimGrille + (l - 1) + dimGrille * dimGrille];
+}
+
+void JeuPasAPas::coordCaseSimple(unsigned char& l, unsigned char& c)
+{
+	unsigned char dimGrille = grilleJeu.dim;
+	updateDiffCase();
+	unsigned char l_f = 1;
+	unsigned char c_f = 1;
+	unsigned char max = getDiffCase(1, 1);
+	for (unsigned char li = 1; li <= dimGrille; ++li) {
+		for (unsigned char co = 2; co <= dimGrille; ++co) {
+			unsigned char value = getDiffCase(li, co);
+			if (value > max) {
+				max = getDiffCase(li, co);
+				l_f = li;
+				c_f = co;
+			}
+			else if (value == max) {
+				if (getDiffCase(li, co) > getDiffCase(l_f, c_f)) {
+					l_f = li;
+					c_f = co;
+				}
+			}
+		}
+	}
+	l = l_f;
+	c = c_f;
+
+}
+
+void JeuPasAPas::printTabDiff() const {
+
+	for (int l = 0; l < grilleJeu.dim; l++) {
+		for (int c = 0; c < grilleJeu.dim; c++) {
+			cout << "tabDiffCase[" << l + 1 << "][" << c + 1 << "] = " << (int)tabDiffCase[c * grilleJeu.dim + l] << endl;
+		}
+	}
+}
+
+void JeuPasAPas::retirerCasesFausses()
+{
+	unsigned char dimGrille = grilleJeu.dim;
+	for (unsigned char li = 0; li < dimGrille; ++li) {
+		for (unsigned char co = 0; co < dimGrille; ++co) {
+			if (grilleJeu.grille.getCase(li, co).getVal() != grilleSolution.grille.getCase(li, co).getVal()) {
+				grilleJeu.grille.getCase(li, co).setVal(0);
+
+			}
+		}
+	}
+}
+
+void JeuPasAPas::colorerCase() {
+	if (coloration) {
+		for (int l = 0; l < grilleJeu.dim; l++) {
+			for (int c = 0; c < grilleJeu.dim; c++) {
+				if (grilleJeu.grille.getCase(l, c).getVal() != 0 && grilleJeu.grille.getCase(l, c).modifiable && grilleJeu.grille.getCase(l, c).etat != 3) {
+					if (grilleJeu.grille.getCase(l, c).getVal() == grilleSolution.grille.getCase(l, c).getVal()) {
+						grilleJeu.grille.getCase(l, c).etat = 1;
+					}
+					else {
+						grilleJeu.grille.getCase(l, c).etat = 2;
+					}
+				}
+			}
+		}
+	}
+	else {
+		for (int l = 0; l < grilleJeu.dim; l++) {
+			for (int c = 0; c < grilleJeu.dim; c++) {
+				if (grilleJeu.grille.getCase(l, c).etat != 3) {
+					grilleJeu.grille.getCase(l, c).etat = 0;
+				}
+			}
+		}
+	}
+}
+
+//---------Class chronometre
+
 chronometre::chronometre()
 {
 	ms = 0;
@@ -265,6 +427,7 @@ chronometre::chronometre(unsigned long int ms)
 	enPause = true;
 
 }
+
 void chronometre::forceTime(unsigned long int ms)
 {
 	this->ms = ms;

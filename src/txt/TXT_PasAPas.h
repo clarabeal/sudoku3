@@ -18,20 +18,10 @@ public:
 
 	void boucleTest();
 
-	void updateDiffCase();
 
-	unsigned char getDiffCase(unsigned char l, unsigned char c, bool diff_type = 1);
-
-	void coordCaseSimple(unsigned char &l, unsigned char &c);
-
-	void printTabDiff()const;
-
-	unsigned char* tabDiffCase;
-
-	void retirerCasesFausses();
 
 private:
-	Jeu jeu;
+	JeuPasAPas jeu;
 
 	void termClear() const;
 

@@ -67,6 +67,7 @@ private:
     bool enPause;
 
 };
+
 class Jeu {
 
     public :
@@ -187,4 +188,32 @@ private:
 
 };
 
+class JeuPasAPas: public Jeu
+{
+public:
+    JeuPasAPas(unsigned char d);
+    JeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+
+    ~JeuPasAPas();
+
+    void updateDiffCase();
+
+    unsigned char getDiffCase(unsigned char l, unsigned char c, bool diff_type = 1);
+
+    void coordCaseSimple(unsigned char& l, unsigned char& c);
+
+    void printTabDiff()const;
+
+    unsigned char* tabDiffCase;
+
+    void retirerCasesFausses();
+
+    bool coloration;
+
+    void colorerCase();
+
+private:
+
+
+};
 #endif

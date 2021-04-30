@@ -178,22 +178,37 @@ int main(int argc, char* argv[]) {
                             menuSauvegardeOuvert = false;
 
                             InfoSauvegarde infoSurLaPartie = gestionnaireSauvegarde.getInfoSauvegarde(choixSauvegarde);
-                            Grille g_sol(infoSurLaPartie.tailleGrille);
-                            Grille g_orig(infoSurLaPartie.tailleGrille);
-                            Grille g_jeu(infoSurLaPartie.tailleGrille);
-                            gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu);
+                            
                             SDL_DestroyRenderer(renderer);
                             SDL_DestroyWindow(window);
                             if (infoSurLaPartie.modeJeu == 1) {
+                                Grille g_sol(infoSurLaPartie.tailleGrille);
+                                Grille g_orig(infoSurLaPartie.tailleGrille);
+                                Grille g_jeu(infoSurLaPartie.tailleGrille);
+                                gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu);
                                 sdlJeuClassique sdlJeusauv((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu);
                                 sdlJeusauv.sdlBoucle();
                             }
                             else if (infoSurLaPartie.modeJeu == 2) {
+                                Grille g_sol(infoSurLaPartie.tailleGrille);
+                                Grille g_orig(infoSurLaPartie.tailleGrille);
+                                Grille g_jeu(infoSurLaPartie.tailleGrille);
+                                gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu);
                                 sdlJeuPasAPas sdlJeusauv((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu);
                                 sdlJeusauv.sdlBoucle();
                             }
                             else {
-                                cout << "Le mode de jeu de cette grille est invalide ou ne pas etre repris a partir d'une sauvegarde" << endl;
+                                /*Grille g_sol(infoSurLaPartie.tailleGrille);
+                                Grille g_orig(infoSurLaPartie.tailleGrille);
+                                Grille g_jeu(infoSurLaPartie.tailleGrille);
+                                Grille g_J1(infoSurLaPartie.tailleGrille);
+                                Grille g_J2(infoSurLaPartie.tailleGrille);
+                                unsigned long int chronoJ1, chronoJ2;
+                                bool stopJ1, stopJ2;
+                                int nbErr1, nbErr2;
+                                gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu, &g_J1, &g_J2, &chronoJ1, &chronoJ2, &nbErr1, &nbErr2, &stopJ1, &stopJ2);
+                                sdlJeu1vs1 partieTxt((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu, g_J1, g_J2, chronoJ1, chronoJ2, nbErr1, nbErr2, stopJ1, stopJ2);
+                                partieTxt.boucle();*/
                             }
 
                         }

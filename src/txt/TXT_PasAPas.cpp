@@ -6,15 +6,15 @@
 using namespace std;
 
 TXT_PasAPas::TXT_PasAPas(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu) {
-    tabDiffCase = new unsigned char[2*d*d];
+
 }
 
 TXT_PasAPas::TXT_PasAPas(unsigned char d) : jeu(d) {
-    tabDiffCase = new unsigned char[2 * d * d];
+
 }
 
 TXT_PasAPas::~TXT_PasAPas() {
-    delete []tabDiffCase;
+ 
 }
 
 void TXT_PasAPas::termClear() const  // efface le terminal
@@ -57,11 +57,11 @@ void TXT_PasAPas::boucle() {
                 if (menuRes == 0) {
                     //donne les coordonnées de la case la plus simple à trouver
                     unsigned char l_simple, c_simple;
-                    coordCaseSimple(l_simple, c_simple);
+                    jeu.coordCaseSimple(l_simple, c_simple);
                     l = (int)l_simple;
                     c = (int)c_simple;
-                    //printTabDiff();
-                    cout << "[" << l << "][" << c << "] est facile a remplir il n'y a que " << dimGrille - tabDiffCase[(c - 1) * dimGrille + (l - 1)] << " possibilite(s)" <<   endl;
+                    //jeu.printTabDiff();
+                    cout << "[" << l << "][" << c << "] est facile a remplir il n'y a que " << dimGrille - jeu.tabDiffCase[(c - 1) * dimGrille + (l - 1)] << " possibilite(s)" <<   endl;
                     bool stop_place_chiffre_facile = false;
                     do {
                         cout << "Quelle valeur voulez-vous mettre a cette position? | Annuler : " << jeu.grilleJeu.dim + 1 << endl;
@@ -74,7 +74,7 @@ void TXT_PasAPas::boucle() {
                             cout << "Votre temps ";
                             jeu.chrono.afficher();
                             cout << endl;
-                            cout << "[" << l << "][" << c << "] est facile a remplir il n'y a que " << dimGrille - tabDiffCase[(c - 1) * dimGrille + (l - 1)] << " possibilite(s)" << endl;
+                            cout << "[" << l << "][" << c << "] est facile a remplir il n'y a que " << dimGrille - jeu.tabDiffCase[(c - 1) * dimGrille + (l - 1)] << " possibilite(s)" << endl;
                         }
 
                     } while (!jeu.estValValide((unsigned char)valeur) && !stop_place_chiffre_facile); //tant que la valeur n'est pas valide
@@ -130,7 +130,7 @@ void TXT_PasAPas::boucle() {
                     aideRemplir = true;//on skip tout le reste du programme en faisant comme si une case avait etait placé aléatoirement
                 }
                 else if (menuRes == 5) {
-                    retirerCasesFausses();
+                    jeu.retirerCasesFausses();
                     termClear();
                     jeu.grilleJeu.grille.print();
                     cout << "Votre temps ";
@@ -299,123 +299,10 @@ void TXT_PasAPas::boucleTest()
     jeu.init();
     jeu.grilleJeu.grille.print();
     unsigned char l, c;
-    coordCaseSimple(l, c);
-    printTabDiff();
+    jeu.coordCaseSimple(l, c);
+    jeu.printTabDiff();
     cout << "La premiere case la plus simple se trouve aux coordonees: " << (int) l << " " << (int)c << endl;
 
 }
 
-void TXT_PasAPas::updateDiffCase(){
-    unsigned char dimGrille = jeu.grilleJeu.dim;
-    for (unsigned char li = 1; li <= dimGrille; ++li) {
-        for (unsigned char co = 1; co <= dimGrille; ++co) {
-            if (jeu.grilleJeu.grille.getCase(li-1, co-1).getVal() == 0 || jeu.grilleSolution.grille.getCase(li - 1, co - 1).getVal() != jeu.grilleJeu.grille.getCase(li - 1, co - 1).getVal()) {
-                // Verison nombre total indices l/c/carre
-                unsigned char scoreLi = 1;
-                unsigned char scoreCol = 1;
-                unsigned char scoreCar = 1;
 
-                for (unsigned char i = 0; i < dimGrille; i++) {
-                    if (jeu.grilleJeu.lignes[li - 1].tabl[i]->getVal() == jeu.grilleSolution.lignes[li - 1].tabl[i]->getVal()) {
-                        scoreLi = scoreLi * 2;
-                    }
-                    if (jeu.grilleJeu.colonnes[co - 1].tabcl[i]->getVal() == jeu.grilleSolution.colonnes[co - 1].tabcl[i]->getVal()) {
-                        scoreCol = scoreCol * 2;
-                    }
-                    if (jeu.grilleJeu.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal() == jeu.grilleSolution.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal()) {
-                        scoreCar = scoreCar * 2;
-                    }
-                }
-                tabDiffCase[(co - 1) * dimGrille + (li - 1) + dimGrille* dimGrille] = scoreCar + scoreCol + scoreLi;
-                //std::cout << "La case " << (int)li << " " << (int)co << " a un score de: " << (int)tabDiffCase[(co - 1) * dimGrille + (li - 1)] << endl;
-
-                //version nombre d'indice different
-                bool *liste_val = new bool[dimGrille];//les valeur a true sont les valeurs possible pour la case (liste_val[0] == true veux dire que 1 est une valeur possible, liste_val[1] == false veux dire que 2 n'est pas  une valeur possible...)
-                for (unsigned char i = 0; i < dimGrille; i++) {
-                    liste_val[i] = true;
-                }
-                for (unsigned char i = 0; i < dimGrille; i++) {
-                    if (jeu.grilleJeu.lignes[li - 1].tabl[i]->getVal() == jeu.grilleSolution.lignes[li - 1].tabl[i]->getVal()) {
-                        liste_val[jeu.grilleJeu.lignes[li - 1].tabl[i]->getVal()-1] = false;
-                    }
-                    if (jeu.grilleJeu.colonnes[co - 1].tabcl[i]->getVal() == jeu.grilleSolution.colonnes[co - 1].tabcl[i]->getVal()) {
-                        liste_val[jeu.grilleJeu.colonnes[co - 1].tabcl[i]->getVal()-1] = false;
-                    }
-                    if (jeu.grilleJeu.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal() == jeu.grilleSolution.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal()) {
-                        liste_val[jeu.grilleJeu.carres[jeu.trouverNumeroCarre(li, co) - 1].tabc[i]->getVal()-1] = false;
-                    }
-                }
-                tabDiffCase[(co - 1) * dimGrille + (li - 1)] = dimGrille;
-                for (unsigned char i = 0; i < dimGrille; i++) {
-                    if (liste_val[i]) {
-                        tabDiffCase[(co - 1) * dimGrille + (li - 1)] --;
-                    }
-                }
-                
-            }
-            else {
-                tabDiffCase[(co - 1) * dimGrille + (li - 1)] = 0;
-            }
-        }
-    }
-}
-
-
-unsigned char TXT_PasAPas::getDiffCase(unsigned char l, unsigned char c,bool diff_type)//diff type = 1: retourne le nombre de valeur possible, diff type = 0, retourne "la tendance a avoir bcp de chiffre dans un meme bloc/ligne/col permet de departager en les diff type = 1 egaux 
-{
-    unsigned char dimGrille = jeu.grilleJeu.dim;
-    if (diff_type) {
-        return tabDiffCase[(c - 1) * dimGrille + (l - 1)];
-    }
-    return tabDiffCase[(c - 1) * dimGrille + (l - 1) + dimGrille*dimGrille];
-}
-
-void TXT_PasAPas::coordCaseSimple(unsigned char &l, unsigned char &c)
-{
-    unsigned char dimGrille = jeu.grilleJeu.dim;
-    updateDiffCase();
-    unsigned char l_f = 1;
-    unsigned char c_f = 1;
-    unsigned char max = getDiffCase(1, 1);
-    for (unsigned char li = 1; li <= dimGrille; ++li) {
-        for (unsigned char co = 2; co <= dimGrille; ++co) {
-            unsigned char value = getDiffCase(li, co);
-            if (value > max) {
-                max = getDiffCase(li, co);
-                l_f = li;
-                c_f = co;
-            }
-            else if (value == max) {
-                if (getDiffCase(li, co) > getDiffCase(l_f, c_f)){
-                    l_f = li;
-                    c_f = co;
-                }
-            }
-        }
-    }
-    l = l_f;
-    c = c_f;
-
-}
-
-void TXT_PasAPas::printTabDiff() const {
-
-    for(int l=0;l<jeu.grilleJeu.dim;l++){
-        for(int c=0;c<jeu.grilleJeu.dim;c++){
-            cout << "tabDiffCase[" << l + 1 << "][" << c + 1 << "] = " << (int)tabDiffCase[c * jeu.grilleJeu.dim + l] << endl;
-        }
-    }
-}
-
-void TXT_PasAPas::retirerCasesFausses()
-{
-    unsigned char dimGrille = jeu.grilleJeu.dim;
-    for (unsigned char li = 0; li < dimGrille; ++li) {
-        for (unsigned char co = 0; co < dimGrille; ++co) {
-            if (jeu.grilleJeu.grille.getCase(li, co).getVal() != jeu.grilleSolution.grille.getCase(li, co).getVal()) {
-                jeu.grilleJeu.grille.getCase(li, co).setVal(0);
-                
-            }
-        }
-    }
-}

@@ -16,7 +16,7 @@ float sdlJeuPasAPas::temps() {
 
 // ============= CLASS SDLJEU =============== //
 
-sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false), coloration(false)
+sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false)
 {
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -143,7 +143,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnai
 
 }
 
-sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false), coloration(false) {
+sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false) {
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -272,8 +272,8 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille
 
 void sdlJeuPasAPas::init_im_menu()
 {
-    im_menu[0].loadFromFile("data/assets/menu/pasAPas/RetirerCasesFausses_MousseAway.png", renderer);
-    im_menu[1].loadFromFile("data/assets/menu/pasAPas/RetirerCasesFausses_MousseOver.png", renderer);
+    im_menu[0].loadFromFile("data/assets/menu/pasAPas/retirerCasesFausses_MousseAway.png", renderer);
+    im_menu[1].loadFromFile("data/assets/menu/pasAPas/retirerCasesFausses_MousseOver.png", renderer);
     im_menu[2].loadFromFile("data/assets/menu/pasAPas/AffCaseSimple_MousseAway.png", renderer);
     im_menu[3].loadFromFile("data/assets/menu/pasAPas/AffCaseSimple_MousseOver.png", renderer);
     im_menu[4].loadFromFile("data/assets/menu/pasAPas/RevelerIndice_MousseAway.png", renderer);
@@ -334,10 +334,10 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[i+1].y2 = y2courant;
     }
 
-    //---------> Les hitboxs des btn activer/desactiver la coloration
+    //---------> Les hitboxs des btn activer/desactiver la jeu.coloration
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
-    if (!coloration) {
+    if (!jeu.coloration) {
 
         tabHitBoxeSelectionMenu[20].x1 = x1;
         tabHitBoxeSelectionMenu[20].y1 = y1courant;
@@ -608,12 +608,12 @@ void sdlJeuPasAPas::sdlBoucle() {
                     }
                 }
                 if (tabHitBoxeSelectionMenu[0].is_in(mousse_x, mousse_y)) {//Retirer les cases fausses
-                    retirerCasesFausses();
+                    jeu.retirerCasesFausses();
                     cout << "case fausses retirees" << endl;
                 }
                 else if (tabHitBoxeSelectionMenu[2].is_in(mousse_x, mousse_y)) {//Afficher une case simple
                     unsigned char c_f, l_f;
-                    coordCaseSimple(l_f, c_f);
+                    jeu.coordCaseSimple(l_f, c_f);
                     jeu.grilleJeu.grille.getCase(l_f - 1, c_f - 1).etat = 3;
                 }
                 else if (tabHitBoxeSelectionMenu[4].is_in(mousse_x, mousse_y)) {//reveler un indice
@@ -662,10 +662,10 @@ void sdlJeuPasAPas::sdlBoucle() {
                     jeu.chrono.pause();
                 }
                 else if (tabHitBoxeSelectionMenu[20].is_in(mousse_x, mousse_y)) {//Pause
-                    coloration = true;
+                    jeu.coloration = true;
                 }
                 else if (tabHitBoxeSelectionMenu[22].is_in(mousse_x, mousse_y)) {//Pause
-                    coloration = false;
+                    jeu.coloration = false;
                 }
 
             }
@@ -674,7 +674,7 @@ void sdlJeuPasAPas::sdlBoucle() {
         if (jeu.verifGrillePleine(jeu.grilleJeu)) {
 
             jeu.chrono.pause();
-            coloration = true;
+            jeu.coloration = true;
             sdlAffFinDePartie();
             finDePartie = true;
 
@@ -785,7 +785,7 @@ void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteu
 
 void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur, bool force) {
 
-    colorerCase();
+    jeu.colorerCase();
     im_grille.draw(renderer, x, y, largeur, hauteur);
     if (!jeu.chrono.estEnPause() || force) {
         SDL_Color couleur = { 0, 0, 0 };
@@ -813,9 +813,9 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
                     couleur.b = 0;
                     break;
                 case 2:
-                    couleur.r = 255;
-                    couleur.g = 0;
-                    couleur.b = 0;
+                    couleur.r = 150;
+                    couleur.g = 50;
+                    couleur.b = 50;
                     break;
                 case 3:
                     bleu.draw(renderer, x + (c)*largeurCase, y + (l)*hauteurCase, hauteurCase, largeurCase);
@@ -970,7 +970,7 @@ void sdlJeuPasAPas::sdlAffFinDePartie()
 
 
 //=========== Partie gestion des aides===============//
-
+/*
 void sdlJeuPasAPas::updateDiffCase() {
     unsigned char dimGrille = jeu.grilleJeu.dim;
     for (unsigned char li = 1; li <= dimGrille; ++li) {
@@ -1036,7 +1036,7 @@ unsigned char sdlJeuPasAPas::getDiffCase(unsigned char l, unsigned char c, bool 
     return tabDiffCase[(c - 1) * dimGrille + (l - 1) + dimGrille * dimGrille];
 }
 
-void sdlJeuPasAPas::coordCaseSimple(unsigned char& l, unsigned char& c)
+void sdlJeuPasAPas::jeu.coordCaseSimple(unsigned char& l, unsigned char& c)
 {
     unsigned char dimGrille = jeu.grilleJeu.dim;
     updateDiffCase();
@@ -1112,3 +1112,4 @@ void sdlJeuPasAPas::colorerCase(){
     }
 }
 
+*/

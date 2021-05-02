@@ -263,6 +263,7 @@ void sdlJeuClassique::sdlAff(){
     sdlAffMenu(xGrille + hauteurGrille + WIDTH * 2 / 100 +20, y_pos_select + selectHauteur, hauteurGrille*80/100, hauteurGrille*80/100);
     */
 
+
 }
 
 void sdlJeuClassique::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur, bool force) {
@@ -521,7 +522,7 @@ void sdlJeuClassique::sdlBoucle(){
 
         //---On regarde si clic sur le menu
 
-        for (int i = 0; i < 21; i++) {
+        for (int i = 0; i < 8; i++) {
             if (tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
                 cout << "clic sur la hit box: " << i << endl;
             }

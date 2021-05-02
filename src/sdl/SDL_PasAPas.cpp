@@ -272,30 +272,51 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille
 
 void sdlJeuPasAPas::init_im_menu()
 {
+    //Bouton Retrirer cases fausses
     im_menu[0].loadFromFile("data/assets/menu/pasAPas/retirerCasesFausses_MousseAway.png", renderer);
     im_menu[1].loadFromFile("data/assets/menu/pasAPas/retirerCasesFausses_MousseOver.png", renderer);
+
+    //Bouton Afficher une case simple
     im_menu[2].loadFromFile("data/assets/menu/pasAPas/AffCaseSimple_MousseAway.png", renderer);
     im_menu[3].loadFromFile("data/assets/menu/pasAPas/AffCaseSimple_MousseOver.png", renderer);
+
+    //Bouton Reveler un indice
     im_menu[4].loadFromFile("data/assets/menu/pasAPas/RevelerIndice_MousseAway.png", renderer);
     im_menu[5].loadFromFile("data/assets/menu/pasAPas/RevelerIndice_MousseOver.png", renderer);
+
+    //Bouton recommencer
     im_menu[6].loadFromFile("data/assets/menu/pasAPas/Recommencer_MousseAway.png", renderer);
     im_menu[7].loadFromFile("data/assets/menu/pasAPas/Recommencer_MousseOver.png", renderer);
+
+    //Bouton nouvelle grille
     im_menu[8].loadFromFile("data/assets/menu/pasAPas/NouvelleGrille_MousseAway.png", renderer);
     im_menu[9].loadFromFile("data/assets/menu/pasAPas/NouvelleGrille_MousseOver.png", renderer);
+
+    //Bouton sauvegarder
     im_menu[10].loadFromFile("data/assets/menu/pasAPas/Sauvegarder_MousseAway.png", renderer);
     im_menu[11].loadFromFile("data/assets/menu/pasAPas/Sauvegarder_MousseOver.png", renderer);
+
+    //Bouton activer sauvegarde auto
     im_menu[12].loadFromFile("data/assets/menu/pasAPas/ActSauvegardeAutoActive_MousseAway.png", renderer);
     im_menu[13].loadFromFile("data/assets/menu/pasAPas/ActSauvegardeAutoActive_MousseOver.png", renderer);
+
+    //Bouton desactiver sauvegarde auto
     im_menu[14].loadFromFile("data/assets/menu/pasAPas/DesactSauvegardeAutoActive_MousseAway.png", renderer);
     im_menu[15].loadFromFile("data/assets/menu/pasAPas/DesactSauvegardeAutoActive_MousseOver.png", renderer);
+
+    //Bouton start
     im_menu[16].loadFromFile("data/assets/menu/pasAPas/Start_MousseAway.png", renderer);
     im_menu[17].loadFromFile("data/assets/menu/pasAPas/Start_MousseOver.png", renderer);
+
+    //Bouton pause
     im_menu[18].loadFromFile("data/assets/menu/pasAPas/Pause_MousseAway.png", renderer);
     im_menu[19].loadFromFile("data/assets/menu/pasAPas/Pause_MousseOver.png", renderer);
 
-
+    //Bouton activer la coloration des cases
     im_menu[20].loadFromFile("data/assets/menu/pasAPas/ActColorCase_MousseAway.png", renderer);
     im_menu[21].loadFromFile("data/assets/menu/pasAPas/ActColorCase_MousseOver.png", renderer);
+
+    //Bouton desactiver la coloration des cases
     im_menu[22].loadFromFile("data/assets/menu/pasAPas/DesactColorCase_MousseAway.png", renderer);
     im_menu[23].loadFromFile("data/assets/menu/pasAPas/DesactColorCase_MousseOver.png", renderer);
 
@@ -310,7 +331,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
     }
     int y1courant = y1;
     int y2courant = 0;
-    //---------> Les hitboxs des 5 premieres options ( Retirer cases fausses, aff case simple, Recommencer grille, generer nouvelle grille)
+    //---------> On positionne les hitboxs des 5 premieres options ( Retirer cases fausses, aff case simple, Recommencer grille, generer nouvelle grille)
     y2courant = y1courant + y2 / nb_element;
     tabHitBoxeSelectionMenu[0].x1 = x1;
     tabHitBoxeSelectionMenu[0].x2 = x2;
@@ -334,7 +355,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[i+1].y2 = y2courant;
     }
 
-    //---------> Les hitboxs des btn activer/desactiver la jeu.coloration
+    //---------> On positionne les hitboxs des btn activer/desactiver la jeu.coloration
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
     if (!jeu.coloration) {
@@ -364,7 +385,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[21].reset();
     }
 
-    //---------> Les hitboxs des btn start/pause
+    //---------> On positionne les hitboxs des btn start/pause
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
     if (jeu.chrono.estEnPause()) {
@@ -394,7 +415,7 @@ void sdlJeuPasAPas::init_hit_menu(int x1, int y1, int x2, int y2) {
         tabHitBoxeSelectionMenu[17].reset();
     }
 
-    //---------> Les hitboxs des btn de sauvegarde
+    //---------> On positionne les hitboxs des btn de sauvegarde
     y1courant = y2courant;
     y2courant = y1courant + y2 / nb_element;
     if (!autoSave) {

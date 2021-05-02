@@ -93,7 +93,9 @@ public:
 	\param[in] id id de la partie a mettre a jour Parametre facultatif
 	\warning Retourne -1 si une erreur s'est produite lors de l'ouverture de l'index des sauvegardes ou de la creation du fichier de sauvegarde
 	*/
-	int sauvegarder(Jeu& jeu, string name, int mode, unsigned int id = 0, Grille* grilleJ1 = nullptr, Grille* grilleJ2 = nullptr, chronometre* chronoJ1 = nullptr, chronometre* chronoJ2 = nullptr, int nbErrJ1 = 0, int nbErrj2 =0, bool stopJ1 = false, bool stopJ2 = false);
+	int sauvegarder(Jeu& jeu, string name, int mode, unsigned int id = 0);
+
+	int sauvegarder(Jeu1Vs1& jeu, string name, int mode, unsigned int id = 0);
 
 	/**
 	\brief Supprime la sauvegarde dont l'id est id

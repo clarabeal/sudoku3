@@ -1,5 +1,6 @@
 #include "SDL_Classique.h"
 #include "SDL_PasAPas.h"
+#include "SDL_1vs1.h"
 
 #include <iostream>
 #include <algorithm>  //pour la fonciton min(a, b)
@@ -150,10 +151,8 @@ int main(int argc, char* argv[]) {
                 SDL_DestroyRenderer(renderer);
                 SDL_DestroyWindow(window);
                 fenetreEstFerme = true;
-
-                cout << "Mode de jeu indisponible" << endl;
-                //sdlJeu1vs1 sJeu(dim);
-                //sJeu.sdlBoucle();
+                sdl1Vs1 sJeu(dim);
+                sJeu.sdlBoucle();
             }
         }
         //--------------------------ouvrire une sauvegarde--------------------------//
@@ -198,7 +197,7 @@ int main(int argc, char* argv[]) {
                                 sdlJeusauv.sdlBoucle();
                             }
                             else {
-                                /*Grille g_sol(infoSurLaPartie.tailleGrille);
+                                Grille g_sol(infoSurLaPartie.tailleGrille);
                                 Grille g_orig(infoSurLaPartie.tailleGrille);
                                 Grille g_jeu(infoSurLaPartie.tailleGrille);
                                 Grille g_J1(infoSurLaPartie.tailleGrille);
@@ -207,8 +206,8 @@ int main(int argc, char* argv[]) {
                                 bool stopJ1, stopJ2;
                                 int nbErr1, nbErr2;
                                 gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu, &g_J1, &g_J2, &chronoJ1, &chronoJ2, &nbErr1, &nbErr2, &stopJ1, &stopJ2);
-                                sdlJeu1vs1 partieTxt((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu, g_J1, g_J2, chronoJ1, chronoJ2, nbErr1, nbErr2, stopJ1, stopJ2);
-                                partieTxt.boucle();*/
+                                sdl1Vs1 partieTxt((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu, g_J1, g_J2, chronoJ1, chronoJ2, nbErr1, nbErr2, stopJ1, stopJ2);
+                                partieTxt.sdlBoucle();
                             }
 
                         }
@@ -319,7 +318,7 @@ int selectMode(SDL_Renderer *renderer, TTF_Font* font, Image& im_fondEcran) {
                     return 2;
                 }
                 else if (hit_1vs1.is_in(xm, ym)) {
-                   // return 3;
+                    return 3;
                 }
                 else if (hit_sauvegarder.is_in(xm, ym)) {
                     return 4;

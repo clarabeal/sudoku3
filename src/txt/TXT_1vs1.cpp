@@ -108,7 +108,7 @@ void TXT_1vs1::boucle () {
                     cout << "Nom de la sauvegarde(sans espace): ";
                     string name;
                     cin >> name;
-                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
+                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0);
                     termClear();
                     jeu.grilleJeu.grille.print();
                     cout << "Votre temps ";
@@ -123,7 +123,7 @@ void TXT_1vs1::boucle () {
                 }
                 else {
 
-                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3, jeu.sauvegardeId, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
+                    jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3);
                     termClear();
                     jeu.grilleJeu.grille.print();
                     cout << "Votre temps ";
@@ -247,7 +247,7 @@ void TXT_1vs1::boucle () {
                         cout << "Nom de la sauvegarde(sans espace): ";
                         string name;
                         cin >> name;
-                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, name, 3, 0);
                         termClear();
                         jeu.grilleJeu.grille.print();
                         cout << "Votre temps ";
@@ -262,7 +262,7 @@ void TXT_1vs1::boucle () {
                     }
                     else {
 
-                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3, jeu.sauvegardeId, &jeu.grilleJ1, &jeu.grilleJ2, &jeu.chronoJ1, &jeu.chronoJ2, jeu.nbErreurJ1, jeu.nbErreurJ2, jeu.stopBoucleJ1, jeu.stopBoucleJ2);
+                        jeu.sauvegardeId = gestionnaireSauvegarde.sauvegarder(jeu, "", 3, jeu.sauvegardeId);
                         termClear();
                         jeu.grilleJeu.grille.print();
                         cout << "Votre temps ";

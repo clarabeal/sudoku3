@@ -164,11 +164,13 @@ void Jeu::genererGrilleMinimale (){
 	unsigned char l,c,val;
 	
 	srand((unsigned int)time(nullptr));// a mettre dans le main apres
-	unsigned char attempt = dimGrille;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
+	//unsigned char attempt = dimGrille;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
+	unsigned char attempt = 1;//plus ce chiffre est grand plus le nb de trous dans la grille aurat tendance a être grand mais plus il faudra de temps pour generer la grille partielle(un chiffre trop grand et ca finit jamais
+
 	//unsigned char atp = attempt;//juste pour aficher le %
 	//cout << "generation grille partielle" << endl << "0%" << endl;
 	while (attempt > 0) {
-		do {
+		//-do {
 			l = rand() % dimGrille + 1;
 			c = rand() % dimGrille + 1;
 
@@ -178,9 +180,9 @@ void Jeu::genererGrilleMinimale (){
 			grilleJeu.grille.getCase(l - 1, c - 1).setVal(0); //on enlève la valeur
 			grilleJeu.grille.getCase(l - 1, c - 1).modifiable = true;
 			//cout << (int)nombreDeSolutions(grilleJeu) << endl;
-		} while (nombreDeSolutions(grilleJeu) == 1); // sort de la boucle dès qu'il y a plus d'une solution
-		grilleJeu.grille.getCase(l - 1, c - 1).setVal(val); //on remet la valeur d'avant pour retrouver le nbDeSol égal à 1
-		grilleJeu.grille.getCase(l - 1, c - 1).modifiable = false;
+		//-} while (nombreDeSolutions(grilleJeu) == 1); // sort de la boucle dès qu'il y a plus d'une solution
+		//-grilleJeu.grille.getCase(l - 1, c - 1).setVal(val); //on remet la valeur d'avant pour retrouver le nbDeSol égal à 1
+		//-grilleJeu.grille.getCase(l - 1, c - 1).modifiable = false;
 		attempt--;
 		//cout << (int)((atp - attempt) * 100 / atp) << "%" << endl;
 	}
@@ -408,9 +410,12 @@ void JeuPasAPas::colorerCase() {
 	}
 }
 
-//---------Class jeuPasAPas (herité de jeu)
+//---------Class jeu1Vs1 (herité de jeu)
 Jeu1Vs1::Jeu1Vs1(unsigned char d) :Jeu(d), grilleJ1(d), grilleJ2(d) {
-
+	nbErreurJ1 = false;
+	nbErreurJ2 = false;
+	stopBoucleJ1 = 0;
+	stopBoucleJ2 = 0;
 }
 
 Jeu1Vs1::Jeu1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2) : Jeu(d, id, time, g_sol, g_orig, g_jeu), grilleJ1(d), grilleJ2(d){

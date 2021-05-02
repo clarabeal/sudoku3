@@ -225,7 +225,7 @@ void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig
 	}
 }
 
-int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int id, Grille* grilleJ1, Grille* grilleJ2, chronometre* chronoJ1, chronometre* chronoJ2, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2) {
+int gestSauvegarde::sauvegarder(Jeu1Vs1 &jeu ,string name, int mode, unsigned  int id) {
 	if (id != 0 && !valideId(id)) return -1;
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
@@ -371,23 +371,22 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int i
 			fichier << endl;
 
 		}
-		if (mode == 3) {
-			assert(grilleJ1 != NULL&& grilleJ2 != NULL && chronoJ1 != NULL && chronoJ2 != NULL);
-			//Partie sauvegarde 1vs1
+
+		//Partie sauvegarde 1vs1
 			//sauveagrde  valeur grille J1
-			fichier << (int)grilleJ1->grille.getCase(0, 0).getVal() << " ";
+			fichier << (int)jeu.grilleJ1.grille.getCase(0, 0).getVal() << " ";
 			for (int l = 0; l < dimGrille; l++) {
 				for (int c = 0; c < dimGrille; c++) {
-					if (!(l == 0 && c == 0))fichier << (int)grilleJ1->grille.getCase(l, c).getVal() << " ";
+					if (!(l == 0 && c == 0))fichier << (int)jeu.grilleJ1.grille.getCase(l, c).getVal() << " ";
 				}
 				fichier << endl;
 			}
 			fichier << endl;
 			//sauveagrde  valeur grille J2
-			fichier << (int)grilleJ2->grille.getCase(0, 0).getVal() << " ";
+			fichier << (int)jeu.grilleJ2.grille.getCase(0, 0).getVal() << " ";
 			for (int l = 0; l < dimGrille; l++) {
 				for (int c = 0; c < dimGrille; c++) {
-					if (!(l == 0 && c == 0))fichier << (int)grilleJ2->grille.getCase(l, c).getVal() << " ";
+					if (!(l == 0 && c == 0))fichier << (int)jeu.grilleJ2.grille.getCase(l, c).getVal() << " ";
 				}
 				fichier << endl;
 			}
@@ -395,21 +394,21 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int i
 
 
 			//sauvegarde modifiable grilleJ1
-			fichier << (int)grilleJ1->grille.getCase(0, 0).modifiable << " ";
+			fichier << (int)jeu.grilleJ1.grille.getCase(0, 0).modifiable << " ";
 
 			for (int l = 0; l < dimGrille; l++) {
 				for (int c = 0; c < dimGrille; c++) {
-					if (!(l == 0 && c == 0))fichier << grilleJ1->grille.getCase(l, c).modifiable << " ";
+					if (!(l == 0 && c == 0))fichier << jeu.grilleJ1.grille.getCase(l, c).modifiable << " ";
 				}
 				fichier << endl;
 			}
 			fichier << endl;
 			//sauvegarde modifiable grilleJ2
-			fichier << (int)grilleJ2->grille.getCase(0, 0).modifiable << " ";
+			fichier << (int)jeu.grilleJ2.grille.getCase(0, 0).modifiable << " ";
 
 			for (int l = 0; l < dimGrille; l++) {
 				for (int c = 0; c < dimGrille; c++) {
-					if (!(l == 0 && c == 0))fichier << grilleJ2->grille.getCase(l, c).modifiable << " ";
+					if (!(l == 0 && c == 0))fichier << jeu.grilleJ2.grille.getCase(l, c).modifiable << " ";
 				}
 				fichier << endl;
 			}
@@ -417,42 +416,197 @@ int gestSauvegarde::sauvegarder(Jeu &jeu ,string name, int mode, unsigned  int i
 
 
 			//sauveagrde etat grille J1
-			fichier << (int)grilleJ1->grille.getCase(0, 0).etat << " ";
+			fichier << (int)jeu.grilleJ1.grille.getCase(0, 0).etat << " ";
 
 			for (int l = 0; l < dimGrille; l++) {
 				for (int c = 0; c < dimGrille; c++) {
-					if (!(l == 0 && c == 0))fichier << (int)grilleJ1->grille.getCase(l, c).etat << " ";
+					if (!(l == 0 && c == 0))fichier << (int)jeu.grilleJ1.grille.getCase(l, c).etat << " ";
 				}
 				fichier << endl;
 			}
 			fichier << endl;
 			//sauveagrde etat grille J2
-			fichier << (int)grilleJ2->grille.getCase(0, 0).etat << " ";
+			fichier << (int)jeu.grilleJ2.grille.getCase(0, 0).etat << " ";
 
 			for (int l = 0; l < dimGrille; l++) {
 				for (int c = 0; c < dimGrille; c++) {
-					if (!(l == 0 && c == 0))fichier << (int)grilleJ2->grille.getCase(l, c).etat << " ";
+					if (!(l == 0 && c == 0))fichier << (int)jeu.grilleJ2.grille.getCase(l, c).etat << " ";
 				}
 				fichier << endl;
 			}
 			fichier << endl;
 
 			//sauvegarde chrnono j1
-			fichier << chronoJ1->getTimeInMSec() << endl;
+			fichier << jeu.chronoJ1.getTimeInMSec() << endl;
 			//sauvegarde chrnono j2
-			fichier << chronoJ2->getTimeInMSec() << endl;
+			fichier << jeu.chronoJ2.getTimeInMSec() << endl;
 
 			//sauvegarde nberrj1
-			fichier << nbErrJ1 << endl;
+			fichier << jeu.nbErreurJ1 << endl;
 
 			//sauvegarde nberrj2
-			fichier << nbErrj2 << endl;
+			fichier << jeu.nbErreurJ2 << endl;
 
 			//sauvegarde etat boucle j1
-			fichier << stopJ1 << endl;
+			fichier << jeu.stopBoucleJ1 << endl;
 
 			//sauvegarde etat boucle j2
-			fichier << stopJ2 << endl;
+			fichier << jeu.stopBoucleJ2 << endl;
+
+		fichier.close();
+	}
+	else {
+		cout << "Une erreur c'est produite!" << endl;
+		return -1;
+	}
+	updateListe();
+	return id;
+}
+
+int gestSauvegarde::sauvegarder(Jeu& jeu, string name, int mode, unsigned  int id) {
+	if (id != 0 && !valideId(id)) return -1;
+	ofstream fichierIndex;
+	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
+
+	if (!fichierIndex.is_open()) {
+		cout << "Une erreur c'est produite lors de l'ouverture de l'index!" << endl;
+		return -1;
+	}
+	if (id == 0) {//si la partie n'a jamais �t� sauvegard� on linscrit dans l'index
+		nbSauvegarde++;
+		for (unsigned int i = 1; i <= maxId; i++) {
+			if (!valideId(i)) {
+				id = i;
+			}
+		}
+		if (id == 0) {
+			maxId++;
+			id = maxId;
+		}
+
+		InfoSauvegarde infoSurLaSauvegarde;
+		infoSurLaSauvegarde.id = id;
+		infoSurLaSauvegarde.name = name;
+		infoSurLaSauvegarde.modeJeu = mode;
+		infoSurLaSauvegarde.tailleGrille = jeu.grilleJeu.dim;
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
+		fichierIndex << nbSauvegarde << " " << maxId << endl;
+		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
+		for (unsigned int i = 0; i < nbSauvegarde - 1; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
+			if (listeSauvegarde[i].id != id) {
+				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
+			}
+		}
+	}
+	else {
+		InfoSauvegarde infoSurLaSauvegarde = getInfoSauvegarde(id);
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
+		fichierIndex << nbSauvegarde << " " << maxId << endl;
+		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
+		for (unsigned int i = 0; i < nbSauvegarde; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
+			if (listeSauvegarde[i].id != id) {
+				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
+			}
+		}
+	}
+
+
+	ofstream fichier;
+	fichier.open(cheminDossier + to_string(id) + ".sudokujeu", ios::out);
+	if (fichier.is_open()) {
+		unsigned char dimGrille = jeu.grilleJeu.dim;
+		//////////////sauvegarde des chiffres
+		fichier << (int)jeu.grilleSolution.grille.getCase(0, 0).getVal() << " ";
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << (int)jeu.grilleSolution.grille.getCase(l, c).getVal() << " ";
+			}
+			fichier << endl;
+		}
+		fichier << endl;
+
+		fichier << (int)jeu.grilleOriginale.grille.getCase(0, 0).getVal() << " ";
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << (int)jeu.grilleOriginale.grille.getCase(l, c).getVal() << " ";
+			}
+			fichier << endl;
+
+		}
+		fichier << endl;
+
+		fichier << (int)jeu.grilleJeu.grille.getCase(0, 0).getVal() << " ";
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << (int)jeu.grilleJeu.grille.getCase(l, c).getVal() << " ";
+			}
+			fichier << endl;
+
+		}
+		fichier << endl;
+		fichier << endl;
+
+		//////////////sauvegarde de modifiable
+		fichier << (int)jeu.grilleSolution.grille.getCase(0, 0).modifiable << " ";
+
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << jeu.grilleSolution.grille.getCase(l, c).modifiable << " ";
+			}
+			fichier << endl;
+		}
+		fichier << endl;
+
+		fichier << (int)jeu.grilleOriginale.grille.getCase(0, 0).modifiable << " ";
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << jeu.grilleOriginale.grille.getCase(l, c).modifiable << " ";
+			}
+			fichier << endl;
+
+		}
+		fichier << endl;
+
+		fichier << (int)jeu.grilleJeu.grille.getCase(0, 0).modifiable << " ";
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0)) {
+					fichier << jeu.grilleJeu.grille.getCase(l, c).modifiable << " ";
+				}
+			}
+			fichier << endl;
+
+		}
+		fichier << endl;
+		fichier << endl;
+
+		//////////////sauvegarde de etat
+		fichier << (int)jeu.grilleSolution.grille.getCase(0, 0).etat << " ";
+
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << (int)jeu.grilleSolution.grille.getCase(l, c).etat << " ";
+			}
+			fichier << endl;
+		}
+		fichier << endl;
+
+		fichier << (int)jeu.grilleOriginale.grille.getCase(0, 0).etat << " ";
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << (int)jeu.grilleOriginale.grille.getCase(l, c).etat << " ";
+			}
+			fichier << endl;
+
+		}
+		fichier << endl;
+
+		fichier << (int)jeu.grilleJeu.grille.getCase(0, 0).etat << " ";
+		for (int l = 0; l < dimGrille; l++) {
+			for (int c = 0; c < dimGrille; c++) {
+				if (!(l == 0 && c == 0))fichier << (int)jeu.grilleJeu.grille.getCase(l, c).etat << " ";
+			}
+			fichier << endl;
 
 		}
 		fichier.close();

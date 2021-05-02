@@ -16,7 +16,7 @@ Image::~Image()
 {
     SDL_DestroyTexture(this->texture);
     SDL_FreeSurface(this->surface);
-    cout <<" deleted: "<< name << endl;
+    //cout <<" deleted: "<< name << endl;
 }
 
 
@@ -25,7 +25,7 @@ void Image::loadFromFile(const char* filename, SDL_Renderer* renderer) {
     surface = IMG_Load(filename);
     if (surface == nullptr) {
         string nfn = string("../") + filename;
-        cout << "Error: cannot load " << filename << ". Trying " << nfn << endl;
+        //cout << "Error: cannot load " << filename << ". Trying " << nfn << endl;
         surface = IMG_Load(nfn.c_str());
         if (surface == nullptr) {
             nfn = string("../") + nfn;
@@ -33,7 +33,7 @@ void Image::loadFromFile(const char* filename, SDL_Renderer* renderer) {
         }
     }
     if (surface == nullptr) {
-        cout << "Error: cannot load " << filename << endl;
+        //cout << "Error: cannot load " << filename << endl;
         SDL_Quit();
         exit(1);
     }

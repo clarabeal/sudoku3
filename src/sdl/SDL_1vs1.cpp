@@ -127,10 +127,13 @@ sdl1Vs1::sdl1Vs1(unsigned char d) : jeu(d), gestionnaireSauvegarde("data/saves/"
     c_toChange = 0;
     mousse_x = 0;
     mousse_y = 0;
-    ChronoJactif = NULL;
-    GrilleJactif = NULL;
     tabHitBoxGrille = new hitBox[d*d];
     init_im_menu();
+
+
+
+    ChronoJactif = NULL;
+    GrilleJactif = NULL;
 }
 
 sdl1Vs1::sdl1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrJ2, bool stopJ1, bool stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2), gestionnaireSauvegarde("data/saves/", "../data/saves/"), dimGrille(d), autoSave(true) {
@@ -562,9 +565,9 @@ void sdl1Vs1::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteu
 
 void sdl1Vs1::sdlAffChrono(int x, int y, int largeur, int hauteur, chronometre &chrono, bool full) {
 
-    ChronoJactif->update();// a enlever apres les tests, ne doit pas être la
+    chrono.update();// a enlever apres les tests, ne doit pas être la
     SDL_Color couleur = { 0, 0, 0 };
-    if (ChronoJactif->estEnPause() && !full) {
+    if (chrono.estEnPause() && !full) {
         couleur.r = 255;
         couleur.g = 0;
         couleur.b = 0;

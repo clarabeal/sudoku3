@@ -170,7 +170,7 @@ void Jeu::genererGrilleMinimale (){
 	//unsigned char atp = attempt;//juste pour aficher le %
 	//cout << "generation grille partielle" << endl << "0%" << endl;
 	while (attempt > 0) {
-		//-do {
+		do {
 			l = rand() % dimGrille + 1;
 			c = rand() % dimGrille + 1;
 
@@ -180,9 +180,9 @@ void Jeu::genererGrilleMinimale (){
 			grilleJeu.grille.getCase(l - 1, c - 1).setVal(0); //on enlève la valeur
 			grilleJeu.grille.getCase(l - 1, c - 1).modifiable = true;
 			//cout << (int)nombreDeSolutions(grilleJeu) << endl;
-		//-} while (nombreDeSolutions(grilleJeu) == 1); // sort de la boucle dès qu'il y a plus d'une solution
-		//-grilleJeu.grille.getCase(l - 1, c - 1).setVal(val); //on remet la valeur d'avant pour retrouver le nbDeSol égal à 1
-		//-grilleJeu.grille.getCase(l - 1, c - 1).modifiable = false;
+		} while (nombreDeSolutions(grilleJeu) == 1); // sort de la boucle dès qu'il y a plus d'une solution
+		grilleJeu.grille.getCase(l - 1, c - 1).setVal(val); //on remet la valeur d'avant pour retrouver le nbDeSol égal à 1
+		grilleJeu.grille.getCase(l - 1, c - 1).modifiable = false;
 		attempt--;
 		//cout << (int)((atp - attempt) * 100 / atp) << "%" << endl;
 	}

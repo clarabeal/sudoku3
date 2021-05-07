@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jeu',['Jeu',['../class_jeu.html#a6a3565c9c25cb2a0c438af28f0688bc1',1,'Jeu::Jeu(unsigned char d)'],['../class_jeu.html#a6c104eaec9586f648025e62464a3faed',1,'Jeu::Jeu(unsigned char d, int id, unsigned long time, Grille &amp;g_sol, Grille &amp;g_orig, Grille &amp;g_jeu)']]]
+  ['hitbox',['hitBox',['../classhit_box.html#a6c6ee9274a0c78d0dbc13158a2648c22',1,'hitBox::hitBox(int x1, int x2, int y1, int y2)'],['../classhit_box.html#ae6dda96b7ea9a84f78f17e8b0f50ebcc',1,'hitBox::hitBox()']]]
 ];

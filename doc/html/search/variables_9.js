@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['maxid',['maxId',['../classgest_sauvegarde.html#a55ea3e3e4be18642b29d7cf31425cb6f',1,'gestSauvegarde']]],
-  ['modejeu',['modeJeu',['../struct_info_sauvegarde.html#a3d39116f7c0fb9a71880744bb071b07c',1,'InfoSauvegarde']]],
-  ['modifiable',['modifiable',['../class_case.html#a5aa823e54cd365cb8a0d4f386297d6d5',1,'Case']]],
-  ['ms',['ms',['../classchronometre.html#a24f7f44d2637bcc33a6a3d9cb14df30d',1,'chronometre']]]
+  ['jeu',['jeu',['../classsdl1_vs1.html#a2423fd089a9e063341a88d410ac38238',1,'sdl1Vs1::jeu()'],['../classsdl_jeu_classique.html#aa6fbc1806bb3c35adaf8a4e79f530ad9',1,'sdlJeuClassique::jeu()'],['../classsdl_jeu_pas_a_pas.html#aaf1e5f6844afcff77b8d78c98d9e9ae0',1,'sdlJeuPasAPas::jeu()'],['../class_t_x_t__1vs1.html#af0a2d38a19ae9a708c6a5cf4c9543fce',1,'TXT_1vs1::jeu()'],['../class_t_x_t___classique.html#afaf88b53302a7abd45d5dd9d56a0a385',1,'TXT_Classique::jeu()'],['../class_t_x_t___pas_a_pas.html#af27832de85fa81358860d3f9ddc0dcc5',1,'TXT_PasAPas::jeu()']]]
 ];

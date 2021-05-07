@@ -33,14 +33,14 @@ public :
     sdl1Vs1(unsigned char d);
     sdl1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2);
     ~sdl1Vs1();
-
+    void placerHitBoxCaseGrille(int x, int y, int largeur, int hauteur);
     void init_im_menu();
-    void init_hit_menu(int x1, int y1, int x2, int y2);
-    void resetTabHitSelectionMenu(); //supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché
+    void placementElementsMenu(int x1, int y1, int x2, int y2);
+    void effacerElementsMenu(); //supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché
     void resetTabHitGrille();
 
     void sdlAff();
-    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool force = false);
+    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool afficher = true);
     void sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
 
     void sdlAffChrono(int x, int y, int largeur, int hauteur, chronometre& chrono, bool full = false);
@@ -51,7 +51,8 @@ public :
     void sdlBoucle();
     void sdlAttendreJoueurSuivant();
     void resetTabHitSelectionNombre();
-
+    void init_SDL();
+    void init_assets();
 private :
 
     chronometre* ChronoJactif;
@@ -78,14 +79,16 @@ private :
 
     hitBox * tabHitBoxGrille; //tableau 2D stockant les positions des cases de la grille pour gerer les clics
     hitBox tabHitBoxSelectionMenu[12];//tableau 2D stockant les positions des bouton du menu (associe a im_menu)
-    hitBox* tabHitBoxeSelectionNombre;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
+    hitBox* tabHitBoxSelectionNombre;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
     Image* im_selectionChiffre;
 
-    float temps();
 
     bool finDePartie;
     bool autoSave;
     void sauvegarder(bool force);
+    void sdlAffTexte(string txt, int x, int y, int largeur, int hauteur, SDL_Color& couleur);
+    void sdlAffChargement();
+
 };
 
 #endif

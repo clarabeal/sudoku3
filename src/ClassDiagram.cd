@@ -18,8 +18,8 @@
       <Field Name="im_menu" />
       <Field Name="im_grille" />
       <Field Name="gris" />
-      <Field Name="tabHitBoxeSelectionNombre" />
-      <Field Name="tabHitBoxeGrille" />
+      <Field Name="tabHitBoxSelectionNombre" />
+      <Field Name="tabHitBoxGrille" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Image">

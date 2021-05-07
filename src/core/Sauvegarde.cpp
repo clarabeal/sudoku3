@@ -205,17 +205,9 @@ void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig
 			//chargements des val stop
 			bool valStop;
 			fichier >> valStop;
-			cout << "valstop " <<valStop;
 			*stopJ1 = valStop;
-			cout << " stop j1 " << *stopJ1;
-
 			fichier >> valStop;
-			cout << "valstop " << valStop;
-
 			*stopJ2 = valStop;
-			cout << " stopj2 " << *stopJ2;
-
-
 		}
 		
 

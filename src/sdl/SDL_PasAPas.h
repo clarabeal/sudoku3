@@ -40,7 +40,7 @@ public:
     ~sdlJeuPasAPas();
 
 
-    // ============= FONCTION DE GESTION DES HITBOXES =============== //
+    // ============= FONCTION DE GESTION DES HITBoxS =============== //
     void resetTabHitGrille();
     void resetTabHitSelectionNombre();
     void placementElementsMenu(int x1, int y1, int x2, int y2 = 0);
@@ -52,7 +52,7 @@ public:
     void sdlAff();
     void sdlAffMenu(int x, int y, int largeur, int hauteur);
     void sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
-    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool force = false);
+    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool afficher = true);
     void sdlAffChrono(int x, int y, int largeur, int hauteur, chronometre& chrono, bool full = false);
     void sdlAffFinDePartie();
     void sdlAffChargement();
@@ -98,10 +98,10 @@ private:
     Image gris;
     Image rouge;
     Image vert;
-    //------------------Hitboxes
-    hitBox* tabHitBoxeGrille;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
-    hitBox* tabHitBoxeSelectionNombre;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
-    hitBox  tabHitBoxeSelectionMenu[24];//tableau 2D stockant les positions des bouton du menu (associe a im_menu)
+    //------------------HitBoxs
+    hitBox* tabHitBoxGrille;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
+    hitBox* tabHitBoxSelectionNombre;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
+    hitBox  tabHitBoxSelectionMenu[24];//tableau 2D stockant les positions des bouton du menu (associe a im_menu)
 };
 
 

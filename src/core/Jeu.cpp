@@ -10,7 +10,7 @@ using namespace std;
 Jeu::Jeu(const unsigned char& d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
 	initDone = false;
 	sauvegardeId = 0;
-
+	coloration = false;
 }
 
 Jeu::Jeu(const unsigned char& d, const int& id, const unsigned long int& time, const Grille &g_sol, const Grille &g_orig, const Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d), chrono(time) {
@@ -19,6 +19,8 @@ Jeu::Jeu(const unsigned char& d, const int& id, const unsigned long int& time, c
 	grilleJeu.grille = g_jeu.grille;
 	initDone = true;
 	sauvegardeId = id;
+	coloration = false;
+
 }
 
 
@@ -252,17 +254,40 @@ unsigned int Jeu::nbErreurs () const {
 	return compteur;
 }
 
+void Jeu::colorerCase(const bool& force) {
+	if (coloration || force) {
+		for (int l = 0; l < grilleJeu.dim; l++) {
+			for (int c = 0; c < grilleJeu.dim; c++) {
+				if (grilleJeu.grille.getCase(l, c).getVal() != 0 && grilleJeu.grille.getCase(l, c).modifiable && grilleJeu.grille.getCase(l, c).etat != 3) {
+					if (grilleJeu.grille.getCase(l, c).getVal() == grilleSolution.grille.getCase(l, c).getVal()) {
+						grilleJeu.grille.getCase(l, c).etat = 1;
+					}
+					else {
+						grilleJeu.grille.getCase(l, c).etat = 2;
+					}
+				}
+			}
+		}
+	}
+	else {
+		for (int l = 0; l < grilleJeu.dim; l++) {
+			for (int c = 0; c < grilleJeu.dim; c++) {
+				if (grilleJeu.grille.getCase(l, c).etat != 3) {
+					grilleJeu.grille.getCase(l, c).etat = 0;
+				}
+			}
+		}
+	}
+}
+
 
 //---------Class jeuPasAPas (herité de jeu)
 JeuPasAPas::JeuPasAPas(const unsigned char& d):Jeu(d) {
 	tabDiffCase = new unsigned char[2 * d * d];
-	coloration = false;
 }
 
 JeuPasAPas::JeuPasAPas(const unsigned char& d, const int& id, const unsigned long& time,const Grille& g_sol,const Grille& g_orig,const Grille& g_jeu): Jeu(d, id, time, g_sol, g_orig, g_jeu) {
 	tabDiffCase = new unsigned char[2 * d * d];
-	coloration = false;
-
 }
 
 JeuPasAPas::~JeuPasAPas() {
@@ -384,31 +409,6 @@ void JeuPasAPas::retirerCasesFausses()
 	}
 }
 
-void JeuPasAPas::colorerCase() {
-	if (coloration) {
-		for (int l = 0; l < grilleJeu.dim; l++) {
-			for (int c = 0; c < grilleJeu.dim; c++) {
-				if (grilleJeu.grille.getCase(l, c).getVal() != 0 && grilleJeu.grille.getCase(l, c).modifiable && grilleJeu.grille.getCase(l, c).etat != 3) {
-					if (grilleJeu.grille.getCase(l, c).getVal() == grilleSolution.grille.getCase(l, c).getVal()) {
-						grilleJeu.grille.getCase(l, c).etat = 1;
-					}
-					else {
-						grilleJeu.grille.getCase(l, c).etat = 2;
-					}
-				}
-			}
-		}
-	}
-	else {
-		for (int l = 0; l < grilleJeu.dim; l++) {
-			for (int c = 0; c < grilleJeu.dim; c++) {
-				if (grilleJeu.grille.getCase(l, c).etat != 3) {
-					grilleJeu.grille.getCase(l, c).etat = 0;
-				}
-			}
-		}
-	}
-}
 
 //---------Class jeu1Vs1 (herité de jeu)
 Jeu1Vs1::Jeu1Vs1(const unsigned char& d) :Jeu(d), grilleJ1(d), grilleJ2(d) {

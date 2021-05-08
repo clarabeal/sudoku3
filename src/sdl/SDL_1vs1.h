@@ -95,7 +95,7 @@ private :
 
     Image* im_selectionChiffre;
     Image bleu;
-    Image gris;
+    Image indicateurCaseSelectionee;
     Image rouge;
     Image vert;
     //------------------HitBoxs

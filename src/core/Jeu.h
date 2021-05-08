@@ -197,6 +197,13 @@ class Jeu {
     */
     chronometre chrono;
 
+    /**\brief Inique si l'aide affichant les cases fausses est activee*/
+    bool coloration;
+
+    /**\brief Mets a jour l'etat de chaque case*/
+    void colorerCase(const bool& force = false);
+
+
 private:
 
 
@@ -239,11 +246,7 @@ public:
     \see updateDiffCase()*/
     unsigned char* tabDiffCase;
     
-    /**\brief Inique si l'aide affichante les cases fausses est activee*/
-    bool coloration;
-
-    /**\brief Mets a jour l'etat de chaque case*/
-    void colorerCase();
+    
 
 private:
 

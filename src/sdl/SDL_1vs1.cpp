@@ -162,7 +162,7 @@ void sdl1Vs1::init_assets()//identique
         }
     }//Chargement des images pour la selection du chiffre a placer
 
-    gris.loadFromFile("data/assets/couleursDeFond/Gris.png", renderer);
+    indicateurCaseSelectionee.loadFromFile("data/assets/couleursDeFond/Gris.png", renderer);
 
 
 
@@ -424,7 +424,7 @@ void sdl1Vs1::sdlAffGrille(const Grille& grille, const int& x, const int& y, con
             for (int c = 0; c < dimGrille; c++) {
 
                 if (l_toChange != 0) {// si une case est en cours de modification, on met un fond gris sur celle ci
-                    gris.draw(renderer, x + (c_toChange - 1) * largeurCase, y + (l_toChange - 1) * hauteurCase, hauteurCase, largeurCase);
+                    indicateurCaseSelectionee.draw(renderer, x + (c_toChange - 1) * largeurCase, y + (l_toChange - 1) * hauteurCase, hauteurCase, largeurCase);
                 }
 
                 if (grille.grille.getCase(l, c).getVal() != 0) {

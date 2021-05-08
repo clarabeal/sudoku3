@@ -82,6 +82,8 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d) : jeu(d), dimGrille(d), font_c
 
     tabHitBoxGrille = new hitBox[d*d];
 
+    init_im_menu();
+
 }
 
 sdlJeuClassique::sdlJeuClassique(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), font_color() {
@@ -150,6 +152,8 @@ sdlJeuClassique::sdlJeuClassique(unsigned char d, int id, unsigned long time, Gr
     mousse_y = 0;
 
     tabHitBoxGrille = new hitBox[d*d];
+
+    init_im_menu();
 
 }
 
@@ -253,7 +257,7 @@ void sdlJeuClassique::sdlAff(){
     sdlAffGrille(jeu.grilleJeu, 10, 80, 600, 600);
     sdlAffChrono(620, 80, 400, 100);
 
-    /*
+    
     int hauteurGrille = HEIGHT * 80 / 100;
     int xGrille = HEIGHT * 10 / 100;
     int yGrille = WIDTH * 5 / 100;
@@ -261,7 +265,7 @@ void sdlJeuClassique::sdlAff(){
     int y_pos_select = yGrille + (WIDTH - hauteurGrille - xGrille) * 80 / 100 * 1 / 10 + HEIGHT * 5 / 100;
 
     sdlAffMenu(xGrille + hauteurGrille + WIDTH * 2 / 100 +20, y_pos_select + selectHauteur, hauteurGrille*80/100, hauteurGrille*80/100);
-    */
+    
 
 
 }

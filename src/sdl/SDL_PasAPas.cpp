@@ -364,7 +364,7 @@ void sdlJeuPasAPas::placementElementsMenu(const int& x1, const int& y1, const in
         y2courant = y1courant + y2 / nb_element;
     }
 
-    if (jeu.sauvegardeId == 0) {
+    if (jeu.sauvegardeId == 0 || !autoSave) {
         tabHitBoxSelectionMenu[10].x1 = x1;
         tabHitBoxSelectionMenu[10].x2 = x2;
         tabHitBoxSelectionMenu[10].y1 = y1courant;
@@ -784,10 +784,10 @@ void sdlJeuPasAPas::sdlBoucle() {
                 else if (tabHitBoxSelectionMenu[18].is_in(mousse_x, mousse_y)) {//Pause
                     jeu.chrono.pause();
                 }
-                else if (tabHitBoxSelectionMenu[20].is_in(mousse_x, mousse_y)) {//Pause
+                else if (tabHitBoxSelectionMenu[20].is_in(mousse_x, mousse_y)) {//aide color act
                     jeu.coloration = true;
                 }
-                else if (tabHitBoxSelectionMenu[22].is_in(mousse_x, mousse_y)) {//Pause
+                else if (tabHitBoxSelectionMenu[22].is_in(mousse_x, mousse_y)) {//aide color desact
                     jeu.coloration = false;
                 }
 

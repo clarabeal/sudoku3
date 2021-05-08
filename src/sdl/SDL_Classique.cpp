@@ -175,6 +175,12 @@ void sdlJeuClassique::init_im_menu(){
     im_menu[5].loadFromFile("data/assets/menu/classique/Start_MousseOver.png", renderer);
     im_menu[6].loadFromFile("data/assets/menu/classique/Pause_MousseAway.png", renderer);
     im_menu[7].loadFromFile("data/assets/menu/classique/Pause_MousseOver.png", renderer);
+    im_menu[8].loadFromFile("data/assets/menu/classique/Sauvegarder_MousseAway.png", renderer);
+    im_menu[9].loadFromFile("data/assets/menu/classique/Sauvegarder_MousseOver.png", renderer);
+    im_menu[10].loadFromFile("data/assets/menu/classique/ActSauvegardeAutoActive_MousseAway.png", renderer);
+    im_menu[11].loadFromFile("data/assets/menu/classique/ActSauvegardeAutoActive_MousseOver.png", renderer);
+    im_menu[12].loadFromFile("data/assets/menu/classique/DesactSauvegardeAutoActive_MousseAway.png", renderer);
+    im_menu[13].loadFromFile("data/assets/menu/classique/DesactSauvegardeAutoActive_MousseOver.png", renderer);
 }
 
 sdlJeuClassique::~sdlJeuClassique() {//identique
@@ -194,7 +200,7 @@ void sdlJeuClassique::placementElementsMenu(const int& x1, const int& y1, const 
 
     effacerElementsMenu();
 
-    const int nb_element = 9;
+    const int nb_element = 6;
 
     if (y2 == 0) {
 
@@ -214,7 +220,7 @@ void sdlJeuClassique::placementElementsMenu(const int& x1, const int& y1, const 
     tabHitBoxSelectionMenu[1].y1 = y1courant;
     tabHitBoxSelectionMenu[1].y2 = y2courant;
 
-    for (int i = 2; i < 8; i = i+2) {
+    for (int i = 2; i < 4; i = i+2) {
 
         y1courant = y2courant;
         y2courant = y1courant + y2 / nb_element;
@@ -229,11 +235,91 @@ void sdlJeuClassique::placementElementsMenu(const int& x1, const int& y1, const 
         tabHitBoxSelectionMenu[i+1].y2 = y2courant;
     }
 
+    //Btn start pause
+    y1courant = y2courant;
+    y2courant = y1courant + y2 / nb_element;
+    if (jeu.chrono.estEnPause()) {
+
+        tabHitBoxSelectionMenu[4].x1 = x1;
+        tabHitBoxSelectionMenu[4].y1 = y1courant;
+        tabHitBoxSelectionMenu[4].x2 = x2;
+        tabHitBoxSelectionMenu[4].y2 = y2courant;
+        tabHitBoxSelectionMenu[5].x1 = x1;
+        tabHitBoxSelectionMenu[5].y1 = y1courant;
+        tabHitBoxSelectionMenu[5].x2 = x2;
+        tabHitBoxSelectionMenu[5].y2 = y2courant;
+        tabHitBoxSelectionMenu[6].reset();
+        tabHitBoxSelectionMenu[7].reset();
+
+    }
+    else {
+        tabHitBoxSelectionMenu[6].x1 = x1;
+        tabHitBoxSelectionMenu[6].y1 = y1courant;
+        tabHitBoxSelectionMenu[6].x2 = x2;
+        tabHitBoxSelectionMenu[6].y2 = y2courant;
+        tabHitBoxSelectionMenu[7].x1 = x1;
+        tabHitBoxSelectionMenu[7].y1 = y1courant;
+        tabHitBoxSelectionMenu[7].x2 = x2;
+        tabHitBoxSelectionMenu[7].y2 = y2courant;
+        tabHitBoxSelectionMenu[4].reset();
+        tabHitBoxSelectionMenu[5].reset();
+    }
+    y1courant = y2courant;
+    y2courant = y1courant + y2 / nb_element;
+    if (!autoSave && jeu.sauvegardeId != 0) {// si la sauvegarde automatique est desactivée et que la partie a deja ete sauvegardé au moins une fois
+
+        tabHitBoxSelectionMenu[10].x1 = x1;
+        tabHitBoxSelectionMenu[10].x2 = x2;
+        tabHitBoxSelectionMenu[10].y1 = y1courant;
+        tabHitBoxSelectionMenu[10].y2 = y2courant;
+
+        tabHitBoxSelectionMenu[11].x1 = x1;
+        tabHitBoxSelectionMenu[11].x2 = x2;
+        tabHitBoxSelectionMenu[11].y1 = y1courant;
+        tabHitBoxSelectionMenu[11].y2 = y2courant;
+
+        tabHitBoxSelectionMenu[12].reset();
+        tabHitBoxSelectionMenu[13].reset();
+        y1courant = y2courant;
+        y2courant = y1courant + y2 / nb_element;
+    }
+    else if (autoSave && jeu.sauvegardeId != 0) {
+        tabHitBoxSelectionMenu[12].x1 = x1;
+        tabHitBoxSelectionMenu[12].x2 = x2;
+        tabHitBoxSelectionMenu[12].y1 = y1courant;
+        tabHitBoxSelectionMenu[12].y2 = y2courant;
+
+        tabHitBoxSelectionMenu[13].x1 = x1;
+        tabHitBoxSelectionMenu[13].x2 = x2;
+        tabHitBoxSelectionMenu[13].y1 = y1courant;
+        tabHitBoxSelectionMenu[13].y2 = y2courant;
+
+        tabHitBoxSelectionMenu[10].reset();
+        tabHitBoxSelectionMenu[11].reset();
+        y1courant = y2courant;
+        y2courant = y1courant + y2 / nb_element;
+    }
+
+    if (jeu.sauvegardeId == 0|| !autoSave) {
+        tabHitBoxSelectionMenu[8].x1 = x1;
+        tabHitBoxSelectionMenu[8].x2 = x2;
+        tabHitBoxSelectionMenu[8].y1 = y1courant;
+        tabHitBoxSelectionMenu[8].y2 = y2courant;
+
+        tabHitBoxSelectionMenu[9].x1 = x1;
+        tabHitBoxSelectionMenu[9].x2 = x2;
+        tabHitBoxSelectionMenu[9].y1 = y1courant;
+        tabHitBoxSelectionMenu[9].y2 = y2courant;
+
+        y1courant = y2courant;
+        y2courant = y1courant + y2 / nb_element;
+    }
+
 }
 
 void sdlJeuClassique::effacerElementsMenu(){
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 14; i++) {
 
         tabHitBoxSelectionMenu[i].reset();
 
@@ -308,7 +394,7 @@ void sdlJeuClassique::sdlAff() {
 
 void sdlJeuClassique::sdlAffMenu(const int& x, const int& y, const int& largeur, const int& hauteur) {
     placementElementsMenu(x, y, x + largeur, 0);
-    for (int i = 0; i < 8; i += 2) {
+    for (int i = 0; i < 14; i += 2) {
         if (!tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
             affImgInHitBox(im_menu[i], tabHitBoxSelectionMenu[i]);
         }
@@ -545,7 +631,7 @@ void sdlJeuClassique::sdlBoucle() {
             //----On fait les actions liées aux clics souris
 
             if (event.type == SDL_MOUSEBUTTONDOWN) {
-
+                sauvegarder(1);
                 if (l_toChange != 0) {
                     for (int i = 0; i < dimGrille; i++) {
                         if (tabHitBoxSelectionNombre[i].is_in(mousse_x, mousse_y)) {
@@ -595,17 +681,23 @@ void sdlJeuClassique::sdlBoucle() {
                 if (tabHitBoxSelectionMenu[0].is_in(mousse_x, mousse_y)) {//Nouvelle grille
                     jeu.init();
                 }
-
-                if (tabHitBoxSelectionMenu[2].is_in(mousse_x, mousse_y)) {//Recommencer sur la meme grille
+                else if (tabHitBoxSelectionMenu[2].is_in(mousse_x, mousse_y)) {//Recommencer sur la meme grille
                     jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
                 }
-
-                if (tabHitBoxSelectionMenu[4].is_in(mousse_x, mousse_y)) {//Start
+                else if (tabHitBoxSelectionMenu[4].is_in(mousse_x, mousse_y)) {//Start
                     jeu.chrono.start();
                 }
-
-                if (tabHitBoxSelectionMenu[6].is_in(mousse_x, mousse_y)) {//Pause
+                else if (tabHitBoxSelectionMenu[6].is_in(mousse_x, mousse_y)) {//Pause
                     jeu.chrono.pause();
+                }
+                else if (tabHitBoxSelectionMenu[9].is_in(mousse_x, mousse_y)) {//sauvegarder
+                    sauvegarder(1, true);
+                }
+                else if (tabHitBoxSelectionMenu[11].is_in(mousse_x, mousse_y)) {//Activer sauvegarde auto
+                    autoSave = true;
+                }
+                else if (tabHitBoxSelectionMenu[13].is_in(mousse_x, mousse_y)) {//desactiver sauvegarde auto
+                    autoSave = false;
                 }
             }
         }

@@ -200,7 +200,7 @@ private :
     /**
     \brief Tableaux contenant les images du menu
     \see void init_im_menu()*/
-    Image im_menu[8];
+    Image im_menu[14];
 
     /**\brief L'image de fond de la grille
     \see void init_assets()*/
@@ -220,7 +220,7 @@ private :
        \details Chaque elements i de tabHitBoxSelectionMenu[i] est associe a l'image im_menu[i]
        \see void placementElementsMenu(int x1, int y1, int x2, int y2 = 0)
        \see hitBox*/
-    hitBox  tabHitBoxSelectionMenu[8];
+    hitBox  tabHitBoxSelectionMenu[14];
 
     /**\brief Tableau de hitBox contenant toutes les zones clicables de la grille (une par case)
        \see void placerHitBoxCaseGrille(int x, int y, int largeur, int hauteur);

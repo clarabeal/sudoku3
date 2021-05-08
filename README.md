@@ -15,14 +15,14 @@ Ce projet propose plusieurs variantes du jeu du Sudoku. C'est un jeu qui consist
 
 - Classique : reprend le fonctionnement traditionnel du sudoku. Le joueur choisit la taille de la grille avec laquelle il souhaite jouer (4x4, 9x9, 16x16), puis celle-ci est genérée par le programme.  Un chronomètre se lance et c'est au joueur de remplir la grille correctement et sans aide. A la fin de la partie (lorsque la grille est totalement remplie), le nombres d'erreurs ainsi que la grille solution sont affichées.
 
-- Pas à pas : ce mode offre plusieurs aides au joueur afin de l'aider à remplir sa grille de jeu. Il propose notamment d'afficher les coordonnées d'une case simple à remplir, de remplir une des cases.
+- Pas à pas : ce mode offre plusieurs aides au joueur afin de l'aider à remplir sa grille de jeu. Il propose notamment d'afficher les coordonnées d'une case simple à remplir et de remplir une des cases à la place du joueur.
 
-- 1vs1 : ce mode permet à deux joueurs de s'affronter avec des grilles de Sudoku identiques. Le premier joueur remplit entièrement sa grille de jeu puis, la grille est rénitilialisée et le deuxième joueur remplit la même grille. Une fois la partie terminée, la grille remplie par le premier joueur et la grille du deuxième joueur ainsi que la grille solution sont affichées. 
+- 1vs1 : ce mode permet à deux joueurs de s'affronter avec des grilles de Sudoku identiques. Le premier joueur remplit entièrement sa grille de jeu puis, la grille est rénitilialisée et le deuxième joueur remplit la même grille. Une fois la partie terminée, la grille remplie par le premier joueur et la grille du deuxième joueur sont affichées. Le temps mis par chacun des joueurs pour remplir entièrement sa grille est lui aussi affiché. 
 
-De plus, un gestionnaire de sauvegarde accessible depuis le menu est proposé dans chaque mode de jeu. Il permet de sauvgarder une partie non terminée puis de quitter le jeu afin de la recharger ultérieurement pour la terminer. Un chronomètre est également affiché à l'écran lors de chaque partie.
+De plus, un gestionnaire de sauvegarde accessible depuis le menu est proposé dans chaque mode de jeu. Il permet de sauvegarder une partie non terminée puis de quitter le jeu afin de la recharger ultérieurement pour la terminer. Un chronomètre est également affiché à l'écran lors de chaque partie.
 
 ## Compilation
-Le projet ce compile grâce à un fichier makefile. Pour compiler le projet, il faut taper la commande `make` dans un terminal à la racine du dossier. Cette commande permet de compiler à la fois la version texte et la version graphique. Pour compiler seulement la version texte, il faut taper la commande `make sudoku_txt` dans un terminal. Pour compiler la version graphique, il faut taper la commande `make sudoku_sdl`. Il est possible de compiler le programme sous les Os suivants : Windows, MacOs et Linux. La bibliothèque externe SDL2 doit être présente sur la machine pour permettre la compilation. Cette dernière est incluse dans le dossier extern de notre archive.
+Le projet ce compile grâce à un fichier makefile. Pour compiler le projet, il faut taper la commande `make` dans un terminal à la racine du dossier. Cette commande permet de compiler à la fois la version texte et la version graphique. Il est possible de compiler le programme sous les Os suivants : Windows, MacOs et Linux. La bibliothèque externe SDL2 doit être présente sur la machine pour permettre la compilation. Cette dernière est incluse dans le dossier extern de notre archive. Enfin, la commande `make clean`permet de supprimer la fichier .o. La commande `make veryclean`quant à elle supprime les fichiers objets .o ainsi que les deux executables.
 
 ## Executables du projet
 - `sudoku_txt` : version console de l'application
@@ -57,13 +57,15 @@ Il faut ouvrir un terminal à la racine du dossier et taper la commande suivante
 
 ### Sur la version texte
 
-Il faut utiliser les touches numériques du clavier afin de saisir les valeurs à placer, les coodonnées de la case où l'on souhaite placer le nombre ainsi que les différentes fonctionnalités du menu. Toutes les options du menus sont de la forme : "Touche : Option".
+Il faut utiliser les touches numériques du clavier afin de saisir les valeurs à placer, les coodonnées de la case où l'on souhaite placer le nombre ainsi que les différentes fonctionnalités du menu. Toutes les options du menu sont de la forme : "Touche : Option".
 
 ### Sur la version graphique
 
 Au cours du jeu, les touches du clavier offrent les options suivantes : 
+- r : permet recommencer la partie depuis le début
 - n : permet de générer une nouvelle grille de jeu
 - p : permet de mettre le chronomètre en pause
 - s : permet de relancer le chronomètre
+- q : permet de quitter le jeu
 
 Pour jouer, il suffit de cliquer à l'aide de la souris sur la case que l'on souhaite remplir, puis d'utiliser le sélecteur à l'écran en cliquant sur le chiffre choisi afin de placer la valeur dans la grille. Pour quitter le jeu, il faut fermer la fenêtre à l'aide de la croix en haut.

@@ -53,7 +53,7 @@ public:
 	*/
 	void vider();
 
-	void operator = (TabCases2DTas &tab);
+	void operator = (const TabCases2DTas &tab);
 private:
 
 	/**

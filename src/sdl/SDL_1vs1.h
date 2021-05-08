@@ -31,8 +31,8 @@ class sdl1Vs1 {
 public :
 
     // ============= FONCTION D'INITIALISATION DE LA PARTIE(CONSTRUCTEURS & CO) + DESTRUCTEUR =============== //
-    sdl1Vs1(unsigned char d);
-    sdl1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2);
+    sdl1Vs1(const unsigned char& d);
+    sdl1Vs1(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu, const Grille& grilleJ1_, const Grille& grilleJ2_, const unsigned long int& chronoJ1_, const unsigned long int& chronoJ2_, const int& nbErrJ1, const int& nbErrj2, const bool& stopJ1, const bool& stopJ2);
     void init_SDL();
     void init_assets();
     void init_im_menu();
@@ -42,17 +42,17 @@ public :
     // ============= FONCTION DE GESTION DES HITBoxS =============== //
     void resetTabHitGrille();
     void resetTabHitSelectionNombre();
-    void placementElementsMenu(int x1, int y1, int x2, int y2 = 0);
+    void placementElementsMenu(const int& x1, const int& y1, const int& x2, int y2 = 0);
     void effacerElementsMenu();
-    void placerHitBoxCaseGrille(int x, int y, int largeur, int hauteur);
+    void placerHitBoxCaseGrille(const int& x, const int& y, const int& largeur, const int& hauteur);
 
 
     // ============= FONCTION D'AFFICHAGE =============== //
     void sdlAff();
-    void sdlAffMenu(int x, int y, int largeur, int hauteur);
-    void sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
-    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool afficher = true);
-    void sdlAffChrono(int x, int y, int largeur, int hauteur, chronometre& chrono, bool full = false);
+    void sdlAffMenu(const int& x, const int& y, const int& largeur, const int& hauteur);
+    void sdlAffSelectionChiffre(const int& x, const int& y, const int& largeur, const int& hauteur);
+    void sdlAffGrille(const Grille& grille, const int& x1, const int& y1, const int& x2, const int& y2, const bool& afficher = true);
+    void sdlAffChrono(const int& x, const int& y, const int& largeur, const int& hauteur, chronometre& chrono, const bool& full = false);
     void sdlAffFinDePartie();
     void sdlAffChargement();
 
@@ -61,12 +61,12 @@ public :
 
     void sdlAttendreJoueurSuivant();
     void sdlBoucle();
-    void sauvegarder(bool force = false);
+    void sauvegarder(const bool& force = false);
 
 
     // ============= FONCTIONS UTILITAIRES =============== //
-    void affImgInHitBox(Image& img, hitBox& hit);
-    void sdlAffTexte(string txt, int x, int y, int largeur, int hauteur, SDL_Color& couleur);
+    void affImgInHitBox(Image& img, const hitBox& hit);
+    void sdlAffTexte(const string& txt, const int& x, const int& y, const int& largeur, const int& hauteur, const SDL_Color& couleur);
 private :
 
     //------------------Donn�es core mode pas a pas

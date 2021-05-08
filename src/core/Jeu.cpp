@@ -7,13 +7,13 @@ using namespace std;
 
 
 //---------Class Jeu
-Jeu::Jeu(unsigned char d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
+Jeu::Jeu(const unsigned char& d): grilleSolution(d), grilleOriginale(d), grilleJeu(d){
 	initDone = false;
 	sauvegardeId = 0;
 
 }
 
-Jeu::Jeu(unsigned char d, int id, unsigned long int time, Grille &g_sol, Grille &g_orig, Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d), chrono(time) {
+Jeu::Jeu(const unsigned char& d, const int& id, const unsigned long int& time, const Grille &g_sol, const Grille &g_orig, const Grille &g_jeu) : grilleSolution(d), grilleOriginale(d), grilleJeu(d), chrono(time) {
 	grilleSolution.grille = g_sol.grille;
 	grilleOriginale.grille = g_orig.grille;
 	grilleJeu.grille = g_jeu.grille;
@@ -26,7 +26,7 @@ Jeu::~Jeu(){
 	
 }
 
-bool Jeu::genererGrillePleine(int etape)
+bool Jeu::genererGrillePleine(const int& etape)
 {
 	srand((unsigned int)time(nullptr));// a mettre dans le main apres
 	//cout << "///////Etape: " << etape<<  endl;
@@ -81,7 +81,7 @@ bool Jeu::genererGrillePleine(int etape)
 	return true;
 }
 
-void Jeu::remplirTblAlea(unsigned char *tab, unsigned char max){// remplit un tbl sur le tas de nombre alea entre 1 et MAX
+void Jeu::remplirTblAlea(unsigned char *tab, const unsigned char& max){// remplit un tbl sur le tas de nombre alea entre 1 et MAX
 	unsigned char nb = 0;
 	for (int i = 0; i < max; i++) {
 		bool disponible = false;
@@ -98,7 +98,7 @@ void Jeu::remplirTblAlea(unsigned char *tab, unsigned char max){// remplit un tb
 	}
 }
 
-unsigned char Jeu::nombreDeSolutions(Grille &grille) const
+unsigned char Jeu::nombreDeSolutions(const Grille &grille) const
 {
 	unsigned char nbSolution =0;
 	//cout << "///////Etape: " << (int)nbSolution <<  endl;
@@ -188,14 +188,14 @@ void Jeu::genererGrilleMinimale (){
 	}
 }
 
-unsigned char Jeu::trouverNumeroCarre(unsigned char l, unsigned char c) const
+unsigned char Jeu::trouverNumeroCarre(const unsigned char& l, const unsigned char& c) const
 {
 	unsigned char tailleCarre = sqrt(grilleSolution.dim);
 	unsigned char nb_carre = ((l - 1) / tailleCarre) * tailleCarre + ((c - 1) / tailleCarre) + 1;
 		return nb_carre;
 }
 
-bool Jeu::verifGrillePleine(Grille &grille) const
+bool Jeu::verifGrillePleine(const Grille &grille) const
 {
 	unsigned char dimGrille = grille.dim;
 	for (unsigned char l = 0; l <= dimGrille -1; l++) {
@@ -227,15 +227,15 @@ void Jeu::init()
 	chrono.start();
 }
 
-bool Jeu::estValValide (unsigned char valeur) const {
+bool Jeu::estValValide (const unsigned char& valeur) const {
     return (valeur>0 && valeur<=grilleJeu.dim);
 }
 
-bool Jeu::sontCorValides (unsigned char l, unsigned char c) const {
+bool Jeu::sontCorValides (const unsigned char& l, const unsigned char& c) const {
 	return ((l > 0 && l <= grilleJeu.dim) && (c > 0 && c <= grilleJeu.dim) && grilleJeu.grille.getCase(l - 1, c - 1).modifiable);
 }
 
-bool Jeu::getModifCase (unsigned char l, unsigned char c) const {
+bool Jeu::getModifCase (const unsigned char& l, const unsigned char& c) const {
 	return grilleJeu.grille.getCase(l-1,c-1).modifiable;
 }
 
@@ -254,12 +254,12 @@ unsigned int Jeu::nbErreurs () const {
 
 
 //---------Class jeuPasAPas (herité de jeu)
-JeuPasAPas::JeuPasAPas(unsigned char d):Jeu(d) {
+JeuPasAPas::JeuPasAPas(const unsigned char& d):Jeu(d) {
 	tabDiffCase = new unsigned char[2 * d * d];
 	coloration = false;
 }
 
-JeuPasAPas::JeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu): Jeu(d, id, time, g_sol, g_orig, g_jeu) {
+JeuPasAPas::JeuPasAPas(const unsigned char& d, const int& id, const unsigned long& time,const Grille& g_sol,const Grille& g_orig,const Grille& g_jeu): Jeu(d, id, time, g_sol, g_orig, g_jeu) {
 	tabDiffCase = new unsigned char[2 * d * d];
 	coloration = false;
 
@@ -325,7 +325,7 @@ void JeuPasAPas::updateDiffCase() {
 }
 
 
-unsigned char JeuPasAPas::getDiffCase(unsigned char l, unsigned char c, bool diff_type)//diff type = 1: retourne le nombre de valeur possible, diff type = 0, retourne "la tendance a avoir bcp de chiffre dans un meme bloc/ligne/col permet de departager en les diff type = 1 egaux 
+unsigned char JeuPasAPas::getDiffCase(const unsigned char& l, const unsigned char& c, const bool& diff_type)//diff type = 1: retourne le nombre de valeur possible, diff type = 0, retourne "la tendance a avoir bcp de chiffre dans un meme bloc/ligne/col permet de departager en les diff type = 1 egaux 
 {
 	unsigned char dimGrille = grilleJeu.dim;
 	if (diff_type) {
@@ -334,7 +334,7 @@ unsigned char JeuPasAPas::getDiffCase(unsigned char l, unsigned char c, bool dif
 	return tabDiffCase[(c - 1) * dimGrille + (l - 1) + dimGrille * dimGrille];
 }
 
-void JeuPasAPas::coordCaseSimple(unsigned char& l, unsigned char& c)
+void JeuPasAPas::coordCaseSimple(unsigned char& l,  unsigned char& c)
 {
 	unsigned char dimGrille = grilleJeu.dim;
 	updateDiffCase();
@@ -411,14 +411,14 @@ void JeuPasAPas::colorerCase() {
 }
 
 //---------Class jeu1Vs1 (herité de jeu)
-Jeu1Vs1::Jeu1Vs1(unsigned char d) :Jeu(d), grilleJ1(d), grilleJ2(d) {
+Jeu1Vs1::Jeu1Vs1(const unsigned char& d) :Jeu(d), grilleJ1(d), grilleJ2(d) {
 	nbErreurJ1 = false;
 	nbErreurJ2 = false;
 	stopBoucleJ1 = 0;
 	stopBoucleJ2 = 0;
 }
 
-Jeu1Vs1::Jeu1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2) : Jeu(d, id, time, g_sol, g_orig, g_jeu), grilleJ1(d), grilleJ2(d){
+Jeu1Vs1::Jeu1Vs1(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu, const Grille& grilleJ1_, const Grille& grilleJ2_, const unsigned long int& chronoJ1_, const unsigned long int& chronoJ2_, const int& nbErrJ1, const int& nbErrj2, const bool& stopJ1, const bool& stopJ2) : Jeu(d, id, time, g_sol, g_orig, g_jeu), grilleJ1(d), grilleJ2(d){
 	nbErreurJ1 = nbErrJ1;
 	nbErreurJ2 = nbErrj2;
 	stopBoucleJ1 = stopJ1;
@@ -445,17 +445,16 @@ chronometre::chronometre()
 
 }
 
-chronometre::chronometre(unsigned long int ms)
+chronometre::chronometre(const unsigned long int& ms)
 {
-	this->ms = ms;
-	t1 = clock();
-	t2 = clock();
+	forceTime(ms);
 	enPause = true;
 
 }
 
-void chronometre::forceTime(unsigned long int ms)
+void chronometre::forceTime(const unsigned long int& ms)
 {
+	assert(ms >= 0);
 	this->ms = ms;
 	t1 = clock();
 	t2 = clock();
@@ -495,6 +494,11 @@ void chronometre::reset()
 {
 	ms = 0;
 	pause();
+}
+
+unsigned long int chronometre::getTimeInMSecNoUpdate()const
+{
+	return ms;
 }
 
 unsigned long int chronometre::getTimeInMSec()

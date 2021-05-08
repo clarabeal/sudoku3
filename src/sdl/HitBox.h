@@ -2,18 +2,28 @@
 #define _SDL_HitBox
 
 /**
-    La classe gerant les hitboxs (zone de clic)
+    La classe gerant les hitboxs (zone clicables)
 */
 class hitBox {
 public:
-    hitBox(int x1, int x2, int y1, int y2);
+    /**\brief initialise la hitbox aux coordonnées x1 y1 x2 y2*/
+    hitBox(const int& x1, const int& x2, const int& y1, const int& y2);
+
     hitBox();
 
-    int x1, x2, y1, y2;
-    bool is_in(const int x, const int y);
-    int getLargeur();
-    int getHauteur();
+    /**\brief initialise la hitbox aux coordonnées x1 y1 x2 y2*/
+    bool is_in(const int x, const int y) const;
+
+    /**\brief retourne la largeur de la hitbox */
+    int getLargeur() const;
+   
+    /**\brief retourne la hauteur de la hitbox */
+    int getHauteur() const;
+
     void reset();
+
+    int x1, x2, y1, y2;
+
 };
 
 

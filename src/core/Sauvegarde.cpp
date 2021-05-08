@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <cassert>
 
-gestSauvegarde::gestSauvegarde(string emplacement, string emplacement2)
+gestSauvegarde::gestSauvegarde(const string& emplacement, const string& emplacement2)
 {
 	listeSauvegarde = nullptr;
 	cheminDossier = emplacement;
@@ -50,7 +50,7 @@ gestSauvegarde::~gestSauvegarde()
 	delete[] listeSauvegarde;
 }
 
-InfoSauvegarde& gestSauvegarde::getInfoSauvegarde(unsigned char id) const {
+InfoSauvegarde& gestSauvegarde::getInfoSauvegarde(const unsigned char& id) const {
 	for (unsigned int i = 0; i < nbSauvegarde; i++) {
 		if (listeSauvegarde[i].id == id) {
 			return listeSauvegarde[i];
@@ -59,7 +59,7 @@ InfoSauvegarde& gestSauvegarde::getInfoSauvegarde(unsigned char id) const {
 	assert(false);
 }
 
-bool gestSauvegarde::valideId(unsigned char id) const {
+bool gestSauvegarde::valideId(const unsigned char& id) const {
 	for (unsigned int i = 0; i < nbSauvegarde; i++) {
 		if (listeSauvegarde[i].id == id) {
 			return true;
@@ -68,7 +68,7 @@ bool gestSauvegarde::valideId(unsigned char id) const {
 	return false;
 }
 
-void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille* grilleJ1, Grille* grilleJ2, unsigned long int* chronoJ1, unsigned long int* chronoJ2, int *nbErrJ1, int *nbErrj2, bool *stopJ1, bool *stopJ2)
+void gestSauvegarde::loadFromFile(const unsigned int& id, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille* grilleJ1, Grille* grilleJ2, unsigned long int* chronoJ1, unsigned long int* chronoJ2, int *nbErrJ1, int *nbErrj2, bool *stopJ1, bool *stopJ2)
 {
 	ifstream fichier;
 	InfoSauvegarde& infoSurLaSauvegarde = getInfoSauvegarde(id);
@@ -217,8 +217,9 @@ void gestSauvegarde::loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig
 	}
 }
 
-int gestSauvegarde::sauvegarder(Jeu1Vs1 &jeu ,string name, int mode, unsigned  int id) {
-	if (id != 0 && !valideId(id)) return -1;
+unsigned int gestSauvegarde::sauvegarder(const Jeu1Vs1& jeu , const string& name, const int& mode, const unsigned int& id) {
+	unsigned int newId = id;
+	if (newId != 0 && !valideId(newId)) return -1;
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
 	
@@ -226,39 +227,39 @@ int gestSauvegarde::sauvegarder(Jeu1Vs1 &jeu ,string name, int mode, unsigned  i
 		cout << "Une erreur c'est produite lors de l'ouverture de l'index!" << endl;
 		return -1;
 	}
-	if (id == 0) {//si la partie n'a jamais �t� sauvegard� on linscrit dans l'index
+	if (newId == 0) {//si la partie n'a jamais �t� sauvegard� on linscrit dans l'index
 		nbSauvegarde++;
 		for (unsigned int i = 1; i <= maxId; i++) {
 			if (!valideId(i)) {
-				id = i;
+				newId = i;
 			}
 		}
-		if (id == 0) {
+		if (newId == 0) {
 			maxId++;
-			id = maxId;
+			newId = maxId;
 		}
 
 		InfoSauvegarde infoSurLaSauvegarde;
-		infoSurLaSauvegarde.id = id;
+		infoSurLaSauvegarde.id = newId;
 		infoSurLaSauvegarde.name = name;
 		infoSurLaSauvegarde.modeJeu = mode;
 		infoSurLaSauvegarde.tailleGrille = jeu.grilleJeu.dim;
-		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSecNoUpdate();
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
 		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
 		for (unsigned int i = 0; i < nbSauvegarde - 1; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
-			if (listeSauvegarde[i].id != id) {
+			if (listeSauvegarde[i].id != newId) {
 				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
 			}
 		}
 	}
 	else {
-		InfoSauvegarde infoSurLaSauvegarde = getInfoSauvegarde(id);
-		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
+		InfoSauvegarde infoSurLaSauvegarde = getInfoSauvegarde(newId);
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSecNoUpdate();
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
 		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
 		for (unsigned int i = 0; i < nbSauvegarde; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
-			if (listeSauvegarde[i].id != id) {
+			if (listeSauvegarde[i].id != newId) {
 				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
 			}
 		}
@@ -266,7 +267,7 @@ int gestSauvegarde::sauvegarder(Jeu1Vs1 &jeu ,string name, int mode, unsigned  i
 	
 	
 	ofstream fichier;
-	fichier.open(cheminDossier + to_string(id) + ".sudokujeu", ios::out);
+	fichier.open(cheminDossier + to_string(newId) + ".sudokujeu", ios::out);
 	if (fichier.is_open()) {
 		unsigned char dimGrille = jeu.grilleJeu.dim;
 		//////////////sauvegarde des chiffres
@@ -429,9 +430,9 @@ int gestSauvegarde::sauvegarder(Jeu1Vs1 &jeu ,string name, int mode, unsigned  i
 			fichier << endl;
 
 			//sauvegarde chrnono j1
-			fichier << jeu.chronoJ1.getTimeInMSec() << endl;
+			fichier << jeu.chronoJ1.getTimeInMSecNoUpdate() << endl;
 			//sauvegarde chrnono j2
-			fichier << jeu.chronoJ2.getTimeInMSec() << endl;
+			fichier << jeu.chronoJ2.getTimeInMSecNoUpdate() << endl;
 
 			//sauvegarde nberrj1
 			fichier << jeu.nbErreurJ1 << endl;
@@ -452,11 +453,12 @@ int gestSauvegarde::sauvegarder(Jeu1Vs1 &jeu ,string name, int mode, unsigned  i
 		return -1;
 	}
 	updateListe();
-	return id;
+	return newId;
 }
 
-int gestSauvegarde::sauvegarder(Jeu& jeu, string name, int mode, unsigned  int id) {
-	if (id != 0 && !valideId(id)) return -1;
+unsigned int gestSauvegarde::sauvegarder(const Jeu& jeu, const string& name, const int& mode, const unsigned int& id) {
+	unsigned int newId = id;
+	if (newId != 0 && !valideId(newId)) return -1;
 	ofstream fichierIndex;
 	fichierIndex.open(cheminDossier + "indexParties.txt", std::fstream::out);
 
@@ -464,39 +466,39 @@ int gestSauvegarde::sauvegarder(Jeu& jeu, string name, int mode, unsigned  int i
 		cout << "Une erreur c'est produite lors de l'ouverture de l'index!" << endl;
 		return -1;
 	}
-	if (id == 0) {//si la partie n'a jamais �t� sauvegard� on linscrit dans l'index
+	if (newId == 0) {//si la partie n'a jamais �t� sauvegard� on linscrit dans l'index
 		nbSauvegarde++;
 		for (unsigned int i = 1; i <= maxId; i++) {
 			if (!valideId(i)) {
-				id = i;
+				newId = i;
 			}
 		}
-		if (id == 0) {
+		if (newId == 0) {
 			maxId++;
-			id = maxId;
+			newId = maxId;
 		}
 
 		InfoSauvegarde infoSurLaSauvegarde;
-		infoSurLaSauvegarde.id = id;
+		infoSurLaSauvegarde.id = newId;
 		infoSurLaSauvegarde.name = name;
 		infoSurLaSauvegarde.modeJeu = mode;
 		infoSurLaSauvegarde.tailleGrille = jeu.grilleJeu.dim;
-		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSecNoUpdate();
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
 		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
 		for (unsigned int i = 0; i < nbSauvegarde - 1; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
-			if (listeSauvegarde[i].id != id) {
+			if (listeSauvegarde[i].id != newId) {
 				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
 			}
 		}
 	}
 	else {
-		InfoSauvegarde infoSurLaSauvegarde = getInfoSauvegarde(id);
-		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSec();
+		InfoSauvegarde infoSurLaSauvegarde = getInfoSauvegarde(newId);
+		infoSurLaSauvegarde.chrono = jeu.chrono.getTimeInMSecNoUpdate();
 		fichierIndex << nbSauvegarde << " " << maxId << endl;
 		fichierIndex << infoSurLaSauvegarde.id << " " << infoSurLaSauvegarde.name << " " << infoSurLaSauvegarde.modeJeu << " " << infoSurLaSauvegarde.tailleGrille << " " << infoSurLaSauvegarde.chrono << endl;//on ajoute a ligne de la partie dans l'index des aprties sauvegard�es
 		for (unsigned int i = 0; i < nbSauvegarde; i++) {//on reecrit toutes les autres parties en mettant la partie qui vient d'�tre suavegard� en haut
-			if (listeSauvegarde[i].id != id) {
+			if (listeSauvegarde[i].id != newId) {
 				fichierIndex << listeSauvegarde[i].id << " " << listeSauvegarde[i].name << " " << listeSauvegarde[i].modeJeu << " " << listeSauvegarde[i].tailleGrille << " " << listeSauvegarde[i].chrono << endl;
 			}
 		}
@@ -504,7 +506,7 @@ int gestSauvegarde::sauvegarder(Jeu& jeu, string name, int mode, unsigned  int i
 
 
 	ofstream fichier;
-	fichier.open(cheminDossier + to_string(id) + ".sudokujeu", ios::out);
+	fichier.open(cheminDossier + to_string(newId) + ".sudokujeu", ios::out);
 	if (fichier.is_open()) {
 		unsigned char dimGrille = jeu.grilleJeu.dim;
 		//////////////sauvegarde des chiffres
@@ -608,10 +610,10 @@ int gestSauvegarde::sauvegarder(Jeu& jeu, string name, int mode, unsigned  int i
 		return -1;
 	}
 	updateListe();
-	return id;
+	return newId;
 }
 
-void gestSauvegarde::supprimerSauvegarde(unsigned char id)
+void gestSauvegarde::supprimerSauvegarde(const unsigned char& id)
 {
 	if (!valideId(id)) return;
 	nbSauvegarde--;
@@ -639,7 +641,7 @@ void gestSauvegarde::supprimerSauvegarde(unsigned char id)
 	updateListe();
 }
 
-void gestSauvegarde::renommerSauvegarde(unsigned int id, string name)
+void gestSauvegarde::renommerSauvegarde(const unsigned int& id, const string& name)
 {
 	if (!valideId(id)) return;
 	if (name == "") return;

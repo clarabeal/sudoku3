@@ -10,7 +10,7 @@ using namespace std;
 
 
 // ============= FONCTION D'INITIALISATION DE LA PARTIE(CONSTRUCTEURS & CO) + DESTRUCTEUR =============== //
-sdl1Vs1::sdl1Vs1(unsigned char d) : jeu(d), gestionnaireSauvegarde("data/saves/", "../data/saves/"), dimGrille(d), autoSave(false) {
+sdl1Vs1::sdl1Vs1(const unsigned char& d) : jeu(d), gestionnaireSauvegarde("data/saves/", "../data/saves/"), dimGrille(d), autoSave(false) {
     init_SDL();
     init_im_menu();
     init_assets();
@@ -30,7 +30,7 @@ sdl1Vs1::sdl1Vs1(unsigned char d) : jeu(d), gestionnaireSauvegarde("data/saves/"
     GrilleJactif = NULL;
 }
 
-sdl1Vs1::sdl1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrJ2, bool stopJ1, bool stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2), gestionnaireSauvegarde("data/saves/", "../data/saves/"), dimGrille(d), autoSave(true) {
+sdl1Vs1::sdl1Vs1(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu, const Grille& grilleJ1_, const Grille& grilleJ2_, const unsigned long int& chronoJ1_, const unsigned long int& chronoJ2_, const int& nbErrJ1, const int& nbErrJ2, const bool& stopJ1, const bool& stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2), gestionnaireSauvegarde("data/saves/", "../data/saves/"), dimGrille(d), autoSave(true) {
     init_SDL();
     init_im_menu();
     init_assets();
@@ -195,7 +195,7 @@ sdl1Vs1::~sdl1Vs1() {
 }
 
 // ============= FONCTION DE GESTION DES HITBoxS =============== //
-void sdl1Vs1::placementElementsMenu(int x1, int y1, int x2, int y2) {
+void sdl1Vs1::placementElementsMenu(const int& x1, const int& y1, const int& x2, int y2) {
     effacerElementsMenu();
     const int nb_element = 9;
 
@@ -303,7 +303,7 @@ void sdl1Vs1::effacerElementsMenu(){
     }
 }
 
-void sdl1Vs1::placerHitBoxCaseGrille(int x, int y, int largeur, int hauteur) {//supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché(indentique)
+void sdl1Vs1::placerHitBoxCaseGrille(const int& x, const int& y, const int& largeur, const int& hauteur) {//supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché(indentique)
     int largeurCase = largeur / dimGrille;
     int hauteurCase = hauteur / dimGrille;
     for (int l = 0; l < dimGrille; l++) {
@@ -372,7 +372,7 @@ void sdl1Vs1::sdlAff(){
 
 }
 
-void sdl1Vs1::sdlAffMenu(int x, int y, int largeur, int hauteur) {
+void sdl1Vs1::sdlAffMenu(const int& x, const int& y, const int& largeur, const int& hauteur) {
     placementElementsMenu(x, y, x + largeur, 0);
     for (int i = 0; i < 11; i += 2) {
         if (!tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
@@ -384,7 +384,7 @@ void sdl1Vs1::sdlAffMenu(int x, int y, int largeur, int hauteur) {
     }
 }
 
-void sdl1Vs1::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur) {
+void sdl1Vs1::sdlAffSelectionChiffre(const int& x, const int& y, const int& largeur, const int& hauteur) {
     for (int i = 0; i < dimGrille; i++) {
         tabHitBoxSelectionNombre[i].x1 = x + (i * largeur / dimGrille);
         tabHitBoxSelectionNombre[i].x2 = tabHitBoxSelectionNombre[i].x1 + (largeur / dimGrille);
@@ -405,7 +405,7 @@ void sdl1Vs1::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur) {
 
 }
 
-void sdl1Vs1::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur, bool afficher) {
+void sdl1Vs1::sdlAffGrille(const Grille& grille, const int& x, const int& y, const int& largeur, const int& hauteur, const bool& afficher) {
     assert((int)grille.dim == dimGrille);
     im_grille.draw(renderer, x, y, largeur, hauteur);
     placerHitBoxCaseGrille(x, y, largeur, hauteur);
@@ -465,7 +465,7 @@ void sdl1Vs1::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteu
     }
 }
 
-void sdl1Vs1::sdlAffChrono(int x, int y, int largeur, int hauteur, chronometre& chrono, bool full) {
+void sdl1Vs1::sdlAffChrono(const int& x, const int& y, const int& largeur, const int& hauteur, chronometre& chrono, const bool& full) {
 
     chrono.update();// a enlever apres les tests, ne doit pas être la
     SDL_Color couleur = { 0, 0, 0 };
@@ -804,7 +804,7 @@ void sdl1Vs1::sdlBoucle() {
     
 }
 
-void sdl1Vs1::sauvegarder(bool force) {
+void sdl1Vs1::sauvegarder(const bool& force) {
     cout << "Sauvegarde ...";
     if (force || autoSave) {
         if (jeu.sauvegardeId == 0) {
@@ -826,12 +826,12 @@ void sdl1Vs1::sauvegarder(bool force) {
 }
 // ============= FONCTIONS UTILITAIRES =============== //
 
-void sdl1Vs1::affImgInHitBox(Image& img, hitBox& hit)
+void sdl1Vs1::affImgInHitBox(Image& img, const hitBox& hit)
 {
     img.draw(renderer, hit.x1, hit.y1, hit.getLargeur(), hit.getHauteur());
 }
 
-void sdl1Vs1::sdlAffTexte(string txt, int x, int y, int largeur, int hauteur, SDL_Color& couleur) {
+void sdl1Vs1::sdlAffTexte(const string& txt, const int& x, const int& y, const int& largeur, const int& hauteur, const SDL_Color& couleur) {
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
     SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur

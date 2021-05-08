@@ -4,7 +4,7 @@
 using namespace std;
 
 //fait appel au constructeur de Tab2DCasesTas ac grille(d,d)
-Grille::Grille(unsigned char d):grille(d,d){
+Grille::Grille(const unsigned char& d):grille(d,d){
     dim = d;
     carres = new Carre[dim];
     lignes = new Ligne[dim];//chaque grille contient dim lignes
@@ -25,7 +25,7 @@ Grille::~Grille(){
     delete [] colonnes;
 }
 
-void Grille::setCase (unsigned char l, unsigned char c, unsigned char nb){ //on devrait aussi mettre setL,setC,setCarre
+void Grille::setCase (const unsigned char& l, const unsigned char& c, const unsigned char& nb){ //on devrait aussi mettre setL,setC,setCarre
     grille.getCase(l,c).setVal(nb);
 
 }
@@ -35,7 +35,7 @@ void Grille::viderGrille()
     grille.vider();
 }
 
-void Grille::operator=(Grille& tab)
+void Grille::operator=(const Grille& tab)
 {
     assert(dim = tab.dim);
     grille = tab.grille;

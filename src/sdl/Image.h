@@ -29,7 +29,7 @@ public:
 
     void loadFromFile(const char* filename, SDL_Renderer* renderer);
     void loadFromCurrentSurface(SDL_Renderer* renderer);
-    void draw(SDL_Renderer* renderer, int x, int y, int w = -1, int h = -1);
+    void draw(SDL_Renderer* renderer, const int& x, const int& y, const int& w = -1, const int& h = -1);
     SDL_Texture* getTexture() const;
     void setSurface(SDL_Surface* surf);
 

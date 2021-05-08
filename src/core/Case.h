@@ -1,14 +1,11 @@
 #ifndef _CASE_H
 #define _CASE_H
-
+/**
+\brief Represente une case de la grille
+*/
 class Case {
-
     public:
 
-    /**
-    @brief indique si la case est modifiable par le joueur
-    */
-    bool modifiable;
 
     /**
     @brief Constructeur par defaut d'une case vide
@@ -21,23 +18,29 @@ class Case {
      @param [in] valeur
      @param [in] mod
     */
-    Case (unsigned char valeur, bool mod,unsigned char etat_);
+    Case(const unsigned char& valeur,const bool& mod,const unsigned char& etat_);
 
     /**
      @brief Accesseur val : retourne Val
     */
-    unsigned char getVal () const;
+    unsigned char getVal() const;
 
     /**
      @brief mutateur : modifie la valeur contenue par la case
     */
-    void setVal (unsigned char nb);
+    void setVal(const unsigned char& nb);
+
+    /**
+    @brief indique si la case est modifiable par le joueur
+    */
+    bool modifiable;
 
     /**
      @brief indique l'etat de la case
      \details  0: On sait pas, 1 : La case est juste(vert), 2:La case est fausse(rouge), 3:la case est facile(bleu)
     */
     unsigned char etat;
+    
     private:
 
     /**

@@ -15,7 +15,7 @@ class Grille {
     @param [in] d dimension de la grille a creer
     @details Initialise la donnee dim avec d, cree un tableau 2D de cases de taille dim, remplit les lignes, colonnes, carres de la grille
     */
-    Grille(unsigned char d);
+    Grille(const unsigned char& d);
 
     /**
 	@brief Destructeur
@@ -24,8 +24,24 @@ class Grille {
     ~Grille();
 
     /**
-   @brief La grille est un tableau 2D de cases stocke sur le tas
-   */
+    @brief Procedure de modification d'une case de la grille
+    @param [in] l indice de la ligne a modifier
+    @param [in] c indice de la colonne a modifier
+    @param [in] nb nouvellle valeur de la case
+    @details Affecte la valeur nb a la case d'indice [l][c] de la grille
+    */
+    void setCase(const unsigned char& l, const unsigned char& c, const unsigned char& nb);
+
+    /**
+    @brief Set toutes les cases de la grille a 0 et les rend non modifiable
+    */
+    void viderGrille();
+
+    void operator = (const Grille& tab);
+
+    /**
+    @brief La grille est un tableau 2D de cases stocke sur le tas
+    */
     TabCases2DTas grille;
 
     /**
@@ -52,21 +68,8 @@ class Grille {
     Carre* carres;
 
 
-    /**
-	@brief Procedure de modification d'une case de la grille
-    @param [in] l indice de la ligne a modifier
-    @param [in] c indice de la colonne a modifier
-    @param [in] nb nouvellle valeur de la case
-    @details Affecte la valeur nb a la case d'indice [l][c] de la grille
-    */
-    void setCase (unsigned char l, unsigned char c, unsigned char nb);
-
-    /**
-    @brief Set toutes les cases de la grille a 0 et les rend non modifiable
-    */
-    void viderGrille();
-
-    void operator = (Grille& tab);
+    
+    
 
 };
 

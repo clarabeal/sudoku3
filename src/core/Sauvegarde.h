@@ -23,6 +23,7 @@ struct InfoSauvegarde {
 	unsigned long int chrono = 0;/**< Le temps en milliseconde depuis le debut de la partie */
 };
 
+
 /**\brief Gestionnaire d'acces aux sauvegardes
 *\details Apres avoir ete initialise dans un dossier dedie a la gestion de suavegarde, la classe cree un index
 * des sauvegardes presentes dans celui-ci et permet de les manipuler, supprimer et/ou d'en rajouter de nouvelles. 
@@ -35,7 +36,7 @@ public:
 	\details Un deuxieme emplacement peut etre indique, dans le cas ou le premier emplacement soit inaccessible, le gestionnaire tentera d'acceder au deuxieme.
 	\warning L'emplacement 2 ne peut pas etre vide (""), il ne sera pas teste si c'est le cas.
 	*/
-	gestSauvegarde(string emplacement, string emplacement2 = "");
+	gestSauvegarde(const string& emplacement, const string& emplacement2 = "");
 	~gestSauvegarde();/**<Detruit la liste des sauvegardes stockees sur le tas.*/
 	
 	unsigned int nbSauvegarde;/**< Le nombre de sauvegardes presentes dans le dossier emplacement.*/
@@ -62,12 +63,12 @@ public:
 	\warning Il est imperatif de verifier que l'id est bien assigne a une sauvegarde presente dans le dossier avant d'appeler la fonction.
 	\see valideId
 	*/
-	InfoSauvegarde& getInfoSauvegarde(unsigned char id) const;
+	InfoSauvegarde& getInfoSauvegarde(const unsigned char& id) const;
 
 	/**
 	\brief Renvoie vrai (true) si l'id correspond a une sauvegarde presente, faux (false) sinon
 	\param[in] id l'id de la sauvegarde dont on veut recuperer les informations.*/
-	bool valideId(unsigned char id) const;
+	bool valideId(const unsigned char& id) const;
 
 	/**
 	\brief Permet de charger les grilles de jeux presentes dans une sauvegarde.
@@ -79,7 +80,7 @@ public:
 	\see valideId
 
 	*/
-	void loadFromFile(unsigned int id, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille* grilleJ1 = NULL, Grille* grilleJ2 = NULL, unsigned long int* chronoJ1 = NULL, unsigned long int* chronoJ2 = NULL, int* nbErrJ1 = NULL, int* nbErrj2 = NULL, bool* stopJ1 = NULL, bool* stopJ2= NULL);
+	void loadFromFile(const unsigned int& id,  Grille& g_sol,  Grille& g_orig,  Grille& g_jeu,  Grille* grilleJ1 = NULL, Grille* grilleJ2 = NULL, unsigned long int* chronoJ1 = NULL, unsigned long int* chronoJ2 = NULL, int* nbErrJ1 = NULL, int* nbErrj2 = NULL, bool* stopJ1 = NULL, bool* stopJ2= NULL);
 
 	/**
 	\brief Permet de sauvegarder une partie de jeu
@@ -93,22 +94,22 @@ public:
 	\param[in] id id de la partie a mettre a jour Parametre facultatif
 	\warning Retourne -1 si une erreur s'est produite lors de l'ouverture de l'index des sauvegardes ou de la creation du fichier de sauvegarde
 	*/
-	int sauvegarder(Jeu& jeu, string name, int mode, unsigned int id = 0);
+	unsigned int sauvegarder(const Jeu& jeu, const string& name, const int& mode, const unsigned int& id = 0);
 
-	int sauvegarder(Jeu1Vs1& jeu, string name, int mode, unsigned int id = 0);
+	unsigned int sauvegarder(const Jeu1Vs1& jeu, const string& name, const int& mode, const unsigned int& id = 0);
 
 	/**
 	\brief Supprime la sauvegarde dont l'id est id
 	\param[in] id l'id de la sauvegarde a supprimer
 	*/
-	void supprimerSauvegarde(unsigned char id);
+	void supprimerSauvegarde(const unsigned char& id);
 
 	/**
 	\brief renomme la sauvegarde dont l'id est id
 	\param[in] id l'id de la sauvegarde a supprimer
 	\param[in] nzme le nouveau nom de la sauvegarde
 	*/
-	void renommerSauvegarde(unsigned int id, string name);
+	void renommerSauvegarde(const unsigned int&  id, const string& name);
 private:
 };
 

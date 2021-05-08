@@ -39,7 +39,7 @@ SaisieTextPopUp::SaisieTextPopUp(TTF_Font *font_)
     font_color.a = 0;
 }
 
-SaisieTextPopUp::SaisieTextPopUp(TTF_Font* font_, int largeur_, int hauteur_)
+SaisieTextPopUp::SaisieTextPopUp(TTF_Font* font_, const int& largeur_, const int& hauteur_)
 {
     texteDeFond = "";
     nomZoneTexte = "";
@@ -80,7 +80,7 @@ SaisieTextPopUp::~SaisieTextPopUp()
     //SDL_Quit();
 }
 
-string SaisieTextPopUp::getTexteSaisie(int largeur_, int hauteur_, string nomZoneTexte_, string textePreSaisie_,string texteDeFond_, bool requis)
+string SaisieTextPopUp::getTexteSaisie(const int& largeur_, const int& hauteur_, const string& nomZoneTexte_, const string& textePreSaisie_,const string& texteDeFond_, const bool& requis)
 {
 
     largeur = largeur_;
@@ -91,7 +91,7 @@ string SaisieTextPopUp::getTexteSaisie(int largeur_, int hauteur_, string nomZon
     return getTexteSaisie(requis);
 }
 
-string SaisieTextPopUp::getTexteSaisie(bool requis)
+string SaisieTextPopUp::getTexteSaisie(const bool& requis)
 {
     texteSaisie = textePreSaisie;
     char message[200];

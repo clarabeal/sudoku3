@@ -2,9 +2,10 @@
 #define _JEU_H
 
 #include "Grille.h"
-
 #include <ctime>
 
+/**
+\brief Chrno permettant la gestion du temps des parties*/
 class chronometre
 {
 public:
@@ -12,14 +13,14 @@ public:
     /**
     \brief Constructeur qui initialise le chorno avec un certain temps en ms 
     */
-    chronometre(unsigned long int ms);
+    chronometre(const unsigned long int& ms);
 
     ~chronometre();
     
     /**
    \brief Regle le chrnometre a un certain temps en ms
    */
-    void forceTime(unsigned long int ms);
+    void forceTime(const unsigned long int& ms);
     /**
     \brief Met a jour le temps du chronometre
     */
@@ -39,6 +40,11 @@ public:
     */
     void reset();
 
+    /**
+    \brief Retourne le temps en millisecondes sans mettre a jour le chrono
+    \details Permet de recuperer le temps a partir d'un chrno passe const
+    */
+    unsigned long int getTimeInMSecNoUpdate() const;
     /**
     \brief Retourne le temps en millisecondes
     */
@@ -68,9 +74,22 @@ private:
 
 };
 
+
+/**\brief coeur du jeu*/
 class Jeu {
 
     public :
+    /**
+    @brief Constructeur a parametres
+    @details Cree une grilleJeu et une grilleSolution toutes les 2 de taille dim
+    */
+    Jeu(const unsigned char& d);
+
+    /**
+    @brief Constructeur a parametres a partir d'une sauvegarde
+    @details Recommence une partie avec les grilles passees en parametres
+    */
+    Jeu(const unsigned char& d, const int& id, const unsigned long& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu);
 
     /**
     @brief Grille pleine, contient la solution du sudoku
@@ -87,13 +106,8 @@ class Jeu {
     */
     Grille grilleJeu;
 
-    /**
-    @brief Constructeur a parametres
-    @details Cree une grilleJeu et une grilleSolution toutes les 2 de taille dim
-    */
-    Jeu(unsigned char d);
+    
 
-    Jeu(unsigned char d,int id,unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
 
     /**
     @brief Destructeur
@@ -103,20 +117,20 @@ class Jeu {
     /**
     @brief Genere une grille pleine, qui respecte les contraintes d'une grille de sudoku
     */
-    bool genererGrillePleine (int etape = 0);
+    bool genererGrillePleine (const int& etape = 0);
 
     /**
     @brief Remplit un tableau avec des entiers aleatoires compris entre 1 et max
     @param [je sais pas] tab : le tableau a remplir
     @param [in] max la valeur maximale que doit prendre les nombres geres aleatoirement
     */
-    void remplirTblAlea(unsigned char* tab, unsigned char max);
+    void remplirTblAlea(unsigned char* tab, const unsigned char& max);
 
 
     /**
     @brief Renvoie le nombre de solution possible pour une grille
     */
-    unsigned char nombreDeSolutions (Grille &grille) const;
+    unsigned char nombreDeSolutions (const Grille& grille) const;
 
     /**
     @brief Genere la grille de jeu a partir de la grille de solution
@@ -127,7 +141,7 @@ class Jeu {
     @brief Verifie si la grille est pleine ou non
     @details Retourne 1 si pleine, 0 sinon
      */
-    bool verifGrillePleine(Grille& grille) const;
+    bool verifGrillePleine(const Grille& grille) const;
 
     /**
     @brief Initialise une grille
@@ -140,19 +154,19 @@ class Jeu {
     @brief Verifie si la valeur donnée est valide
     @details Retourne true si la valeur est valide, false sinon
     */
-    bool estValValide (unsigned char valeur) const;
+    bool estValValide (const unsigned char& valeur) const;
 
     /**
     @brief Verifie si les coordonnées données sont valides et si la case est modifiable
     @details Retourne true si elles sont valides, false sinon
     */
-    bool sontCorValides (unsigned char l, unsigned char c) const;
+    bool sontCorValides (const unsigned char& l, const unsigned char& c) const;
 
     /**
     @brief Verifie si la case est modifiable
     @details Retourne true si la case est modifiable, false sinon
     */
-    bool getModifCase (unsigned char l, unsigned char c) const;
+    bool getModifCase (const unsigned char& l, const unsigned char& c) const;
 
 
     /**
@@ -164,7 +178,7 @@ class Jeu {
     @brief Determine dans quel carre de la grille se trouve la case [l][c]
     @details Retourne l'indice du carre dans lequel se trouve la case
     */
-    unsigned char trouverNumeroCarre(unsigned char l, unsigned char c) const;
+    unsigned char trouverNumeroCarre(const unsigned char& l, const unsigned char& c) const;
 
     /**
     @brief Indique si la partie a déja été initialisé
@@ -188,28 +202,47 @@ private:
 
 };
 
+
+/**\brief coeur du jeu + fonctions et donnees membre du mode pas a pas*/
 class JeuPasAPas: public Jeu
 {
 public:
-    JeuPasAPas(unsigned char d);
-    JeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+    /**
+    @brief Constructeur a parametres
+    @details Cree une grilleJeu et une grilleSolution toutes les 2 de taille dim
+    */
+    JeuPasAPas(const unsigned char& d);
+
+    /**
+    @brief Constructeur a parametres a partir d'une sauvegarde
+    @details Recommence une partie avec les grilles passees en parametres
+    */
+    JeuPasAPas(const unsigned char& d, const int& id, const unsigned long& time, const Grille& g_sol,const Grille& g_orig, const Grille& g_jeu);
 
     ~JeuPasAPas();
 
+    /**\brief Met a jour le tableau tabDiffCase*/
     void updateDiffCase();
 
-    unsigned char getDiffCase(unsigned char l, unsigned char c, bool diff_type = 1);
+    /**\brief Retourne la difficulte de la case passee en parametre*/
+    unsigned char getDiffCase(const unsigned char& l, const unsigned char& c, const bool& diff_type = 1);
 
+    /**\brief Fait passer les coordonnees de la case la plus simle dans l et c*/
     void coordCaseSimple(unsigned char& l, unsigned char& c);
 
     void printTabDiff()const;
 
-    unsigned char* tabDiffCase;
-
+    /**\brief Retire les cases fausses de la grille de jeu*/
     void retirerCasesFausses();
 
+    /** Tableau contenant la difficulte de chaque case de la grille
+    \see updateDiffCase()*/
+    unsigned char* tabDiffCase;
+    
+    /**\brief Inique si l'aide affichante les cases fausses est activee*/
     bool coloration;
 
+    /**\brief Mets a jour l'etat de chaque case*/
     void colorerCase();
 
 private:
@@ -217,18 +250,35 @@ private:
 
 };
 
+
+/**\brief coeur du jeu + fonctions et donnees membre du mode 1vs1 */
 class Jeu1Vs1 : public Jeu
 {
 public:
-    Jeu1Vs1(unsigned char d);
-    Jeu1Vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrj2, bool stopJ1, bool stopJ2);
+    /**
+    @brief Constructeur a parametres
+    @details Cree une grilleJeu et une grilleSolution toutes les 2 de taille dim
+    */
+    Jeu1Vs1(const unsigned char& d);
+
+    /**
+     @brief Constructeur a parametres a partir d'une sauvegarde
+     @details Recommence une partie avec les donnees passees en parametres
+     */
+    Jeu1Vs1(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu, const Grille& grilleJ1_, const Grille& grilleJ2_, const unsigned long int& chronoJ1_, const unsigned long int& chronoJ2_, const int& nbErrJ1, const int& nbErrj2, const bool& stopJ1, const bool& stopJ2);
 
     ~Jeu1Vs1();
 
+    /**\brief contient la grille du joueur 1*/
     Grille grilleJ1;
+
+    /**\brief contient la grille du joueur 2*/
     Grille grilleJ2;
 
+    /**\brief contient le chrono du joueur 1*/
     chronometre chronoJ1;
+
+    /**\brief contient le chrono du joueur 2*/
     chronometre chronoJ2;
 
     int nbErreurJ1;

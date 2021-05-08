@@ -159,7 +159,7 @@ void TabCases2DTas::vider()
 	}
 }
 
-void TabCases2DTas::operator = (TabCases2DTas &tab)
+void TabCases2DTas::operator = (const TabCases2DTas &tab)
 {
 	for (unsigned char l = 1; l <= dimLignes; l++) {
 		for (unsigned char c = 1; c <= dimColonnes; c++) {

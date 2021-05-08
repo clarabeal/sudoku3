@@ -4,7 +4,7 @@
 #include <cassert>
 using namespace std;
 
-Colonne::Colonne():valide(1)
+Colonne::Colonne()
 {
 	tabcl = nullptr;
 	tailleGrille = 0;
@@ -15,21 +15,23 @@ Colonne::Colonne(unsigned char numeroColonne, TabCases2DTas& grille)
 	remplir(numeroColonne, grille);
 }
 
-void Colonne::remplir(unsigned char numeroColonne, TabCases2DTas& grille) {
+Colonne::~Colonne()
+{
+	if (tabcl != nullptr) delete[]tabcl;
+}
+
+
+void Colonne::remplir(const unsigned char& numeroColonne, const TabCases2DTas& grille) {
 	assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit �tre carr� sinon c'est pas une grille
 	tailleGrille = grille.getDimLignes();
-
 	tabcl = new Case *[tailleGrille];
 	for (unsigned char i = 0; i < tailleGrille; ++i) {
-			tabcl[i] = grille.getPtr(i, numeroColonne-1);//tab[tab[col * tailleCarre + ligne];
-			//cout << "i: " << i << " | " << tab[i] << " = " << tab[i]->getVal() << endl;
+		tabcl[i] = grille.getPtr(i, numeroColonne-1);//tab[tab[col * tailleCarre + ligne];
+		//cout << "i: " << i << " | " << tab[i] << " = " << tab[i]->getVal() << endl;
 	}
 }
 
-Colonne::~Colonne()
-{
-	if(tabcl != nullptr) delete []tabcl;
-}
+
 
 void Colonne::print() const
 {
@@ -38,7 +40,7 @@ void Colonne::print() const
 	}
 }
 
-bool Colonne::isIn(unsigned char val)
+bool Colonne::isIn(const unsigned char& val)
 {
 	for (unsigned char i = 0; i < tailleGrille; i++) {
 		if (tabcl[i]->getVal() == val) {

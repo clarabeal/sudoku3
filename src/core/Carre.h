@@ -25,25 +25,19 @@ public:
 	/**\brief Constructeur
 	\details Constructeur qui appel directement remplir
 	\see remplir(unsigned char numeroCarre, TabCases2DTas& grille) */
-	Carre(unsigned char numeroCarre, TabCases2DTas& grille);
+	Carre(const unsigned char& numeroCarre, const TabCases2DTas& grille);
+
+	~Carre();
 
 	/**
 	\brief Remplit le carre en fonction de sa position dans la grille 
 	\details Prends en parametre une reference sur grille et le numero du carre(qui definit sa postion dans la grille voir l'image de la description de la classe)
 	Copie l'adresse des cases correspondantes de la grille passee en parametre dans le tableau local a la fonction et initialise la variable tailleGrille
 	*/
+	void remplir(const unsigned char& numeroCarre, const TabCases2DTas& grille);
 
-	void remplir(unsigned char numeroCarre, TabCases2DTas& grille);
-	~Carre();
-
-	/**
-	\brief vaut ou retourne 0 si il y a deux fois le meme chiffre dans le carre 1 sinon
-	*/
-	bool valide;
-	/**\brief Contient la taille de la grille ou se trouve le carre(en nombre de case)*/
-	unsigned char tailleGrille;
-	/**\brief Contient la taille d'un carre de la grille ou se trouve le carre(en nombre de case). Ex: Grille de 9*9 -> carre 3*3*/
-	unsigned char tailleCarre;
+	/**\brief Indique si l'element passe en parametre est deja dans le carre (0 si non 1 si oui)*/
+	bool isIn(const unsigned char& val) const;
 
 	/**\brief Affiche a l'ecran toutes les informations utiles sur la fonction, utile pour le debugage */
 	void print() const;
@@ -51,11 +45,14 @@ public:
 	/**\brief Tableau de pointeur sur les cases du carre
 	\details Il s'agit d'un double pointeur car la taille d'un carre etant definie lors de l'instanciation du carre celui-ci doit etre sur le tas */
 	Case **tabc;
-	/**\brief Indique si l'element passe en parametre est deja dans le carre (0 si non 1 si oui)*/
-	bool isIn(unsigned char val);
+	
 
 private:
+	/**\brief Contient la taille de la grille ou se trouve le carre(en nombre de case)*/
+	unsigned char tailleGrille;
 
+	/**\brief Contient la taille d'un carre de la grille ou se trouve le carre(en nombre de case). Ex: Grille de 9*9 -> carre 3*3*/
+	unsigned char tailleCarre;
 };
 
 

@@ -10,7 +10,7 @@ using namespace std;
 
 
 // ============= FONCTION D'INITIALISATION DE LA PARTIE(CONSTRUCTEURS & CO) + DESTRUCTEUR =============== //
-sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false){
+sdlJeuPasAPas::sdlJeuPasAPas(const unsigned char& d) : jeu(d), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false){
     init_SDL();
     init_im_menu();
     init_assets();
@@ -30,7 +30,7 @@ sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d) : jeu(d), dimGrille(d), gestionnai
 
 }
 
-sdlJeuPasAPas::sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false) {//presque identique (qq donnes membres en plus dans 1vs1)
+sdlJeuPasAPas::sdlJeuPasAPas(const unsigned char& d, const int& id, const unsigned long& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false) {//presque identique (qq donnes membres en plus dans 1vs1)
     init_SDL();
     init_im_menu();
     init_assets();
@@ -162,10 +162,9 @@ void sdlJeuPasAPas::init_assets()//identique
         }
     }//Chargement des images pour la selection du chiffre a placer
 
-    gris.loadFromFile("data/assets/couleursDeFond/Gris.png", renderer);
-    bleu.loadFromFile("data/assets/couleursDeFond/Bleu.png", renderer);
-    rouge.loadFromFile("data/assets/couleursDeFond/Rouge.png", renderer);
-    vert.loadFromFile("data/assets/couleursDeFond/Vert.png", renderer);
+    indicateurCaseSelectionee.loadFromFile("data/assets/couleursDeFond/Gris.png", renderer);
+    indicateurCaseFacile.loadFromFile("data/assets/couleursDeFond/Bleu.png", renderer);
+
 }
 
 void sdlJeuPasAPas::init_im_menu(){
@@ -232,7 +231,7 @@ sdlJeuPasAPas::~sdlJeuPasAPas() {//identique
 
 // ============= FONCTION DE GESTION DES HITBoxS =============== //
 
-void sdlJeuPasAPas::placementElementsMenu(int x1, int y1, int x2, int y2) {
+void sdlJeuPasAPas::placementElementsMenu(const int& x1, const int& y1, const int& x2, int y2) {
     effacerElementsMenu();
     const int nb_element = 9;
 
@@ -387,7 +386,7 @@ void sdlJeuPasAPas::effacerElementsMenu() {//supprime les hitboxs du menu pour q
     }
 }
 
-void sdlJeuPasAPas::placerHitBoxCaseGrille(int x, int y, int largeur, int hauteur) {//supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché(indentique)
+void sdlJeuPasAPas::placerHitBoxCaseGrille(const int& x, const int& y, const int& largeur, const int& hauteur) {//supprime les hitboxs du menu pour qu'on ne puisse pas cliquer dessus lorsqu'il n'est pas affiché(indentique)
     int largeurCase = largeur / dimGrille;
     int hauteurCase = hauteur / dimGrille;
     for (int l = 0; l < dimGrille; l++) {
@@ -455,7 +454,7 @@ void sdlJeuPasAPas::sdlAff() {
 
 }
 
-void sdlJeuPasAPas::sdlAffMenu(int x, int y, int largeur, int hauteur) {
+void sdlJeuPasAPas::sdlAffMenu(const int& x, const int& y, const int& largeur, const int& hauteur) {
     placementElementsMenu(x, y, x + largeur, 0);
     for (int i = 0; i < 24; i += 2) {
         if (!tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
@@ -467,7 +466,7 @@ void sdlJeuPasAPas::sdlAffMenu(int x, int y, int largeur, int hauteur) {
     }
 }
 
-void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur) {
+void sdlJeuPasAPas::sdlAffSelectionChiffre(const int& x, const int& y, const int& largeur, const int& hauteur) {
     for (int i = 0; i < dimGrille; i++) {
         tabHitBoxSelectionNombre[i].x1 = x + (i * largeur / dimGrille);
         tabHitBoxSelectionNombre[i].x2 = tabHitBoxSelectionNombre[i].x1 + (largeur / dimGrille);
@@ -488,7 +487,7 @@ void sdlJeuPasAPas::sdlAffSelectionChiffre(int x, int y, int largeur, int hauteu
 
 }
 
-void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int hauteur, bool afficher) {
+void sdlJeuPasAPas::sdlAffGrille(const Grille& grille, const int& x, const int& y, const int& largeur, const int& hauteur, const bool& afficher) {
     assert((int)grille.dim == dimGrille);
     jeu.colorerCase();
     im_grille.draw(renderer, x, y, largeur, hauteur);
@@ -519,14 +518,14 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
                     couleur.b = 50;
                     break;
                 case 3:
-                    bleu.draw(renderer, x + (c)*largeurCase, y + (l)*hauteurCase, hauteurCase, largeurCase);
+                    indicateurCaseFacile.draw(renderer, x + (c)*largeurCase, y + (l)*hauteurCase, hauteurCase, largeurCase);
                     break;
                 default:
                     break;
                 }
 
                 if (l_toChange != 0) {// si une case est en cours de modification, on met un fond gris sur celle ci
-                    gris.draw(renderer, x + (c_toChange - 1) * largeurCase, y + (l_toChange - 1) * hauteurCase, hauteurCase, largeurCase);
+                    indicateurCaseSelectionee.draw(renderer, x + (c_toChange - 1) * largeurCase, y + (l_toChange - 1) * hauteurCase, hauteurCase, largeurCase);
                 }
 
                 if (grille.grille.getCase(l, c).getVal() != 0) {
@@ -567,7 +566,7 @@ void sdlJeuPasAPas::sdlAffGrille(Grille& grille, int x, int y, int largeur, int 
     }
 }
 
-void sdlJeuPasAPas::sdlAffChrono(int x, int y, int largeur, int hauteur, chronometre& chrono, bool full) {
+void sdlJeuPasAPas::sdlAffChrono(const int& x, const int& y, const int& largeur, const int& hauteur, chronometre& chrono, const bool& full) {
 
     chrono.update();// a enlever apres les tests, ne doit pas être la
     SDL_Color couleur = { 0, 0, 0 };
@@ -809,7 +808,7 @@ void sdlJeuPasAPas::sdlBoucle() {
     }
 }
 
-void sdlJeuPasAPas::sauvegarder(bool force) {
+void sdlJeuPasAPas::sauvegarder(const bool& force) {
     cout << "Sauvegarde ...";
     if (force || autoSave) {
         if (jeu.sauvegardeId == 0) {
@@ -832,12 +831,12 @@ void sdlJeuPasAPas::sauvegarder(bool force) {
 
 // ============= FONCTIONS UTILITAIRES =============== //
 
-void sdlJeuPasAPas::affImgInHitBox(Image& img, hitBox& hit)
+void sdlJeuPasAPas::affImgInHitBox(Image& img, const hitBox& hit)
 {
     img.draw(renderer, hit.x1, hit.y1, hit.getLargeur(), hit.getHauteur());
 }
 
-void sdlJeuPasAPas::sdlAffTexte(string txt, int x, int y, int largeur, int hauteur, SDL_Color& couleur) {
+void sdlJeuPasAPas::sdlAffTexte(const string& txt, const int& x, const int& y, const int& largeur, const int& hauteur, const SDL_Color& couleur) {
     SDL_Surface* texte = nullptr;
     SDL_Rect position;
     SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur

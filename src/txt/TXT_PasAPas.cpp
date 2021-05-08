@@ -5,11 +5,11 @@
 #include <string>
 using namespace std;
 
-TXT_PasAPas::TXT_PasAPas(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu) {
+TXT_PasAPas::TXT_PasAPas(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu): jeu(d, id, time, g_sol, g_orig, g_jeu) {
 
 }
 
-TXT_PasAPas::TXT_PasAPas(unsigned char d) : jeu(d) {
+TXT_PasAPas::TXT_PasAPas(const unsigned char& d) : jeu(d) {
 
 }
 

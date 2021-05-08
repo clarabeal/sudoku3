@@ -10,12 +10,12 @@ Ligne::Ligne():tailleGrille(0), tailleLigne(0) {
 
 }
 
-Ligne::Ligne(unsigned char numeroLigne, TabCases2DTas& grille){
+Ligne::Ligne(const unsigned char& numeroLigne, const TabCases2DTas& grille){
 
     remplir(numeroLigne, grille);
 }
 
-void Ligne::remplir(unsigned char numeroLigne, TabCases2DTas& grille){
+void Ligne::remplir(const unsigned char& numeroLigne, const TabCases2DTas& grille){
     assert(grille.getDimCol() == grille.getDimLignes()); //Le tbl 2d grille doit �tre carr� sinon c'est pas une grille
     tailleLigne = grille.getDimCol();
     tabl = new Case *[tailleLigne];
@@ -37,7 +37,7 @@ void Ligne::print() const {
 	}
 }
 
-bool Ligne::isIn(unsigned char val)
+bool Ligne::isIn(const unsigned char& val)
 {
 	for (unsigned char i = 0; i < tailleLigne; i++) {
 		if (tabl[i]->getVal() == val) {

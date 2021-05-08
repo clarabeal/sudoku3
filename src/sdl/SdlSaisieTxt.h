@@ -21,15 +21,17 @@
 #endif
 using namespace std;
 
+/**\brief Permet d'ouvir une fenetre permetant de saisir du texte du texte*/
 class SaisieTextPopUp
 {
 public:
 	SaisieTextPopUp(TTF_Font* font_);
-	SaisieTextPopUp(TTF_Font* font_, int largeur,int hauteur);
+	/**\brief Le pop up ferat hauteurxlargeur */
+	SaisieTextPopUp(TTF_Font* font_, const int& largeur,const int& hauteur);
 	~SaisieTextPopUp();
-	string getTexteSaisie(int largeur_, int hauteur_, string nomZoneTexte_, string textePreSaisie_ = "", string texteDeFond_ = "", bool requis = 0);
+	string getTexteSaisie(const int& largeur_, const int& hauteur_, const string& nomZoneTexte_, const string& textePreSaisie_ = "", const string& texteDeFond_ = "", const bool& requis = 0);
 
-	string getTexteSaisie(bool requis = 0);
+	string getTexteSaisie(const bool& requis = 0);
 
 	string nomZoneTexte, texteDeFond;
 

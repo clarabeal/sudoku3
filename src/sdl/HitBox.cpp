@@ -2,7 +2,7 @@
 
 
 
-hitBox::hitBox(int x1, int x2, int y1, int y2)
+hitBox::hitBox(const int& x1, const int& x2, const int& y1, const int& y2)
 {
 	this->x1 = x1;
 	this->x2 = x2;
@@ -19,18 +19,18 @@ hitBox::hitBox()
 	y2 = 0;
 }
 
-int hitBox::getLargeur()
+int hitBox::getLargeur()const
 {
 	return x2 - x1;
 
 }
 
-int hitBox::getHauteur()
+int hitBox::getHauteur()const
 {
 	return y2 - y1;
 }
 
-bool hitBox::is_in(const int x, const int y)
+bool hitBox::is_in(const int x, const int y)const
 {
 	if (x >= x1 && x <= x2 && y >= y1 && y <= y2) return true;
 	return false;

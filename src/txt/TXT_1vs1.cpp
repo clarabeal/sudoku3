@@ -5,10 +5,10 @@
 
 using namespace std;
 
-TXT_1vs1::TXT_1vs1(unsigned char d) : jeu(d), gestionnaireSauvegarde("data/saves/", "../data/saves/"){
+TXT_1vs1::TXT_1vs1(const unsigned char& d) : jeu(d), gestionnaireSauvegarde("data/saves/", "../data/saves/"){
 
 }
-TXT_1vs1::TXT_1vs1(unsigned char d, int id, unsigned long int time, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille& grilleJ1_, Grille& grilleJ2_, unsigned long int chronoJ1_, unsigned long int chronoJ2_, int nbErrJ1, int nbErrJ2, bool stopJ1, bool stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2),gestionnaireSauvegarde("data/saves/", "../data/saves/") {
+TXT_1vs1::TXT_1vs1(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu, const Grille& grilleJ1_, const Grille& grilleJ2_, const long int& chronoJ1_, const unsigned long int& chronoJ2_, const int& nbErrJ1, const int& nbErrJ2, const bool& stopJ1, const bool& stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2),gestionnaireSauvegarde("data/saves/", "../data/saves/") {
   
 }
 TXT_1vs1::~TXT_1vs1 () {

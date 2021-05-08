@@ -38,7 +38,7 @@ public:
     \details Initialise une nouvelle partie de jeu et le gestionnaire de sauvegarde.
     \param [in] d La dimension de la grille de jeu.
     */
-    sdlJeuPasAPas(unsigned char d);
+    sdlJeuPasAPas(const unsigned char& d);
 
     /**
     \brief Constructeur apartir d'une partie sauvegardee
@@ -51,7 +51,7 @@ public:
     \param [in] g_jeu La grille de jeu chargee
 
     */
-    sdlJeuPasAPas(unsigned char d, int id, unsigned long time, Grille& g_sol, Grille& g_orig, Grille& g_jeu);
+    sdlJeuPasAPas(const unsigned char& d, const int& id, const unsigned long& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu);
 
     /**
     \brief Initialise SDL
@@ -61,7 +61,7 @@ public:
 
     /**
     \brief Charge les assets
-    \details Charge les differentes images, Grille, selection des nombres...
+    \details Charge les differentes images, grille, selection des nombres...
     */
     void init_assets();
 
@@ -91,7 +91,7 @@ public:
     /**
     \brief Place les hitBoxs du menu
     \details doit être appelée pour supprimer les hitBoxs et que le joueurs ne puisse pas cliquer sur un nombre lorsqu'aucune case n'est selectionnee*/
-    void placementElementsMenu(int x1, int y1, int x2, int y2 = 0);
+    void placementElementsMenu(const int& x1, const int& y1, const int& x2, int y2 = 0);
 
     /**
     \brief Reset toutes les hitboxs du menu
@@ -100,7 +100,7 @@ public:
 
     /**
     \brief Place les hitBoxs de chaque case de la grille*/
-    void placerHitBoxCaseGrille(int x, int y, int largeur, int hauteur);
+    void placerHitBoxCaseGrille(const int& x, const int& y, const int& largeur, const int& hauteur);
 
 
     // ============= FONCTION D'AFFICHAGE =============== //
@@ -112,22 +112,22 @@ public:
     /**\brief Affiche le menu en placant le coin en haut a gauche en (x,y)
     \details affiche les images du menu aux positions des hitBoxs associes
     \see void placementElementsMenu(int x1, int y1, int x2, int y2 = 0) */
-    void sdlAffMenu(int x, int y, int largeur, int hauteur);
+    void sdlAffMenu(const int& x, const int& y, const int& largeur, const int& hauteur);
 
     /**\brief Affiche le menu de selection des chiffres en placant le coin en haut a gauche en (x,y)
     \details Place les hitBoxes et affcihe les images du menu de selection des chiffres 
     \see void placementElementsMenu(int x1, int y1, int x2, int y2 = 0) */
-    void sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
+    void sdlAffSelectionChiffre(const int& x, const int& y, const int& largeur, const int& hauteur);
 
     /**\brief Affiche la grille de jeu
     \details Affiche l'image de fond de la grille et si afficher vaut true, affiche egalement les valeur de la grille passee en parametre
     Au debut de chaque partie, la fonction jeu.colorerCases est appelee.
     see JeuPasAPas::colorerCase()*/
-    void sdlAffGrille(Grille& grille, int x1, int y1, int x2, int y2, bool afficher = true);
+    void sdlAffGrille(const Grille& grille, const int& x1, const int& y1, const int& x2, const int& y2, const bool& afficher = true);
 
     /**\brief Affiche la chrono
     \details si full est a true, les millisecondes sont également affichees*/
-    void sdlAffChrono(int x, int y, int largeur, int hauteur, chronometre& chrono, bool full = false);
+    void sdlAffChrono(const int& x, const int& y, const int& largeur, const int& hauteur, chronometre& chrono, const bool& full = false);
 
     /**\brief Affiche les informations de fin de partie*/
     void sdlAffFinDePartie();
@@ -144,28 +144,48 @@ public:
     /**\brief sauvegarde la partie
     \details si force vaut true, la partie est sauvegarder sans prendre en compte le parametre autoSauvegarde. Un nom pour la sauvegarde sera demande si nescessaire.
     Si force vaut false la partie ne sera sauvegardee que si autoSave vaut true*/
-    void sauvegarder(bool force = false);
+    void sauvegarder(const bool& force = false);
 
 
     // ============= FONCTIONS UTILITAIRES =============== //
     /**\brief Affiche une image qui remplit la hitBox en parametre*/
-    void affImgInHitBox(Image& img, hitBox& hit);
+    void affImgInHitBox(Image& img, const hitBox& hit);
 
     /**\brief Affiche le texte de string*/
-    void sdlAffTexte(string txt, int x, int y, int largeur, int hauteur, SDL_Color& couleur);
+    void sdlAffTexte(const string& txt, const int& x, const int& y, const int& largeur, const int& hauteur, const SDL_Color& couleur);
 
 
 
 private:
     //------------------Donn�es core mode pas a pas
+    /**\see JeuPasAPas*/
     JeuPasAPas jeu;
 
+    /**\brief La dimension des grilles de la partie en cours*/
     const int dimGrille;
-    int c_toChange, l_toChange;
-    int mousse_x, mousse_y;
+
+    /**\brief colonne de la case en cours de modification
+    \details vaut 0 si aucune case n'est entrain d'etre modifiee */
+    int c_toChange;
+    /**\brief ligne de la case en cours de modification
+        \details vaut 0 si aucune case n'est entrain d'etre modifiee */
+    int l_toChange;
+
+    /**\brief position x de la souris*/ 
+    int mousse_x;
+    /**\brief position y de la souris*/
+    int mousse_y;
+
+    /**\brief indique si la partie est finie
+    \details true = finie, false = en cours*/
     bool finDePartie;
+
+    /**\brief etat de la sauvegarde automatique
+       \details true = activee, false = desactivee*/
     bool autoSave;
+
     //------------------Donne�es/focntions sauvegarde
+    /**\see gestSauveagrde*/
     gestSauvegarde gestionnaireSauvegarde;
 
     //------------------Donn�es SDL
@@ -176,16 +196,44 @@ private:
     SDL_Color font_color;
 
     //------------------Image globale
+    /**
+    \brief Tableaux contenant les images du menu
+    \see void init_im_menu()*/
     Image im_menu[24];
+
+    /**\brief L'image de fond de la grille
+    \see void init_assets()*/
     Image im_grille;
+
+    /**\brief contient les images du menu de selection des images
+       \details Tableau de taille dim+1
+       \see void init_assets() */
     Image* im_selectionChiffre;
-    Image bleu;
-    Image gris;
-    Image rouge;
-    Image vert;
+
+    /**\brief Image a afficher par dessus une case facile
+       \see void init_assets() */
+    Image indicateurCaseFacile;
+
+    /**\brief Image a afficher par dessus la case selectionnee
+       \see void init_assets() */
+    Image indicateurCaseSelectionee;
+
     //------------------HitBoxs
-    hitBox  tabHitBoxSelectionMenu[24];//tableau 2D stockant les positions des bouton du menu (associe a im_menu)
+    /**\brief Tableau de hitBox contenant toutes les zones clicables associees au menu
+       \details Chaque elements i de tabHitBoxSelectionMenu[i] est associe a l'image im_menu[i]
+       \see void placementElementsMenu(int x1, int y1, int x2, int y2 = 0)
+       \see hitBox*/
+    hitBox  tabHitBoxSelectionMenu[24];
+
+    /**\brief Tableau de hitBox contenant toutes les zones clicables de la grille (une par case)
+       \see void placerHitBoxCaseGrille(int x, int y, int largeur, int hauteur);
+       \see hitBox*/
     hitBox* tabHitBoxGrille;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
+
+    /**\brief Tableau de hitBox contenant toutes les zones clicables de la selection des nombres
+       \see sdlAffSelectionChiffre(int x, int y, int largeur, int hauteur);
+       \see resetTabHitSelectionNombre()
+       \see hitBox*/
     hitBox* tabHitBoxSelectionNombre;//tableau 2D stockant les positions des cases de la grille pour gerer les clics
 };
 

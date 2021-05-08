@@ -59,7 +59,7 @@ void Image::loadFromCurrentSurface(SDL_Renderer* renderer) {
     }
 }
 
-void Image::draw(SDL_Renderer* renderer, int x, int y, int w, int h) {
+void Image::draw(SDL_Renderer* renderer, const int& x, const int& y, const int& w, const int& h) {
     int ok;
     SDL_Rect r;
     r.x = x;

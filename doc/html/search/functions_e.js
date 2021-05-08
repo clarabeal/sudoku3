@@ -1,16 +1,8 @@
 var searchData=
 [
-  ['sauvegarder',['sauvegarder',['../classgest_sauvegarde.html#a7ff87a9d4e4ebaf0714d53adece91811',1,'gestSauvegarde']]],
-  ['sdlaff',['sdlAff',['../classsdl_jeu.html#aedada55e3f96ba37493664d358dc7b60',1,'sdlJeu']]],
-  ['sdlboucle',['sdlBoucle',['../classsdl_jeu.html#a5628835d7efcab056985c3aa3de56836',1,'sdlJeu']]],
-  ['sdljeu',['sdlJeu',['../classsdl_jeu.html#a2a396de084238520d3abd33a35ee75a1',1,'sdlJeu']]],
-  ['selectiondim',['selectionDim',['../main__txt_8cpp.html#a6425b7ef958dec1af1212d67aaa2a17f',1,'main_txt.cpp']]],
-  ['selectionmenu',['selectionMenu',['../main__txt_8cpp.html#a8b4757c507b6a2b2fe75f81cbe31ee83',1,'main_txt.cpp']]],
-  ['selectionsave',['selectionSave',['../main__txt_8cpp.html#a7f62fe594a817ae5154cdd376c8aa595',1,'main_txt.cpp']]],
-  ['setcase',['setCase',['../class_grille.html#a1df0744eb05508eded59fea19c45c090',1,'Grille']]],
-  ['setsurface',['setSurface',['../class_image.html#a833f5d3b4b9f905320c6dffcc9b84b95',1,'Image']]],
-  ['setval',['setVal',['../class_case.html#ae432f2256ae32a004a81cb45e53c3429',1,'Case']]],
-  ['sontcorvalides',['sontCorValides',['../class_jeu.html#a39630c207edf061ef795569e30d428b6',1,'Jeu']]],
-  ['start',['start',['../classchronometre.html#a9b5685d521d4bf58764b5dee639d9582',1,'chronometre']]],
-  ['supprimersauvegarde',['supprimerSauvegarde',['../classgest_sauvegarde.html#a522d35f06ab29ecfdb0bd3d0b8a097b1',1,'gestSauvegarde']]]
+  ['pause',['pause',['../classchronometre.html#aa36158afbd8469cd95e6c371246385e4',1,'chronometre']]],
+  ['placementelementsmenu',['placementElementsMenu',['../classsdl1_vs1.html#af37eea25c4f060a3122aed6516632c28',1,'sdl1Vs1::placementElementsMenu()'],['../classsdl_jeu_pas_a_pas.html#ab44c058702b954b66953c9ec42e0b4b9',1,'sdlJeuPasAPas::placementElementsMenu()']]],
+  ['placerhitboxcasegrille',['placerHitBoxCaseGrille',['../classsdl1_vs1.html#aab74585c1b455167a80a4a8291702d02',1,'sdl1Vs1::placerHitBoxCaseGrille()'],['../classsdl_jeu_pas_a_pas.html#a0a4b11cb7d44f3d6498429b44ea0004e',1,'sdlJeuPasAPas::placerHitBoxCaseGrille()']]],
+  ['print',['print',['../class_carre.html#a060a3194b28fff9dbed3f3390ec466f0',1,'Carre::print()'],['../class_colonne.html#a3a27aa6eab7c67ef8dc55fbdbf1d8866',1,'Colonne::print()'],['../class_ligne.html#a2bb92a85a3c94ac4082bfef19ba54e52',1,'Ligne::print()'],['../class_tab_cases2_d_tas.html#af0973461c28ba8abc89f04f3fc485898',1,'TabCases2DTas::print()']]],
+  ['printtabdiff',['printTabDiff',['../class_jeu_pas_a_pas.html#a25e06b886beebb64e4fb7bcd1c3a166c',1,'JeuPasAPas']]]
 ];

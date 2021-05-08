@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['main_5fsdl_2ecpp',['main_sdl.cpp',['../main__sdl_8cpp.html',1,'']]],
-  ['main_5ftxt_2ecpp',['main_txt.cpp',['../main__txt_8cpp.html',1,'']]]
+  ['jeu_2ecpp',['Jeu.cpp',['../_jeu_8cpp.html',1,'']]],
+  ['jeu_2eh',['Jeu.h',['../_jeu_8h.html',1,'']]]
 ];

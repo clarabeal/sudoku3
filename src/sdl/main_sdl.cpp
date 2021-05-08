@@ -350,7 +350,7 @@ void affMenuSelectMode(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Ima
     const  int hauteur_tuile_mode = largeur_tuile_mode * 20/13;
    
 
-    //*********************On indique les positions des hitboxes **********************//
+    //*********************On indique les positions des hitBoxs **********************//
     //hitbox du mode classique
     tab_hit[0]->x1 = marge_cote_tuile_mode;
     tab_hit[0]->x2 = tab_hit[0]->x1 + largeur_tuile_mode;
@@ -532,7 +532,7 @@ void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Imag
 
     
 
-    //*********************On indique les positions des hitboxes **********************//
+    //*********************On indique les positions des hitBoxs **********************//
     const  int largeur_tuile_mode = WIDTH / 4;
     const  int espace_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode) / 2 *       /*Pourcentage de l'espace vide attribué au marge sur le cote                                               -->*/    20 / 100);
     const  int marge_cote_tuile_mode = (float)((WIDTH - 3 * largeur_tuile_mode) / 2 * /*Pourcentage de l'espace vide attribué pour entre les tuiles le total doit faire 100% avec celui du dessus -->*/   80 / 100);
@@ -732,7 +732,7 @@ void affMenuSelectSauvegarde(int boutonOver, int premiereSauvegardeAffichee, ges
 
 
 
-    //*********************On indique les positions des hitboxes **********************//
+    //*********************On indique les positions des hitBoxs **********************//
     
     //hitbox du bouton retour
     tab_hit[2]->x1 = 0;
@@ -978,7 +978,7 @@ void affMenuSelectOptionSauvegarde(int boutonOver, unsigned int idSauvegarde, ge
 
 
 
-    //*********************On indique les positions des hitboxes **********************//
+    //*********************On indique les positions des hitBoxs **********************//
 
     //hitbox du bouton ouvrir
     tab_hit[0]->x1 = 20;

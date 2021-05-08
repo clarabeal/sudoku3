@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['jeu',['Jeu',['../class_jeu.html',1,'']]]
+  ['image',['Image',['../class_image.html',1,'']]],
+  ['infosauvegarde',['InfoSauvegarde',['../struct_info_sauvegarde.html',1,'']]]
 ];

@@ -521,34 +521,32 @@ void sdlJeuClassique::sdlBoucle(){
                         }
                     }
                 } 
+
+                //---On regarde si clic sur le menu
+
+                for (int i = 0; i < 8; i++) {
+                    if (tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
+                        cout << "clic sur la hit box: " << i << endl;
+                    }
+                }
+
+                if (tabHitBoxSelectionMenu[0].is_in(mousse_x, mousse_y)) {//Nouvelle grille
+                    jeu.init();
+                }
+
+                if (tabHitBoxSelectionMenu[2].is_in(mousse_x, mousse_y)) {//Recommencer sur la meme grille
+                    jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
+                }
+
+                if (tabHitBoxSelectionMenu[4].is_in(mousse_x, mousse_y)) {//Start
+                    jeu.chrono.start();
+                }
+
+                if (tabHitBoxSelectionMenu[6].is_in(mousse_x, mousse_y)) {//Pause
+                    jeu.chrono.pause();
+                }
             }
         }
-
-        //---On regarde si clic sur le menu
-
-        for (int i = 0; i < 8; i++) {
-            if (tabHitBoxSelectionMenu[i].is_in(mousse_x, mousse_y)) {
-                cout << "clic sur la hit box: " << i << endl;
-            }
-        }
-
-        if (tabHitBoxSelectionMenu[0].is_in(mousse_x, mousse_y)) {//Nouvelle grille
-            jeu.init();
-        }
-
-        if (tabHitBoxSelectionMenu[2].is_in(mousse_x, mousse_y)) {//Recommencer sur la meme grille
-            jeu.grilleJeu.grille = jeu.grilleOriginale.grille;
-        }
-
-        if (tabHitBoxSelectionMenu[4].is_in(mousse_x, mousse_y)) {//Start
-            jeu.chrono.start();
-        }
-
-        if (tabHitBoxSelectionMenu[6].is_in(mousse_x, mousse_y)) {//Pause
-            jeu.chrono.pause();
-        }
-
-
 
         if(jeu.verifGrillePleine(jeu.grilleJeu)){
 

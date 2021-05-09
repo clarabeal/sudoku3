@@ -181,7 +181,7 @@ string SaisieTextPopUp::getTexteSaisie(const bool& requis)
 
             strcpy(message, nomZoneTexte.c_str());
             position.h = rectSaisie.h;
-            if (position.h * nomZoneTexte.length()*60/100   <= rectSaisie.w) {
+            if (position.h * nomZoneTexte.length()*60/100   <= (unsigned int)rectSaisie.w) {
                 position.w = position.h * nomZoneTexte.length()*60/100;
             }
             else {

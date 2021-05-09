@@ -10,7 +10,7 @@ using namespace std;
 
 
 // ============= FONCTION D'INITIALISATION DE LA PARTIE(CONSTRUCTEURS & CO) + DESTRUCTEUR =============== //
-sdl1Vs1::sdl1Vs1(const unsigned char& d) : jeu(d), gestionnaireSauvegarde("data/saves/", "../data/saves/"), dimGrille(d), autoSave(false) {
+sdl1Vs1::sdl1Vs1(const unsigned char& d) : jeu(d), dimGrille(d), autoSave(false), gestionnaireSauvegarde("data/saves/", "../data/saves/") {
     init_SDL();
     init_im_menu();
     init_assets();
@@ -30,7 +30,7 @@ sdl1Vs1::sdl1Vs1(const unsigned char& d) : jeu(d), gestionnaireSauvegarde("data/
     GrilleJactif = NULL;
 }
 
-sdl1Vs1::sdl1Vs1(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu, const Grille& grilleJ1_, const Grille& grilleJ2_, const unsigned long int& chronoJ1_, const unsigned long int& chronoJ2_, const int& nbErrJ1, const int& nbErrJ2, const bool& stopJ1, const bool& stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2), gestionnaireSauvegarde("data/saves/", "../data/saves/"), dimGrille(d), autoSave(true) {
+sdl1Vs1::sdl1Vs1(const unsigned char& d, const int& id, const unsigned long int& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu, const Grille& grilleJ1_, const Grille& grilleJ2_, const unsigned long int& chronoJ1_, const unsigned long int& chronoJ2_, const int& nbErrJ1, const int& nbErrJ2, const bool& stopJ1, const bool& stopJ2) : jeu(d, id, time, g_sol, g_orig, g_jeu, grilleJ1_, grilleJ2_, chronoJ1_, chronoJ2_, nbErrJ1, nbErrJ2, stopJ1, stopJ2), dimGrille(d), autoSave(true), gestionnaireSauvegarde("data/saves/", "../data/saves/") {
     init_SDL();
     init_im_menu();
     init_assets();
@@ -411,15 +411,9 @@ void sdl1Vs1::sdlAffGrille(const Grille& grille, const int& x, const int& y, con
     placerHitBoxCaseGrille(x, y, largeur, hauteur);
     if (afficher) {
         SDL_Color couleur = { 0, 0, 0 };
-        SDL_Surface* texte = nullptr;
-        SDL_Rect position;
-        SDL_Texture* texte_texture = nullptr;    //Create Texture pointeur
-
         int dimGrille = (int)grille.dim;
         int largeurCase = largeur / dimGrille;
         int hauteurCase = hauteur / dimGrille;
-        char buffConversion[3];
-
         for (int l = 0; l < dimGrille; l++) {
             for (int c = 0; c < dimGrille; c++) {
 

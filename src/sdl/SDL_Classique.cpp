@@ -10,7 +10,7 @@ using namespace std;
 
 
 // ============= FONCTION D'INITIALISATION DE LA PARTIE(CONSTRUCTEURS & CO) + DESTRUCTEUR =============== //
-sdlJeuClassique::sdlJeuClassique(const unsigned char& d) : jeu(d), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false) {
+sdlJeuClassique::sdlJeuClassique(const unsigned char& d) : jeu(d), dimGrille(d), autoSave(false), gestionnaireSauvegarde("../data/saves/", "data/saves/") {
     init_SDL();
     init_im_menu();
     init_assets();
@@ -30,7 +30,7 @@ sdlJeuClassique::sdlJeuClassique(const unsigned char& d) : jeu(d), dimGrille(d),
 
 }
 
-sdlJeuClassique::sdlJeuClassique(const unsigned char& d, const int& id, const unsigned long& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), gestionnaireSauvegarde("../data/saves/", "data/saves/"), autoSave(false) {//presque identique (qq donnes membres en plus dans 1vs1)
+sdlJeuClassique::sdlJeuClassique(const unsigned char& d, const int& id, const unsigned long& time, const Grille& g_sol, const Grille& g_orig, const Grille& g_jeu) : jeu(d, id, time, g_sol, g_orig, g_jeu), dimGrille(d), autoSave(false), gestionnaireSauvegarde("../data/saves/", "data/saves/") {//presque identique (qq donnes membres en plus dans 1vs1)
     init_SDL();
     init_im_menu();
     init_assets();
@@ -567,7 +567,6 @@ void sdlJeuClassique::sdlBoucle() {
 
     }
     jeu.chrono.start();
-    unsigned long timeAutoSave = jeu.chrono.getTimeInSec();
     while (gameRunning) {
 
         sdlAff();

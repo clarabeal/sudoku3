@@ -17,7 +17,7 @@ int selectMode(SDL_Renderer* renderer, TTF_Font* font, Image& im_fondEcran);
 void affMenuSelectDim(int ModeOver, SDL_Renderer* renderer, TTF_Font* font, Image** tab_img, hitBox** tab_hit); //tab_img img contient les pointeurs sur les images dans lordre suivant:Image& im_4X4Over, Image& im_4X4Away, Image& im_9X9Over, Image& im_9X9Away, Image& im_16X16Over, Image& im_16X16Away, Image& im_retourOver, Image& im_retourAway
 int selectDim(SDL_Renderer* renderer, TTF_Font* font, Image& im_fondEcran);
 int selectSauvegarde(gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* font, Image& im_fondEcran);
-void affMenuSelectSauvegarde(int boutonOver, int premiereSauvegardeAffichee, gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* font, hitBox** tab_hit, Image** tab_img);
+void affMenuSelectSauvegarde(int boutonOver, unsigned int premiereSauvegardeAffichee, gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* font, hitBox** tab_hit, Image** tab_img);
 
 int selectOptionSauvegarde(gestSauvegarde& gestS, unsigned int idSauvegarde, SDL_Renderer* renderer, TTF_Font* font);
 void affMenuSelectOptionSauvegarde(int boutonOver, unsigned int idSauvegarde, gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* font, hitBox** tab_hit);
@@ -609,7 +609,7 @@ int selectSauvegarde(gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* fo
     bool SelectionRunning = true;
     SDL_Event event;
     int modeOver = 0;
-    int premiereSauvegardeAffichee = 0;
+    unsigned int premiereSauvegardeAffichee = 0;
     //*********************On initialise les variable des images et hit box puis on met leurs pointeurs dans un tableau pour facilement les passé de fonction en fonction*****//
     Image* tab_img[3];
     Image im_btnHaut;
@@ -718,9 +718,10 @@ int selectSauvegarde(gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* fo
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
+    return -1;
 }
 
-void affMenuSelectSauvegarde(int boutonOver, int premiereSauvegardeAffichee, gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* font, hitBox** tab_hit, Image** tab_img) {
+void affMenuSelectSauvegarde(int boutonOver, unsigned int premiereSauvegardeAffichee, gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* font, hitBox** tab_hit, Image** tab_img) {
     //Remplir l'�cran de blanc
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
@@ -966,6 +967,7 @@ int selectOptionSauvegarde(gestSauvegarde& gestS, unsigned int idSauvegarde, SDL
         // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
         SDL_RenderPresent(renderer);
     }
+    return -1;
 }
 
 void affMenuSelectOptionSauvegarde(int boutonOver, unsigned int idSauvegarde, gestSauvegarde& gestS, SDL_Renderer* renderer, TTF_Font* font, hitBox** tab_hit) {

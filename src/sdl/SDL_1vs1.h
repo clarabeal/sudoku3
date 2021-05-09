@@ -24,8 +24,7 @@
 #endif
 
 /**
-    La classe gerant le jeu avec un affichage SDL
-*/
+    La classe gerant le jeu avec un affichage SDL*/
 class sdl1Vs1 {
 
 public :
@@ -85,7 +84,6 @@ private :
     //------------------Donn�es SDL
     SDL_Window* window;
     SDL_Renderer* renderer;
-    SDL_Event event;
     TTF_Font* font;
     SDL_Color font_color;
 

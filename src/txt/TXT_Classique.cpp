@@ -33,13 +33,15 @@ void TXT_Classique::boucle () {
     //Tant que la grille n'est pas pleine ou que l'utilisateur ne veut pas quitter
     //Systeme de question reponse : quelle nb placer? a quelle coordonnées?
     //Grille pleine on compare a la grille solution et on indique le nb d'erreurs
-    
+    jeu.chrono.start();
+
 
     bool stop = false; //boleen indiquant si la boucle de jeu doit continuer ou pas
     int valeurEntree,l,c; //entier stockant les valeurs entrees en cin (valeur a placer et emplacement choisi par exemple)
     if (!jeu.initDone) {
         jeu.init();
         jeu.initDone = true;
+
     }
     do {
         termClear();

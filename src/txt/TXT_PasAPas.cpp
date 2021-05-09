@@ -31,11 +31,11 @@ void TXT_PasAPas::boucle() {
     bool stop = false; //booleen indiquant si la boucle de jeu doit continuer ou pas
     int valeur;
     int l,c;
+    jeu.chrono.start();
 
     if (!jeu.initDone) {
         jeu.init();
         cout << "grille generé";
-      
     }
     do {
         termClear();

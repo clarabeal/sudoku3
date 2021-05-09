@@ -68,7 +68,7 @@ bool gestSauvegarde::valideId(const unsigned char& id) const {
 	return false;
 }
 
-void gestSauvegarde::loadFromFile(const unsigned int& id, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille* grilleJ1, Grille* grilleJ2, unsigned long int* chronoJ1, unsigned long int* chronoJ2, int *nbErrJ1, int *nbErrj2, bool *stopJ1, bool *stopJ2)
+void gestSauvegarde::chargerSauvegarde(const unsigned int& id, Grille& g_sol, Grille& g_orig, Grille& g_jeu, Grille* grilleJ1, Grille* grilleJ2, unsigned long int* chronoJ1, unsigned long int* chronoJ2, int *nbErrJ1, int *nbErrj2, bool *stopJ1, bool *stopJ2)
 {
 	ifstream fichier;
 	InfoSauvegarde& infoSurLaSauvegarde = getInfoSauvegarde(id);

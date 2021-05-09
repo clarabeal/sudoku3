@@ -8,5 +8,5 @@ var searchData=
   ['chronoj2',['chronoJ2',['../class_jeu1_vs1.html#a927626a51cdc4ff7f8dab122547ef10d',1,'Jeu1Vs1']]],
   ['chronojactif',['ChronoJactif',['../classsdl1_vs1.html#a61e02266be0e60d328cd6ee125d69a02',1,'sdl1Vs1']]],
   ['colonnes',['colonnes',['../class_grille.html#a8b135d5b61ef5fcf6ddce4cef09c8bba',1,'Grille']]],
-  ['coloration',['coloration',['../class_jeu_pas_a_pas.html#a7049e1b3479ca1ee502dd86189b909f1',1,'JeuPasAPas']]]
+  ['coloration',['coloration',['../class_jeu.html#a49ce89ad94974a3c641a1dfc10f36b5d',1,'Jeu']]]
 ];

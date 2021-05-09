@@ -10,7 +10,7 @@ Colonne::Colonne()
 	tailleGrille = 0;
 }
 
-Colonne::Colonne(unsigned char numeroColonne, TabCases2DTas& grille)
+Colonne::Colonne(const unsigned char& numeroColonne, TabCases2DTas& grille)
 {
 	remplir(numeroColonne, grille);
 }

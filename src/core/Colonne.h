@@ -3,7 +3,13 @@
 
 #include "TabCases2DTas.h"
 
+/**\brief Represente un colonne dans une grille
+\details La classe colonne a pour but de faciliter les differents actions a effectuer sur la grille (au meme titre que les classes Ligne et carre)
+La donne membre principale de la class est un tableau de pointeur sur case. Dans l'exemple d'une grille de 9*9 case .
+Lors de la construcion (ou juste apres l'execution de remplir) chaque pointeur du tableau pointe vers la case associee dans la grille.
 
+\image html numeroCaseLigneCol.png
+\see Ligne Carre*/
 class Colonne
 {
 public:
@@ -19,7 +25,7 @@ public:
 	@brief Constructeur a parametres
 	@details Remplit la colonne avec la colonne numeroColonne de la grille passee en parametre
 	*/
-	Colonne(unsigned char numeroColonne, TabCases2DTas& grille);
+	Colonne(const unsigned char& numeroColonne, TabCases2DTas& grille);
 
 	/**
 	@brief Destructeur

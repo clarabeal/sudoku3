@@ -80,7 +80,7 @@ public:
 	\see valideId
 
 	*/
-	void loadFromFile(const unsigned int& id,  Grille& g_sol,  Grille& g_orig,  Grille& g_jeu,  Grille* grilleJ1 = NULL, Grille* grilleJ2 = NULL, unsigned long int* chronoJ1 = NULL, unsigned long int* chronoJ2 = NULL, int* nbErrJ1 = NULL, int* nbErrj2 = NULL, bool* stopJ1 = NULL, bool* stopJ2= NULL);
+	void chargerSauvegarde(const unsigned int& id,  Grille& g_sol,  Grille& g_orig,  Grille& g_jeu,  Grille* grilleJ1 = NULL, Grille* grilleJ2 = NULL, unsigned long int* chronoJ1 = NULL, unsigned long int* chronoJ2 = NULL, int* nbErrJ1 = NULL, int* nbErrj2 = NULL, bool* stopJ1 = NULL, bool* stopJ2= NULL);
 
 	/**
 	\brief Permet de sauvegarder une partie de jeu

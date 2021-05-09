@@ -61,11 +61,15 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Fonctions membres publiques</a> &#124;
 <a href="#pub-attribs">Attributs publics</a> &#124;
+<a href="#pri-attribs">Attributs privés</a> &#124;
 <a href="class_carre-members.html">Liste de tous les membres</a>  </div>
   <div class="headertitle">
 <div class="title">Référence de la classe Carre</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Reresente un carre dans une grille.  
+ <a href="class_carre.html#details">Plus de détails...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_carre_8h_source.html">Carre.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -74,42 +78,43 @@ Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:ac01a9e15756dc4f065c531b9f39750c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#ac01a9e15756dc4f065c531b9f39750c2">Carre</a> ()</td></tr>
 <tr class="memdesc:ac01a9e15756dc4f065c531b9f39750c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur par defaut.  <a href="#ac01a9e15756dc4f065c531b9f39750c2">Plus de détails...</a><br /></td></tr>
 <tr class="separator:ac01a9e15756dc4f065c531b9f39750c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d520a359c20bdf090f300601f3c8824"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a4d520a359c20bdf090f300601f3c8824">Carre</a> (unsigned char numeroCarre, <a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;grille)</td></tr>
-<tr class="memdesc:a4d520a359c20bdf090f300601f3c8824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur.  <a href="#a4d520a359c20bdf090f300601f3c8824">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a4d520a359c20bdf090f300601f3c8824"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6509f98813156c238714fd1a2edb9af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#ac6509f98813156c238714fd1a2edb9af">remplir</a> (unsigned char numeroCarre, <a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;grille)</td></tr>
-<tr class="memdesc:ac6509f98813156c238714fd1a2edb9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplit le carre en fonction de sa position dans la grille.  <a href="#ac6509f98813156c238714fd1a2edb9af">Plus de détails...</a><br /></td></tr>
-<tr class="separator:ac6509f98813156c238714fd1a2edb9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40414cd5200a45f707d46a12522c0a6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a40414cd5200a45f707d46a12522c0a6f">Carre</a> (const unsigned char &amp;numeroCarre, const <a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;grille)</td></tr>
+<tr class="memdesc:a40414cd5200a45f707d46a12522c0a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur.  <a href="#a40414cd5200a45f707d46a12522c0a6f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a40414cd5200a45f707d46a12522c0a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8540b024ae3ed3b58ed368778bf25dab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a8540b024ae3ed3b58ed368778bf25dab">~Carre</a> ()</td></tr>
 <tr class="separator:a8540b024ae3ed3b58ed368778bf25dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fee1eb1c48d5bef08b777d3ef5957d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a4fee1eb1c48d5bef08b777d3ef5957d7">remplir</a> (const unsigned char &amp;numeroCarre, const <a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;grille)</td></tr>
+<tr class="memdesc:a4fee1eb1c48d5bef08b777d3ef5957d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplit le carre en fonction de sa position dans la grille.  <a href="#a4fee1eb1c48d5bef08b777d3ef5957d7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4fee1eb1c48d5bef08b777d3ef5957d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad40c36df816fc4a3d40b5cde2227e837"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#ad40c36df816fc4a3d40b5cde2227e837">isIn</a> (const unsigned char &amp;val) const</td></tr>
+<tr class="memdesc:ad40c36df816fc4a3d40b5cde2227e837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si l'element passe en parametre est deja dans le carre (0 si non 1 si oui)  <a href="#ad40c36df816fc4a3d40b5cde2227e837">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad40c36df816fc4a3d40b5cde2227e837"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a060a3194b28fff9dbed3f3390ec466f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a060a3194b28fff9dbed3f3390ec466f0">print</a> () const</td></tr>
 <tr class="memdesc:a060a3194b28fff9dbed3f3390ec466f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche a l'ecran toutes les informations utiles sur la fonction, utile pour le debugage.  <a href="#a060a3194b28fff9dbed3f3390ec466f0">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a060a3194b28fff9dbed3f3390ec466f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1dd59d60852c903a7b5c37d9247944f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a1dd59d60852c903a7b5c37d9247944f6">isIn</a> (unsigned char val)</td></tr>
-<tr class="memdesc:a1dd59d60852c903a7b5c37d9247944f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si l'element passe en parametre est deja dans le carre (0 si non 1 si oui)  <a href="#a1dd59d60852c903a7b5c37d9247944f6">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a1dd59d60852c903a7b5c37d9247944f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Attributs publics</h2></td></tr>
-<tr class="memitem:a7f2fb6cbd65d9db98de47b9f1a9fbdc5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a7f2fb6cbd65d9db98de47b9f1a9fbdc5">valide</a></td></tr>
-<tr class="memdesc:a7f2fb6cbd65d9db98de47b9f1a9fbdc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">vaut ou retourne 0 si il y a deux fois le meme chiffre dans le carre 1 sinon  <a href="#a7f2fb6cbd65d9db98de47b9f1a9fbdc5">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a7f2fb6cbd65d9db98de47b9f1a9fbdc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5caafd37b5ec840ea63183101b1867b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_case.html">Case</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a5caafd37b5ec840ea63183101b1867b3">tabc</a></td></tr>
+<tr class="memdesc:a5caafd37b5ec840ea63183101b1867b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tableau de pointeur sur les cases du carre.  <a href="#a5caafd37b5ec840ea63183101b1867b3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5caafd37b5ec840ea63183101b1867b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Attributs privés</h2></td></tr>
 <tr class="memitem:a0f639849adff9561126d8c2dab405350"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a0f639849adff9561126d8c2dab405350">tailleGrille</a></td></tr>
 <tr class="memdesc:a0f639849adff9561126d8c2dab405350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contient la taille de la grille ou se trouve le carre(en nombre de case)  <a href="#a0f639849adff9561126d8c2dab405350">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a0f639849adff9561126d8c2dab405350"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadc5628b6d3c474f43e1d6b9ddfd9b82"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#aadc5628b6d3c474f43e1d6b9ddfd9b82">tailleCarre</a></td></tr>
 <tr class="memdesc:aadc5628b6d3c474f43e1d6b9ddfd9b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contient la taille d'un carre de la grille ou se trouve le carre(en nombre de case). Ex: <a class="el" href="class_grille.html">Grille</a> de 9*9 -&gt; carre 3*3.  <a href="#aadc5628b6d3c474f43e1d6b9ddfd9b82">Plus de détails...</a><br /></td></tr>
 <tr class="separator:aadc5628b6d3c474f43e1d6b9ddfd9b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5caafd37b5ec840ea63183101b1867b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_case.html">Case</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_carre.html#a5caafd37b5ec840ea63183101b1867b3">tabc</a></td></tr>
-<tr class="memdesc:a5caafd37b5ec840ea63183101b1867b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tableau de pointeur sur les cases du carre.  <a href="#a5caafd37b5ec840ea63183101b1867b3">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a5caafd37b5ec840ea63183101b1867b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
-<div class="textblock"><p>La classe <a class="el" href="class_carre.html">Carre</a> a pour but de faciliter les differents actions a effectuer sur la grille (au meme titre que les classes <a class="el" href="class_ligne.html">Ligne</a> et <a class="el" href="class_colonne.html">Colonne</a>) La donne membre principale de la class est un tableau de pointeur sur case. Dans l'exemple d'une grille de 9*9 case (voir ci dessous), il s'agit d'un tableau de 3*3 (en realite modelise sous la forme d'un tableau de 9 cases sur une dimension). Lors de la construcion (ou juste apres l'execution de remplir) chaque pointeur du tableau pointe vers la valeur associee dans la grille.</p>
+<div class="textblock"><p>Reresente un carre dans une grille. </p>
+<p>La classe <a class="el" href="class_carre.html" title="Reresente un carre dans une grille. ">Carre</a> a pour but de faciliter les differents actions a effectuer sur la grille (au meme titre que les classes <a class="el" href="class_ligne.html" title="Represente un ligne dans une grille. ">Ligne</a> et <a class="el" href="class_colonne.html" title="Represente un colonne dans une grille. ">Colonne</a>) La donne membre principale de la class est un tableau de pointeur sur case. Dans l'exemple d'une grille de 9*9 case (voir ci dessous), il s'agit d'un tableau de 3*3 (en realite modelise sous la forme d'un tableau de 9 cases sur une dimension). Lors de la construcion (ou juste apres l'execution de remplir) chaque pointeur du tableau pointe vers la valeur associee dans la grille.</p>
 <div class="image">
 <img src="numeroCaseLigneCol.png" alt="numeroCaseLigneCol.png"/>
 </div>
- <dl class="section see"><dt>Voir également</dt><dd><a class="el" href="class_ligne.html">Ligne</a> <a class="el" href="class_colonne.html">Colonne</a> </dd></dl>
+ <dl class="section see"><dt>Voir également</dt><dd><a class="el" href="class_ligne.html" title="Represente un ligne dans une grille. ">Ligne</a> <a class="el" href="class_colonne.html" title="Represente un colonne dans une grille. ">Colonne</a> </dd></dl>
 </div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
 <a id="ac01a9e15756dc4f065c531b9f39750c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac01a9e15756dc4f065c531b9f39750c2">&#9670;&nbsp;</a></span>Carre() <span class="overload">[1/2]</span></h2>
@@ -131,8 +136,8 @@ Attributs publics</h2></td></tr>
 
 </div>
 </div>
-<a id="a4d520a359c20bdf090f300601f3c8824"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d520a359c20bdf090f300601f3c8824">&#9670;&nbsp;</a></span>Carre() <span class="overload">[2/2]</span></h2>
+<a id="a40414cd5200a45f707d46a12522c0a6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40414cd5200a45f707d46a12522c0a6f">&#9670;&nbsp;</a></span>Carre() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,13 +145,13 @@ Attributs publics</h2></td></tr>
         <tr>
           <td class="memname">Carre::Carre </td>
           <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramtype">const unsigned char &amp;&#160;</td>
           <td class="paramname"><em>numeroCarre</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;&#160;</td>
           <td class="paramname"><em>grille</em>&#160;</td>
         </tr>
         <tr>
@@ -158,7 +163,7 @@ Attributs publics</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructeur. </p>
-<p>Constructeur qui appel directement remplir </p><dl class="section see"><dt>Voir également</dt><dd><a class="el" href="class_carre.html#ac6509f98813156c238714fd1a2edb9af" title="Remplit le carre en fonction de sa position dans la grille. ">remplir(unsigned char numeroCarre, TabCases2DTas&amp; grille)</a> </dd></dl>
+<p>Constructeur qui appel directement remplir </p><dl class="section see"><dt>Voir également</dt><dd>remplir(unsigned char numeroCarre, TabCases2DTas&amp; grille) </dd></dl>
 
 </div>
 </div>
@@ -180,8 +185,8 @@ Attributs publics</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentation des fonctions membres</h2>
-<a id="a1dd59d60852c903a7b5c37d9247944f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dd59d60852c903a7b5c37d9247944f6">&#9670;&nbsp;</a></span>isIn()</h2>
+<a id="ad40c36df816fc4a3d40b5cde2227e837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad40c36df816fc4a3d40b5cde2227e837">&#9670;&nbsp;</a></span>isIn()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,9 +194,9 @@ Attributs publics</h2></td></tr>
         <tr>
           <td class="memname">bool Carre::isIn </td>
           <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramtype">const unsigned char &amp;&#160;</td>
           <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -219,8 +224,8 @@ Attributs publics</h2></td></tr>
 
 </div>
 </div>
-<a id="ac6509f98813156c238714fd1a2edb9af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6509f98813156c238714fd1a2edb9af">&#9670;&nbsp;</a></span>remplir()</h2>
+<a id="a4fee1eb1c48d5bef08b777d3ef5957d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fee1eb1c48d5bef08b777d3ef5957d7">&#9670;&nbsp;</a></span>remplir()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,13 +233,13 @@ Attributs publics</h2></td></tr>
         <tr>
           <td class="memname">void Carre::remplir </td>
           <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramtype">const unsigned char &amp;&#160;</td>
           <td class="paramname"><em>numeroCarre</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_tab_cases2_d_tas.html">TabCases2DTas</a> &amp;&#160;</td>
           <td class="paramname"><em>grille</em>&#160;</td>
         </tr>
         <tr>
@@ -273,11 +278,19 @@ Attributs publics</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">unsigned char Carre::tailleCarre</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Contient la taille d'un carre de la grille ou se trouve le carre(en nombre de case). Ex: <a class="el" href="class_grille.html">Grille</a> de 9*9 -&gt; carre 3*3. </p>
@@ -289,30 +302,22 @@ Attributs publics</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">unsigned char Carre::tailleGrille</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Contient la taille de la grille ou se trouve le carre(en nombre de case) </p>
-
-</div>
-</div>
-<a id="a7f2fb6cbd65d9db98de47b9f1a9fbdc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f2fb6cbd65d9db98de47b9f1a9fbdc5">&#9670;&nbsp;</a></span>valide</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Carre::valide</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>vaut ou retourne 0 si il y a deux fois le meme chiffre dans le carre 1 sinon </p>
 
 </div>
 </div>

@@ -1,4 +1,5 @@
-18 18
+19 19
+19 test1vs1 3 4 0
 18 testclassique 1 4 55302
 17 test 2 9 561005
 16 j1:herve 3 9 375155

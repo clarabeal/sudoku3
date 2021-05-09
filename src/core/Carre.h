@@ -7,7 +7,7 @@
 #include <cassert>
 #include <math.h>
 
-/**\class Carre
+/**\brief Reresente un carre dans une grille
 \details La classe Carre a pour but de faciliter les differents actions a effectuer sur la grille (au meme titre que les classes Ligne et Colonne)
 La donne membre principale de la class est un tableau de pointeur sur case. Dans l'exemple d'une grille de 9*9 case (voir ci dessous), il s'agit d'un tableau de 3*3 (en realite modelise sous la forme d'un tableau de 9 cases sur une dimension).
 Lors de la construcion (ou juste apres l'execution de remplir) chaque pointeur du tableau pointe vers la valeur associee dans la grille. 

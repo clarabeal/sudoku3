@@ -4,13 +4,14 @@
 #include "TabCases2DTas.h"
 
 
-/**\class Ligne
+/**\brief Represente un ligne dans une grille
 \details La classe ligne a pour but de faciliter les differents actions a effectuer sur la grille (au meme titre que les classes Carre et Colonne)
 La donne membre principale de la class est un tableau de pointeur sur case. Dans l'exemple d'une grille de 9*9 case (voir ci dessous), il s'agit d'un tableau de 9 case.
 Lors de la construcion (ou juste apres l'execution de remplir) chaque pointeur du tableau pointe vers la valeur associee dans la grille.
 
 \image html numeroCaseLigneCol.png
-\see Carre Colonne*/class Ligne
+\see Carre Colonne*/
+class Ligne
 {
 	public:
 

@@ -184,7 +184,7 @@ int main(int argc, char* argv[]) {
                                 Grille g_sol(infoSurLaPartie.tailleGrille);
                                 Grille g_orig(infoSurLaPartie.tailleGrille);
                                 Grille g_jeu(infoSurLaPartie.tailleGrille);
-                                gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu);
+                                gestionnaireSauvegarde.chargerSauvegarde(choixSauvegarde, g_sol, g_orig, g_jeu);
                                 sdlJeuClassique sdlJeusauv((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu);
                                 sdlJeusauv.sdlBoucle();
                             }
@@ -192,7 +192,7 @@ int main(int argc, char* argv[]) {
                                 Grille g_sol(infoSurLaPartie.tailleGrille);
                                 Grille g_orig(infoSurLaPartie.tailleGrille);
                                 Grille g_jeu(infoSurLaPartie.tailleGrille);
-                                gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu);
+                                gestionnaireSauvegarde.chargerSauvegarde(choixSauvegarde, g_sol, g_orig, g_jeu);
                                 sdlJeuPasAPas sdlJeusauv((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu);
                                 sdlJeusauv.sdlBoucle();
                             }
@@ -205,7 +205,7 @@ int main(int argc, char* argv[]) {
                                 unsigned long int chronoJ1, chronoJ2;
                                 bool stopJ1, stopJ2;
                                 int nbErr1, nbErr2;
-                                gestionnaireSauvegarde.loadFromFile(choixSauvegarde, g_sol, g_orig, g_jeu, &g_J1, &g_J2, &chronoJ1, &chronoJ2, &nbErr1, &nbErr2, &stopJ1, &stopJ2);
+                                gestionnaireSauvegarde.chargerSauvegarde(choixSauvegarde, g_sol, g_orig, g_jeu, &g_J1, &g_J2, &chronoJ1, &chronoJ2, &nbErr1, &nbErr2, &stopJ1, &stopJ2);
                                 sdl1Vs1 partieTxt((unsigned char)infoSurLaPartie.tailleGrille, infoSurLaPartie.id, infoSurLaPartie.chrono, g_sol, g_orig, g_jeu, g_J1, g_J2, chronoJ1, chronoJ2, nbErr1, nbErr2, stopJ1, stopJ2);
                                 partieTxt.sdlBoucle();
                             }
